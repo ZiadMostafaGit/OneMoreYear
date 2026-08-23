@@ -1,357 +1,574 @@
-# 🗺️ The Ziad ML Engineer Roadmap — v1
+# 🗺️ The Absolute Complete Backend & Distributed Systems Roadmap — SWARM Edition
 
-## From "Django backend engineer" → the engineer who can build, ship, and operate ML systems in production
+## From "Django/DRF backend engineer" → the engineer who gets handed the hardest system in the company
 
-> Same bones as the backend roadmap — Break→Diagnose→Theory→Rebuild→Measure→Write, numeric exit criteria, a spine project, exit exams, an honest timeline — retargeted at the full ML Engineer map, not just the infra slice. Your existing `dsa-professor`/`mock-interviewer`/`dsa-mastery-reference`/`faang-systems-cv-evaluator` skills still own DSA, interview simulation, and CV work — this document owns ML depth only, from math through production serving.
+> Same engine as before — Five Laws, the six-step Learning Loop, exit criteria on every project, exit exams per level — with the spine swapped to **SWARM**: a peer-to-peer distributed compute mesh where every node is simultaneously client and server. This is the complete topic coverage (replication, sharding, consistent hashing, consensus, caching, queues, the full system-design canon), sourced against the books you already own — *System Design Interview* Vol 1 & 2 (Alex Xu) and *Designing Data-Intensive Applications* v2 (Kleppmann) — with DSA practice woven into every level, not deferred to the end.
 >
-> **The honest starting condition:** you have zero stated prior exposure to linear algebra/calculus/ML theory, and real strength in Python, Postgres, Redis, Celery, Django, distributed-systems fundamentals, and — critically — a live production AI voice pipeline. That combination means **Levels 3–5 (MLOps, serving, ML system design) will feel like your native language and Levels 0–2 (math, classical ML, deep learning) will feel like starting over.** That's normal and it's the actual shape of the "backend engineer → ML engineer" transition — don't let the early levels feeling slow convince you you're bad at this; you're bad at the *new* 40%, and already strong at the *harder* 60%.
+> **DSA integration note:** the daily grinding itself still runs through your `dsa-professor`/`dsa-mastery-reference`/`mock-interviewer` skills — that machinery already exists and shouldn't be duplicated. What's new here is that **each level names the DSA patterns that its systems work naturally reinforces**, so your interview prep and your systems depth compound instead of running as two disconnected tracks.
 
 ---
 
-## I — The Three Laws (unchanged from the backend roadmap)
+## I — The Five Laws (unchanged)
 
-**Law 1 — Failure First.** Every topic opens with a broken model, a wrong prediction, a training run that diverges, or a serving endpoint that falls over — reproduced before it's explained.
-
-**Law 2 — Measure Everything.** Every project ships numeric exit criteria — not "I trained a model," but "F1 went from 0.61 to 0.84, and here's the confusion matrix showing where the remaining error lives."
-
-**Law 3 — Write It Down.** Every flagship project ships a design doc or teardown.
-
----
+1. **Failure First** — every topic opens with a 🔥 Wall, a system you break before you're told why.
+2. **Measure Everything** — every project ships 📈 numeric exit criteria.
+3. **Write It Down** — every flagship ships a design doc or teardown.
+4. **Ship Publicly** — its own repo, a real README, a working `make demo`.
+5. **Review on a Schedule** — a spaced-repetition deck, 15 min/day, cards you wrote yourself.
 
 ## II — The Learning Loop (unchanged)
 
 ```
-1. 🔥 BREAK      Reproduce the failure yourself first.
-2. 🔎 DIAGNOSE   Hypothesis before you check.
-3. 📖 THEORY     Read to answer a question you're actively holding.
-4. 🛠 REBUILD    Implement the fix, and the wrong fix, and prove why it's wrong.
-5. 📈 MEASURE    Before/after numbers.
-6. ✍️ WRITE      What broke, why, what the numbers said.
+🔥 BREAK → 🔎 DIAGNOSE → 📖 THEORY → 🛠 REBUILD → 📈 MEASURE → ✍️ WRITE
+```
+
+## III — Two Tracks
+
+```
+TRACK 1 — DEPTH (this document)              Levels 0–6. ~85% of time.
+TRACK 2 — DSA & INTERVIEW (your existing skills)  Daily, routed per-level below. ~15% of time.
 ```
 
 ---
 
-## III — The Spine Project: SENTRY
+## IV — The Spine Project: SWARM
 
-**One system, built across every level, tying directly into your real work:** a **fraud/anomaly detection system for payment approvals** — the ML counterpart to LEDGER-9, and something genuinely deployable at Logic Leap if it turns out well. SENTRY takes an approval/transaction event and scores it for anomalousness, starting with a classical model on hand-built features and ending as a full production ML system: trained, evaluated, served, monitored, and — at the final milestone — augmented with an LLM-based secondary check.
+**What it is:** a peer-to-peer distributed compute mesh. Any machine can join as a node; every node is simultaneously a **client** (submits jobs for the mesh to run) and a **server** (executes jobs submitted by others). There's no central cloud owner — the network itself cooperatively decides where a job runs, where its data lives, how it's replicated, and what happens when the node running it disappears mid-execution.
 
-**Why this is the right spine:** it's the one project idea that legitimately requires all eight buckets from the original map — math (the model itself), classical ML (the actual anomaly detector, probably gradient boosting first), deep learning (a learned-embedding version later), MLOps (the pipeline that retrains and redeploys it), system design (the end-to-end architecture), and LLMs (the final augmentation layer). It also has real domain data available to you — transaction/approval patterns from work — though you'll build and train on a synthetic or public fraud dataset for the portfolio version, for obvious IP reasons.
+**The one-line pitch:** *"AWS Lambda, but the compute is contributed by the network itself, not owned by anyone — I built the scheduler, the storage layer, and the trust model that make that safe."*
 
-### SENTRY Milestones
+**Why this is a stronger spine than a workflow engine, specifically:** every hard problem is *structurally forced*, not optional — there's no central server to fall back on if you get lazy about consensus, no fixed "the database" to lean on if you get lazy about sharding, and — the genuinely rare part — **you have to solve the "can I trust a stranger's computer to have actually run my code correctly" problem**, which almost no portfolio project ever touches and which pulls in real distributed-systems theory (redundant execution, majority-vote verification) that most backend engineers never encounter hands-on.
 
-| Milestone | After Level | What you build |
+### What SWARM needs, and what each requirement forces you to master
+
+| SWARM needs… | …forces you to master | Book chapter |
 |---|---|---|
-| **S0** | 0 (Math/Python) | Feature engineering by hand, from raw transaction data, with the linear-algebra/stats groundwork to justify every feature |
-| **S1** | 1 (Classical ML) | A gradient-boosted anomaly classifier, properly evaluated (not just accuracy — precision/recall tradeoffs matter enormously in fraud, since false positives block real approvals) |
-| **S2** | 2 (Deep Learning) | A learned-embedding model (an autoencoder or a small transformer over transaction sequences) compared honestly against S1 — including the case where the simpler model wins |
-| **S3** | 3 (MLOps) | The full production pipeline: feature store, training pipeline, model registry, drift monitoring, CI for model updates |
-| **S4** | 4 (Serving) | A real-time serving endpoint with p99 latency budget (an approval can't wait 3 seconds for a fraud check), shadow-mode deployment, A/B rollout |
-| **S5** | 5 (LLM layer) | An LLM-based secondary reviewer for borderline-scored cases — exactly the LEDGER-9 L8 milestone from the backend roadmap, now built out properly instead of as a stub |
-| **S6** | 6 (Synthesis) | Full design doc, the classical-vs-deep-learning comparison written up honestly, and — if you want — a real proposal to your team for a lightweight version of this |
+| Peer discovery, no central directory | Gossip protocols, SWIM membership, NAT traversal | DDIA Ch. 8 (partial failure) |
+| "Who owns this job/data?" with no fixed servers | Consistent hashing / a DHT (Chord-style) | Xu Vol 1 Ch. 5 |
+| Coordinating a mesh region without one server | **Raft**, leader election, replicated state machines | DDIA Ch. 9 |
+| Trusting a stranger's execution result | Redundant execution + majority-vote verification | DDIA Ch. 9 (Byzantine section) |
+| Code/data persisting somewhere on the mesh | Content-addressed storage, your own storage engine | DDIA Ch. 3 |
+| A node vanishing mid-job | Failure detection, leases, exactly-once-ish re-execution | DDIA Ch. 8–9 |
+| Untrusted code execution safety | Sandboxing (WASM/Firecracker-style isolation) | — (systems-specific) |
+| An oversubscribed mesh | Load-aware placement, backpressure, admission control | Xu Vol 1 Ch. 1, 4 |
+| Multiple users sharing the mesh | Multi-tenancy, per-peer quotas | Xu Vol 2 (multi-tenant chapters) |
+| GPU peers serving inference | Your AI-infra branch, folded in as a job *type* | — |
 
----
+### The 10 SWARM Milestones
 
-## IV — The Level Map
-
-```
-LEVEL 0 ──► LEVEL 1 ──► LEVEL 2 ──► LEVEL 3 ──► LEVEL 4 ──► LEVEL 5 ──► LEVEL 6
-Math &      Classical   Deep        MLOps &     Production  LLMs &      Synthesis
-Data        ML          Learning &  Pipelines   Serving     RAG/Agent   + ML System
-Foundations             Transformers                        Infra       Design
-```
-
-| Level | Name | Spine milestone | Budget |
+| Milestone | Level | What you build | The invariant you must prove |
 |---|---|---|---|
-| **0** | Math, Stats & Data Foundations | S0 | 100–150h |
-| **1** | Classical ML | S1 | 80–110h |
-| **2** | Deep Learning & Transformers | S2 | 130–180h |
-| **3** | MLOps: Pipelines, Registries & Monitoring | S3 | 80–110h |
-| **4** | Production Serving (your natural strength) | S4 | 70–100h |
-| **5** | LLMs, RAG & Agent Infrastructure | S5 | 70–100h |
-| **6** | Synthesis: ML System Design + Portfolio | S6 | 50–80h |
-
-**Total: ~580–830 hours.** Meaningfully less than the backend roadmap's 710–1,000, mostly because Levels 3–5 lean on skills you already have.
-
----
-
-## V — The Curriculum
+| **S0** | 0 | Single-node sandboxed job executor (WASM/subprocess isolation) + local durable task log | Survives `kill -9` mid-job with no corrupted state |
+| **S1** | 1 | Peer wire protocol: job submission, result return, peer discovery, NAT traversal | Two peers behind different NATs can discover and exchange jobs |
+| **S2** | A | Hexagonal core: scheduling logic has zero knowledge of network/storage/sandbox specifics | Swap the sandbox implementation with a one-line change |
+| **S3** | 2 | Content-addressed storage for code/data artifacts — a mini IPFS on your own storage engine | Identical content always resolves to the identical address, verified by hash |
+| **S4** | D | Deterministic simulation of the mesh under churn, partitions, and lying/malicious nodes | 10,000 seeded fault runs, zero invariant violations |
+| **S5** | 3 | Consistent-hashing/DHT job-ownership routing + **Raft-coordinated mesh regions** | Kill a region's coordinator mid-commit; no job assignment is lost or duplicated |
+| **S6** | 4/E | Load-aware placement, backpressure under an oversubscribed mesh | Goodput held under 5x offered-load overload via shedding, not collapse |
+| **S7** | 5 | Multi-tenancy + redundant execution with majority-vote result verification | A single lying node cannot corrupt a job's accepted result |
+| **S8** | G | GPU peers advertise inference capability; the mesh becomes a distributed LLM-serving marketplace | A job requesting inference is routed to a capable peer and billed correctly |
+| **S9** | 6 | Full design doc + comparison against BOINC/IPFS/Golem/Ray + public demo | A stranger understands the architecture in 15 minutes |
 
 ---
 
-### LEVEL 0 — Math, Stats & Data Foundations
+## V — The 8 Flagship Projects
 
-> **Goal:** stop treating models as black boxes that eat data and emit numbers. When a model does something surprising, you should be able to say whether it's a data problem, a math problem, or a code problem.
+Each ≥8/10 on the Uniqueness Rubric (non-obvious premise, novel measurement, real correctness invariant, demoable in 60s, buildable solo in ≤3 weeks, a real "and then it broke" story, explainable in 2 sentences).
+
+### 1. `c10k-arena` — six concurrency models, benchmarked to 50k connections (feeds SWARM S0/S1's networking layer)
+Process-per-conn, thread-per-conn, bounded pool, epoll, io_uring, goroutines — built and benchmarked head to head.
+📈 **Exit:** p99-latency and RSS charts across all six · io_uring shows measurably fewer syscalls/message than epoll · a named knee per model with the causing resource identified.
+
+### 2. `dht-clean` — a from-scratch Chord-style DHT passing a real churn-conformance suite
+Consistent hashing, finger tables, join/leave protocols, and correct key ownership under continuous node churn.
+📈 **Exit:** correct key lookup under 30% simultaneous node churn · O(log N) hop count verified empirically at 3 network sizes · a chart of lookup latency vs. mesh size.
+
+### 3. `simd-swarm` — deterministic simulation testing for the mesh (FoundationDB-style)
+Simulated clock, network (with asymmetric partitions), disk, and scheduler, driven by 10,000+ nightly seeds, including **lying/malicious nodes** as an injectable fault type.
+📈 **Exit:** 10,000+ seeds clean nightly · **≥3 real bugs found and documented with seed + trace** · a lying-node scenario caught by majority-vote verification, proven with a seed.
+
+### 4. `verify-lite` — the redundant-execution/majority-vote trust layer
+The specific "can I trust a stranger's computer" problem: jobs run on N peers, results compared, majority accepted, minority nodes flagged/penalized.
+📈 **Exit:** a single lying node cannot corrupt an accepted result at N≥3 · measured overhead of redundant execution vs. single-execution trust · a reputation-scoring scheme that reduces redundancy needed for previously-reliable peers, measured.
+
+### 5. `overload` — goodput collapse curves under an oversubscribed mesh
+Offered load driven to 3–5x mesh capacity; naive vs. bounded-queue vs. deadline-aware-drop vs. adaptive-admission compared.
+📈 **Exit:** the collapse curve and the graceful curve on one chart · "naive delivers X%, adaptive delivers Y% at 3x overload," quantified.
+
+### 6. `pgshift` — zero-downtime, 50M-row schema migration under live load (the mesh's own metadata store)
+Applied to SWARM's peer-registry/job-metadata schema instead of a generic table.
+📈 **Exit:** zero errors, p99 degradation under 20%, full window on video · resumable backfill proven by a mid-run kill and restart.
+
+### 7. `incident-lab` — 10 famous outages, reproduced and fixed locally
+S3 2017, GitHub 2018, Cloudflare 2019 (×2), Meta 2021, Slack 2021, Roblox 2021, Knight Capital, GitLab 2017, cache stampede.
+📈 **Exit:** 6 of 10 reproduced with before/after · a synthesis essay on the seven recurring failure patterns.
+
+### 8. `llm-peer` — a GPU peer advertising and serving inference on the mesh
+Token-aware rate limiting, semantic/prefix caching, streaming with cancellation, per-tenant cost accounting — wired in as a SWARM job type (S8), not a bolt-on gateway.
+📈 **Exit:** measured cost reduction from caching ≥40% · a job requesting inference correctly routed, executed, and billed · killing the executing peer mid-inference correctly re-routes without double-billing the requester.
+## VI — The Level Map
+
+| Level | Name | SWARM milestone | Budget | DSA companion (patterns this level's work naturally reinforces) |
+|---|---|---|---|---|
+| **0** | Machine, OS & Runtime Foundations | S0 | 100–140h | Arrays/two-pointers, hashing, linked lists (from building the job log/sandbox) |
+| **1** | Protocols & Peer Communication | S1 | 90–120h | Graphs (BFS/DFS for peer discovery), design-style problems (rate limiter, LRU) |
+| **A** | Code Architecture & Patterns | S2 | 60–90h | Backtracking, tries (from clean scheduling-core design) |
+| **2** | Databases & Storage Engines (15-445) | S3 | 140–180h | Trees/BSTs, heaps/top-K (from B-trees, buffer-pool eviction) |
+| **D** | Testing & Correctness (DST/TLA+) | S4 | 70–100h | Backtracking/state-space search (maps directly onto model checking) |
+| **3** | Distributed Systems Core (6.5840) | S5 | 180–260h | Union-find, graphs (DHT/consistent hashing), greedy+intervals |
+| **4/E** | Reliability & Performance | S6 | 90–120h | Heaps (priority scheduling), sliding window (rate limiting) |
+| **5** | Advanced Architecture & Multi-Tenancy | S7 | 70–100h | DP (optimal redundancy/cost tradeoffs), design problems |
+| **G** | AI Infrastructure | S8 | 60–90h | — (systems-integration heavy, less DSA-dense) |
+| **6** | Synthesis: System Design + Incidents | S9 | 80–120h | Full mock system-design loops |
+
+**Total: ~940–1,320 hours** of depth work, DSA running in parallel throughout via your existing tools per the companion column above.
+
+---
+
+## VII — The Curriculum
+
+---
+
+### LEVEL 0 — Machine, OS & Runtime Foundations
+
+> **Budget:** 100–140h · **SWARM milestone:** S0
+
+#### 0.1 — Memory Hierarchy & Cache Behavior
+
+🔥 **THE WALL:** two matrix-sum functions (row-major vs column-major), identical Big-O, 5–60x latency gap. Then a false-sharing reproduction on a padded vs unpadded two-counter struct.
+
+📖 **Theory:** the full latency ladder, cache lines, spatial/temporal locality, MESI and false sharing, TLB/page faults, NUMA, the roofline model.
+
+📄 **Source:** Drepper's "What Every Programmer Should Know About Memory" · CS:APP Ch. 6.
+
+🛠 **PROJECT — `latency-lab`:** derive your own machine's cache sizes from a working-set sweep; produce a personal latency card.
+
+📈 **Exit:** derived cache sizes match `lscpu` within one power of two · false-sharing fix ≥3x throughput improvement with `perf c2c` evidence.
+
+**DSA companion:** two-pointer/sliding-window problems (the cache-locality intuition directly explains why these patterns are fast in practice, not just in Big-O).
+
+#### 0.2 — Concurrency Models & C10K
+
+🔥 **THE WALL:** a dumb TCP echo server dies at 10,000 concurrent connections — diagnose *how* (RAM exhaustion vs thread-creation failure vs scheduler thrashing).
+
+📖 **Theory:** process/thread/coroutine cost, the scheduler, `select→poll→epoll→io_uring`, readiness vs completion models, Go's M:N scheduling, structured concurrency.
+
+📄 **Source:** OSTEP Ch. 4–10, 25–33 · "The C10K Problem" (Kegel).
+
+🛠 **FLAGSHIP #1 — `c10k-arena`:** six concurrency models, benchmarked to 50k connections — this becomes SWARM S0's networking substrate directly.
+
+📈 **Exit:** all six pass identical correctness tests · six-line p99-vs-connections chart · io_uring's syscall reduction quantified against epoll.
+
+**DSA companion:** linked-list and queue-based problems (directly maps to implementing your own bounded task queues for the job executor).
+
+#### 0.3 — Sandboxed Execution & the Local Job Log (SWARM S0)
+
+🔥 **THE WALL:** run untrusted code naively (raw `subprocess`/`exec`) and watch it read your filesystem, exhaust memory, or spin the CPU forever with no limit.
+
+📖 **Theory:** namespaces/cgroups (Linux containment primitives), WASM as a sandboxing target (why WASM specifically is attractive for untrusted third-party code — deterministic, resource-limited, no raw syscall access by default), resource limiting (cgroup memory/CPU caps), and a durable local append-log for job state (directly reusing your `crashdb`-style storage-engine skills from Level 2, built early here as a minimal version).
+
+🛠 **PROJECT — SWARM S0:** a single-node sandboxed job executor (WASM runtime, e.g., Wasmtime/Wasmer, or subprocess isolation with cgroups as a fallback) plus a local durable append-only task log.
+
+📈 **Exit Criteria:** a malicious job attempting filesystem access outside its sandbox is blocked and logged · a memory-bomb job is killed at its configured limit while the host stays healthy · `kill -9` mid-job leaves the local log in a recoverable, non-corrupted state, verified over 500 kill cycles.
+
+#### 0.4 — Linux as a Debugger
+
+🔥 **THE WALL — Four Sick Servers:** memory leak, FD leak, lock contention, runaway syscall loop — diagnosed with only Linux tooling, under 10 minutes each.
+
+📖 **Theory:** `strace`, `perf`, flame graphs, the USE method, off-CPU analysis.
+
+📄 **Source:** "Linux Performance Analysis in 60,000 Milliseconds" (Gregg) · "Systems Performance" 2nd ed.
+
+🛠 **PROJECT — `sickbay`:** 8 injectable pathologies with evidence-based solutions.
+
+📈 **Exit:** median diagnosis time under 10 minutes on a shuffled re-run.
+
+---
+
+### LEVEL 1 — Protocols & Peer Communication
+
+> **Budget:** 90–120h · **SWARM milestone:** S1
+
+#### 1.1 — Binary Protocols: gRPC, Protobuf, HTTP/2
+
+🔥 **THE WALL — The Field-Number Massacre:** retype/reuse a deleted protobuf field number; deserialize old bytes with the new schema and watch data silently corrupt.
+
+📖 **Theory:** the protobuf wire format (hand-decode one message from hex), schema-evolution safety rules, HTTP/2 framing/HPACK/multiplexing, gRPC's deadline propagation and retry/hedging config.
+
+📄 **Source:** protobuf.dev encoding spec · Xu Vol 1 Ch. 1 (basics of communication design).
+
+🛠 **FLAGSHIP #2 — could be substituted here, but the primary protocol project is peer-to-peer specific below; `h2spec-clean` remains available as an optional secondary if you want the pure-conformance flex project.**
+
+**DSA companion:** hashing and encoding problems (bit manipulation, serialize/deserialize-style LeetCode problems map directly onto hand-decoding protobuf).
+
+#### 1.2 — Peer Discovery, Gossip & NAT Traversal (SWARM S1's core)
+
+🔥 **THE WALL:** two SWARM nodes, each behind a different home-router NAT, cannot find each other at all with a naive "just connect to this IP" approach — the actual, real-world reason peer-to-peer software needs discovery infrastructure in the first place.
+
+📖 **Theory:** gossip/epidemic protocols (SWIM specifically — how nodes learn "who else is in the mesh" without a directory), NAT traversal techniques (STUN-style hole punching, relay fallback), peer liveness/failure detection via heartbeats and phi-accrual-style detectors, bootstrapping a mesh from a small seed-peer list.
+
+📄 **Source:** the SWIM paper ("SWIM: Scalable Weakly-consistent Infection-style Process Group Membership Protocol") · DDIA Ch. 8 (partial failure, failure detectors).
+
+🛠 **PROJECT — SWARM S1:** the peer wire protocol — job submission format, result-return format, SWIM-based peer discovery, and NAT traversal via a lightweight relay/hole-punching scheme.
+
+📈 **Exit Criteria:** two peers behind different NATs successfully discover each other and exchange a job/result pair · a peer joining a 20-node mesh is known to all other peers within a bounded number of gossip rounds, measured · a peer going silent is detected as failed within a bounded time window, with a false-positive rate measured under network jitter.
+
+**DSA companion:** graph BFS/DFS (gossip propagation IS breadth-first traversal across a graph — this is one of the cleanest DSA-to-systems mappings in the whole roadmap; do LeetCode's graph-traversal set alongside this section specifically).
+
+#### 1.3 — Real-Time Fan-Out (kept from general backend canon — useful transferable skill even outside SWARM)
+
+🔥 **THE WALL:** two service instances behind a load balancer, a message sent from one never reaching a client on the other.
+
+📖 **Theory:** WebSocket/SSE tradeoffs, fan-out architectures, presence, backpressure on a slow consumer, reconnect storms and jitter.
+
+📄 **Source:** Xu Vol 2 (chat-system chapters) · Discord's "How Discord Stores Billions/Trillions of Messages."
+
+🛠 **PROJECT — `notify-fanout`:** a standalone real-time fan-out system (kept as a portfolio piece independent of SWARM, since it's a directly hireable, common interview topic — Xu Vol 2 dedicates real space to exactly this).
+
+📈 **Exit:** messages-lost-during-rolling-deploy driven to zero · reconnect-storm latency with/without jitter.
+
+---
+
+### LEVEL A — Code Architecture & Patterns
+
+> **Budget:** 60–90h · **SWARM milestone:** S2
+
+🔥 **THE WALL:** time yourself adding a feature, unit-testing a core calculation, and changing a rule in a deliberately tangled codebase; refactor; re-time.
+
+📖 **Theory:** SOLID reframed by the pain each principle prevents, hexagonal/ports-and-adapters architecture, the "wrong abstraction is worse than duplication" counterweight, structured concurrency, bounded queues as a mandatory design rule.
+
+📄 **Source:** "A Philosophy of Software Design" (Ousterhout).
+
+🛠 **PROJECT — SWARM S2:** restructure the scheduling core into a hexagonal design with zero imports from network/storage/sandbox specifics.
+
+📈 **Exit:** swapping the sandbox implementation (WASM ↔ subprocess) is a one-line change · full scheduler test suite runs in <2s with no real network, disk, or sandbox involved.
+
+**DSA companion:** backtracking and trie problems (clean recursive scheduling-decision code shares real structural DNA with backtracking search — do this section's problems alongside the scheduler refactor).
+
+---
+
+### LEVEL 2 — Databases & Storage Engines
+
+> **CMU 15-445 lives here in full — 80–120h of the budget.** Grounded in SWARM's content-addressed storage requirement instead of a generic table.
 >
-> **Budget:** 100–150h
+> **Budget:** 140–180h · **SWARM milestone:** S3
 
-#### 0.1 — Linear Algebra: the language every model is written in
+#### 2.1 — Storage Engines: How Bytes Land on Disk
 
-> 🔥 **THE WALL — The Dimension Mismatch That Wasn't**
-> Implement linear regression two ways: via the closed-form normal equation (`(XᵀX)⁻¹Xᵀy`) and via gradient descent, on the same small dataset. They should converge to the same answer. **Make them not agree** — introduce near-collinear features (two columns that are almost linear combinations of each other) and watch the normal equation blow up (numerically unstable matrix inversion) while gradient descent limps along but converges slowly. This is your first real encounter with **why regularization exists** — not as a buzzword, but as the fix for a problem you just caused yourself.
+🔥 **THE WALL — The Torn Write:** an append-only KV store, `kill -9`'d mid-write 500 times — torn records, garbage-that-parses-as-valid, an index pointing past EOF.
 
-📖 **Theory:** vectors, matrices, matrix multiplication as a sequence of linear transformations (not just an operation — build the geometric intuition), eigenvalues/eigenvectors (what they mean: directions a transformation doesn't rotate, only scales — this is what PCA is built on), SVD (the decomposition underneath PCA, recommender systems, and dimensionality reduction generally), matrix rank and why near-collinearity breaks inversion, norms (L1 vs L2 — this is what separates Lasso from Ridge regression, and it's worth deriving why rather than memorizing).
+📖 **Theory:** B-Trees vs LSM-Trees and the RUM conjecture, WAL/ARIES/group commit, MVCC, the buffer pool.
 
-📄 **Sources:** 3Blue1Brown's "Essence of Linear Algebra" (video series — build geometric intuition first, before the symbol manipulation) · "Mathematics for Machine Learning" (Deisenroth, Faisal, Ong — free PDF) Ch. 2–4 · Gilbert Strang's MIT 18.06 lectures if you want the full course.
+📄 **Source:** DDIA Ch. 3 · CMU 15-445 lectures 3–7.
 
-🛠 **PROJECT — `linalg-from-scratch`**
+🛠 **PROJECT — `crashdb` + torture harness:** append log → CRC framing → compaction → Bloom filter → WAL+recovery, `kill -9`'d and syscall-fault-injected via `LD_PRELOAD`.
 
-Implement, using only NumPy's basic array operations (no `np.linalg.solve`, no `sklearn`): matrix multiply, matrix inverse via Gaussian elimination, eigendecomposition via the power iteration method, and PCA from raw SVD. Validate every one against NumPy's built-in versions.
+📈 **Exit:** 1,000 random-kill cycles, zero invariant violations · torn-write injection caught 100% of the time by checksums.
 
-📈 **Exit Criteria**
-- [ ] Your matrix inverse matches `np.linalg.inv` to 6 decimal places on 10 random matrices, and you can explain why it *fails* on a near-singular one
-- [ ] Your PCA implementation reduces a real dataset (e.g., MNIST, 784 dims) to 2D and the resulting plot visually separates digit classes — this is the "linear algebra is doing something real" moment
-- [ ] Written: explain eigenvalues to someone who's never heard of them, using your PCA plot as the example
+**DSA companion:** trees/BSTs and heaps (B+Tree structure and buffer-pool LRU-K eviction are literally these data structures under production constraints — do LeetCode's tree and heap sets here).
 
-#### 0.2 — Calculus & Optimization: what backprop actually is
+#### 2.2 — Content-Addressed Storage: SWARM's Mini-IPFS (S3)
 
-> 🔥 **THE WALL — Gradient Descent That Diverges**
-> Implement gradient descent for a simple quadratic loss. Set the learning rate too high. Watch the loss explode instead of converge. Set it too low. Watch it crawl. Plot loss vs. iteration for five different learning rates on the same chart. **The shape of that chart — not a definition — is what "learning rate" actually means.**
+🔥 **THE WALL:** two peers each store "the same" piece of code, but under a naive filename-based storage scheme they diverge silently (one has a stale version) with no way to detect it.
 
-📖 **Theory:** derivatives and partial derivatives as "how much does output change per unit change in this input," the chain rule (this **is** backpropagation — a neural network's backward pass is just the chain rule applied mechanically, layer by layer), gradient descent variants (SGD, momentum, Adam — know what problem each variant of the previous one was solving, not just the update rule), convexity (why some loss landscapes are easy and some aren't), and — the part people skip — **why loss landscapes for deep networks aren't convex and gradient descent still works anyway** (a genuinely open-ish area, but know the standard intuitions: saddle points vs. local minima, overparameterization helping).
+📖 **Theory:** content-addressing (an artifact's storage key is a cryptographic hash of its content, not an arbitrary name — meaning identical content always produces an identical address, and any tampering is instantly detectable), Merkle-DAG structures for referencing larger composite artifacts, garbage collection of unreferenced content, and how this connects back to 2.1's storage-engine work (the content store sits on your own engine, not a generic filesystem).
 
-📄 **Sources:** "Mathematics for Machine Learning" Ch. 5–7 · Karpathy's "The spelled-out intro to neural networks and backpropagation: building micrograd" (video + repo — build a tiny autograd engine by hand, this is the single best exercise for actually understanding backprop) · "Deep Learning" (Goodfellow, Bengio, Courville — free online) Ch. 4 (optimization).
+📄 **Source:** the IPFS whitepaper (for the content-addressing model specifically) · DDIA Ch. 3 (as the storage-engine foundation underneath it).
 
-🛠 **PROJECT — `micrograd-plus`** *(based directly on Karpathy's exercise, extended)*
+🛠 **PROJECT — SWARM S3:** content-addressed storage for job code/data artifacts on top of your `crashdb` engine.
 
-Build a tiny scalar autograd engine (like Karpathy's `micrograd`) — a `Value` class that tracks operations and computes gradients via backprop through a computation graph. Then use it to train a tiny 2-layer neural network on a toy classification problem, with zero use of PyTorch/TensorFlow.
+📈 **Exit Criteria:** identical content always resolves to the identical address, verified by hash comparison across 10,000 random artifacts · a tampered artifact is detected on retrieval, not silently served · garbage collection correctly reclaims space from unreferenced artifacts without touching referenced ones, proven under concurrent access.
 
-📈 **Exit Criteria**
-- [ ] Your autograd engine's gradients match PyTorch's `autograd` to floating-point precision on 10 test expressions
-- [ ] Your from-scratch network trains to >90% accuracy on a toy 2D classification dataset (two interleaving spirals, or similar), with a loss curve
-- [ ] Written: explain backpropagation as "the chain rule, applied mechanically" with a worked example from your own code
+#### 2.3 — PostgreSQL to a Professional Standard
 
-#### 0.3 — Probability & Statistics for ML
+🔥 **THE WALL — The Four Disasters:** an unused index, a connection storm that reduces throughput, a vacuum death spiral, a lock pileup from a hot-table `ALTER`.
 
-> 🔥 **THE WALL — The Confident Wrong Model**
-> Train a classifier on an imbalanced dataset (95% class A, 5% class B — like real fraud data). Report accuracy. It'll be ~95%, and the model will be predicting "class A" for everything, catching **zero** of the actual fraud cases. **This is the single most important lesson in applied ML for any domain involving rare events**, and accuracy as a metric is actively lying to you here.
+📖 **Theory:** `EXPLAIN (ANALYZE, BUFFERS)`, index types, composite index leftmost-prefix rule, `SKIP LOCKED`, connection pooling modes, partitioning.
 
-📖 **Theory:** distributions (know Normal, Bernoulli, Binomial, Poisson by shape and by when each shows up), Bayes' theorem (not just the formula — the intuition: how a prior belief updates given evidence, and why this underlies everything from spam filters to medical testing to your fraud detector), expectation and variance, the bias-variance tradeoff (the single most-tested ML theory concept, and the direct explanation for why your S1 model will need tuning), hypothesis testing and p-values (know what they do and don't mean — this is a widely-misunderstood area even among practitioners), MLE (maximum likelihood estimation — the framework underneath most classical model training, including logistic regression), and the precision/recall/F1/ROC-AUC family, which the Wall above should make concrete rather than abstract.
+📄 **Source:** "Use The Index, Luke!" (Winand, free) · DDIA Ch. 3.
 
-📄 **Sources:** "Mathematics for Machine Learning" Ch. 6 · "Practical Statistics for Data Scientists" (Bruce & Bruce) — pragmatic and example-driven · StatQuest (Josh Starmer) YouTube series on Bayes, ROC/AUC, and bias-variance — genuinely the clearest free explanations that exist for these specific topics.
+🛠 **FLAGSHIP #6 — `pgshift`:** zero-downtime schema migration on SWARM's peer-registry/job-metadata table under live load.
 
-🛠 **PROJECT — `imbalance-lab`** (feeds SENTRY milestone S0)
+📈 **Exit:** zero errors, p99 degradation under 20%, live-Grafana-proven · resumable backfill, killed-and-restarted mid-run.
 
-Take a real imbalanced dataset (a public fraud/credit-card dataset works well as a stand-in). Report accuracy first (the trap). Then build the correct evaluation: precision/recall curves, ROC-AUC, and — critically for your fraud-detection domain — a cost-weighted metric (false positives block a real approval, false negatives let fraud through; these costs are not equal, and your metric should say so explicitly).
+#### 2.4 — Replication, Sharding & Consistent Hashing
 
-📈 **Exit Criteria**
-- [ ] Demonstrate the "95% accuracy, 0% recall" trap explicitly, with the confusion matrix
-- [ ] A precision-recall curve and a justified operating threshold, with the cost tradeoff stated in dollars-or-equivalent, not just "we chose 0.5"
-- [ ] Written: why accuracy is close to useless for this class of problem, aimed at a hypothetical product manager who wants "just tell me the accuracy"
+🔥 **THE WALL:** a leader-follower replica lags; a read against it returns stale data immediately after a write to the leader.
+
+📖 **Theory:** sync/async/semi-sync replication, read-your-writes/monotonic-reads/consistent-prefix-reads, leaderless/quorum replication (`W+R>N` and why it doesn't fully guarantee freshness), sharding strategies, and **consistent hashing built from first principles** — this is also SWARM's actual job-ownership mechanism, not a separate exercise.
+
+📄 **Source:** DDIA Ch. 5–6 · Xu Vol 1 Ch. 5 (consistent hashing, dedicated chapter).
+
+🛠 **PROJECT — `replica-lab`:** the four read-your-writes fixes, measured, plus a failover with measured RPO.
+
+📈 **Exit:** p99 read/write latency and staleness bound per fix · measured data loss on unplanned failover.
+
+**DSA companion:** union-find and modular-arithmetic-flavored problems (consistent hashing's ring structure and rebalancing logic connect directly to union-find-style problems — do this alongside the DHT work in Level 3).
 
 ---
 
-### LEVEL 1 — Classical ML
+### LEVEL D — Testing, Correctness & Verification
 
-> **Goal:** the toolkit that solves most real business ML problems, done properly — not just `.fit()` and `.predict()`.
+> **Budget:** 70–100h · **SWARM milestone:** S4
+
+#### D.1–D.2 — Property Testing & Fuzzing
+
+🔥 **THE WALL:** mutation-test an existing project — 85% line coverage, under 50% mutation score.
+
+📖 **Theory:** fakes over mocks, model-based property testing, stateful property testing, differential fuzzing.
+
+🛠 **PROJECT:** fuzz SWARM's peer wire protocol parser and content-addressed storage's artifact parser; find ≥3 real bugs with shrunk minimal reproducers.
+
+#### D.3 — Deterministic Simulation Testing (the crown jewel)
+
+🔥 **THE WALL:** SWARM passes all its unit tests. What happens if the network partitions asymmetrically, a disk `EIO`s, a clock jumps, and **a node starts lying about job results** — all at once? You cannot test that combination by hand.
+
+📖 **Theory:** replacing every nondeterminism source with a simulated implementation under one seeded PRNG, and — new relative to a generic workflow engine — **modeling a Byzantine-lite fault type (a node that returns plausible-but-wrong results)** as a first-class injectable fault, since SWARM's trust problem doesn't exist in most DST examples.
+
+📄 **Source:** "Testing Distributed Systems w/ Deterministic Simulation" (Will Wilson, Strange Loop 2014) · FoundationDB's SIGMOD 2021 paper.
+
+🛠 **FLAGSHIP #3 — `simd-swarm`:** `SimClock`, `SimNetwork` (with asymmetric partitions), `SimDisk`, `SimScheduler`, and a `LyingNode` fault type, run across 10,000+ seeds nightly with an invariant checker (no job double-assigned, every job eventually completes or is explicitly failed, content-store integrity holds, majority-vote verification catches injected lies).
+
+📈 **Exit:** 10,000+ seeds clean nightly · **≥3 real bugs found and documented with seed + trace** · a lying-node scenario specifically caught by the verification layer, with the seed that exposes it if the layer is disabled.
+
+**DSA companion:** state-space search / backtracking (model checking and DST are structurally a search over possible execution interleavings — LeetCode's harder backtracking problems build the same "explore a state space systematically" muscle).
+
+#### D.4 — TLA+ and the Trust Invariant
+
+🔥 **THE WALL:** spec SWARM's majority-vote verification protocol in TLA+ — model-check it and find the edge case (e.g., exactly at the vote threshold with a tied result) where it doesn't behave as assumed.
+
+📄 **Source:** learntla.com (Hillel Wayne, free).
+
+📈 **Exit:** the spec model-checks clean for the safety invariant "a minority of lying nodes can never cause an incorrect result to be accepted" · at least one real design bug found by TLC and fixed.
+
+---
+
+### LEVEL 3 — Distributed Systems Core
+
+> **MIT 6.5840 — the anchor of the entire roadmap. 80–150h of this level's budget is Lab 3 (Raft) alone.**
 >
-> **Spine milestone:** S1 · **Budget:** 80–110h
+> **Budget:** 180–260h · **SWARM milestone:** S5
 
-#### 1.1 — Regression, Classification & the Bias-Variance Tradeoff, in Practice
+#### 3.1 — The Eight Fallacies, Made Concrete
 
-> 🔥 **THE WALL — The Model That Memorized**
-> Train a decision tree with no depth limit on a dataset. Training accuracy: 100%. Test accuracy: mediocre. **You've built a lookup table, not a model.** Then constrain depth, add pruning, and watch the gap close — while training accuracy drops. This is overfitting made undeniable rather than theoretical.
+🔥 **THE WALL:** using `tc netem`/`iptables`, demonstrate all eight, especially the asymmetric partition (A reaches B, B cannot reach A) — the case every naive SWARM peer-liveness check gets wrong.
 
-📖 **Theory:** linear/logistic regression (and why logistic regression is really MLE under a Bernoulli assumption — ties back to 0.3), decision trees (splitting criteria: Gini vs entropy), random forests (bagging — why averaging many overfit trees produces a well-generalizing ensemble, a genuinely elegant idea worth understanding deeply, not just using), **gradient boosting** (XGBoost/LightGBM — the actual workhorse of most production tabular-data ML, including fraud detection; understand boosting as "each new tree fixes the previous ensemble's residual errors"), clustering (k-means, and its real limitation: it assumes spherical, similarly-sized clusters, which real data rarely gives you), cross-validation (why a single train/test split lies to you), and regularization (L1/Lasso for sparsity, L2/Ridge for shrinkage — tie back to 0.1's near-collinearity Wall).
+📖 **Theory:** partial failure, FLP impossibility, CAP stated correctly, PACELC, retry amplification.
 
-📄 **Sources:** "An Introduction to Statistical Learning" (James, Witten, Hastie, Tibshirani — free PDF, the standard, very readable text) · "Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow" (Géron) Part I · the XGBoost paper ("XGBoost: A Scalable Tree Boosting System") — short, clear, and explains real engineering decisions (sparsity-aware splitting, approximate algorithms for scale) that a pure-theory source won't cover.
+📄 **Source:** DDIA Ch. 8 · Xu Vol 1 Ch. 1.
 
-🛠 **PROJECT — SENTRY S1: the gradient-boosted anomaly detector**
+#### 3.2 — Consensus & DHT Routing: Implement Raft and Chord, For Real
 
-Build the first real version of SENTRY: feature-engineer a transaction dataset (amount, timing, frequency, approver-relationship features — the kind of thing you'd actually derive from an approval-chain schema), train logistic regression, random forest, and XGBoost as three comparison points, and properly tune with cross-validation.
+**MIT 6.5840** (`pdos.csail.mit.edu/6.824/`), Labs 1–5, no shortcuts.
 
-📈 **Exit Criteria**
-- [ ] A model comparison table: precision/recall/F1/ROC-AUC for all three approaches, at a threshold chosen via the cost-weighted analysis from 0.3
-- [ ] Feature importance analysis (XGBoost's built-in importance, plus SHAP values for at least the top 5 features) — and a written explanation of *why* the top features make domain sense, not just that they scored high
-- [ ] A deliberately overfit version (max depth, no regularization) shown side-by-side with the tuned version — the train/test gap, quantified
-- [ ] This becomes your baseline: every later SENTRY milestone must beat it or explain why it doesn't
+| Lab | Builds | Hours |
+|---|---|---|
+| 1 | Fault-tolerant MapReduce | 15–25 |
+| 2 | KV server, at-most-once RPC | 10–15 |
+| 3 | **Raft** | **60–120** |
+| 4 | Fault-tolerant KV atop your Raft | 25–40 |
+| 5 | Sharded KV with reconfiguration | 30–50 |
 
----
+📖 **Theory:** Raft in full (the Figure 8 commit-rule subtlety especially), quorum intersection, and — SWARM-specific — **Chord's finger-table routing and consistent hashing at scale**, since a DHT is the actual mechanism deciding "which peer owns this job."
 
-### LEVEL 2 — Deep Learning & Transformers
+📄 **Source:** "In Search of an Understandable Consensus Algorithm (Extended Version)" · the original Chord paper ("Chord: A Scalable Peer-to-peer Lookup Service for Internet Applications") · Xu Vol 1 Ch. 5.
 
-> **Goal:** understand what's actually happening inside a neural network and a transformer, not just how to call `.fit()` on one.
->
-> **Spine milestone:** S2 · **Budget:** 130–180h
+🛠 **FLAGSHIP #2 — `dht-clean`:** a from-scratch Chord-style DHT (finger tables, join/leave, correct key ownership under churn).
 
-#### 2.1 — Neural Network Fundamentals
+📈 **Exit:** correct lookup under 30% simultaneous churn · O(log N) hop count empirically verified · lookup-latency-vs-mesh-size chart.
 
-> 🔥 **THE WALL — Vanishing Into Nothing**
-> Build a deep (8+ layer) feedforward network with sigmoid activations and no normalization. Train it. Watch the loss barely move — the gradients vanish to near-zero by the time backprop reaches the early layers. Then swap in ReLU and add batch normalization. Watch it actually train. **You've just felt, not read about, the vanishing gradient problem** and the two most common fixes.
+🛠 **SWARM S5:** Raft-coordinated mesh regions on top of the DHT for job-ownership routing.
 
-📖 **Theory:** layers, weights, activation functions (sigmoid/tanh/ReLU/GELU — and precisely why ReLU family won: it doesn't saturate, so gradients don't vanish), backpropagation as a direct extension of your `micrograd-plus` engine to matrices/tensors, weight initialization (why random-but-scaled matters — Xavier/He initialization), batch normalization and why it stabilizes training, dropout as regularization for neural nets (the neural-net analog of decision-tree pruning from Level 1), and the practical training loop: batches, epochs, learning rate schedules.
+📈 **Exit:** kill a region's coordinator mid-commit under load; no job assignment is lost or double-assigned · Gossip Glomers 1–5 complete via Maelstrom.
 
-🛠 **PROJECT — `nn-from-scratch-to-pytorch`**
+**DSA companion:** union-find (Chord ring/join-leave logic), graph algorithms broadly (Dijkstra/BFS-adjacent thinking underlies routing-table maintenance) — this is the single richest DSA-to-systems overlap section in the roadmap; lean into it hard.
 
-Extend `micrograd-plus` into a small tensor-based framework (or move to raw PyTorch tensors with `autograd` disabled and implement backprop by hand once more, at the matrix level this time) for a feedforward network on a real dataset (MNIST is fine — the point is the mechanics, not novelty). Then reproduce the vanishing-gradient Wall and its fixes explicitly, with loss curves for each configuration.
+#### 3.3 — Time, Clocks & Fencing
 
-📈 **Exit Criteria**
-- [ ] Four loss curves on one chart: sigmoid/no-norm, sigmoid/with-BN, ReLU/no-norm, ReLU/with-BN — the difference should be visually undeniable
-- [ ] Your hand-rolled backprop matches PyTorch's `autograd` gradients to floating point precision
-- [ ] Written: explain vanishing gradients and batch norm to someone who understands 0.2's chain-rule material but nothing else
+🔥 **THE WALL:** move the clock backward mid-workload — duplicate timestamps, overlapping region-coordinator leases.
 
-#### 2.2 — Transformers & Attention: the architecture underneath every LLM
+📖 **Theory:** monotonic vs wall clocks, Lamport/vector clocks, leases and fencing tokens.
 
-> 🔥 **THE WALL — The Order-Blind Model**
-> Build a minimal self-attention layer. Feed it a sentence, then feed it the same words shuffled. Without positional encoding, **it produces the same output** — attention alone has no notion of word order, which is deeply counterintuitive if you've only read the "attention is all you need" summary. Add positional encoding. Watch the outputs diverge appropriately.
-
-📖 **Theory:** the attention mechanism precisely (queries, keys, values — and the actual intuition: "for each token, how much should I weight every other token's information") — build this from the matrix operations up, not from a diagram; multi-head attention (why multiple heads instead of one bigger one — different heads learn different relationship types); positional encoding (sinusoidal vs. learned vs. rotary/RoPE, which is what most modern LLMs actually use); the encoder-decoder split, and why decoder-only architectures (GPT-family) won for generative LLMs specifically; layer norm placement (pre-norm vs post-norm) as a training-stability detail that matters more than it sounds.
-
-📄 **Sources:** "Attention Is All You Need" (Vaswani et al., 2017) — read the original paper now that you have the math background for it · Karpathy's "Let's build GPT: from scratch, in code, spelled out" (video + `nanoGPT` repo — the best hands-on transformer-from-scratch resource that exists, and a direct continuation of the `micrograd` lineage) · Jay Alammar's "The Illustrated Transformer" for the visual intuition layer, read alongside the paper, not instead of it.
-
-🛠 **FLAGSHIP PROJECT — `gpt-from-scratch`** *(based on Karpathy's nanoGPT exercise)*
-
-Build a small decoder-only transformer from scratch (attention, positional encoding, feedforward blocks, layer norm — all hand-implemented in PyTorch, no `nn.MultiheadAttention` shortcut) and train it on a small text corpus to do character-level next-token prediction.
-
-📈 **Exit Criteria**
-- [ ] The model generates plausible-looking (not necessarily coherent) text after training — screenshot a sample
-- [ ] The order-blindness demonstration from the Wall, shown explicitly with and without positional encoding
-- [ ] You can draw the full architecture (embedding → positional encoding → N transformer blocks → output projection) from memory and explain each box
-- [ ] Written: "attention, explained to someone who understands matrix multiplication but has never heard of a transformer" — this single explanation is one of the highest-value things you can have ready for an interview
-
-#### 2.3 — SENTRY S2: does deep learning actually help here?
-
-Build a learned-embedding approach to fraud detection — either an autoencoder (train it to reconstruct normal transactions; anomalies reconstruct poorly) or a small transformer over sequences of a user's transaction history. Compare it honestly against your S1 gradient-boosted baseline.
-
-📈 **Exit Criteria**
-- [ ] Head-to-head comparison table against S1: precision/recall/F1/AUC, plus training time and inference latency
-- [ ] **An honest verdict, argued with the numbers**, on whether the deep-learning approach is actually better for this problem — tabular fraud data is a domain where gradient boosting frequently *beats* deep learning, and discovering and stating that yourself, with evidence, is a stronger signal than blindly reaching for the trendier tool
-- [ ] Written: when would you actually recommend the deep model over XGBoost here, and why
+🛠 **PROJECT — `clock-chaos`:** clock faults added to `simd-swarm`; a correctness violation with wall-clock leases, absent with fencing tokens.
 
 ---
 
-### LEVEL 3 — MLOps: Pipelines, Registries & Monitoring
+*(Continued: Level 4/E through 6, plus the SWARM+DSA capstone integration, follow in the next file.)*
+### LEVEL 4/E — Reliability & Performance
 
-> **Goal:** everything that turns a Jupyter notebook into a system. This is where your backend engineering strength stops being "adjacent" and starts being directly load-bearing.
->
-> **Spine milestone:** S3 · **Budget:** 80–110h
+> **Budget:** 90–120h · **SWARM milestone:** S6
 
-#### 3.1 — Experiment Tracking & Reproducibility
+#### 4.1 — Load-Aware Placement & Admission Control
 
-> 🔥 **THE WALL — The Unreproducible Model**
-> Train a model. Get a good result. Try to reproduce it a week later with "the same" code. **You can't** — a random seed wasn't fixed, a data preprocessing step changed silently, or a dependency version drifted. This happens to every ML team that doesn't invest in tracking, and it's a genuinely common, genuinely embarrassing production incident.
+🔥 **THE WALL:** the mesh is driven to 3–5x its aggregate capacity with an open-loop generator — a naive scheduler's *goodput* collapses toward zero, since it keeps accepting jobs it can never finish in time.
 
-📖 **Theory:** experiment tracking (MLflow or Weights & Biases — log every hyperparameter, metric, and artifact, not just the final number), reproducibility (seed everything, pin dependency versions, version your data — not just your code), feature stores (Feast/Tecton — the problem they solve: training-serving skew, where the features computed at training time subtly differ from the features computed at serving time, which is a real and common source of silent production degradation), model registries (versioning trained models with metadata, not just filenames).
+📖 **Theory:** Little's Law and queueing basics, the offered-load-vs-goodput curve, bounded queues with an explicit full-queue policy, deadline-aware dropping, adaptive admission (Vegas-style, inferring capacity from observed latency rather than a fixed config number).
 
-🛠 **PROJECT — SENTRY S3: the pipeline**
+📄 **Source:** Xu Vol 1 Ch. 1, 4 (scale estimation and rate limiting fundamentals) · AWS Builders' Library's load-shedding articles.
 
-Wrap SENTRY's training in a fully tracked, reproducible pipeline: MLflow experiment tracking for every run, a feature store (even a simple one) ensuring the exact same feature computation runs at training and serving time, a model registry with versioning, and an orchestrated retraining pipeline (Airflow or Prefect) that can be triggered on a schedule or on data drift.
+🛠 **FLAGSHIP #5 — `overload`:** the same collapse-vs-graceful comparison as the general roadmap, applied to SWARM's job-submission path specifically.
 
-📈 **Exit Criteria**
-- [ ] Re-running the exact same tracked experiment produces bit-identical metrics — proven
-- [ ] A deliberately-introduced training-serving skew (compute a feature slightly differently at serving time) is caught by a test, not discovered in production
-- [ ] A full retraining run triggered end-to-end from the orchestrator, registering a new model version automatically
+📈 **Exit:** the collapse curve and the graceful curve on one chart · "naive delivers X%, adaptive delivers Y% at 3x overload," quantified · the adaptive limiter tracks a *changing* mesh capacity mid-test (simulate several peers leaving).
 
-#### 3.2 — Monitoring & Data/Model Drift
+**DSA companion:** heap/priority-queue problems (job scheduling under load is fundamentally a priority-queue problem — "task scheduler," "meeting rooms," and similar LeetCode problems map directly).
 
-> 🔥 **THE WALL — The Model That Quietly Died**
-> Deploy a model. Feed it a data distribution that gradually shifts from what it was trained on (simulate this — e.g., transaction amounts slowly trending upward over months). **Accuracy silently degrades and nothing alerts you**, because nothing is watching for it. This is one of the most common real-world ML production failures, and it's invisible without explicit monitoring.
+#### 4.2 — Caching & Rate Limiting
 
-📖 **Theory:** data drift vs. concept drift (the input distribution changing vs. the input-output relationship changing — different problems, different fixes), detection methods (population stability index, KL divergence, or a tool like Evidently), the monitoring metrics that matter for a production model (prediction distribution, feature distributions, and — where you have it — actual outcome-based accuracy with a lag), alerting thresholds and the same alert-fatigue concerns from general SRE work.
+🔥 **THE WALL:** cache stampede on hot job-metadata lookups, then a boundary-burst attack on a naive fixed-window rate limiter protecting the mesh's job-submission endpoint.
 
-🛠 **PROJECT — extend SENTRY S3 with drift monitoring**
+📖 **Theory:** W-TinyLFU beating LRU, the five rate-limiting algorithms and their exact tradeoffs, per-peer quotas as SWARM's version of multi-tenancy.
 
-📈 **Exit Criteria:** the simulated drift from the Wall is detected and alerted on before accuracy visibly degrades in your evaluation metrics — i.e., the drift detector fires *earlier* than a naive accuracy-monitoring approach would.
+📄 **Source:** Xu Vol 1 Ch. 4, 6 (dedicated rate-limiter and cache chapters).
 
----
+**DSA companion:** sliding-window problems (rate limiting IS a sliding-window algorithm — do LeetCode's sliding-window set here explicitly, it's a near-1:1 mapping).
 
-### LEVEL 4 — Production Serving
+#### 4.3 — Resilience: Retry Storms & Metastable Failures
 
-> **Goal:** this is your natural territory — everything here maps onto distributed-systems, caching, and reliability skills you already have. The job is translation, not new theory.
->
-> **Spine milestone:** S4 · **Budget:** 70–100h
+🔥 **THE WALL:** a job chain across three peers, each retrying 3x, and one peer merely slow — the 9x load amplification kills it completely; then a metastable failure where removing the trigger doesn't fix the outage.
 
-#### 4.1 — Serving Architecture & Latency Budgets
+📖 **Theory:** deadline propagation, exponential backoff with full jitter, circuit breakers (and their honest critique), SLIs/SLOs.
 
-> 🔥 **THE WALL — The Model That Blocks the Approval**
-> Wire SENTRY's model into a synchronous call path: an approval request waits on the fraud score before proceeding. Load test it. At even modest concurrency, **the fraud check becomes your system's bottleneck** — model inference isn't free, and a synchronous ML call in a hot path behaves exactly like the slow-dependency problems you already know how to diagnose from your backend work, just with a different box drawn on the diagram.
+📄 **Source:** DDIA Ch. 8 · AWS Builders' Library.
 
-📖 **Theory:** this is almost entirely a re-application of Level 4 from your backend roadmap — timeouts, circuit breakers, fallback behavior (score everything as "needs review" if the model is down, don't block the approval entirely), caching (identical/near-identical requests don't need re-scoring), and the specific serving patterns: FastAPI/Flask for a model endpoint, batching requests where latency budget allows, and the sync-vs-async serving decision (does the approval wait for the score, or does scoring happen async with the approval proceeding provisionally and flagged for review if the score comes back bad?). **This is the level where you should feel your backend-engineering advantage most directly — resist the urge to relearn things you already know under new names.**
-
-🛠 **PROJECT — SENTRY S4: real-time serving**
-
-Deploy SENTRY as a FastAPI endpoint with a defined p99 latency budget, a circuit breaker + fallback (provisional-approve-and-flag) when the model is slow/down, shadow-mode deployment (score every real approval silently, compare against the eventual outcome, without affecting the actual decision — the standard safe way to validate a new model in production before trusting it), and a canary rollout path for new model versions.
-
-📈 **Exit Criteria**
-- [ ] p99 latency measured and held under budget at realistic concurrency
-- [ ] Circuit-breaker fallback proven: kill the model server, approvals still proceed (flagged for review), zero approvals blocked
-- [ ] Shadow-mode comparison: SENTRY's silent scores vs. eventual known outcomes, with precision/recall computed from real (simulated) shadow traffic
-- [ ] Written: the deployment runbook for rolling out a new SENTRY model version safely
+🛠 **PROJECT — `resilience-kit`:** an adversarial peer simulating slow/flapping/failing/lying behavior, with the retry-amplification story measured and a metastable failure reproduced-then-fixed.
 
 ---
 
-### LEVEL 5 — LLMs, RAG & Agent Infrastructure
+### LEVEL 5 — Advanced Architecture: Multi-Tenancy & Trust
 
-> **Goal:** the 2026-relevant layer, and — given your production AI voice-pipeline experience — another place where you're extending real intuition rather than starting cold.
->
-> **Spine milestone:** S5 · **Budget:** 70–100h
+> **Budget:** 70–100h · **SWARM milestone:** S7
 
-#### 5.1 — Prompting, Embeddings & RAG
+#### 5.1 — Redundant Execution & Majority-Vote Verification
 
-> 🔥 **THE WALL — The Confidently Wrong Answer**
-> Ask an LLM a question about a borderline fraud case with specifics it can't know (your actual transaction history, your actual approval policy). It will **confidently make something up.** This is the concrete, felt version of "hallucination," and it's the reason RAG exists — not as a buzzword, but as the direct fix: give the model the actual relevant context instead of relying on what it memorized during training.
+🔥 **THE WALL:** run the same job on three peers with no verification — inject one lying peer that returns a plausible-but-wrong result. Nothing catches it. This is SWARM's core trust problem, unsolved.
 
-📖 **Theory:** embeddings (what they are geometrically — points in a high-dimensional space where distance means semantic similarity, tying directly back to your Level 0 linear-algebra work), vector search (this is v3's HNSW content from the backend roadmap — build or use it), the RAG pipeline (retrieve relevant context → construct a prompt → generate), chunking strategies and their measurable effect on retrieval quality, fine-tuning vs. RAG vs. prompting as three different tools for three different problems (know when each is the right call — fine-tuning for style/format, RAG for facts/freshness, prompting for everything else first).
+📖 **Theory:** Byzantine-fault-tolerance basics (not full BFT consensus — the practical subset: redundant execution + majority vote is a lighter, more tractable trust model than full BFT, and knowing the distinction is itself valuable), reputation scoring (peers that have been consistently correct need less redundancy over time — an optimization with a real cost/trust tradeoff), and the economics of verification (more redundancy = more trust but more wasted compute).
 
-🛠 **PROJECT — SENTRY S5: the LLM secondary reviewer**
+📄 **Source:** DDIA Ch. 9 (the Byzantine-faults section specifically) · the BOINC project's own credit/verification-system documentation as a real-world precedent.
 
-For transactions SENTRY's classical/deep models flag as borderline (not clearly fraud, not clearly clean), build an LLM-based reviewer: it receives the transaction, relevant policy documents (via RAG over a small policy corpus), and the approval history, and produces a structured recommendation with reasoning. Wire this in as a durable, retryable, timeout-bounded step — exactly like LEDGER-9's L8 milestone from the backend roadmap, now built out for real instead of as a stub.
+🛠 **FLAGSHIP #4 — `verify-lite`:** the redundant-execution/majority-vote layer with reputation scoring.
 
-📈 **Exit Criteria**
-- [ ] The RAG retrieval step measurably improves recommendation quality vs. no-context prompting, on a small evaluation set you build by hand
-- [ ] Token-aware cost tracking per review, and a per-case cost ceiling
-- [ ] Timeout + fallback to human review if the LLM step fails or exceeds budget
-- [ ] A golden evaluation set (even 30–50 hand-labeled borderline cases) that regression-tests any prompt or model change — **shipping a prompt change without this is shipping untested code**, exactly as flagged in the backend roadmap's agent-infra section
+📈 **Exit:** a single lying node cannot corrupt an accepted result at N≥3 replicas · measured compute overhead of redundant execution vs. trusting a single peer · reputation scoring measurably reduces required redundancy for previously-reliable peers, with the tradeoff curve charted (trust built over time vs. redundancy cost saved).
 
----
+**DSA companion:** DP and greedy problems (the redundancy-vs-cost tradeoff is a genuine optimization problem — "minimum cost to achieve X confidence" has real DP/greedy structure).
 
-### LEVEL 6 — Synthesis: ML System Design + Portfolio
+#### 5.2 — Multi-Tenancy on the Mesh
 
-> **Budget:** 50–80h
+🔥 **THE WALL:** one tenant submits jobs at 100x normal volume; every other tenant's jobs starve.
 
-#### 6.1 — ML System Design (the interview-specific skill)
+📖 **Theory:** per-tenant quotas, fair queuing/weighted fair queuing, shuffle sharding for blast-radius reduction.
 
-Practice designing, end-to-end, with the same rigor as the backend roadmap's design-doc template: a recommendation system, a search-ranking system, a content-moderation/anomaly-detection system (you have the real answer here now), a fraud-detection system at scale (same), and — the 2026-relevant one — an LLM-powered feature (RAG-based support bot, or similar). For each: data pipeline, feature engineering, model choice and why, training cadence, serving architecture, monitoring, and the honest failure modes.
-
-Route each through a `mock-interviewer` session once the doc is written — same coordination pattern as the backend roadmap.
-
-#### 6.2 — The SENTRY Teardown
-
-The capstone write-up: architecture diagram, the classical-vs-deep-learning verdict from Level 2 (with numbers), the production-serving numbers from Level 4, the RAG-augmentation results from Level 5, and — the section that makes this genuinely rare — an honest comparison of what it would take to actually propose a lightweight version of this to your team at Logic Leap, given real constraints (data availability, latency budget, false-positive tolerance for a live approval flow).
+📈 **Exit:** one tenant at 100x load; other tenants' job-completion latency degrades by <10%.
 
 ---
 
-## VI — The Honest Timeline
+### LEVEL G — AI Infrastructure: The Mesh as an Inference Marketplace
+
+> **Budget:** 60–90h · **SWARM milestone:** S8
+
+🔥 **THE WALL — The $18,000 Bill:** a naive LLM-serving job on the mesh — no batching, no caching, one slow peer blocking the requester, a retry loop double-billing.
+
+📖 **Theory:** prefill vs decode and why the asymmetry drives serving design, continuous batching, KV-cache/PagedAttention, prefix caching, token-aware rate limiting — same theory as the general roadmap's AI-infra level, but the integration is different and better: **inference is just another job type the mesh routes**, executed by whichever peer advertises GPU capability.
+
+📄 **Source:** "Efficient Memory Management for Large Language Model Serving with PagedAttention" (SOSP 2023).
+
+🛠 **FLAGSHIP #8 — `llm-peer`:** GPU peers advertise inference capability; the scheduler (from Level 4's placement logic) routes inference jobs to capable peers with token-aware cost accounting and result streaming back through the mesh's normal result-return path.
+
+📈 **Exit:** an inference job is correctly routed only to capability-advertising peers · streaming works end-to-end through the mesh, not just point-to-point · killing the executing peer mid-inference triggers correct re-routing without double-billing the requester · measured cost reduction from prefix caching on repeated system-prompt-shaped requests.
+
+---
+
+### LEVEL 6 — Synthesis
+
+> **Budget:** 80–120h · **SWARM milestone:** S9
+
+#### 6.1 — Incident Archaeology (unchanged from the general canon — universal failure patterns)
+
+**FLAGSHIP #7 — `incident-lab`:** the same 10 outages (S3 2017, GitHub 2018, Cloudflare 2019×2, Meta 2021, Slack 2021, Roblox 2021, Knight Capital, GitLab 2017, cache stampede), reproduced locally with fixes.
+
+📈 **Exit:** 6 of 10 reproduced with working before/after · a synthesis essay naming the seven recurring patterns.
+
+#### 6.2 — System Design Canon (trimmed to 8, cross-referenced to your books)
+
+For each: full design-doc format (Summary, Context, Goals, **Non-Goals**, Proposal, **Alternatives Considered — minimum three**, Risks, Rollout, Operational Impact). Route each through `mock-interviewer`.
+
+1. **A distributed compute/job-scheduling system** — this is SWARM itself; you have the real answer. (Xu Vol 2 has a chapter structurally close to this.)
+2. **A distributed cache** — consistent hashing, replication, resharding. (Xu Vol 1 Ch. 5, 6.)
+3. **Rate limiter as a service.** (Xu Vol 1 Ch. 4.)
+4. **A distributed file/object storage system** — direct extension of SWARM's content-addressed store. (DDIA Ch. 3 as foundation; Xu Vol 2 for the applied design.)
+5. **A message queue.** (DDIA Ch. 11; Xu Vol 1 Ch. 11.)
+6. **Chat/messaging.** (Xu Vol 2, dedicated chapters.)
+7. **An LLM API platform** — token limits, GPU scheduling, streaming, cost attribution. (2026-relevant, not in either book — sourced from the vLLM paper instead.)
+8. **A web crawler or search-indexing system** — good general-practice design, tests a different muscle (frontier management, dedup at scale) than the mesh-shaped problems above.
+
+#### 6.3 — The SWARM Teardown (milestone S9)
+
+The capstone: an architecture diagram a stranger understands in 15 minutes · the ≥3 bugs `simd-swarm` found that no test suite would have caught · measured numbers at every milestone (job throughput, p99 scheduling latency, DHT lookup hops, trust-layer overhead) · **an honest comparison against real systems** — BOINC (volunteer computing, decades of production experience with exactly the trust problem you solved), IPFS (content-addressing at scale), Golem/Akash (the closest real analogs to a compute marketplace), and Ray (the closest analog for the scheduling/execution-engine half) — naming where SWARM's design converges with or diverges from each, and why.
+
+---
+
+## VIII — Assessment: The Exit Exams
+
+Same **Three Proofs** as before (Exam, Artifact, Teach-Back), plus **The Mock Loop** (route each level's hardest concepts into a `mock-interviewer` session before moving on). Per-level exit exams (8–9 questions, timed, pass = 7/8) generated on request as you approach the end of each level.
+
+### The Final Gauntlet (before your first real interview loop)
+
+| Day | Challenge | Pass condition |
+|---|---|---|
+| 1 | Debug a sabotaged SWARM build | Root cause in <45 min with evidence |
+| 2 | 2 of the 8 system designs, 45 min each, on video, cross-checked against Xu Vol 1/2's own frameworks | Both hit the design-doc rubric |
+| 3 | Teach-back: Raft, consistent hashing/DHT routing, deterministic simulation testing — 10 min each | No notes, correct, with diagrams |
+| 4 | A DSA session covering the companion patterns from every level (your `dsa-professor` skill can compile this list) | 80%+ solved unaided |
+| 5 | Full review against every rubric above | Honest scoring |
+
+---
+
+## IX — The Honest Timeline
 
 | Level | Hours |
 |---|---|
-| 0 — Math/Stats/Data | 100–150 |
-| 1 — Classical ML | 80–110 |
-| 2 — Deep Learning/Transformers | 130–180 |
-| 3 — MLOps | 80–110 |
-| 4 — Serving | 70–100 |
-| 5 — LLMs/RAG | 70–100 |
-| 6 — Synthesis | 50–80 |
-| **Total** | **580–830 hours** |
+| 0 | 100–140 |
+| 1 | 90–120 |
+| A | 60–90 |
+| 2 | 140–180 |
+| D | 70–100 |
+| 3 | 180–260 |
+| 4/E | 90–120 |
+| 5 | 70–100 |
+| G | 60–90 |
+| 6 | 80–120 |
+| **Total** | **940–1,320** |
 
-At 12–15h/week: **roughly 10–14 months.** Meaningfully shorter than the backend roadmap, and there's a real question worth sitting with rather than me answering for you: **do you run this in parallel with the backend roadmap, sequentially after it, or do you actually need to pick one as primary?** Running both at full intensity simultaneously is close to 1,300–1,800 combined hours — over two years at your stated pace either way. Worth deciding deliberately rather than defaulting into both at once.
+At 12–15h/week: **roughly 16–22 months.** MIT 6.5840 remains the anchor — build the schedule around it. DSA runs daily throughout via your existing skills, using the per-level companion patterns above so it never feels disconnected from the systems work.
 
 ---
 
-## VII — The Library
+## X — The Library, Cross-Referenced to What You Own
 
-| Resource | Level | Why |
+| Topic | Roadmap level | Your book |
 |---|---|---|
-| **"Mathematics for Machine Learning"** (free PDF) | 0 | The math foundation, ML-specific rather than generic |
-| **3Blue1Brown "Essence of Linear Algebra" + "Neural Networks" series** | 0, 2 | Best geometric intuition available, free |
-| **Karpathy's "micrograd" and "nanoGPT" series** | 0, 2 | The single best hands-on path from "backprop is a formula" to "I built a GPT" |
-| **"An Introduction to Statistical Learning"** (free PDF) | 1 | The standard, readable classical-ML text |
-| **"Attention Is All You Need"** | 2 | Read it once you have the math to actually parse it |
-| **"Designing Machine Learning Systems"** — Chip Huyen | 3, 4, 6 | The best production-ML-systems book |
-| **"AI Engineering"** — Chip Huyen | 5 | The systems view of building with LLMs, same as flagged in the backend roadmap |
-| **vLLM's PagedAttention paper** | 5 | Carried over from the backend roadmap's AI-infra level — same content, now with the ML theory underneath it too |
+| Scale estimation, basic building blocks | 0, throughout | Xu Vol 1 Ch. 1 |
+| Rate limiting | 4.2 | Xu Vol 1 Ch. 4 |
+| Consistent hashing | 2.4, 3.2, SWARM S5 | Xu Vol 1 Ch. 5 |
+| Caching, CDN | 4.2 | Xu Vol 1 Ch. 6, 8 |
+| Message queues | Level B-equivalent, 3.4 | Xu Vol 1 Ch. 11; DDIA Ch. 11 |
+| Chat/messaging, notification systems | 1.3 | Xu Vol 2 |
+| Distributed file/object storage | 2.2 (content-addressed store) | Xu Vol 2; DDIA Ch. 3 |
+| Replication | 2.4 | DDIA Ch. 5 |
+| Partitioning/sharding | 2.4 | DDIA Ch. 6 |
+| Transactions, isolation | (general canon, Level 2) | DDIA Ch. 7 |
+| Partial failure, distributed systems fundamentals | 3.1 | DDIA Ch. 8 |
+| Consensus, consistency, Byzantine faults | 3.2, 5.1 | DDIA Ch. 9 |
+| Batch/stream processing | (condensed, general canon) | DDIA Ch. 10–11 |
+| Storage-engine internals (B-Trees, LSM) | 2.1 | DDIA Ch. 3; CMU 15-445 (no book substitute) |
+| Raft specifically | 3.2 | the Raft paper — DDIA references it but doesn't replace implementing it |
+| Chord/DHT specifically | 3.2 | the Chord paper — same, no book substitute |
+| LLM serving | G | vLLM's PagedAttention paper — post-dates both books |
+
+**The pattern worth noticing:** your two books cover the *applied system-design* layer (Xu) and the *theoretical distributed-systems* layer (DDIA) comprehensively — the gaps are exactly the primary-source papers (Raft, Chord, PagedAttention) that no textbook fully substitutes for, which is why those specific papers stay as required reading even though everything else routes to your existing library.
 
 ---
 
 ## Closing
 
-The honest shape of this roadmap: Levels 0–2 are a real, unavoidable investment where your backend background gives you no head start — budget for that emotionally, not just on the calendar. Levels 3–6 are where the investment starts paying interest, because caching, reliability, latency budgets, and system design are the same skills you already have, aimed at a new kind of dependency. SENTRY is built to make that payoff concrete: by S4, you're not learning ML *or* backend engineering, you're doing both at once on one real system, and that's the actual target state — not "an ML engineer" and not "a backend engineer," but the specific, valuable, less-common combination of both.
+This is the version built for what actually held your interest across this whole conversation: a genuinely creative, graph-and-algorithm-heavy system, with every hard distributed-systems problem structurally load-bearing rather than bolted on, DSA woven into the work instead of run as a separate track, and every theory topic pointing at a book you already own on your shelf. The scope is complete — replication, sharding, consistent hashing, consensus, caching, queues, the full system-design canon are all here, cross-referenced — and the spine is, for the first time in this conversation, one you said you actually like.
