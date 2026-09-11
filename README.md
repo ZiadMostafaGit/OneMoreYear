@@ -1,2825 +1,3653 @@
-# ἌΔΥΤΟΝ · ADYTON — The Two-Year Roadmap to Supreme Backend & Systems Engineering
+# 🗺️ The God-Level Backend Engineering Roadmap — v3
 
-## Eight complete university courses. One real system that needs all of them. Every lecture, lab and page linked.
+## From "I can build a REST API" → the engineer who gets handed the hardest system in the company
 
-**ἄδυτον** — *the innermost chamber; not to be entered.* What a person's private life is supposed to be, and currently is not.
-
-**Built for one person:** Ziad Mostafa Elsaid · Cairo, Egypt · Logic Leap · BSc Management Information Systems · Codeforces 1450 · targeting **backend engineering with a systems and infrastructure edge** at Cloudflare, Fastly, Tailscale, Datadog, Stripe, and the infrastructure organisations inside Google, Meta, Amazon and Microsoft.
-
-**Week 1 begins Monday 2026-09-14. Week 104 ends Sunday 2028-09-10.**
-🎯 **Applications open Week 56 — Monday 2027-10-04.** You do not wait for Year 2 to start interviewing.
-
-> This is not a reading list and not a topic list. It is a **training program with a verified source for every single thing in it.** Eight complete courses — **lectures and all labs** — are run to completion, each sequenced to land before the part of the system that needs it. Every lecture and every lab is **individually linked in the Course Atlas (§VII).** Every topic also carries **exact book pages** and **an engineered AI prompt**. Every topic is entered through a **failure you reproduce before you are allowed the explanation.** Every project has **numeric exit criteria.** Every market claim carries **its number from your own dataset of 569 postings.** Every week has a date.
+> **v3 is a rewrite, not a patch.** v2 was a very good *reading list with projects attached*. v3 is a **training program**: every topic is entered through a **failure you have to fix**, every project has **numeric exit criteria**, and every level ends with an **exam you either pass or repeat**. It also fixes the two holes that would have made v2 fatal for its stated goal — there was no algorithms track and no behavioral track, and those are half of every FAANG loop.
 
 ---
 
-## 📖 Contents
+## 📖 Table of Contents
 
-| # | Section |
-|---|---|
-| I | [The Problem Adyton Solves](#i--the-problem-adyton-solves) |
-| II | [The Seven Decisions](#ii--the-seven-decisions) |
-| III | [The Evidence Base](#iii--the-evidence-base) |
-| IV | [The Eight Laws](#iv--the-eight-laws) |
-| V | [The Learning System — the Three-Source Rule](#v--the-learning-system--the-three-source-rule) |
-| VI | [The AI Prompt System](#vi--the-ai-prompt-system) |
-| VII | [🔴 **THE COURSE ATLAS** — every lecture, every lab, every link](#vii--the-course-atlas) |
-| VIII | [The Four Tracks](#viii--the-four-tracks) |
-| IX | [The Spine: ADYTON](#ix--the-spine-adyton) |
-| X | [The Ten Flagships](#x--the-ten-flagships) |
-| XI | [The Level Map](#xi--the-level-map) |
-| XII | [Year One — Levels 0–6](#-level-0--the-machine) |
-| XIII | [Year Two — Levels 7–13](#-level-7--operations-and-the-shell-) |
-| XIV | [Track I — The Interview Machine](#-track-i--the-interview-machine) |
-| XV | [Track J — Craft, Career & Visibility](#-track-j--craft-career--visibility) |
-| XVI | [The 104-Week Calendar](#-the-104-week-calendar) |
-| XVII | [The Cut Order](#-the-cut-order) |
-| XVIII | [Assessment](#-assessment-the-three-proofs) |
-| XIX | [Tracking & Re-planning](#-tracking--re-planning) |
-| XX | [Résumé & GitHub Translation](#-résumé--github-translation) |
-| XXI | [The Library](#-the-library) |
-| XXII | [Project Catalog & Final Checklist](#-project-catalog--final-checklist) |
-
----
-
-## I — The Problem Adyton Solves
-
-**Right now, a person browsing the web is assembled.** Not watched — *assembled.* A tracker on a news site and a tracker on a shopping site share an identifier. A data broker joins those to a purchase record, a location history and a mobile advertising ID. An ISP in many jurisdictions sells the destination log legally. No single party sees your whole life; together they construct one profile that contains all of it, and that profile is sold, leaked, subpoenaed, and used to price things differently for you than for someone else.
-
-The existing answers all fail differently:
-
-| Answer | Why it fails for a normal person |
-|---|---|
-| **A VPN** | Moves the trust from your ISP to one company that sees everything. Single trust anchor, and an enormous incentive to log |
-| **Tor** | Correct, admirable, and **nearly unusable for daily life**: endless CAPTCHAs, blocked exits, banks locking accounts, logins breaking on circuit rotation, video that will not stream. The cause is structural — exit IPs are shared with abusers and **Tor cannot ban anyone**, because anonymity means no accountability |
-| **iCloud Private Relay** | Architecturally right — two hops, split trust — and proof it works at consumer scale. But Safari and Apple devices only, Apple as the single trust anchor, and **no per-identity compartments**: all your browsing in one bucket |
-| **Browser hardening alone** | A uniform fingerprint from a stable home IP is useless. **The IP identifies you** |
-
-**Adyton is the missing one:** an open, cross-platform **privacy relay network with per-identity compartmentalisation**, run by its users rather than a company, at latency a normal person will accept.
-
-### The product, stated exactly
-
-**It is not "nobody knows who I am."** When you log into Amazon, Amazon knows it is you — you told them. **It is: nothing can link your identities to each other.**
-
-Your shopping self, social self, work self and reading self get separate network paths, separate exit addresses, separate browser profiles, separate cookie jars — bound at the operating-system level so a leak between them is structurally prevented rather than merely unlikely. The tracker on the news site and the tracker on the shopping site see two unrelated strangers. Your ISP sees encrypted traffic to one relay and nothing else.
-
-> **The one sentence you are permitted to claim, for two years:**
-> **No company can assemble one profile that contains all of you.**
->
-> Never *"nobody can track you."* The first person who tests the overclaim dismantles it in one blog post, and nothing else you say gets believed — including the true parts you spent two years measuring.
-
-### Why this is a *great* engineering problem and not just a virtuous one
-
-**There is nowhere to hide from difficulty.** No central server to fall back on when you get lazy about consensus. No "the database" to lean on when you get lazy about distribution. There is an **actual adversary** — well-funded, technically strong, already deployed. And the failure mode is not a 500 error: **a bug in the packet parser is a deanonymisation vulnerability.**
-
-**It also forces, structurally, every skill on the list — and it is the only project on my list that needs all eight courses:**
-
-| Adyton needs | The course that teaches it | Corpus |
+| # | Section | What it is |
 |---|---|---|
-| Cache-aware packet layout, C at the metal, malloc, linking | **CMU 15-213** | 19.4% C++ |
-| Why TCP head-of-line-blocks unrelated circuits, and what QUIC fixes | **Stanford CS144** *(labs in C++)* | 14.8% networking |
-| Consensus, replication, linearizability, fork consistency | **MIT 6.5840** | **48.4%** distributed systems |
-| AEAD, key agreement, what "secure" formally means | **Boneh Crypto I** | 10.9% security |
-| Network namespaces, page tables, traps — the kernel mechanism | **MIT 6.1810** *(xv6, C)* | — |
-| Storage engines, B+trees, MVCC, logging, recovery | **CMU 15-445** *(projects in C++)* | 19.4% PostgreSQL |
-| Vectorized execution, code generation, cost models | **CMU 15-721** | database internals |
-| Threat models, sandboxing, TLS, **anonymous communication** | **MIT 6.858** | 10.9% security |
-
-**Nothing on that list is decoration.** Remove any of it and either Adyton does not work or you cannot explain why it does.
+| I | [The Five Laws](#i--the-five-laws) | How you're required to learn here |
+| II | [The Learning Loop](#ii--the-learning-loop-break--diagnose--theory--rebuild--measure--write) | The 6-step cycle every topic uses |
+| III | [The Three Tracks](#iii--the-three-tracks-run-them-in-parallel-every-week) | Depth / Interview / Portfolio |
+| IV | [The Portfolio Strategy](#iv--the-portfolio-strategy-how-to-build-projects-nobody-else-has) | What makes a project one-of-a-kind |
+| V | [The Spine Project: CHRONOS](#v--the-spine-project-chronos) | One system that grows across all 26 levels |
+| VI | [The 8 Flagship Projects](#vi--the-8-flagship-projects) | The ones that get you the interview |
+| VII | [Level Map](#vii--the-level-map) | All 14 levels and their dependencies |
+| VIII | Levels 0 → 6 + A → J | The actual curriculum |
+| IX | [Incident Archaeology](#63---incident-archaeology-rebuild-10-famous-outages) | Rebuild 10 real public outages |
+| X | [Assessment & Exit Exams](#-assessment-the-exit-exams) | Proof you actually learned it |
+| XI | [Honest Timelines](#-the-honest-timeline) | 3 realistic schedules, no lying |
+| XII | [Resume & GitHub Translation](#-turning-this-into-a-resume-and-a-github-that-converts) | How this becomes offers |
+| XIII | [The Complete Library](#-the-complete-library) | Books, courses, papers, blogs |
 
 ---
 
-## II — The Seven Decisions
+## I — The Five Laws
 
-**1. Two years, priced honestly.** The full-course version costs **2,485 hours ≈ 104 weeks at 32h/week.**
+These are not suggestions. They are what separates this roadmap from every "backend roadmap 2026" repo on GitHub.
 
-| | Hours |
-|---|---|
-| Eight complete courses — lectures **and all labs** | **1,095** |
-| Adyton build | 700 |
-| Track I — DSA + system design | 490 |
-| Career and craft | 200 |
-| **Total** | **2,485** |
+### Law 1 — Failure First. You do not get theory until you've been hurt by its absence.
 
-**What the second year buys:** eight completed courses with their labs, instead of eight courses' worth of named lectures. That is the difference between *"I watched the Raft lectures"* and *"I implemented Raft, then a sharded fault-tolerant key-value store on top of it, and MIT's test suite passes."* It is a real difference and interviewers can tell.
+Every topic in this roadmap opens with **🔥 The Wall** — a concrete broken system, a load test that collapses, a data corruption you caused, or a benchmark that's 50x slower than it should be. You must reproduce the failure *before* you're allowed to read the explanation.
 
-**What it costs:** twelve months. That is the honest price and you should keep seeing it.
+**Why:** Knowledge acquired to *resolve a felt confusion* is retained roughly permanently. Knowledge acquired from a blog post you agreed with is gone in nine days. Interviewers can hear the difference instantly — the candidate who says "MVCC lets readers not block writers" versus the one who says "I once had a 40-second query because a long-running read transaction blocked autovacuum and the table bloated to 6GB; that's when I actually understood what MVCC costs you."
 
-**2. 🎯 Applications open Week 56 (2027-10-04), not in Year 2.** This is the decision that makes the two-year plan affordable. **Waiting for the full course stack before applying would cost a year of senior-role salary for near-zero hiring benefit.** Year 1 ends with circuits, compartments, per-hop QUIC transport, a 30-node mesh and Raft-backed consensus — already a strong CV — and **Week 56 lands in the strongest autumn hiring window.** Year 2 is depth *while interviewing*, and every completed course makes you better in the loops you are already sitting.
+### Law 2 — Measure Everything. A number or it didn't happen.
 
-**3. ⚙️ C++ for the data plane, not Rust.** Reversed from the previous version, and the reasoning is better than the reasoning I had before.
+Every project in v3 has **📈 Exit Criteria**: specific numbers you must produce and defend. Not "build a cache" — *"p99 read latency drops from X to Y, hit rate ≥ 92% at steady state, and you can explain the 8% miss."*
 
-**Your entire course stack is C and C++.** 15-213 is C. CS144's labs are C++. 6.1810's xv6 labs are C. 15-445's projects are C++. Choosing Rust would mean training in C/C++ for two years and writing the product in something else. And C++ is **19.4% of backend postings and 23.4% of infrastructure postings**, against Rust's ~10% — it does not even appear in the top 28 backend skills.
+**Why:** "I built a caching layer" is a claim. "I cut p99 from 340ms to 21ms and here's the flame graph showing where the remaining 21ms lives" is evidence. Senior engineers speak in distributions and tradeoffs; juniors speak in nouns and frameworks.
 
-> **The C++ sentence. Memorise it, because it is the harder and better answer.**
->
-> *"This is a network daemon parsing hostile input from untrusted peers, where a memory bug is not a crash but a deanonymisation vulnerability. Rust gives you that safety by construction. I chose C++ and had to **earn** it: sanitizers on every CI run, libFuzzer on every parser, `std::span` instead of pointer-plus-length, no raw owning pointers in the parsing path, and a documented subset. Here are the three memory bugs my fuzzer found and how. That is the position almost every real systems codebase is actually in, and being the engineer who can hold that line is worth more than being the engineer who was handed it."*
+### Law 3 — Write It Down. Every project ships a document, not just code.
 
-🔴 **The condition, and it is not optional: the safety tooling is first-class scheduled work from Week 7, not an afterthought.** ASan + UBSan + TSan in CI · libFuzzer on every parser with a committed corpus · `-Wall -Wextra -Werror -fno-omit-frame-pointer` · `clang-tidy` with the `cppcoreguidelines` and `bugprone` checks · **and `docs/cpp-subset.md` stating what you do not use and why.** If you skip this, C++ was the wrong call and an interviewer will find out in ten minutes.
+Every flagship project produces a **design doc or teardown post** with: the problem, the options you rejected and why, the measurements, the failure modes you found, and what you'd do differently at 100x scale.
 
-**Four languages, each owning a real layer:**
+**Why:** Promotion at every large company is decided by written artifacts. Design docs, RFCs, and postmortems *are* the job at senior+. Also brutally practical: a well-written teardown post is the single highest-leverage thing you can put on the internet for getting inbound interest.
 
-| Language | Owns | Corpus | Courses that teach it |
+### Law 4 — Ship Publicly. If it's not on GitHub with a real README, it doesn't exist.
+
+Every project gets its own repo (not one mega-repo), a README with a diagram and a benchmark chart, and a `make demo` that works on a clean machine.
+
+**Why:** Recruiters and hiring managers scan for 20 seconds. A repo with a graph and a crisp README converts; a repo with 40 files and no README does not — regardless of the code quality inside.
+
+### Law 5 — Review on a Schedule. You will forget 80% of this without spaced repetition.
+
+Maintain one Anki deck (or plaintext equivalent) that you write yourself, one card per non-obvious fact. 15 minutes/day, non-negotiable. Cards you *write* work; decks you *download* don't.
+
+**Why:** This roadmap contains thousands of retrievable facts. Interviews are retrieval under stress. If you can't produce "quorum requires W + R > N" in 2 seconds while someone watches you, you don't know it.
+
+---
+
+## II — The Learning Loop (Break → Diagnose → Theory → Rebuild → Measure → Write)
+
+Every single topic in this document is structured as this 6-step loop. Do not skip steps. Do not reorder them.
+
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│  1. 🔥 BREAK      Reproduce the failure. Make it hurt. Take a screenshot. │
+│                   You may not read ahead until you've seen it break.     │
+├──────────────────────────────────────────────────────────────────────────┤
+│  2. 🔎 DIAGNOSE   Form a hypothesis. Instrument. Prove or kill it with    │
+│                   evidence — strace, perf, EXPLAIN, tcpdump, pprof.      │
+│                   Write the hypothesis down BEFORE you check.            │
+├──────────────────────────────────────────────────────────────────────────┤
+│  3. 📖 THEORY     NOW read. The article/chapter answers a question you    │
+│                   are actively holding in your head. Retention: ~10x.    │
+├──────────────────────────────────────────────────────────────────────────┤
+│  4. 🛠 REBUILD    Implement the fix. Then implement the *wrong* fix too   │
+│                   and prove why it's wrong. Both matter.                 │
+├──────────────────────────────────────────────────────────────────────────┤
+│  5. 📈 MEASURE    Before/after numbers. Chart it. Find the new bottleneck │
+│                   your fix exposed — there is always one.                │
+├──────────────────────────────────────────────────────────────────────────┤
+│  6. ✍️ WRITE      3–10 paragraphs: what broke, why, what you tried, what  │
+│                   the numbers said, what you'd do at 100x scale.         │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+**The compounding effect:** after ~40 of these loops you stop needing the roadmap. You will have built the reflex of "reproduce → instrument → hypothesize → measure," which is the actual skill that makes an engineer valuable. Everything else is vocabulary.
+
+---
+
+## III — The Three Tracks (run them in parallel, every week)
+
+The single biggest structural flaw in v2 was treating this as one linear pipeline. It isn't. Three independent things must be true on offer day, and they train differently.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ TRACK 1 — DEPTH (60% of your time)                                          │
+│ Levels 0–6, A–H. Systems knowledge. Builds the engineer.                    │
+│ Cadence: deep work blocks, 90–180 min. Progress measured in projects shipped.│
+├─────────────────────────────────────────────────────────────────────────────┤
+│ TRACK 2 — INTERVIEW (30% of your time)  ← COMPLETELY ABSENT FROM v2         │
+│ Level I. Algorithms, data structures, behavioral stories, mock loops.       │
+│ Cadence: 45–60 min DAILY from week 1. Never batched. Never skipped.         │
+│ You cannot cram this. 300 problems at 2/day = 5 months. Start on day one.   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ TRACK 3 — CRAFT & VISIBILITY (10% of your time)                             │
+│ Level J. Design docs, code review, OSS contributions, writing, network.     │
+│ Cadence: one artifact every 2 weeks. This is what generates inbound.        │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+> **Read this twice:** A candidate with world-class systems depth and no DSA practice **fails the phone screen and never reaches the system design round.** A candidate with 500 LeetCode problems and no depth gets an L3 offer and stalls there for six years. This roadmap makes you both — but only if you run all three tracks concurrently from week one.
+
+---
+
+## IV — The Portfolio Strategy: how to build projects nobody else has
+
+You correctly identified v2's biggest weakness: **the projects are the same projects everyone builds.** A task manager API. A URL shortener. A blog with GraphQL. A chat app. These are *tutorial completions*, and every hiring manager has seen 4,000 of them. They prove nothing except that you can follow a tutorial.
+
+### The Uniqueness Rubric — score every project before you start it
+
+A project is worth your time only if it scores **≥ 7/10**:
+
+| # | Criterion | Points | Test |
 |---|---|---|---|
-| **C++20** | `adyton-core` — onion crypto, Sphinx, per-hop QUIC, circuits, path selection, the relay daemon, shaping. **The entire data plane** | **19.4%** | 15-213, CS144 labs, 15-445 projects |
-| **Java 21** | `adyton-directory` — Raft, epoch documents; `adyton-credential` — Privacy Pass; the measurement aggregator and public gateway. **The stateful control plane** | **52.7%** | — (Track F block F12) |
-| **Go** | `adyton-edge` — NAT traversal (`pion/ice`), gossip, the client supervisor and CLI, netns orchestration, the browser launcher | 37.6% | **6.5840's five labs are Go** |
-| **Python** | `lab/` — the attack lab, AS-graph simulation, the WF classifier, benchmarks, DP analysis | 43.0% | 15-721 analysis work |
+| 1 | **Non-obvious premise** | 2 | Would a bootcamp grad think of this? If yes, 0 points. |
+| 2 | **Produces a measurement or artifact that doesn't exist yet** | 2 | Does it generate a chart, dataset, or comparison someone would actually cite? |
+| 3 | **Requires a hard idea to be correct, not just to run** | 2 | Is there an invariant that's *easy to violate silently*? |
+| 4 | **Demoable in 60 seconds** | 1 | Can you show it working in one terminal + one graph? |
+| 5 | **Buildable solo in ≤ 3 weeks** | 1 | Ambition that never ships is worth zero. |
+| 6 | **Has a natural "and then it broke" story** | 1 | Interview gold. Every project must have one. |
+| 7 | **You can explain it to a non-specialist in 2 sentences** | 1 | If you can't, recruiters can't pass it along. |
 
-**4. Budget: zero.** **Oracle Cloud always-free** (4 ARM cores / 24GB, no expiry) is the seed node, STUN/relay server and always-on mesh member. **AWS 12-month free tier — sign up Week 36**, so it covers the weeks you actually need multi-region nodes; billing alarm at $5 before any resource. **GCP $300/90-day credit** spent in one planned 72-hour window in Level 8. All eight courses are free.
+**Worked example — why "URL shortener" scores 2/10 and its replacement scores 9/10:**
 
-**5. Hardware: 64GB+ workstation.** What makes a 30–50 node local mesh feasible. **Measure the real ceiling in Week 2.**
-
-**6. Fully mobile — read this in Week 1.** **US H-1B cap registration is once a year, in March.** An October 2027 application for a cap-subject US role means register March 2028 → lottery → start October 2028. **Europe has no lottery** — Ireland's Critical Skills permit, the EU Blue Card, the Netherlands scheme and the UK Skilled Worker visa are continuous. **EMEA offices are the primary target, not the fallback.** *Verify current rules yourself in Week 1.*
-
-**7. 🌙 Two Ramadans, budgeted in advance.**
-**Ramadan 1448 ≈ 8 Feb – 9 Mar 2027 → weeks 22–26.** **Ramadan 1449 ≈ 28 Jan – 26 Feb 2028 → weeks 72–76.** Both budgeted at **20h/week, not 32**, with scope moved out in advance rather than discovered. **Eid al-Fitr** in weeks 26 and 76; **Eid al-Adha** ≈ 17 May 2027 (week 36) and ≈ 6 May 2028 (week 86), both at 26h.
-
----
-
-## III — The Evidence Base
-
-Everything traces to a dataset you collected in **August 2026: 569 verified postings, 83 companies, 937 distinct named skills.** Where a number is not stated, no claim is being made. Percentages are against **backend (n=93)** or **backend+infra (n=205)**, stated each time.
-
-### The degree question. Settled here. Never raised again.
-
-| Question | Answer | Of |
+| | URL Shortener | `pgshift` — online schema migrator |
 |---|---|---|
-| Postings requiring a PhD with no stated alternative | **5** (0.9%) | 569 |
-| Postings demanding a CS degree, no alternative field, no experience route | **1** (0.18%) | 569 |
-| — and that one is | **a student internship** | |
-| **Backend postings stating no degree requirement at all** | **51 of 93 (54.8%)** | 93 |
-| Backend postings that are CS-strict | 35 (37.6%) | 93 |
-| — of which carry an equivalent-experience clause | 19 | |
+| Non-obvious premise | ❌ 0 | ✅ 2 — most engineers have never done a zero-downtime migration |
+| Novel artifact | ❌ 0 | ✅ 2 — publishes lock-wait/latency graphs during a 50M-row backfill |
+| Hard correctness | ❌ 0 | ✅ 2 — dual-write consistency, backfill vs. live-write races |
+| Demoable | ✅ 1 | ✅ 1 — live Grafana panel while the migration runs under load |
+| ≤ 3 weeks | ✅ 1 | ✅ 1 |
+| Breakage story | ❌ 0 | ✅ 1 — "the backfill took an ACCESS EXCLUSIVE lock and took prod down" |
+| Explainable | ✅ 1 | ✅ 1 — "changes a database table's shape while it's serving traffic" |
+| **Total** | **2/10** | **9/10** |
 
-**More than half of backend postings state no degree gate at all.** Of the third that do, most carry the equivalent-experience clause. **That clause is the route, and something has to fill it.** Adyton plus eight completed courses is what fills it — and the courses matter here specifically, because *"I completed MIT 6.5840 including all five labs"* is the closest thing to a transcript that exists outside a university.
+### The Four Project Archetypes That Always Score High
 
-### What backend postings demand (n=93)
+1. **The Reimplementation with a Twist** — build the thing everyone uses, but with a property nobody's version has (a Redis clone that's *deterministically simulatable*; an HTTP/2 server that *passes the full conformance suite*).
+2. **The Instrument** — build the tool that *measures* something people argue about with no data (syscall cost per framework; real latency ladder on your own hardware; goodput under overload).
+3. **The Autopsy** — reproduce a famous real-world failure end-to-end, then fix it. Extremely rare, extremely credible.
+4. **The Adversary** — build the thing that *breaks* systems: a fuzzer, a consistency checker, a chaos harness, a fault injector. Anyone can build a system; almost nobody can build the thing that proves a system wrong.
 
-| Skill | Share | Skill | Share |
-|---|---|---|---|
-| **Java** | **52.7%** | System design | 23.7% |
-| AWS | 48.4% | GCP | 21.5% |
-| **Distributed systems** | **48.4%** | Kafka | 20.4% |
-| Python | 43.0% | **C++** | **19.4%** |
-| Go | 37.6% | CI/CD | 19.4% |
-| Mentoring | 36.6% | **PostgreSQL** | **19.4%** |
-| REST/API design | 34.4% | Microservices | 18.3% |
-| Communication | 34.4% | Data structures | 17.2% |
-| Scalability | 31.2% | On-call | 17.2% |
-| Collaboration | 31.2% | Docker | 17.2% |
-| Kubernetes | 30.1% | Testing | 15.1% |
+> **Rule:** at least **one of your flagship projects must be an Adversary project.** It is the single strongest signal of engineering maturity that exists in a portfolio, because it demonstrates you think in invariants and failure modes rather than features.
 
-### 🔴 The three findings that shaped this plan
+---
 
-**1. The operational shell matters more than the clever core.** Eight candidate projects modelled against all 569 postings:
+## V — The Spine Project: CHRONOS
 
-| What you add | Coverage, backend+infra |
+**The problem with v2's portfolio:** 30 disconnected toy projects. Real engineers are hired on the strength of *one system they own deeply*, not 30 they touched once.
+
+**v3 introduces a spine:** a single system you build across the entire roadmap, one milestone per level. By the end it is a real distributed system with tens of thousands of lines, a design doc history, a benchmark suite, and a chaos harness — and you know every line of it.
+
+### What Chronos is
+
+**A durable execution engine.** A mini-[Temporal](https://temporal.io)/AWS-Step-Functions: you write ordinary code, and the engine guarantees it *runs to completion exactly once*, surviving process crashes, machine failures, and multi-day waits — by recording every side effect to a log and deterministically replaying the function after a crash.
+
+**Why this is the perfect spine project:**
+
+- It is a **one-line pitch that lands instantly**: *"I built a workflow engine that makes ordinary functions crash-proof."*
+- It is **genuinely rare** on a portfolio. Thousands of people have built a chat app. Almost nobody has built durable execution.
+- It **structurally requires** almost every topic in this roadmap — you cannot fake your way through it:
+
+| Chronos needs… | …which forces you to master |
 |---|---|
-| Nothing — you today | **1.0%** |
-| A clever core with no operational shell | 6.5% |
-| The operational shell alone | 15.1% |
-| **Shell + a distributed-systems core** | **41.2%** |
-| **… + Java** | **58.8%** |
+| Task storage + leases | Postgres internals, indexes, `SKIP LOCKED`, transaction isolation |
+| Exactly-once side effects | Idempotency, outbox pattern, dedup keys, at-least-once vs exactly-once |
+| Deterministic replay | Event sourcing, purity/determinism, versioning, side-effect capture |
+| Timers ("sleep 30 days") | Timer wheels, durable scheduling, clock skew, monotonic vs wall clock |
+| Worker fleet + heartbeats | Leases, failure detection, split-brain, fencing tokens |
+| Retries + backoff | Exponential backoff w/ jitter, poison messages, DLQ, circuit breakers |
+| Multi-region / HA control plane | Raft, leader election, consensus, replicated state machines |
+| Scale-out | Sharding, consistent hashing, rebalancing, hot partitions |
+| Multi-tenant SaaS | Isolation, quotas, noisy-neighbor, per-tenant rate limits, cost accounting |
+| Observability | OpenTelemetry, traces spanning days, RED metrics, structured logs |
+| Correctness proof | Deterministic simulation testing, property tests, TLA+ spec |
+| Deployment | Docker, Kubernetes operator, CI/CD, blue-green, migrations under load |
 
-**The shell is never optional.** Level 7 delivers it *before* applications open, and §XVII says what to cut instead.
+### The 10 Chronos Milestones (one per level)
 
-**2. Java was worth more than any project choice: +14.1 points**, and 46.8% of your residual gap. Levels 6 and 10 are Java levels and they are not optional.
-
-**3. The interview ratio is inverted from what people assume.**
-
-| Round | Named in backend postings |
-|---|---|
-| **System design** | **76.3%** |
-| Algorithms / DSA | 18.3% |
-
-So **system design is a first-class daily track from Week 1.** But DSA is a *gate* — frequency is irrelevant when 100% of the loops contain two coding rounds, and the bar has risen. **~320h DSA aimed at hard-problem fluency, ~170h dedicated system design.**
-
-### The gaps no solo project can close
-**Mentoring 36.6% · Communication 34.4% · Collaboration 31.2% · Leadership 17.2%.** Adyton demonstrates none. **§XV.5 sources them deliberately from Logic Leap** — six specific situations, now spread across two years, which is easier than one.
-
-### 🔴 The split — read this twice
-Adyton has two halves doing different jobs. **The cryptographic and algorithmic core** — Sphinx, AS-aware path selection, guard-placement resistance, the shaping evaluation — is the real intellectual content and it is your forty-five-minute answer. **Graph algorithms are named in 0 of 569 postings.** **The operational shell** — running the mesh, sharding it, observing it, deploying it, breaking it, keeping it up — is what the screen reads.
-
-**Build the core because it is the answer and because a year of YAML will not sustain you for two years. Build the shell because it is what gets you read. Never confuse which is doing which job.**
-
----
-
-## IV — The Eight Laws
-
-**1. Failure First.** Every topic opens with **🔥 THE WALL** — a broken system you reproduce. **You may not read the explanation, open the lecture, or run the prompt until the failure is on your screen.** Knowledge acquired to resolve a felt confusion is retained permanently; knowledge from a video you nodded at is gone in nine days. Interviewers hear the difference instantly.
-
-**2. Courses are finished, not sampled.** Eight courses, **lectures and labs, to completion.** A course you watched half of is a topic you can name and not use. The Atlas (§VII) has a checkbox per lecture and per lab **because you are going to tick all of them.**
-
-**3. Three sources, one topic.** Every topic has a **course**, a **book location**, and an **AI prompt**. §V says how to choose. **"I don't know where to learn this" is never a valid reason to stall.**
-
-**4. ⚙️ In C++, safety is earned every single commit.** Sanitizers, fuzzers and the documented subset are not hygiene — **they are the argument for having chosen C++ at all.** A week where CI's sanitizer job is disabled is a week the language choice became indefensible.
-
-**5. Measure everything.** Every project ships **📈 EXIT CRITERIA** with numbers. **A speedup you cannot attribute to a named mechanism is a coincidence.**
-
-**6. Set the target before you measure. Record both numbers.** Every target here was written before any measurement existed. Some are wrong. **Record the pre-measurement target and the actual, side by side.** The pattern becomes `RETROSPECTIVE.md` in Week 103 — a document almost no candidate has.
-
-**7. Never trust the AI on a fact you will build on.** The prompts in §VI are the fastest teacher you have and they will also **confidently invent APIs, misstate a paper's result, and hand you a plausible algorithm that is subtly wrong.** Every AI-learned claim a design decision rests on gets verified against the course or the book.
-
-**8. Ship publicly, and honestly.** **You are never allowed to say "unsolved", "first", or "nobody has done this."** State the gap precisely instead — it is a stronger answer and the only one that survives an interviewer who knows Tor exists. And the permitted headline never changes: *no company can assemble one profile that contains all of you.*
-
----
-
-## V — The Learning System — the Three-Source Rule
-
-Every topic carries three entries. They do different jobs, and using the wrong one for the job is how people waste months.
-
-### 📺 THE COURSE — for building a model from nothing
-Use when the topic is **new to you as a whole area** and you need the model constructed in the right order by someone who has taught it twenty times and knows where students fall over. **Use it when** you could not currently draw the diagram, do not know the vocabulary, or cannot tell what the hard part is. **Do not use it when** you need one specific answer — a 25-lecture course to learn what a fencing token is is a catastrophic misuse of a week.
-
-**In this plan the courses are also the spine of Track C, and they are run to completion.** §VII is the Atlas.
-
-### 📕 THE PAGES — for precision and for coming back
-**Named chapters and sections. Never a whole book.** Use when you need the statement to be *exact*, when you will return to it, or when a lecture was hand-wavy about the thing you actually have to implement. **Use it when** you are about to write the code. **Do not use it when** you are still deciding whether a topic is relevant — skim the lecture first.
-
-### 🤖 THE PROMPT — for the gap, the block, and the check
-Use in **three situations and mostly not otherwise**: you are **blocked on one specific thing** and neither source addresses it directly (most common, enormously effective) · **two sources appear to disagree** and you need the disagreement named rather than smoothed over · **you believe you understand something and want that belief attacked** (the highest-value use and the one people skip).
-
-**The AI is not a substitute for the course. It is a substitute for the teaching assistant you do not have** — the person you could turn to and ask "wait, why does that not deadlock?"
-
-### The choosing rule
-
-| Your situation | Use |
-|---|---|
-| "I don't know what this area even contains" | 📺 Course, first 3 lectures |
-| "I need to implement this tomorrow" | 📕 Pages, then 🤖 TEACH on the one part still foggy |
-| "I'm stuck on one specific mechanism" | 🤖 TEACH. **Do not open a course** |
-| "Two sources disagree" | 🤖 BRIDGE |
-| "I think I understand it" | 🤖 INTERROGATE. **You will be wrong more often than you expect** |
-| "My code works but I don't know if it's right" | 🤖 REVIEW, then 🤖 ADVERSARY |
-| "A lab test fails and I can't see why" | 📕 the lab handout again, **line by line** — then 🤖 REVIEW. Course labs have precise specs and 90% of failures are a misread spec |
-| "I need to remember this in a year" | 📕 Pages + a spaced-repetition card in your own words |
-
----
-
-## VI — The AI Prompt System
-
-Five archetypes. 🔴 **Save these as files in `docs/prompts/` in Week 1 and paste them — do not retype from memory**, because the value is entirely in the structure and you will erode it.
-
-Each has **`[SLOTS]`** you fill. Every level and every Track F block supplies its own filled slots as a **prompt card**.
-
-### 🤖 PROMPT 1 — TEACH · the workhorse
-```
-You are a senior systems engineer teaching one specific thing to one specific person.
-You are not writing documentation and not writing a blog post. You are sitting next
-to me while I am stuck.
-
-WHO I AM
-Backend engineer, ~2 years professional. Self-taught CS, no CS degree — so assume my
-knowledge is deep in places and has holes in unpredictable places, and check rather
-than assume. Strong Python and Go, competent C++, learning Java 21. Working through
-CMU 15-213, Stanford CS144, MIT 6.5840, MIT 6.1810, CMU 15-445/721, MIT 6.858.
-I already understand: [PREREQ]
-I do NOT understand: [GAP]
-
-WHAT I AM BUILDING
-[CONTEXT — one sentence about the Adyton component]
-I am blocked on this specific decision: [THE DECISION]
-
-TEACH IT IN THIS ORDER. Do not reorder.
-1. THE FAILURE. What breaks without this? Show me the broken version concretely — the
-   actual mechanism, with a concrete sequence of events. No analogies.
-2. THE MINIMAL FIX. The smallest correct thing that prevents that failure, as code or
-   pseudocode I could actually run.
-3. WHY MY INSTINCT IS WRONG. Name the solution I would most likely have reached for on
-   my own, and show precisely where it breaks — the exact interleaving or input.
-4. WHAT PRODUCTION SYSTEMS ACTUALLY DO. How does [NAMED REAL SYSTEM] do this, what does
-   it do differently from the minimal version, and why?
-5. THE THREE THINGS PEOPLE GET WRONG. For each: the mistake, the symptom you would
-   observe, and how to tell it apart from the other two.
-
-RULES
-- Mechanism before analogy. If you use an analogy at all, use it after step 2.
-- Every performance or behavioural claim gets a number, or the words "I don't know the
-  number."
-- If something is genuinely contested, unsettled or version-dependent, say so
-  explicitly. Do not smooth it into false confidence.
-- If any part of my question contains a wrong assumption, correct that FIRST.
-- Assume I implement this tomorrow. Optimise for me being correct, not comfortable.
-
-THEN, at the end:
-- 5 questions whose answers would prove I understood, ordered easy to hard.
-- 1 small exercise whose OUTPUT would be visibly different if I had misunderstood. Tell
-  me what the right output looks like and what a misunderstanding would produce.
-- The single most likely way I will get this wrong in my own implementation.
-```
-
-### 🤖 PROMPT 2 — INTERROGATE · the one you will avoid
-**The highest-value prompt in the set and the one you will skip.** Run it at every level exit exam and after every completed course.
-```
-I am going to claim I understand [TOPIC]. Your job is to find out whether that is true,
-and you should assume it is only partly true.
-
-Interrogate me. Rules:
-- Ask ONE question at a time and wait for my answer. Never give me the answer first.
-- Start at "can you state it correctly," move to "can you apply it," then to "do you
-  know its limits and failure modes."
-- When I am vague, do not accept it. Ask me to be specific — a number, a sequence, an
-  interleaving, a concrete case.
-- When I am wrong, do not tell me the answer. Ask the question that makes the
-  contradiction visible to me.
-- Include at least one question about a case where the standard answer does NOT apply,
-  and at least one about what this costs.
-- After about 8 exchanges, stop and give me a verdict:
-    SOLID: [what I clearly understand]
-    SHAKY: [what I can state but not apply]
-    ABSENT: [what I do not know that I do not know]
-    GO READ: [the one specific source and section that fixes the biggest gap]
-
-Context: I am building [CONTEXT] and I need this right because [CONSEQUENCE].
-Begin with your first question. Nothing else.
-```
-
-### 🤖 PROMPT 3 — REVIEW · critique my implementation
-⚙️ **Note the C++-specific section 4 — this is the prompt that substitutes for the code reviewer you do not have, and in C++ that matters more than it would in Rust.**
-```
-Review this implementation of [COMPONENT] as a hostile senior reviewer who has
-maintained systems like this in production and has been paged at 3am because of code
-like this.
-
-CONTEXT
-Language: [LANG]. Part of [SYSTEM], on the [data plane / control plane].
-The invariant it must never violate: [INVARIANT]
-The failure consequence if it does: [CONSEQUENCE]
-Concurrency model: [e.g. one thread per circuit, shared state behind a shared_mutex]
-
-REVIEW IN THIS ORDER, and be concrete — quote the line
-1. CORRECTNESS. Any input, interleaving or failure timing that violates the invariant.
-   For each: the exact sequence of events. No style issues here.
-2. WHAT HAPPENS UNDER FAILURE. Process killed here / here / here. Network partition.
-   Disk full. Peer sends malformed input. Clock jumps backwards.
-3. RESOURCE BEHAVIOUR. What is unbounded? Every queue, buffer, map and retry — is there
-   a bound, and what happens at the bound?
-4. ⚙️ C++ MEMORY AND LIFETIME SAFETY. Specifically: any raw pointer or reference whose
-   lifetime is not obviously tied to an owner; any span/string_view outliving its
-   buffer; iterator invalidation; integer overflow or signed/unsigned confusion in
-   length arithmetic; any place a hostile length field could drive an allocation or an
-   index; anything ASan/UBSan/TSan would catch that my tests would not; and any use of
-   a construct my documented subset forbids.
-5. THE SECURITY READ. This parses hostile input from untrusted peers. What does an
-   attacker who controls the input do? What does a timing difference leak?
-6. WHAT I APPEAR TO HAVE MISUNDERSTOOD. Not bugs — evidence in the code that my mental
-   model of the problem is wrong.
-7. Only now: readability and idiom.
-
-RULES
-- Rank findings by consequence, worst first. Say "no finding" for a category rather than
-  inventing one.
-- If the code is fine in a category, say so plainly. Do not manufacture concerns.
-- For every finding give the smallest fix, not a redesign — unless a redesign is
-  genuinely the answer, in which case say why the small fix is a trap.
-
-CODE:
-[paste]
-```
-
-### 🤖 PROMPT 4 — BRIDGE · when sources disagree
-```
-I have two sources that appear to disagree, or a gap between them I cannot close.
-
-SOURCE A says: [claim, and where it is from]
-SOURCE B says: [claim, and where it is from]
-What I am trying to decide: [DECISION]
-
-1. Are they actually in conflict, or answering different questions? Be precise about
-   the scope of each claim.
-2. If it is a real disagreement: what changed between them — a different threat model,
-   workload, decade of hardware, or definition of a shared term?
-3. Which applies to MY case, and what specifically about my case decides it?
-4. What is the third position neither takes, and is it better?
-5. What would I have to measure to settle this myself, and is it cheap enough to be
-   worth measuring rather than reasoning about?
-
-Flag explicitly if you are uncertain which is right, or if the field has not settled
-this. Do not pick a side for the sake of giving me an answer.
-```
-
-### 🤖 PROMPT 5 — ADVERSARY · think like the attacker
-Adyton's whole subject is an adversary. Run this on every security-relevant component and on the threat model itself at every phase boundary.
-```
-You are an attacker. Your goal is to defeat the privacy property below, and you are
-competent, well-resourced and patient.
-
-THE SYSTEM: [component description]
-THE PROPERTY IT CLAIMS: [e.g. "an observer cannot link identity A's traffic to B's"]
-YOUR CAPABILITIES: [e.g. you run one relay; you observe one AS; you control 5% of
-peers; you operate a website the user visits]
-WHAT YOU DO NOT HAVE: [e.g. you cannot observe the whole network; you cannot break
-X25519]
-
-Produce:
-1. The 5 most promising attacks, ordered by expected success and NOT by cleverness.
-   Boring attacks that work beat elegant ones that do not.
-2. For each: the concrete steps, what you observe, what you infer, and — critically —
-   HOW MANY OBSERVATIONS you need before your confidence is meaningful.
-3. Which of these the stated threat model already concedes, versus which are claimed to
-   be defended and are not.
-4. The cheapest defence for each, and what it costs in latency, bandwidth or usability.
-5. The one attack the defender is most likely to have not thought about at all.
-
-Be specific and quantitative. If an attack's feasibility depends on a number I have not
-given you (mesh size, traffic volume, AS coverage), tell me which number decides it and
-what the threshold is.
-```
-
----
-
-## VII — THE COURSE ATLAS
-
-> **Eight courses, run to completion. Every lecture and every lab has a checkbox, because you are going to tick all of them.**
->
-> **How to read this.** Each course has its lecture table and its lab table. The levels in §XII–XIII reference this Atlas by lecture number — *"Atlas → 6.5840 L6–L7"* — rather than repeating links, so the links live in exactly one place and stay maintainable.
->
-> **On URLs.** Every link below returned HTTP 200 when this document was written. Course sites move and re-number by year; **if a link dies, the pattern is almost always `.../<year>/...` and the current year's page is one search away.** Where a per-lecture video URL does not stably exist, the Atlas gives **the playlist plus the exact lecture number and title** — a two-click lookup — rather than a fabricated video ID. **One course, CS144, wipes its handouts every academic year and is flagged accordingly.**
->
-> ⏱ **Total: 1,095 hours.** Track C runs at **11h/week in Year 1, 8h/week in Year 2.**
-
-### The sequence — why each course lands when it does
-
-| Weeks | Course | h | Lands before |
+| Milestone | After Level | What you build | The invariant you must prove |
 |---|---|---|---|
-| **1–16** | **CMU 15-213** — Computer Systems | 200 | Everything. It is the foundation and it is C |
-| **17–21** | **Boneh — Cryptography I** | 50 | **Level 2**, the onion protocol |
-| 22–26 | *🌙 Ramadan 1448 — reduced. 15-213/Boneh catch-up only* | 25 | — |
-| **27–38** | **Stanford CS144** — Networking *(C++ labs)* | 130 | **Level 4**, the transport |
-| **39–52** | **MIT 6.5840** — Distributed Systems *(Go labs)* | 190 | **Level 6**, the directory |
-| **53–70** | **MIT 6.1810** — OS Engineering *(xv6, C)* | 180 | **Level 7's** deep isolation work, and everything about the kernel |
-| 71 | *slack* | 10 | — |
-| 72–76 | *🌙 Ramadan 1449 — reduced. Lectures only* | 20 | — |
-| **77–90** | **CMU 15-445** — Database Systems *(C++ projects)* | 150 | **Level 10**, the credential store |
-| **91–100** | **CMU 15-721** — Advanced Database Systems | 85 | **Level 12's** performance work |
-| **95–104** | **MIT 6.858** — Systems Security | 110 | Runs alongside **Levels 12–13**, the release |
+| **C0** | 0 | A single-process job runner using raw epoll + a memory-mapped append log | Survives `kill -9` at any instruction with no torn records |
+| **C1** | 1 | gRPC API + protobuf task schema + streaming status | Client and server can be independently versioned without breakage |
+| **C2** | A | Clean hexagonal core: engine has zero imports from storage or transport | Swap Postgres→in-memory with one line; full engine test suite runs in <2s |
+| **C3** | 2 | Postgres-backed durable queue with `FOR UPDATE SKIP LOCKED` leases | No task ever runs twice concurrently, under 64 workers × 10k tasks |
+| **C4** | B | Docker Compose stack → Kubernetes with a real CRD + operator | `kubectl apply -f workflow.yaml` runs a workflow; operator reconciles |
+| **C5** | D | Deterministic simulation harness: simulated clock, network, disk | 10,000 randomized fault schedules, 0 invariant violations, seed-reproducible |
+| **C6** | 3 | Raft-replicated control plane (your own Raft, from 6.5840) | Survives leader kill mid-commit; no committed workflow is ever lost |
+| **C7** | 4 | Adaptive concurrency, load shedding, circuit breaking, full observability | Holds p99 SLO under 10x overload by shedding, not collapsing |
+| **C8** | 5 | Sharded, multi-tenant, saga support, event-sourced history + snapshots | Rebalance shards live with zero dropped tasks; per-tenant isolation proven |
+| **C9** | 6 | The full design doc + public teardown post + hosted demo | A stranger can understand the architecture in 10 minutes |
 
-> 🔴 **Two exceptions, pulled forward out of sequence because Adyton needs them early:**
-> **6.858 Lecture 1 (threat models)** in **Week 7**, and **6.858 Lecture 19 (anonymous communication, the Tor paper)** in **Week 12**. Watch those two standalone; the full course still runs late.
+> **The interview payoff:** when an interviewer asks "tell me about the most technically challenging thing you've built," you have a 45-minute answer with diagrams, measurements, three real bugs you found via simulation testing, and a defensible reason for every tradeoff. That answer alone is worth more than everything else in this document.
 
 ---
 
-## 📺 COURSE 1 — CMU 15-213: Introduction to Computer Systems
-**Weeks 1–16 · 200h · C** · Schedule and slides: **https://www.cs.cmu.edu/~213/schedule.html** · Book: *CS:APP* 3rd ed. · Self-study labs: **https://csapp.cs.cmu.edu/3e/labs.html**
+## VI — The 8 Flagship Projects
 
-> **Why it is first and why it is the longest.** This is the course that makes you not-a-tourist in systems. Every later course assumes it. And Adyton's data plane is C++ on packet buffers — `malloclab` and `cachelab` are not academic exercises for you, they are your product's hot path.
+These are the satellites around Chronos. Each is standalone, each is rare, each is 1–3 weeks, each scores ≥ 8/10 on the rubric. **Build at least 5.**
 
-### Lectures — 25
-
-| # | Lecture | CS:APP | ✓ |
-|---|---|---|---|
-| 1 | Overview | Ch. 1 | ☐ |
-| 2 | Bits, Bytes & Integers | §2.1–2.3 | ☐ |
-| 3 | Machine Programming I: Basics | §3.1–3.6 | ☐ |
-| 4 | Machine Programming II: Control | §3.6–3.7 | ☐ |
-| 5 | Machine Programming III: Procedures | §3.7–3.9 | ☐ |
-| 6 | Machine Programming IV: Data | §3.10–3.11 | ☐ |
-| 7 | Linking | Ch. 7 | ☐ |
-| 8 | Design and Debugging | §9.10–9.12 | ☐ |
-| 9 | 🔴 **The Memory Hierarchy** | §6.1–6.3 | ☐ |
-| 10 | 🔴 **Cache Memories** | §6.4–6.7 | ☐ |
-| 11 | Virtual Memory: Concepts | §9.1–9.6 | ☐ |
-| 12 | Virtual Memory: Details | §9.7–9.8 | ☐ |
-| 13 | Dynamic Memory Allocation: Basic | §9.9 | ☐ |
-| 14 | Dynamic Memory Allocation: Advanced | §9.10–9.12 | ☐ |
-| 15 | 🔴 **Code Optimization** | Ch. 5 | ☐ |
-| 16 | Processes and Multitasking | §8.1–8.4 | ☐ |
-| 17 | Exceptional Control Flow | §8.5–8.8 | ☐ |
-| 18 | System Level I/O and File Systems | Ch. 10 | ☐ |
-| 19 | File Systems / Network Programming I | §11.1–11.4 | ☐ |
-| 20 | Network Programming II | §11.4–11.6 | ☐ |
-| 21 | Concurrent Programming | §12.1–12.3 | ☐ |
-| 22 | Synchronization: Basic | §12.4, 12.5.1–3 | ☐ |
-| 23 | Synchronization: Advanced | §12.5.4–5, 12.7–8 | ☐ |
-| 24 | Thread-Level Parallelism | §12.6 | ☐ |
-| 25 | Frontiers of Computing | — | ☐ |
-
-### Labs — 9, all self-contained for self-study
-
-| Lab | Handout | Why it matters to Adyton | ✓ |
-|---|---|---|---|
-| L0 | C Programming Lab *(from the schedule page)* | Baseline C fluency | ☐ |
-| L1 **Data Lab** | [datalab-handout.tar](https://csapp.cs.cmu.edu/3e/datalab-handout.tar) | Bit-level ops — the Sphinx header is bit-level | ☐ |
-| L2 **Bomb Lab** | [bomb.tar](https://csapp.cs.cmu.edu/3e/bomb.tar) | Reading disassembly. **The single best debugging education there is** | ☐ |
-| L3 **Attack Lab** | [target1.tar](https://csapp.cs.cmu.edu/3e/target1.tar) | 🔴 **You exploit a buffer overflow yourself.** This is why your parser is fuzzed | ☐ |
-| L4 **Cache Lab** | [cachelab-handout.tar](https://csapp.cs.cmu.edu/3e/cachelab-handout.tar) | 🔴 Direct input to Level 0's layout decisions | ☐ |
-| L5 **Malloc Lab** | [malloclab-handout.tar](https://csapp.cs.cmu.edu/3e/malloclab-handout.tar) | 🔴 You write an allocator. Adyton's packet pools are this | ☐ |
-| L6 **Shell Lab** | [shlab-handout.tar](https://csapp.cs.cmu.edu/3e/shlab-handout.tar) | Signals, process groups, reaping — the node supervisor | ☐ |
-| L7 **Proxy Lab** | [proxylab-handout.tar](https://csapp.cs.cmu.edu/3e/proxylab-handout.tar) | 🔴 **A concurrent caching web proxy. Adyton's relay is this, hardened** | ☐ |
-| L8 | Performance Lab *(optional)* — [perflab-handout.tar](https://csapp.cs.cmu.edu/3e/perflab-handout.tar) | Kernel optimisation practice | ☐ |
-
-🤖 **PROMPT 1** for the block you will get stuck on · `GAP:` why my malloclab throughput is fine and utilisation is terrible · `CONTEXT:` designing Adyton's per-circuit packet buffer pool · `THE DECISION:` segregated free lists vs a single coalescing list for fixed-size onion cells · `NAMED REAL SYSTEM:` jemalloc's size classes
-
----
-
-## 📺 COURSE 2 — Boneh: Cryptography I
-**Weeks 17–21 · 50h** · Slides and structure: **https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/** · Free textbook: **https://toc.cryptobook.us/** (*A Graduate Course in Applied Cryptography*, Boneh & Shoup) · Videos: the course's Coursera lectures, free to audit
-
-> **Why weeks 17–21.** Level 2 is the onion protocol and it starts week 12 — so weeks 17–21 run *alongside* it, which is the right order: you hit the crypto wall in the build, then the course explains it properly. **Do weeks 1–4 and 6 before week 19.**
-
-| Week | Module | Adyton needs it for | ✓ |
-|---|---|---|---|
-| 1 | Stream ciphers, one-time pad, PRGs, semantic security | What "secure" formally means | ☐ |
-| 2 | Block ciphers: DES, AES, CBC/CTR modes, CPA security | Mode choice and why | ☐ |
-| 3 | Message integrity: MACs, CBC-MAC, HMAC, collision resistance | 🔴 The per-hop MAC in the Sphinx header | ☐ |
-| 4 | 🔴 **Authenticated encryption, TLS case study, padding attacks, key derivation** | 🔴 **AEAD and HKDF — the key schedule** | ☐ |
-| 5 | Basic key exchange: Merkle puzzles, Diffie–Hellman, number theory | The groundwork | ☐ |
-| 6 | 🔴 **Public-key encryption: RSA, ElGamal, trapdoor permutations** | X25519 and the handshake | ☐ |
-| 7 | Digital signatures | 🔴 **Level 10's blind signatures** | ☐ |
-
-🤖 **PROMPT 1** · `GAP:` why raw X25519 output must not be used as a key and what HKDF's `info` is for · `CONTEXT:` deriving per-hop keys for a Sphinx header from one ephemeral exchange · `THE DECISION:` whether one DH output can safely produce header key, payload key and next-hop blinding factor · `NAMED REAL SYSTEM:` the Noise protocol key schedule, and Lightning's BOLT #4
-
----
-
-## 📺 COURSE 3 — Stanford CS144: Introduction to Computer Networking
-**Weeks 27–38 · 130h · C++** · Course site: **https://web.stanford.edu/class/cs144/** · Video lectures: **[playlist PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z)** (Levis & McKeown)
-
-> 🔴 **The single best networking education that exists, and its labs are in C++ — which is now your data-plane language.** Over eight checkpoints you build a working TCP: a byte stream, a reassembler, a receiver, a sender, a full connection, then an ARP-speaking network interface and an IP router. **Level 4 assumes you have done this.** After it you will never again be vague about retransmission, windows, or why loss hurts — and you will understand *why* QUIC made each of its choices instead of repeating that it is better.
-
-⚠️ **HANDOUT WARNING — verified, act on it.** **CS144 clears its assignment repository every academic year and keeps no official archive.** The `cs144.github.io` paths that circulate online are dead. **In Week 26, before the course starts: go to the live course site, download every checkpoint PDF and the starter repo, and commit them to your own private mirror.** If you do not, you will lose access mid-course. This is the only course in the Atlas with this problem and it is the reason for the warning.
-
-### Checkpoints — 8 (the "Minnow" framework, C++)
-
-| # | Checkpoint | What you build | ✓ |
-|---|---|---|---|
-| 0 | **Networking warmup** | `webget` — a minimal HTTP client — plus an in-memory reliable **byte stream** | ☐ |
-| 1 | **Stitching substrings** | The **reassembler**: turn out-of-order, overlapping segments into an ordered stream | ☐ |
-| 2 | **The TCP receiver** | Sequence numbers, wrapping, the window | ☐ |
-| 3 | **The TCP sender** | 🔴 Retransmission timers, backoff, the send window. **The hardest checkpoint** | ☐ |
-| 4 | **Interoperating** | Your TCP talks to the real internet, **replacing the kernel's socket** | ☐ |
-| 5 | **The network interface** | ARP, sending IP datagrams over Ethernet | ☐ |
-| 6 | **The IP router** | Longest-prefix-match forwarding | ☐ |
-| 7 | **Putting it together / end-to-end** | The whole stack, and the performance work | ☐ |
-
-### Lecture topics — watch alongside the checkpoints
-The four-layer model · packet switching and statistical multiplexing · **the byte-stream abstraction** · reliable delivery, stop-and-wait, sliding window · **TCP in detail: connection setup, teardown, flow control** · 🔴 **congestion control: AIMD, slow start, fast retransmit/recovery** · routing (link-state, distance-vector) · **inter-domain routing and BGP** · packet queueing and delay · NAT and middleboxes · security: attacks on TCP/IP.
-
-🤖 **PROMPT 1** · `GAP:` mechanically why in-order delivery makes one circuit's loss stall another's, at the segment level · `CONTEXT:` deciding whether Adyton multiplexes circuits over one connection per relay pair, as Tor does · `THE DECISION:` per-hop QUIC versus one TCP per link · `NAMED REAL SYSTEM:` Tor's `or_connection` multiplexing, and QUIC's stream independence
-
----
-
-## 📺 COURSE 4 — MIT 6.5840 (6.824): Distributed Systems
-**Weeks 39–52 · 190h · Go** · Schedule with all papers: **https://pdos.csail.mit.edu/6.824/schedule.html** · Videos: **[playlist PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB](https://www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB)** (Robert Morris)
-
-> 🔴 **Distributed systems is 48.4% of your backend postings — tied for the highest single technical skill in your corpus. This course is how you earn it.** One paper per lecture. **Read the paper before the lecture, every time** — the lecture is a discussion of the paper, not a substitute for it.
-> **The five labs are Go**, which is Adyton's edge language, so the labs and the product reinforce each other.
-
-### Lectures — 22, with the assigned paper
-
-| # | Lecture | Paper | Adyton | ✓ |
+| # | Project | Level | One-line pitch | Why it's rare |
 |---|---|---|---|---|
-| 1 | Introduction | MapReduce (2004) | Grounding | ☐ |
-| 2 | RPC and Threads | — | The Go edge layer | ☐ |
-| 3 | GFS | GFS (2003) | The canonical "failure is normal" design | ☐ |
-| 4 | 🔴 **Paxos** | Paxos | **ADR-0004: the alternative you rejected** | ☐ |
-| 5 | Go patterns | "The Go Programming Language and Environment" | Lab technique | ☐ |
-| 6 | 🔴 **Fault Tolerance: Raft (1)** | Raft extended (2014) | 🔴 **Level 6** | ☐ |
-| 7 | 🔴 **Fault Tolerance: Raft (2)** | Raft extended (2014) | 🔴 **Level 6 — the half people skip** | ☐ |
-| 8 | 🔴 **Consistency and Linearizability** | Linearizability | **ADR-0005: the consistency model** | ☐ |
-| 9 | 🔴 **Zookeeper** | ZooKeeper (2010) | 🔴 **Adyton's exact shape: consensus in a small set, reads served widely** | ☐ |
-| 10 | Q&A Lab 3A+B | — | Lab support | ☐ |
-| 11 | Distributed Transactions | 6.033 ch. 9 | System design answers | ☐ |
-| 12 | Spanner | Spanner (2012) | Clocks, and TrueTime's honesty about them | ☐ |
-| 13 | Chain Replication | CR (2004) | **The second alternative considered** | ☐ |
-| 14 | Optimistic Concurrency Control | FaRM (2015) | Ties to 15-445's CC lectures | ☐ |
-| 15 | Verification of distributed systems | IronFleet (2015) | Why you TLA+ the barrier protocol | ☐ |
-| 16 | Cache Consistency: Memcached at Facebook | Memcached at FB (2013) | A canonical design-round answer | ☐ |
-| 17 | AWS Lambda | On-demand Container Loading (2023) | Modern infra | ☐ |
-| 18 | Ray | Ray (2021) | Modern infra | ☐ |
-| 19 | 🔴 **Fork Consistency, SUNDR** | SUNDR (2004) | 🔴🔴 **THE most important lecture in the Atlas for this project — see below** | ☐ |
-| 20 | Peer-to-peer: Bitcoin | Bitcoin (2008) | Sybil framing, and why you have no chain | ☐ |
-| 21 | 🔴 **Byzantine Fault Tolerance** | PBFT (1999) | 🔴 **Level 10: why you chose the lighter model** | ☐ |
-| 22 | Project demos | — | — | ☐ |
+| 1 | **`c10k-arena`** | 0 | The same echo server built 6 ways — process-per-conn, thread-per-conn, thread pool, epoll, io_uring, goroutines — benchmarked to 50k connections | Almost nobody has actually *measured* this. The `io_uring` implementation alone puts you in a small club. |
+| 2 | **`h2spec-clean`** | 1 | An HTTP/2 server written from scratch (HPACK, framing, flow control, multiplexing) that passes the full `h2spec` conformance suite | "146/146 conformance tests passing" is an unfakeable, verifiable claim |
+| 3 | **`pgshift`** | 2 | Zero-downtime online schema migration: expand/contract + chunked backfill of 50M rows while serving 1k writes/s | A skill every company desperately needs and almost no candidate has practiced |
+| 4 | **`elle-lite`** | D | A linearizability/consistency checker — and you use it to find a **real** anomaly in a real, misconfigured system | Adversary archetype. Proves you think in invariants. Extremely senior signal. |
+| 5 | **`simd`** | D/3 | Deterministic simulation testing harness for Chronos: simulated time, network, and disk; 10k seeds; every bug reproducible from a seed integer | The FoundationDB/TigerBeetle technique. Vanishingly rare in portfolios. |
+| 6 | **`overload`** | E | Adaptive concurrency limiter + load-shedding lab that publishes goodput-vs-offered-load curves showing collapse vs. graceful degradation | Everyone talks about backpressure; nobody has the graph |
+| 7 | **`incident-lab`** | 6 | Local reproductions of 6 famous public outages (S3 2017, GitHub 2018, Cloudflare 2019, Slack 2022, …), each with a working fix | The Autopsy archetype. Nothing else on a resume reads like this. |
+| 8 | **`llmgw`** | G | An LLM inference gateway: token-aware rate limiting, semantic caching, request batching, streaming, per-tenant cost accounting, failover | The most in-demand backend infra skill of 2026, and the projects out there are shallow wrappers |
 
-### Labs — 5, all Go
+**Each flagship ships with:** its own repo · a README with an architecture diagram and a results chart · a `make demo` that works clean · a written teardown · benchmarks that someone else can reproduce.
 
-| Lab | Handout | ✓ |
-|---|---|---|
-| 1 **MapReduce** | [lab-mr.html](https://pdos.csail.mit.edu/6.824/labs/lab-mr.html) | ☐ |
-| 2 **Key/Value Server** | [lab-kvsrv1.html](https://pdos.csail.mit.edu/6.824/labs/lab-kvsrv1.html) | ☐ |
-| 3 🔴 **Raft** | [lab-raft1.html](https://pdos.csail.mit.edu/6.824/labs/lab-raft1.html) | ☐ |
-| 4 🔴 **Fault-tolerant KV service on Raft** | [lab-kvraft1.html](https://pdos.csail.mit.edu/6.824/labs/lab-kvraft1.html) | ☐ |
-| 5 🔴 **Sharded KV service** | [lab-shard1.html](https://pdos.csail.mit.edu/6.824/labs/lab-shard1.html) | ☐ |
+---
 
-> ### 🔴 Why Lecture 19 matters more to Adyton than any other lecture in the Atlas
+## VII — The Level Map
+
+v2 had 9 levels with a confusing 0-1-A-2-B-3-4-5-6 numbering. v3 has 14, named by domain, with explicit dependencies.
+
+```
+                  ┌──────────────────────────────────────────┐
+                  │ TRACK 2: LEVEL I — THE INTERVIEW MACHINE  │
+                  │ DSA · Behavioral · Mocks · Negotiation    │
+                  │ RUNS DAILY, WEEK 1 → OFFER DAY            │
+                  └──────────────────────────────────────────┘
+                  ┌──────────────────────────────────────────┐
+                  │ TRACK 3: LEVEL J — SENIOR CRAFT           │
+                  │ Design docs · Code review · OSS · On-call │
+                  │ ONE ARTIFACT EVERY TWO WEEKS              │
+                  └──────────────────────────────────────────┘
+
+TRACK 1 — DEPTH:
+
+  LEVEL 0 ─────────► LEVEL 1 ─────────┐
+  Machine &          Protocols &      │
+  OS Foundations     Communication    │
+      │                               │
+      ├──────────► LEVEL C ───────────┤
+      │            Language &         │
+      │            Runtime Mastery    │
+      │                               │
+      ├──────────► LEVEL A ───────────┤
+      │            Code Architecture  │
+      │            & Design Patterns  │
+      │                               │
+      └──────────► LEVEL 2 ───────────┤
+                   Databases &        │
+                   Storage Engines    │
+                       │              │
+                       ▼              ▼
+                   LEVEL D ◄────► LEVEL B
+                   Testing,       DevOps, Containers
+                   Correctness &  & Orchestration
+                   Verification
+                       │              │
+                       ▼              ▼
+                   LEVEL 3 ◄────► LEVEL 4 ◄────► LEVEL E
+                   Distributed    Infrastructure  Performance
+                   Systems Core   & Reliability   Engineering
+                       │              │              │
+                       └──────┬───────┴──────────────┘
+                              ▼
+                          LEVEL 5 ◄────► LEVEL F ◄────► LEVEL G
+                          Advanced       Cloud & Data    AI/ML Systems
+                          Architecture   Platform        Infrastructure
+                              │              │              │
+                              └──────┬───────┴──────────────┘
+                                     ▼
+                                 LEVEL H
+                                 Security, Privacy
+                                 & Compliance
+                                     │
+                                     ▼
+                                 LEVEL 6
+                                 System Design Mastery
+                                 + Incident Archaeology
+```
+
+| Level | Name | New in v3? | Why it exists |
+|---|---|---|---|
+| **0** | Machine & OS Foundations | rebuilt | The mental hardware model. Everything sits on it. |
+| **1** | Protocols & Communication | rebuilt | How processes talk. At the byte level. |
+| **C** | Language & Runtime Mastery | 🆕 **NEW** | GC, memory model, profilers, allocator. v2 had zero of this — it's where most "senior" candidates fall apart. |
+| **A** | Code Architecture & Patterns | expanded | The layer between "it works" and "it survives 3 years." |
+| **2** | Databases & Storage Engines | expanded | Where your data actually lives and how it gets corrupted. |
+| **D** | Testing, Correctness & Verification | 🆕 **NEW** | Property tests, fuzzing, DST, Jepsen, TLA+. The rarest and most senior skill set in the industry. |
+| **B** | DevOps, Containers & Orchestration | expanded | Own your service end to end. |
+| **3** | Distributed Systems Core | expanded | Consensus, replication, time. The hard one. |
+| **4** | Infrastructure & Reliability | expanded | Load balancing, caching, rate limiting, resilience, observability. |
+| **E** | Performance Engineering | 🆕 **NEW** | Profiling, flame graphs, queueing theory, backpressure, load shedding. v2 said "benchmark it" 12 times and never taught how. |
+| **5** | Advanced Architecture | expanded | Microservices, event sourcing, sagas, multi-tenancy, migrations. |
+| **F** | Cloud & Data Platform | 🆕 **NEW** | AWS/GCP primitives, object storage, batch, columnar, warehouses, streaming ETL. |
+| **G** | AI/ML Systems Infrastructure | 🆕 **NEW** | 2026 reality: inference serving, vector search, RAG infra, GPU scheduling, token economics. |
+| **H** | Security, Privacy & Compliance | expanded | AuthN/Z, crypto, threat modeling, PII, GDPR, supply chain. |
+| **6** | System Design Mastery | expanded | Synthesis + Incident Archaeology + 20 canonical designs. |
+| **I** | 🎯 The Interview Machine | 🆕 **NEW** | DSA, behavioral, mocks, resume, negotiation. **Non-optional.** |
+| **J** | 🧭 Senior Craft & Visibility | 🆕 **NEW** | Design docs, RFCs, code review, OSS, on-call, cost, influence. |
+
+---
+## ⚡ LEVEL 0 — Machine & OS Foundations
+
+> **Goal:** build the mental hardware model. When someone says "why is it slow," you should be able to name the layer before you open a profiler.
 >
-> Adyton's directory has a requirement that sounds like performance and is actually privacy: **every client must see the same epoch view of the mesh, because if two clients see different peer sets, that difference is itself a fingerprint that distinguishes them.**
+> **⏱ Budget:** 90–130 hours · **Chronos milestone:** C0 · **Exit exam:** §0.X
+
+---
+
+### 0.1 — Memory Hierarchy: why your code is 60x slower than it should be
+
+> 🔥 **THE WALL**
+> Write two functions that both sum the same 4096×4096 `int32` matrix. One traverses row-major, one column-major. **Identical Big-O. Identical instruction count.** Run them. The column-major version is 5–60x slower depending on your machine.
 >
-> That is precisely a **fork attack**, and **fork consistency** is the property that constrains it: a malicious directory can split clients into divergent views, but **cannot do so indefinitely without the split becoming detectable.** SUNDR is where this is worked out; Certificate Transparency is the deployed system built on the same idea.
+> Now write a struct with two `int64` counters and have two threads increment one each, in a tight loop. Then pad the struct so the counters land on different 64-byte cache lines. **Same work. 3–10x throughput difference.**
 >
-> **It reframes Level 6 from "run Raft" into "build a directory whose forks are detectable"** — a materially stronger design and a materially better interview answer. You would not have found it searching for "peer-to-peer consensus."
+> **You are not allowed to read the next section until both numbers are on your screen.**
 
-🤖 **PROMPT 4 (BRIDGE)**, week 50 · `SOURCE A:` Raft gives linearizable consensus among the authorities, so they agree on epoch N · `SOURCE B:` SUNDR shows a malicious server can still fork clients' views of a consistent log · `DECISION:` what Raft actually buys Adyton's *clients*, and what I must add — hash chaining, client-side gossip of epoch hashes, or both
+#### 🔎 Diagnose (before you read anything)
 
----
-
-## 📺 COURSE 5 — MIT 6.1810: Operating System Engineering
-**Weeks 53–70 · 180h · C, RISC-V** · Schedule: **https://pdos.csail.mit.edu/6.1810/2024/schedule.html** · The xv6 book: **https://pdos.csail.mit.edu/6.1810/2024/xv6/book-riscv-rev4.pdf**
-
-> **Why Year 2.** Adyton's compartments (Level 3) use network namespaces from *above* — you make them work by Week 27 without needing to know how the kernel implements them. This course is where you stop treating the kernel as a black box, and it lands before Level 7's deep isolation and Level 11's chaos work. **Nine labs where you modify a real, small, complete operating system.**
-
-### Lectures — 22
-
-| # | Lecture | Reading | ✓ |
-|---|---|---|---|
-| 1 | Introduction | xv6 book ch. 1 | ☐ |
-| 2 | C in xv6 | K&R §2.9, 5.1–5.6, 6.4 | ☐ |
-| 3 | OS design | xv6 book ch. 2 | ☐ |
-| 4 | 🔴 **Page tables** | xv6 book ch. 3 | ☐ |
-| 5 | System call entry/exit | xv6 book ch. 4 (except 4.6) | ☐ |
-| 6 | GDB and calling conventions | RISC-V calling convention doc | ☐ |
-| 7 | Page faults | xv6 book §4.6 | ☐ |
-| 8 | Q&A labs | — | ☐ |
-| 9 | Device drivers | xv6 book ch. 5 | ☐ |
-| 10 | 🔴 **Locking** | xv6 book "Locking" | ☐ |
-| 11 | Scheduling 1 | xv6 book "Scheduling" through §7.4 | ☐ |
-| 12 | Coordination | remainder of "Scheduling" | ☐ |
-| 13 | File systems | xv6 `bio.c`, `fs.c`, `sysfile.c`, `file.c` | ☐ |
-| 14 | 🔴 **Crash recovery** | `kernel/log.c` + logging sections | ☐ |
-| 15 | File system performance | Journaling ext2fs paper | ☐ |
-| 16 | Virtual memory for applications | Virtual Memory Primitives paper | ☐ |
-| 17 | OS Organization | Micro-Kernel-Based Systems paper | ☐ |
-| 18 | Virtual Machines | Dune paper | ☐ |
-| 19 | Kernels and high-level languages | RedLeaf paper | ☐ |
-| 20 | 🔴 **Networking** | Receive Livelock paper | ☐ |
-| 21 | 🔴 **Meltdown** | Meltdown paper | ☐ |
-| 22 | Multi-core scalability and RCU | RCU paper | ☐ |
-
-### Labs — 9
-
-| Lab | Handout | Why it matters to Adyton | ✓ |
-|---|---|---|---|
-| **util** | [util.html](https://pdos.csail.mit.edu/6.1810/2024/labs/util.html) | Unix utilities; xv6 orientation | ☐ |
-| **syscall** | [syscall.html](https://pdos.csail.mit.edu/6.1810/2024/labs/syscall.html) | You add a syscall. The boundary you cross per packet | ☐ |
-| 🔴 **pgtbl** | [pgtbl.html](https://pdos.csail.mit.edu/6.1810/2024/labs/pgtbl.html) | Page tables by hand — the mechanism behind every isolation claim | ☐ |
-| **traps** | [traps.html](https://pdos.csail.mit.edu/6.1810/2024/labs/traps.html) | Trap frames, backtraces, alarms | ☐ |
-| **cow** | [cow.html](https://pdos.csail.mit.edu/6.1810/2024/labs/cow.html) | Copy-on-write fork — why process isolation is cheap | ☐ |
-| 🔴 **net** | [net.html](https://pdos.csail.mit.edu/6.1810/2024/labs/net.html) | 🔴 **You write a network device driver.** The other end of CS144 | ☐ |
-| **lock** | [lock.html](https://pdos.csail.mit.edu/6.1810/2024/labs/lock.html) | Removing lock contention — Level 12's problem, in miniature | ☐ |
-| **fs** | [fs.html](https://pdos.csail.mit.edu/6.1810/2024/labs/fs.html) | Large files, symlinks, the on-disk format | ☐ |
-| **mmap** | [mmap.html](https://pdos.csail.mit.edu/6.1810/2024/labs/mmap.html) | Demand paging — ties to 15-213's VM lectures | ☐ |
-
-🤖 **PROMPT 1** · `GAP:` what a network namespace actually *is* in kernel data structures, now that I have written page tables and a driver · `CONTEXT:` I have been using netns for Adyton's compartments since Week 20 without knowing the mechanism · `THE DECISION:` whether anything inside a namespace can observe or reach the host's network stack · `NAMED REAL SYSTEM:` the Linux `net_namespace` struct and how veth pairs are wired
-
----
-
-## 📺 COURSE 6 — CMU 15-445/645: Database Systems
-**Weeks 77–90 · 150h · C++** · Schedule with slides, notes and videos: **https://15445.courses.cs.cmu.edu/fall2024/schedule.html** · Book: *Database System Concepts* (free chapters linked per lecture)
-
-> **Why Adyton needs a database course.** Its Java control plane has two real stores: the **epoch store** — a versioned, immutable-once-published document set read concurrently while a new version is being written, which is MVCC — and the **credential store**, which needs durability, recovery and garbage collection of spent tokens. Levels 6 and 10 are much better with this course behind them. **And its five projects are C++**, which is your data-plane language.
-
-### Lectures — 25
-
-| # | Lecture | Adyton | ✓ |
-|---|---|---|---|
-| 0 | Course Overview & Logistics | — | ☐ |
-| 1 | Relational Model & Algebra | Grounding | ☐ |
-| 2 | Modern SQL | The metadata store | ☐ |
-| 3 | Database Storage I | Page layout | ☐ |
-| 4 | Database Storage II | — | ☐ |
-| 5 | 🔴 **Storage Models & Compression** | The compact AS-graph encoding shipped in the epoch document | ☐ |
-| 6 | 🔴 **Memory Management** (buffer pool) | Ties to 15-213 malloclab | ☐ |
-| 7 | Hash Tables | The replay seen-set | ☐ |
-| 8 | Indexes & Filters I | Bloom filters for the seen-set | ☐ |
-| 9 | Indexes & Filters II | — | ☐ |
-| 10 | Index Concurrency Control | Latch crabbing — the circuit table | ☐ |
-| 11 | Sorting & Aggregations | — | ☐ |
-| 12 | Joins | — | ☐ |
-| 13 | Query Execution I | Ties to 15-721 | ☐ |
-| 14 | Query Execution II | — | ☐ |
-| 15 | Query Planning & Optimization | — | ☐ |
-| 16 | 🔴 **Concurrency Control Theory** | Serialisability, the vocabulary | ☐ |
-| 17 | Two-Phase Locking | — | ☐ |
-| 18 | Timestamp Ordering | — | ☐ |
-| 19 | 🔴 **Multi-Version Concurrency Control** | 🔴 **The epoch store is an MVCC store** | ☐ |
-| 20 | 🔴 **Database Logging** | The credential store's durability | ☐ |
-| 21 | 🔴 **Database Recovery** (ARIES) | Crash recovery, properly | ☐ |
-| 22 | Introduction to Distributed Databases | — | ☐ |
-| 23 | Distributed OLTP | Ties to 6.5840's transactions lecture | ☐ |
-| 24 | Distributed OLAP | Ties to 15-721 | ☐ |
-| 25 | Final Review + Systems Potpourri | — | ☐ |
-
-### Projects — 5, C++ (BusTub)
-
-| Project | What you build | ✓ |
-|---|---|---|
-| **P0** C++ Primer | Modern C++ warm-up — **and a good check on your subset discipline** | ☐ |
-| 🔴 **P1** Buffer Pool Manager | LRU-K replacer, page guards, disk scheduler | ☐ |
-| 🔴 **P2** Database Index | **A concurrent B+Tree.** The hardest project | ☐ |
-| **P3** Query Execution | Volcano-model operators | ☐ |
-| 🔴 **P4** Concurrency Control | MVCC with snapshot isolation | ☐ |
-
-🤖 **PROMPT 4 (BRIDGE)** · `SOURCE A:` 15-445 lecture 19 — MVCC keeps multiple versions and garbage-collects the unreachable ones · `SOURCE B:` Adyton's epoch documents are immutable, signed and hash-chained, and clients only ever read the current one · `DECISION:` whether my epoch store genuinely needs MVCC, or whether immutability plus a validity window has already solved the problem a different way
-
----
-
-## 📺 COURSE 7 — CMU 15-721: Advanced Database Systems
-**Weeks 91–100 · 85h** · Schedule with all papers: **https://15721.courses.cs.cmu.edu/spring2024/schedule.html** · Videos: **[playlist PLSE8ODhjZXjYa_zX-KeMJui7pcN1rIaIJ](https://www.youtube.com/playlist?list=PLSE8ODhjZXjYa_zX-KeMJui7pcN1rIaIJ)**
-
-> **The honest placement.** Adyton is not a database. **~6 of these lectures serve it directly** — vectorized execution and code generation for Level 12's forwarding-path optimisation and the attack lab's AS-path computation over millions of candidate circuits; scheduling and NUMA for the relay's thread model; networking protocols for the wire format. **The rest is a parallel career investment**, and a good one: this material is *directly* what **Confluent, Databricks, ClickHouse, Snowflake and StarTree** interview on, and that tier is unusually remote-friendly and a strong fit for you.
-> **Watch it also for the method** — paper, then what industry shipped, then the measurement. That posture is what this whole roadmap is trying to build in you.
-
-| # | Lecture | Key paper(s) | Adyton | ✓ |
-|---|---|---|---|---|
-| 0 | Course Overview | — | — | ☐ |
-| 1 | Modern Analytical Database Systems | Lakehouse (CIDR'21); Composable Data Management (VLDB'23) | — | ☐ |
-| 2 | Data Formats & Encoding I | Columnar Storage Formats (VLDB'23) | Compact epoch encoding | ☐ |
-| 3 | Data Formats & Encoding II | FastLanes (VLDB'23); BtrBlocks (SIGMOD'23); BitWeaving (SIGMOD'13) | 🔴 AS-graph compression | ☐ |
-| 4 | Query Execution & Processing I | MonetDB/X100 (CIDR'05); Vertica (ICDE'13) | — | ☐ |
-| 5 | Query Execution & Processing II | Velox (VLDB'22); Meta's Lakehouse (CIDR'23) | — | ☐ |
-| 6 | 🔴 **Vectorized Query Execution** | SIMD Investments (VLDBJ'20); Rethinking SIMD (SIGMOD'15) | 🔴 **Batch packet processing; AS-path scoring** | ☐ |
-| 7 | 🔴 **Code Generation & Compilation** | Neumann (VLDB'11); Krikellas (ICDE'10) | The selector's hot loop | ☐ |
-| 8 | 🔴 **Scheduling & Coordination** | Morsel-Driven Parallelism (SIGMOD'14); NUMA-aware Scans (VLDB'15) | 🔴 **The relay's thread model** | ☐ |
-| 9 | Hash Join Algorithms | Schuh (SIGMOD'16); Richter (VLDB'15) | — | ☐ |
-| 10 | Multi-Way Join Algorithms | Worst-Case Optimal Joins (VLDB'20) | — | ☐ |
-| 11 | Server-side Logic Execution | Froid (VLDB'17); UDF Batching (CIDR'24) | — | ☐ |
-| 12 | 🔴 **Networking Protocols** | Client Protocol Redesign (VLDB'17); ConnectorX (VLDB'22) | 🔴 Wire-format design | ☐ |
-| 13 | Optimizer Implementation I | Chaudhuri (PODS'98); Cascades (1995) | — | ☐ |
-| 14 | Optimizer Implementation II | Unnesting Queries (BTW'15); Dynamic Programming (SIGMOD'08) | — | ☐ |
-| 15 | Optimizer Implementation III | Plan Stitch (VLDB'18); Neo (VLDB'19) | — | ☐ |
-| 16 | 🔴 **Cost Models** | Leis (VLDB'15); LEO (VLDB'01) | 🔴 **Adyton's path-selection scoring IS a cost model** | ☐ |
-| 17 | System Analysis: Google Dremel/BigQuery | Dremel (VLDB'20, VLDB'10) | Design-round material | ☐ |
-| 18 | System Analysis: Databricks/Spark | Photon (SIGMOD'22); Delta Lake (VLDB'20) | Design-round material | ☐ |
-| 19 | System Analysis: Snowflake | Elastic Warehouse (SIGMOD'16); Disaggregated Storage (NSDI'22) | Design-round material | ☐ |
-| 20 | System Analysis: DuckDB | DuckDB (SIGMOD'19); MotherDuck (CIDR'24) | Design-round material | ☐ |
-| 21 | System Analysis: Yellowbrick | Yellowbrick on K8s (CIDR'24) | — | ☐ |
-| 22 | System Analysis: Amazon Redshift | Redshift Re-Invented (SIGMOD'22) | Design-round material | ☐ |
-
-> **Note on videos:** ~14 of the 22 lectures have recordings; the rest have slides and the assigned papers only. **For the eight without video, the papers are the lecture** — which is the more useful skill anyway.
-
----
-
-## 📺 COURSE 8 — MIT 6.858: Computer Systems Security
-**Weeks 95–104 · 110h** · Schedule with lecture notes and papers: **https://css.csail.mit.edu/6.858/2022/schedule.html** · Full video lectures (2014 edition): **MIT OpenCourseWare 6.858** — `ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/`
-
-> **Why it is last, and the two lectures pulled forward.** Adyton is a security system, so this course *should* be first — except that its most valuable lectures are only meaningful once you have a system to apply them to, and Levels 12–13 are release and threat-model publication, which is exactly when you want it. **But two lectures cannot wait:**
->
-> 🔴 **Lecture 1 (Introduction, threat models) → watch in Week 7**, before you write `docs/threat-model.md` v1.
-> 🔴 **Lecture 19 (Anonymous communication, the Tor paper) → watch in Week 12**, at the start of the onion level. **This is the single lecture in the entire Atlas whose subject *is* Adyton.**
-
-| # | Lecture | Reading | ✓ |
-|---|---|---|---|
-| 1 | 🔴 **Introduction, threat models** *(→ Week 7)* | — | ☐ |
-| 2 | Security architecture | Google Infrastructure Security (2017) | ☐ |
-| 3 | User authentication | "Your password doesn't matter" (2019); U2F (2016) | ☐ |
-| 4 | 🔴 **Buffer overflow defenses** | Baggy bounds checking (2009) | ☐ |
-| 5 | Privilege separation | OKWS (2004) | ☐ |
-| 6 | OS and VM isolation | Firecracker (2020) | ☐ |
-| 7 | Software fault isolation | WebAssembly (2017) | ☐ |
-| 8 | Sandboxing libraries | RLBox (2020) | ☐ |
-| 9 | Client device security | iOS Security (2019) | ☐ |
-| 10 | Android security | Android Platform Security Model (2019) | ☐ |
-| 11 | Symbolic execution | EXE (2006) | ☐ |
-| 12 | Web security model | Web security overview (2022) | ☐ |
-| 13 | 🔴 **Network security** | Security Problems in TCP/IP (2004) | ☐ |
-| 14 | Secure channels | Analysis of SSL 3.0 (1996) | ☐ |
-| 15 | 🔴 **Certificates** | SSL and HTTPS (2013) | ☐ |
-| 16 | Information security in real life | *(guest)* | ☐ |
-| 17 | Messaging security | Secure messaging (2015) | ☐ |
-| 18 | IoT security: Azure Sphere | *(guest)* | ☐ |
-| 19 | 🔴🔴 **Anonymous communication** *(→ Week 12)* | **Tor (2004)** | ☐ |
-| 20 | 🔴 **CPU timing attacks** | On Spectre and Meltdown (2019) | ☐ |
-| 21 | Hardware security | *(guest)* | ☐ |
-| 22 | Zoom security | E2E Encryption for Zoom (2021) | ☐ |
-| 23 | Project presentations | — | ☐ |
-
-### Labs — 5
-
-| Lab | Handout | Why it matters ⚙️ | ✓ |
-|---|---|---|---|
-| 🔴 **1 Buffer overflows** | [lab1.html](https://css.csail.mit.edu/6.858/2022/labs/lab1.html) | 🔴 **You exploit and then defend C memory bugs. This is the lab that justifies your C++ subset** | ☐ |
-| **2 Privilege separation** | [lab2.html](https://css.csail.mit.edu/6.858/2022/labs/lab2.html) | The relay's process model | ☐ |
-| **3 Symbolic execution** | [lab3.html](https://css.csail.mit.edu/6.858/2022/labs/lab3.html) | Complements fuzzing — a second bug-finding technique | ☐ |
-| **4 Browser security** | [lab4.html](https://css.csail.mit.edu/6.858/2022/labs/lab4.html) | 🔴 Directly relevant to Level 3's compartments | ☐ |
-| **5 Final project** | [lab5.html](https://css.csail.mit.edu/6.858/2022/labs/lab5.html) | 🔴 **Use Adyton. Submit your own threat model and attack lab as the project** | ☐ |
-
-🤖 **PROMPT 5 (ADVERSARY)** after lecture 19 · `SYSTEM:` Adyton, whole · `PROPERTY:` *no company can assemble one profile that contains all of you* · `CAPABILITIES:` you are an ad-tech firm with trackers on 60% of the top 10,000 sites, you buy broker data, and you operate one Adyton relay · `WHAT YOU DO NOT HAVE:` you cannot observe the whole network and you cannot break the crypto. **Run this at Week 100 and put the result in `docs/threat-model.md`.**
-
----
-
-### 📋 The Atlas at a glance
-
-| Course | Lectures | Labs/Projects | Hours | Weeks |
-|---|---|---|---|---|
-| CMU 15-213 | 25 | 9 | 200 | 1–16 |
-| Boneh Crypto I | 7 modules | psets | 50 | 17–21 |
-| Stanford CS144 | ~20 | 8 checkpoints | 130 | 27–38 |
-| MIT 6.5840 | 22 | 5 | 190 | 39–52 |
-| MIT 6.1810 | 22 | 9 | 180 | 53–70 |
-| CMU 15-445 | 25 | 5 | 150 | 77–90 |
-| CMU 15-721 | 22 | — | 85 | 91–100 |
-| MIT 6.858 | 23 | 5 | 110 | 95–104 |
-| **TOTAL** | **~166 lectures** | **41 labs/projects** | **1,095** | |
-
-🔴 **166 lecture checkboxes and 41 lab checkboxes. Tick every one.** That is the artifact — and *"eight courses completed including all forty-one labs"* is the closest thing to a transcript that exists outside a university, which is precisely what the equivalent-experience clause in 37.6% of backend postings is asking you for.
-
----
-
-## VIII — The Four Tracks
-
-```
-┌───────────────────────────────────────────────────────────────────────────────┐
-│ TRACK C — COURSES  (Y1: 11h/wk · Y2: 8h/wk)                          NEW     │
-│ The eight courses in §VII, run to completion, lectures AND labs.             │
-│ Sequenced so each lands before the part of Adyton that needs it.             │
-├───────────────────────────────────────────────────────────────────────────────┤
-│ TRACK D — DEPTH  (Y1: 11h/wk · Y2: 10h/wk)                                    │
-│ Adyton. Long weekend blocks. Nothing hard is built in 45-minute slices.       │
-├───────────────────────────────────────────────────────────────────────────────┤
-│ TRACK I — INTERVIEW  (Y1: 8h/wk · Y2: 10h/wk)                                 │
-│ DSA + SYSTEM DESIGN. DAILY from week 1. Never batched, never skipped.        │
-├───────────────────────────────────────────────────────────────────────────────┤
-│ TRACK J — CRAFT & CAREER  (Y1: 2h/wk · Y2: 4h/wk)                             │
-│ Design docs, ADRs, writing, Arti PRs, referrals, CV, applications, and the    │
-│ Logic Leap evidence. Referrals open WEEK 20. Applications open WEEK 56.       │
-└───────────────────────────────────────────────────────────────────────────────┘
-```
-
-**Year 1 week: 32h = 11 Courses / 11 Depth / 8 Interview / 2 Craft.**
-**Year 2 week: 32h = 8 Courses / 10 Depth / 10 Interview / 4 Career.**
-
-Your shape: **4h weekdays + 6h each weekend day.** **Weekday evenings are lectures, reading, DSA and system design. The weekend blocks are labs and Adyton** — course labs and protocol work both need uninterrupted hours and neither survives being chopped into evenings.
-
-> **Read twice.** Depth without the interview track means nobody sees the depth — you fail the phone screen and never reach system design. The interview track without depth gets you an L4 offer and a six-year stall. **Courses without Adyton makes you a very well-educated person with nothing to show.** Adyton without courses makes you someone who built one thing and cannot generalise. **If you have only one hour on a given day, spend it on Track I** — it is the only track that degrades irreversibly when skipped.
-
-**Budget:** 104 × 32 = 3,328 nominal. −176 (eight rest weeks at 10h) −108 (nine Ramadan weeks at 20h) −12 (two Eid weeks at 26h) −**~550 of genuine slack and buffer** = **~2,485 hours of planned work**, which is exactly the §II total.
-
-| Track | Hours | Share |
-|---|---|---|
-| Courses — the eight, complete | ~1,095 | 44% |
-| Depth — Adyton | ~700 | 28% |
-| Interview — DSA ~320h + design ~170h | ~490 | 20% |
-| Craft & Career | ~200 | 8% |
-
----
-
-## IX — The Spine: ADYTON
-
-### What it is
-
-**An open, cross-platform privacy relay network with per-identity compartmentalisation, made of its users.** Every person running Adyton is a node: their device, on their home connection, forwards other users' onion-encrypted traffic — traffic it cannot read — to other peers. It is a **peer mesh**, not servers you operate. Free-tier cloud nodes bootstrap it; **they are not the mesh.**
-
-**The pitch:** *"iCloud Private Relay's architecture, but open, cross-platform, run by its users, and with the thing Apple doesn't have — per-identity compartments, so your shopping self and your reading self cannot be linked. And it can ban abusers without deanonymising anyone, which is the thing Tor structurally cannot do."*
-
-### 🔴 The honesty statement — say this FIRST, every time
-
-> Onion routing is not new and I did not invent it. **Tor has run it in production since 2003**, has millions of users, and is the right tool for anyone whose safety depends on it. **Arti**, the Tor Project's Rust implementation, shipped 2.0.0 in February 2026. **Nym** and **Loopix** take the stronger-anonymity corner of the trade-off. **Apple's iCloud Private Relay** proves two-hop split trust works at consumer scale. **Sphinx**, **Astoria**, **Counter-RAPTOR**, **DeNASA**, **CLAPS**, **WTF-PAD** and **Privacy Pass** are all published work I implement rather than invent.
-
-**The gaps that are actually real, and each is measurable:** no deployed QUIC transport for onion routing — papers only · no deployed AS-aware path selection — Astoria, Counter-RAPTOR, DeNASA and CLAPS are published and **none runs anywhere** · **no open, measured guard-placement-resistant selection** — Wan et al. showed AS-aware selection becomes *predictable* and nobody has published the trade-off curve · no open, cross-platform, low-latency peer mesh with per-identity compartments and accountable abuse handling.
-
-**The sentence you are allowed to say:** *"Onion routing is solved and Tor does it better than I ever will. What isn't deployed anywhere is AS-aware path selection, and the reason is a 2019 result showing it makes your selector predictable. I implemented it, built the attack against my own selector, and published the trade-off curve."*
-
-### 🔴 The scale statement — the other thing you say unprompted
-
-> **This mesh is 30–50 nodes I run on one workstation, plus free-tier cloud nodes in real regions, plus a deterministic simulator modelling up to 10,000 peers.** It has never had ten thousand strangers on it. Anything about scale beyond fifty nodes is measured in simulation, and the simulator is validated against the real mesh where both run — `docs/analysis/sim-fidelity.md`. **A simulator you have not validated is a fantasy generator.**
-
-### The design thesis — the anonymity trilemma
-
-Das, Meiser, Mohammadi and Kate proved (*Anonymity Trilemma*, IEEE S&P 2018) that **strong anonymity, low latency and low bandwidth overhead cannot coexist. Pick two.** **Adyton takes low latency and low bandwidth overhead, and explicitly gives up strong anonymity against a global passive adversary.** No cover traffic, no mixing delays. **You read this paper in Week 7**, because every subsequent decision descends from it.
-
-### Two layers, composed
-
-```
-Browser layer   →  Mullvad Browser, UNMODIFIED   (makes you look like everyone else)
-Network layer   →  ADYTON                        (makes you come from somewhere else)
-```
-
-Neither works alone: a uniform fingerprint from a stable home IP is useless because the IP identifies you; a hidden IP with a unique fingerprint is useless because the fingerprint does. **Trackers use whichever still works.** Mullvad Browser — built jointly by Mullvad and the Tor Project — normalises by *uniformity*, and its own documentation says it does not hide your IP and must be paired with a trusted network layer. **That is the hole Adyton fills.**
-
-> **The rule: change as little as possible about the browser. Do all the work in the network layer.** Every customisation makes your users distinguishable from the crowd they hide in. **A Mullvad Browser fork is actively harmful.**
-
-### Identity model
-**One unmodified Mullvad Browser profile instance per identity** — separate profile directory, separate process, bound to its own circuit at the OS level (network namespace on Linux; per-instance SOCKS endpoint elsewhere). **A stronger boundary than browser containers, not a weaker one.** Ephemeral by default, wiped on close. **Named persistent identities opt-in**, each pinned to its own exit permanently. 🔴 **One leak across compartments defeats the entire product** — which is why `leakproof` is in CI from Week 27 and never allowed to go red.
-
-### Threat model
-**In scope:** cross-site trackers · ad-tech and data brokers · ISPs that log and sell destinations · a single malicious relay · site operators · local network observers · abusive Adyton users · sybil attackers.
-**Out of scope, stated not hidden:** a global passive adversary (the trilemma choice) · a nation-state targeting one user (**use Tor**) · an adversary controlling both your guard and your exit (two hops means two nodes is the whole path — guard stickiness and AS-aware selection reduce the probability and do not eliminate it, and **that probability is measured in `lab/` and published, not asserted**) · a malicious site running scripts · **you logging in** — by design.
-
-### ⚙️ The component map — C++ data plane, Java control plane
-
-| Component | Language | Appears | Purpose |
-|---|---|---|---|
-| `adyton-core/crypto` | **C++20** | W13 | X25519, AEAD, HKDF via **libsodium**; zeroizing secret types |
-| `adyton-core/sphinx` | **C++20** | W15 | Constant-size onion packets, single-pass construction |
-| `adyton-core/transport` | **C++20** | W29 | Per-hop QUIC via **ngtcp2** + BoringSSL; **fingerprint normalisation** |
-| `adyton-core/circuit` | **C++20** | W32 | Circuit build, teardown, health, stream multiplexing |
-| `adyton-core/select` | **C++20** | W67 | AS-aware path selection, guard policy, controlled randomness |
-| `adyton-core/shape` | **C++20** | W93 | Padding and timing defence under a latency budget |
-| `adyton-node` | **C++20** | W9 | The relay daemon. **Middle-only by construction** |
-| `adytond` | **C++20** | W21 | Client daemon: identities, circuits, SOCKS, kill switch |
-| `adyton-edge/nat` | Go | W38 | NAT traversal (`pion/ice`), hole punching, relay fallback |
-| `adyton-edge/gossip` | Go | W36 | SWIM membership, phi-accrual failure detection |
-| `adyton-edge/launch` + `/cli` | Go | W22 | netns orchestration, browser launcher, `adyton identity …` |
-| `adyton-directory` | **Java 21** | W44 | **Raft, epoch documents, hash chaining, peer admission** |
-| `adyton-measure` | **Java 21** | W48 | Bandwidth/latency probing from multiple vantage points |
-| `adyton-credential` | **Java 21** | W77 | **Privacy Pass issuance, revocation, rate limiting** |
-| `adyton-aggregate` | **Java 21** | W86 | DP-budgeted telemetry aggregation (Prio/PrivCount-style) |
-| `adyton-gateway` | **Java 21** | W80 | Public API, quotas, OpenAPI, WebSocket live status |
-| `lab/asgraph`, `lab/attacks` | Python | W59 | CAIDA topology, correlation, guard placement, sybil |
-| `lab/meshsim` | Python+Go | W40 | Deterministic simulation of the mesh |
-| `lab/wf` | Python | W93 | WF classifier, shaping evaluation |
-| `lab/bench` | Python | W2 | The benchmark harness, used for two years |
-
-**⚙️ The C++ dependency set — you implement none of these:** **libsodium** (X25519, ChaCha20-Poly1305, BLAKE2b, `sodium_memcmp`, `sodium_memzero`) · **ngtcp2** + **BoringSSL** (QUIC) · **GoogleTest** (unit) · **RapidCheck** (property-based testing) · **libFuzzer** (clang, with a committed corpus) · **CMake** + **vcpkg**.
-
-**ADR-0002 — the Rust/Go/Java boundary:** Go does NAT **signalling and hole punching** (`pion/ice` is the mature stack and it is Go), then hands the punched UDP socket to C++ over a unix socket as a file descriptor, and C++ owns the QUIC session on it. Go owns process orchestration — netns setup, browser launch — because that is supervision work. Java owns everything stateful and consensus-backed. **C++ owns everything a hostile peer's bytes touch.** That line is the architecture and it is the first thing you explain in an interview.
-
-### The 13 milestones
-
-| # | Level | Week | What you build | The invariant you must prove |
-|---|---|---|---|---|
-| **D0** | 1 | W11 | ⚙️ A relay that forwards and cannot be crashed by hostile input | Four attacks fail; **libFuzzer 1h clean; ASan/UBSan/TSan green in CI** |
-| **D1** | 2 | W19 | Sphinx constant-size onion packets | 2-hop packet processed; **serialised size byte-identical regardless of hops remaining**, RapidCheck-asserted |
-| **D2** | 3 | **W27** | ★ **THE FIRST REAL MILESTONE** — one identity end to end | Unmodified Mullvad Browser in a netns over a 2-hop circuit; **leak suite green**; two identities share no IP, DNS, cookie or fingerprint difference |
-| **D3** | 4 | W35 | Per-hop QUIC transport | 🔴 **The head-of-line-blocking chart**; two peers' handshakes byte-identical except the random bits |
-| **D4** | 5 | W43 | The 30-node mesh | Discovery converges; **p50 circuit recovery <800ms, p99 <3s under 20% churn**; NAT >80% direct |
-| **D5** | 6 | W52 | ☕ The directory | **100% of peers hold the same epoch-N consensus hash within 30s of close under 20% churn** — because disagreement is a fingerprint |
-| **D6** | 7 | W58 | The operational shell 🎯 | 30-node mesh on k8s; rolling restart drops **zero** circuits; the 3am dashboard; **CV v4 and applications open** |
-| **D7** | 8 | W66 | The attack lab | Circuit-compromise probability against a defined AS adversary, **for Adyton and for Tor**, on real CAIDA data |
-| **D8** | 9 | W76 | ⭐ Path selection that survives its adversary | **The AS-diversity-versus-predictability trade-off curve, published** |
-| **D9** | 10 | W84 | ☕ Credentials and accountability | Revoke a credential: the holder loses access, **no other user is deanonymised and no redemption history becomes linkable** |
-| **D10** | 11 | W92 | Deep operations | The metrics attack demonstrated then defeated; DP budget that fails closed; **20+ incidents with runbooks** |
-| **D11** | 12 | W98 | Performance and the Tor benchmark | >200k pps/core, **<1.5ms CPU per forwarded MB**; the table, reproducible by one script |
-| **D12** | 13 | W104 | Shaping, release, synthesis | Reproducible builds verified twice; threat model published; a stranger understands the architecture in 15 minutes |
-
-### Non-goals
-**Implementing QUIC, TLS or cryptographic primitives** — ngtcp2, BoringSSL, libsodium. **Modifying Mullvad Browser** — a fork is actively harmful. **Open-web exits as a default** — gateways only; exits are opt-in, separate build, separate operators. **You are in Egypt** — Week 1 writes the legal memo and you do not run an exit until it is answered. **A blockchain, token or identifying ledger.** **Full Byzantine consensus** — you watch 6.5840 L21 specifically so you can defend the lighter model. **A polished web frontend.** **A fifth language.**
-
-### Legal — Week 1, not month twenty
-**Week 1 task:** research the legal position of running relay infrastructure from Egypt, including **Law No. 175 of 2018** and the NTRA regime, and write `docs/legal.md` with cited articles, a stated conclusion, and the line **"this is not legal advice."** If ambiguous, the resolution is: **middle-only nodes from Egypt, any gateway or exit role on rented infrastructure in a jurisdiction where a named operator has accepted the exposure**, and say so in the README. **No per-user logging, ever** — including while debugging. **Reproducible builds and a published threat model before any public release invites users.**
-
----
-
-## X — The Ten Flagships
-
-**The rubric** — score before you start, build only if ≥7/10: non-obvious premise (2) · produces an artifact that does not exist yet (2) · requires a hard idea to be **correct**, not just to run (2) · demoable in 60 seconds (1) · buildable solo in ≤4 weeks (1) · has a natural "and then it broke" story (1) · explainable to a non-specialist in 2 sentences (1).
-
-**Archetypes:** *Reimplementation with a twist* · *Instrument* · *Autopsy* · **Adversary**. Adyton has five Adversaries, because its subject *is* an adversary.
-
-| # | Project | Level | Archetype | Score | Pitch |
-|---|---|---|---|---|---|
-| 1 | ⚙️ **`hardened`** | 1 | **Adversary** | 9 | The C++ safety apparatus as a deliverable: sanitizers, libFuzzer with a committed corpus, the documented subset — **and the memory bugs the fuzzer found in my own parser, written up.** This is what makes the C++ choice defensible |
-| 2 | **`sphinx`** | 2 | Reimpl + **Adversary** | 9 | Constant-size onion packets from the Danezis–Goldberg paper, with the RapidCheck property test proving the size invariant and a fuzz target proving the parser cannot be made to panic |
-| 3 | **`leakproof`** | 3 | **Adversary** | **10** | The suite that tries to defeat my own compartments: WebRTC escape, IPv6 leak, DNS outside the tunnel, kill-switch bypass, **cross-compartment linkage.** In CI. **Its going red is the alarm** |
-| 4 | **`meshsim`** | 5 | **Adversary** | 9 | Deterministic simulation of the whole mesh — seeded clock, asymmetric partitions, churn, and **peers that lie about bandwidth or behave well only when probed** |
-| 5 | **`raft-dir`** | 6 | Reimplementation | 9 | ☕ Raft in Java as Adyton's directory — **on top of having implemented it in Go for 6.5840 Lab 3, which means the second implementation is where the understanding shows** — plus epoch consensus and **detectable forks** |
-| 6 | **`ascorr`** | 8 | **Instrument** | **10** | Circuit-compromise probability against a defined AS-level adversary on **real CAIDA topology with valley-free inference**, for Adyton *and* Tor, with the inference-accuracy caveat stated |
-| 7 | **`guardplace`** | 9 | **Adversary + Instrument** | **10** | ⭐ **The research contribution.** Place relays to be preferred by my own AS-aware selector (Wan et al., PoPETs 2019), sweep the randomness parameter, and **publish the AS-diversity-versus-predictability curve. It does not exist** |
-| 8 | **`privacypass`** | 10 | Reimplementation | 9 | ☕ Blind-signature anonymous credentials: issue, redeem, revoke, rate-limit — **unlinkable across redemptions, proven by test** — plus the sybil cost curve before and after admission |
-| 9 | **`tor-bench`** | 12 | **Instrument** | **10** | Head-to-head against Tor: circuit build, TTFB, throughput, p50/p99, 1080p viability. Same client, same destinations, **one script reproduces the table** — and my own three-hop row for honesty |
-| 10 | 🔴 **`1brc`** | **0 + 12** | **Instrument** | **10** | ⚙️ **The One Billion Row Challenge, twice, two years apart.** Parse 1,000,000,000 lines and aggregate per key, as fast as the machine allows — mmap, SIMD, a custom hash map, branchless parsing, thread partitioning. **A naive first attempt in Week 5 and the real assault in Week 93, with the two-year delta reported.** Against a *public leaderboard*, so the number is checkable by a stranger rather than self-reported |
-
-**Core projects:** `latency-lab` (L0) · `sickbay` (L0) · `privcount` (L11, privacy-preserving telemetry **and the attack on my own metrics**) · `gatekeep` (L7, mTLS + secrets + expiry alerting) · `costwatch` (L7, Terraform + a *tested* billing alarm) · `pgshift` (L12, a 50M-row migration under live load) · **`shape` (L13, reduced-scope traffic shaping** — WTF-PAD-style padding implemented and its latency cost measured, **without** the full classifier-training evaluation, which moves to `NEXT.md`; see §XVII**)**.
-
----
-
-## XI — The Level Map
-
-```
-YEAR ONE — the employable core (W1–52)                        TRACK C COURSES
-  L0  The Machine                 W1–6    Sep–Oct 26          15-213 ────────┐
-  L1  ⚙️ C++, Sanitizers & the Threat  W7–11   Oct–Nov 26   D0                │
-  L2  Onion Routing               W12–19  Nov 26–Jan 27  D1   Boneh ──────────┤
-  L3  Compartments ★              W20–27  Jan–Mar 27     D2   🌙 Ramadan 1448 │
-  L4  Transport & Fingerprints    W28–35  Mar–May 27     D3   CS144 ──────────┤
-  L5  The Mesh                    W36–43  May–Jul 27     D4                   │
-  L6  ☕ The Directory             W44–52  Jul–Sep 27     D5   6.5840 ─────────┘
-
-YEAR TWO — mastery, while interviewing (W53–104)
-  L7  Operations & the Shell 🎯    W53–58  Sep–Oct 27     D6   6.1810 ────────┐
-  L8  The Attack Lab              W59–66  Oct–Dec 27     D7                   │
-  L9  Path Selection ⭐            W67–76  Dec 27–Feb 28  D8   🌙 Ramadan 1449 │
-  L10 ☕ Credentials & Abuse       W77–84  Feb–Apr 28     D9   15-445 ────────┤
-  L11 Deep Operations             W85–92  Apr–Jun 28     D10                  │
-  L12 Performance & Tor Benchmark W93–98  Jun–Jul 28     D11  15-721 ────────┤
-  L13 Shaping, Release, Synthesis W99–104 Jul–Sep 28     D12  6.858 ─────────┘
-```
-
-| Lvl | Name | Weeks | Dates | Milestone | Flagship |
-|---|---|---|---|---|---|
-| **0** | The Machine | 1–6 | 2026-09-14 → 10-25 | — | `latency-lab`, `sickbay` |
-| **1** | ⚙️ C++, Sanitizers & the Threat | 7–11 | 10-26 → 11-29 | **D0** | **#1 `hardened`** |
-| **2** | Onion Routing | 12–19 | 11-30 → 2027-01-24 | **D1** | **#2 `sphinx`** |
-| **3** | Compartments ★ | 20–27 | 01-25 → 03-21 | **D2** | **#3 `leakproof`** |
-| **4** | Transport & Fingerprints | 28–35 | 03-22 → 05-16 | **D3** | — |
-| **5** | The Mesh | 36–43 | 05-17 → 07-11 | **D4** | **#4 `meshsim`** |
-| **6** | ☕ The Directory | 44–52 | 07-12 → 09-12 | **D5** | **#5 `raft-dir`** |
-| **7** | Operations & the Shell 🎯 | 53–58 | 09-13 → 10-24 | **D6** | `gatekeep`, `costwatch` |
-| **8** | The Attack Lab | 59–66 | 10-25 → 12-19 | **D7** | **#6 `ascorr`** |
-| **9** | Path Selection ⭐ | 67–76 | 12-20 → 2028-02-27 | **D8** | **#7 `guardplace`** |
-| **10** | ☕ Credentials & Abuse | 77–84 | 02-28 → 04-23 | **D9** | **#8 `privacypass`** |
-| **11** | Deep Operations | 85–92 | 04-24 → 06-18 | **D10** | `privcount` |
-| **12** | Performance, 1BRC & the Tor Benchmark | 93–98 | 06-19 → 07-30 | **D11** | **#9 `tor-bench`**, 🔴 **#10 `1brc`**, `pgshift` |
-| **13** | Release & Synthesis | 99–104 | 07-31 → 09-10 | **D12** | `shape` (reduced) |
-
-**Rest weeks: 6, 19, 26, 43, 58, 76, 92, 104** (10h). **Buffer weeks: 34, 52, 66, 84** (catch-up only; rest if on schedule). **🌙 Reduced (20h): 22–26 and 72–76. Eid (26h): 36 and 86.**
-
----
----
-
-# ⚡ LEVEL 0 — The Machine
-
-> **Goal:** build the hardware mental model, make every number you produce trustworthy for two years, and find out what your machine can actually hold.
-> **⏱ Weeks 1–6 · 2026-09-14 → 10-25 · 66h depth** · **📺 Track C: 15-213 lectures 1–8** · **W6 = REST WEEK**
-
-## 🔥 THE WALL
-Two functions summing the same 4096×4096 `int32` matrix — row-major and column-major. **Identical Big-O, identical instruction count.** Column-major will be 5–60× slower. Then two `int64` counters in one struct, two threads incrementing one each; then padded onto separate 64-byte cache lines. **3–10× throughput difference for the same work.** **You may not read on until both numbers are on your screen.**
+Write your hypothesis down first. Then prove it with tools, not vibes:
 
 ```bash
 perf stat -e cache-references,cache-misses,L1-dcache-load-misses,LLC-load-misses ./bench
-perf stat -e cpu-cycles,instructions ./bench     # IPC is the smoking gun
-perf c2c record ./false_sharing_bench            # false sharing, visualised
-lscpu | grep -i cache && numactl --hardware
-```
-Instruction counts nearly identical, IPC not. **Modern CPUs are memory-limited, not instruction-limited, and Big-O is silent about the thing that dominates.**
-
-## 📖 Why this is Week 1
-In Week 15 you write a Sphinx processor touching every packet. In Week 32 a circuit table read per forwarded cell. In Week 93 you optimise forwarding to run on a volunteer's laptop without eating their battery. **Every one is a memory-layout decision and you make them all with these numbers in front of you.**
-
-**📺 Atlas → 15-213 L1–L8** (bits, machine programming, linking, debugging). **L9–L10 (memory hierarchy, cache) land in Week 5 — the week you need them.** **Lab: Data Lab and Bomb Lab.**
-**📕 Pages:** CS:APP §6.2–6.4 · Drepper §3 in full, §6.2–6.4 (skip §4–5) · Ostrovsky, "Gallery of Processor Cache Effects" — run all ten.
-> 🤖 **PROMPT 1** · `PREREQ:` a cache line is 64 bytes and misses are expensive · `GAP:` why false sharing costs 5× when neither thread reads the other's variable · `CONTEXT:` laying out Adyton's per-circuit state, one forwarding thread per circuit · `THE DECISION:` whether per-circuit counters can share an array or must be padded · `NAMED REAL SYSTEM:` the Linux kernel's per-CPU variables
-
-## 🛠 BUILD · `latency-lab` (8h) · `lab/bench` + `sickbay` (16h) · `SCALE-RISK` + legal (10h)
-**`latency-lab`:** measures your machine's latency ladder and emits a card — L1/L2/L3/DRAM, uncontended vs contended atomic, mutex, branch mispredict, NVMe 4K read, syscall, context switch, TCP loopback RTT. **Derive your cache sizes from a working-set sweep without asking the OS.**
-**`lab/bench`:** the harness you use for two years — fixed workloads, warm-up, percentiles, `perf stat` integration, **open-loop by default**, CI regression gate. **Coordinated omission**: a closed-loop generator cannot measure the latency of requests it failed to send; watch Gil Tene's "How NOT to Measure Latency" before publishing any number this decade.
-**`sickbay`:** 8 injectable pathologies in a container (memory leak, FD leak, lock contention, runaway syscall loop, disk saturation, cgroup CPU throttling, DNS stall, a JVM GC pause), each with a hidden `SOLUTION.md` showing the *evidence* that reveals it.
-
-📈 **EXIT CRITERIA**
-- [ ] Derived cache sizes match `lscpu` within one power of two, or you can explain why not
-- [ ] Row-major vs column-major gap **explained by measured LLC-miss counts**, not asserted
-- [ ] False-sharing fix ≥3× throughput, `perf c2c` output committed
-- [ ] Working-set-size vs ns/access chart with the knees annotated; you can recite the ladder in 20 seconds
-- [ ] Two harness runs produce byte-identical result sets; **open-loop by default** and you can explain why in a paragraph
-- [ ] A deliberate 5% regression is caught by `benchstat` in CI
-- [ ] **`sickbay`: median diagnosis under 10 minutes across all 8, on a shuffled re-run**
-- [ ] **`docs/SCALE-RISK.md`:** max concurrent `adyton-node`-shaped processes at realistic memory **with the binding resource named**; `ulimit -n`, `ip_local_port_range` and cgroup limits tuned; Oracle instance provisioned with a verified UDP RTT from Cairo; **a signed, dated go/no-go on the simulator-first strategy**
-- [ ] 🔴 **`docs/legal.md`** — Egypt's Law 175/2018 and the NTRA regime, cited articles, a stated conclusion on middle-relay operation, and "this is not legal advice"
-- [ ] 15-213 L1–L8 ticked; **Data Lab and Bomb Lab complete**
-- [ ] CI green: build, `clang-tidy`, tests, under 6 minutes
-- [ ] **`docs/prompts/` created with the five archetypes as files**
-- [ ] 🔴 **`1brc` PASS 1 (W5–6, 8h) — the naive attempt, deliberately.** Generate the 1-billion-row file (13GB), then write the most obvious C++ you can: `std::getline`, `std::stod`, `std::unordered_map<std::string,...>`. **Time it. Expect 3–10 minutes.** Do not optimise anything. **Commit the number and the code, tagged `1brc-pass1`, and do not look at anyone else's solution.** This is the baseline you beat by 100× in Week 93, and the delta is a measured fact about two years of your own growth
-
-⛓ **PROBLEM CHAIN**
-```
-"Column-major is 40× slower"    → cache lines → the Sphinx header layout          (→ L2)
-"Contended atomic is 5×"        → MESI → why the circuit table is read-mostly     (→ L4)
-"Syscall is 400ns"              → why forwarding batches, and sendmmsg            (→ L12)
-"DRAM is 78ns"                  → 50 nodes × their state → the local ceiling      (→ SCALE-RISK)
-"My benchmark lied"             → coordinated omission → open-loop → audit in W67
+perf stat -e cpu-cycles,instructions ./bench      # look at IPC — the smoking gun
 ```
 
-## 🎓 EXIT EXAM
-1. Recite the latency ladder in orders of magnitude. How many L1 hits fit in one DRAM access? One NVMe read?
-2. Array-of-structs vs struct-of-arrays for circuit state: for a lookup touching two fields, how many cache lines each?
-3. Explain false sharing in four sentences, then the fix.
-4. What is coordinated omission? Sketch a harness where a 200ms stall is invisible.
-5. Why can't you average p99 across two hops? What does that imply about three hops?
-6. Your box runs 46 nodes and dies at 47. Three possible binding resources and the command that identifies each.
+The instruction counts will be nearly identical. The IPC (instructions per cycle) will not be. **That gap is the entire lesson of this section:** modern CPUs are not instruction-limited, they are memory-limited, and Big-O notation is silent about the thing that dominates.
 
-**Pass = 5/6.** Then 🤖 **PROMPT 2** on "the memory hierarchy and how it constrains data layout."
-## 🧩 PROBLEM SOLVING — L0 · W1–6 · 40 problems · 5h/wk
-**Patterns:** arrays · hashing · prefix sums · two pointers · sliding window.
-🔗 **The tie:** the cache intuition you just measured is *why* these are fast in practice and not only in Big-O. A prefix-sum sweep is sequential and prefetchable; a hash probe is a random access. **You now have the ns figures for both.**
+#### 📖 Theory — you must be able to explain these cold
 
-| Source | Set |
-|---|---|
-| **NeetCode 150** | Arrays & Hashing, Two Pointers, Sliding Window — **all of them, in order** |
-| **LeetCode** | **1** Two Sum · **121** Best Time to Buy and Sell Stock · **238** Product of Array Except Self · **53** Maximum Subarray · **152** Maximum Product Subarray · **560** Subarray Sum Equals K · **128** Longest Consecutive Sequence · **11** Container With Most Water · **15** 3Sum · **209** Minimum Size Subarray Sum · **3** Longest Substring Without Repeating Characters · **424** Longest Repeating Character Replacement · **567** Permutation in String · **76** Minimum Window Substring · **239** Sliding Window Maximum |
-| **CSES** | *Introductory Problems* (all 19) and the first half of *Sorting and Searching* |
-| **CF EDU** | **Two Pointers Method** — the whole section |
-| 🏁 **Capstone** | **LC 42 Trapping Rain Water — solve it three ways** (two-pointer, monotonic stack, prefix arrays) and say which you would write in an interview and why |
+- The full ladder with **real numbers you measured yourself**: register → L1d → L2 → L3 → DRAM → NVMe → SATA SSD → spinning disk → same-DC network → cross-region network
+- **Cache lines** (64 bytes on x86-64): the unit of transfer. Why touching 1 byte costs you 64.
+- **Spatial and temporal locality** — and how array-of-structs vs struct-of-arrays flips both
+- **False sharing**: two threads, two independent variables, one cache line, and the MESI protocol ping-ponging ownership between cores
+- **Cache coherency (MESI/MOESI)**: why an *uncontended atomic increment* still costs ~20ns and a contended one costs ~100ns+
+- **Prefetching**: why the hardware prefetcher rescues sequential access and cannot rescue pointer chasing
+- **TLB and page faults**: virtual→physical translation, why huge pages matter for databases
+- **NUMA**: on a 2-socket box, remote memory is ~1.5–2x the latency of local. Why Postgres/Redis/JVM tuning guides all talk about pinning.
+- **Memory-bound vs compute-bound**: the roofline model, in one sentence
 
-**Design (3h/wk):** the estimation module — back-of-envelope arithmetic and the numbers to memorise (§XIV). Then **a URL shortener.**
-**Time box:** Easy 15 · Medium 25. **Every miss gets a `FAILURES.md` entry.** **Codeforces: one Div 2 virtual, A–C, in W6.** Target band by W6: **1450 held.**
+#### 📄 Sources
 
----
----
+- **"What Every Programmer Should Know About Memory"** — Ulrich Drepper, LWN, 2007. Parts 1–3 and 6. Long, old, still unmatched.
+- **"Latency Numbers Every Programmer Should Know"** — Jeff Dean's original; then Colin Scott's interactive version (`colin-scott.github.io/personal_website/research/interactive_latency.html`) which shows how the numbers moved over 20 years. **Note what changed and what didn't** — that's the real insight.
+- **"CPU Caches and Why You Care"** — Scott Meyers, CppCon 2014 (video). The best visual explanation that exists.
+- **"Gallery of Processor Cache Effects"** — Igor Ostrovsky. Ten short experiments; run all of them.
+- **CS:APP Chapter 6** — *Computer Systems: A Programmer's Perspective*, Bryant & O'Hallaron. The canonical textbook treatment. **This book was missing from v2 and shouldn't have been.**
+- **"Memory Barriers: a Hardware View for Software Hackers"** — Paul McKenney. For when you're ready for the deep end.
 
-# ⚡ LEVEL 1 — ⚙️ C++, Sanitizers & the Threat
+#### 🛠 PROJECT — `latency-lab` ⭐ *(Instrument archetype, 8/10)*
 
-> **Goal:** a relay that forwards, cannot be crashed by hostile input, and comes with the apparatus that makes choosing C++ defensible.
-> **⏱ Weeks 7–11 · 10-26 → 11-29 · 55h depth** · **Milestone D0** · **🚩 Flagship #1 `hardened`** · **📺 Track C: 15-213 L9–L16 + Attack Lab, Cache Lab · 🔴 6.858 L1 (threat models) in W7**
+**Not** "write a cache benchmark." Build **a tool that measures the latency ladder of the machine it's running on and emits a personalized latency card.**
 
-## 🔥 THE WALL — build it wrong on purpose
-Write the dumbest possible relay: accept a TCP connection, read a destination, connect, pipe bytes. Then attack it, five ways:
-1. **You can read every byte.** Print the HTTP request. **The relay sees plaintext** — the trust inversion the design exists to remove.
-2. **A passive observer on your uplink learns the destination**, because the SNI is in the clear on the first TLS packet. `tcpdump` it.
-3. **The relay learns who *and* where.** One node knowing both is what the two-hop split prevents.
-4. **Feed the parser 40 bytes of garbage and it crashes.** Now set the destination-length field to `0xFFFFFFFF` and watch it try to allocate 4GB.
-5. ⚙️ **Now run it under ASan with a one-byte-overlong length field.** *Heap-buffer-overflow.* **That is a deanonymisation vulnerability with a stack trace.**
-
-**Screenshot all five.** These are the reasons for onion encryption, per-hop encryption, two hops, and every line of the safety apparatus — **in that order** — and having *seen* them means you will explain them rather than recite them.
-
-## 📖 THEORY
-**⚙️ Modern C++ for a hostile-input data plane:** `std::span` and `std::string_view` instead of pointer-plus-length, and **the lifetime discipline they demand** · RAII for every resource, no raw owning pointers · `std::unique_ptr`/`shared_ptr` and when `shared_ptr` means your ownership is unclear · move semantics and where copies actually cost · **signed/unsigned and integer-promotion bugs in length arithmetic — the single most common source of parser vulnerabilities** · `std::optional`/`expected` over sentinel returns · why `operator==` on a MAC is a vulnerability and `sodium_memcmp` is not.
-**The threat model:** the trilemma choice · **two hops and precisely what each hop knows** (guard: who, not where; exit: where, not who) · split trust and iCloud Private Relay as the consumer-scale proof · **and the discipline of writing down what you concede.**
-
-**📺 Atlas → 15-213 L9–L16** (memory hierarchy, cache, virtual memory, allocation, optimisation, processes) + **Attack Lab** and **Cache Lab**. 🔴 **6.858 L1** in W7.
-**📕 Pages:** 🔴 **Das et al., *Anonymity Trilemma* §1–3, §6** — read in W7, skip the proofs first time · Tor design paper §1–4, §6 · Apple's iCloud Private Relay overview · **the C++ Core Guidelines sections on lifetime and bounds** · CS:APP ch. 5 for the optimisation lecture.
-
-> 🤖 **PROMPT 3 (REVIEW)** — on your own parser, W10 · `COMPONENT:` the wire-frame parser · `LANG:` C++20 · `INVARIANT:` no input can cause an out-of-bounds access, an over-allocation, or a crash · `CONSEQUENCE:` a memory bug here is a deanonymisation vulnerability · `CONCURRENCY MODEL:` one thread per connection, no shared state in the parser
-> 🤖 **PROMPT 5 (ADVERSARY)** — W9 · `SYSTEM:` a single-hop TCP relay with no encryption beyond the client's own TLS · `PROPERTY:` "the destination does not learn the client's IP" · `CAPABILITIES:` you are the relay operator; separately a passive observer of the client's uplink · `NOT:` you cannot break the client's TLS
-
-## 🛠 🚩 FLAGSHIP #1 `hardened` + MILESTONE D0 · 40h
-**⚙️ The apparatus, as a deliverable rather than hygiene:**
-- **ASan + UBSan** on every CI run; **TSan** on a separate job; **MSan** optional
-- **`-Wall -Wextra -Werror -fno-omit-frame-pointer`**, `-D_GLIBCXX_ASSERTIONS`, `-fstack-protector-strong`
-- **`clang-tidy`** with `cppcoreguidelines-*`, `bugprone-*`, `cert-*`
-- **libFuzzer on the wire parser, with a committed corpus and a `crash-*` regression directory**
-- **RapidCheck** property tests on the codec round-trip
-- 🔴 **`docs/cpp-subset.md`** — what you do not use and why: no raw owning pointers in the parsing path, no C arrays, no `reinterpret_cast` on untrusted bytes, no unchecked arithmetic on length fields, `std::span` at every buffer boundary
-
-📈 **EXIT CRITERIA — D0**
-- [ ] All five wall attacks reproduced and screenshotted, **each with a written note on which later design decision it justifies**
-- [ ] The parser is **total**: **libFuzzer 1 hour clean locally, 60s in CI**, no crash, no OOM, no hang; `0xFFFFFFFF` is rejected, not allocated
-- [ ] **ASan, UBSan and TSan all green in CI.** A red sanitizer job blocks merge
-- [ ] RapidCheck round-trip on the frame codec; `clang-tidy` clean at the configured level
-- [ ] 🔴 **`docs/cpp-subset.md` written**, and a CI grep enforces at least two of its rules mechanically
-- [ ] 🔴 **The `hardened` write-up: every memory bug your own fuzzer found in your own parser, with the input, the sanitizer output, and the fix.** *If it found none, your fuzzer is too gentle — add a structure-aware mutator and try again*
-- [ ] 🔴 **`docs/threat-model.md` v1** — assets, adversaries, capabilities, the trilemma choice, and an explicit **"what Adyton does not defend against"** section. Revised at every phase boundary, never deleted
-- [ ] `README.md` v1 with the honesty statement, scale statement and permitted headline **verbatim** from §IX
-- [ ] 15-213 L9–L16 ticked; **Attack Lab and Cache Lab complete**
-
-## 🎤 INTERVIEW PARAGRAPH — Week 11
-> I'm building an open privacy relay network. The problem is that no single company sees your whole life, but the trackers, brokers and ISPs together assemble one profile that contains all of it. The product isn't anonymity — it's that your identities can't be linked to each other. Eleven weeks in, what exists is deliberately small: a relay that forwards and cannot be crashed by hostile input. I built the naive version first and attacked it five ways — it reads your plaintext, an observer on my uplink still sees the destination in the TLS SNI, the single node learns both who and where, forty bytes of garbage crashes the parser, and under AddressSanitizer a one-byte-overlong length field is a heap overflow. That last one is the whole language argument: in an anonymity network a memory bug isn't a crash, it's a deanonymisation vulnerability. **Rust gives you that safety by construction. I chose C++ and had to earn it** — sanitizers on every CI run, libFuzzer on the parser with a committed corpus, `std::span` at every buffer boundary, and a documented subset. Three real bugs came out of my own fuzzer and they're written up. That's the position almost every real systems codebase is in, and I'd rather be the engineer who can hold that line than the one who was handed it. The design thesis is the anonymity trilemma from Das et al. 2018 — I take low latency and low overhead, so I explicitly do not defend against a global passive adversary. That's in the README, not a footnote.
-
-## 🎓 EXIT EXAM
-1. ⚙️ Name four C++ constructs your subset forbids in the parsing path, and the vulnerability class each prevents.
-2. ⚙️ What does ASan catch that your unit tests never will? What does it *not* catch?
-3. ⚙️ Your fuzzer has run 48 hours with no crash. What do you conclude and what do you do next?
-4. A signed/unsigned confusion in a length field. Show the input that exploits it.
-5. State the trilemma and Adyton's corner. Name one adversary you concede and one you defend.
-6. Two hops: what does each hop know? What must an adversary own to defeat it?
-7. ⚙️ Defend choosing C++ over Rust here to a sceptical interviewer. Then state what Rust would have given you for free.
-
-**Pass = 6/7.** Then 🤖 **PROMPT 2** on "memory safety in a hostile-input parser, and what my tooling does and does not guarantee."
-## 🧩 PROBLEM SOLVING — L1 · W7–11 · 32 problems · 5h/wk
-**Patterns:** binary search · 🔴 **binary search on the answer** · stack · monotonic stack.
-🔗 **The tie:** *binary search on the answer* is the single highest-yield pattern in interviews and **you are using it for real this level** — calibrating a fuzzer's timeout budget and finding the largest input size your parser handles without over-allocating is literally "find the smallest X such that the predicate holds."
-
-| Source | Set |
-|---|---|
-| **NeetCode 150** | Binary Search, Stack — all |
-| **LeetCode** | **704** Binary Search · **33** Search in Rotated Sorted Array · **153** Find Minimum in Rotated Sorted Array · **162** Find Peak Element · **34** Find First and Last Position · 🔴 **875** Koko Eating Bananas · 🔴 **1011** Capacity To Ship Packages · 🔴 **410** Split Array Largest Sum · **1482** Min Days to Make m Bouquets · **4** Median of Two Sorted Arrays · **20** Valid Parentheses · **155** Min Stack · **739** Daily Temperatures · **496**/**503** Next Greater Element I & II · **402** Remove K Digits · **316** Remove Duplicate Letters · **84** Largest Rectangle in Histogram · **85** Maximal Rectangle |
-| **CSES** | *Sorting and Searching*, the rest of the section |
-| **CF EDU** | **Binary Search** — parts 1 and 2, including the "on the answer" problems |
-| 🏁 **Capstone** | **LC 84** and **LC 410** back to back. **If you can derive both from scratch in 60 minutes total, this pattern is yours** |
-
-**Design:** a rate limiter (token bucket, sliding window, and why the naive fixed window is wrong at the boundary).
-**Time box:** Medium 25 · Hard 45. **Codeforces: one virtual in W11.**
-
----
----
-
-# ⚡ LEVEL 2 — Onion Routing
-
-> **Goal:** a constant-size onion packet that leaks nothing about its position on the path, built from the paper.
-> **⏱ Weeks 12–19 · 11-30 → 2027-01-24 · 88h depth** · **Milestone D1** · **🚩 Flagship #2 `sphinx`** · **📺 Track C: 15-213 L17–25 + Malloc/Shell/Proxy Labs (W12–16), Boneh Crypto I (W17–19) · 🔴 6.858 L19 (anonymous communication, the Tor paper) in W12** · **W19 = REST WEEK**
-
-## 🔥 THE WALL — two walls, one week apart
-**W13, the crypto wall.** Encrypt two different messages with ChaCha20-Poly1305 **using the same key and nonce.** XOR the ciphertexts. **You have recovered the XOR of the plaintexts**, and if you know one you know the other. Do it. See the bytes. Then derive an X25519 shared secret and use it directly as a key — then find out why that is wrong.
-
-**W15, the onion wall.** Layer it the obvious way: encrypt the payload for hop 2, wrap for hop 1, each layer prefixed with the next address. Now stand at hop 1:
-1. 🔴 **The packet shrinks as it travels.** Hop 2 receives a smaller packet than hop 1 did. **Its size announces how far along the path it is.**
-2. **You can count the layers**, so you know the path length.
-3. **Building a circuit costs a round trip per hop** — telescoping — so two hops means two RTTs before a single user byte moves. Measure it against your Oracle RTT.
-
-**Failure 1 is the one that matters. Size is metadata, and metadata is the whole game.**
-
-## 📖 THEORY
-**Crypto at using-depth:** X25519 and what a DH shared secret is and is not · **why the raw output must go through a KDF** (it is not uniformly random and has algebraic structure) · small-subgroup attacks and why libsodium's API prevents them for you · AEAD, and **nonce discipline** — the failure you just reproduced, and the two safe strategies · **constant-time comparison** · key zeroization, and why a secret type with a default `Debug`-equivalent is a bug.
-**Sphinx** (Danezis & Goldberg): a fixed-size header with a fixed slot count; each hop decrypts its slot **and pads the header back to full size with pseudorandom bytes derived from its own key** — so the packet is byte-identical in length at every hop and a hop cannot tell whether it is first, last or middle. Blinded group elements so each hop derives the next ephemeral key without learning the path. A per-hop MAC over the header, checked **before** acting on it. **Single-pass construction: the client derives every key up front, so no telescoping and no per-hop round trip** — a large part of the startup-latency win over Tor.
-**Properties to be able to state:** bitwise unlinkability across hops · no position leakage · no path-length leakage · per-hop integrity · replay detection.
-
-**📺 Atlas → 15-213 L17–25 + Malloc Lab, Shell Lab, Proxy Lab** (W12–16 — 🔴 **Proxy Lab is a concurrent caching web proxy; Adyton's relay is that, hardened**). **Boneh Crypto I weeks 1–4, 6** (W17–19). 🔴 **6.858 L19 in W12 — the one lecture in the Atlas whose subject *is* this project.**
-**📕 Pages:** 🔴 **Danezis & Goldberg, *Sphinx* — all of it, three times: once for shape, once for the algorithm, once with your code open** · 🔴 **Lightning BOLT #4** — a *deployed*, precisely-specified Sphinx variant with concrete field sizes, and the clearest engineering description in existence · Aumasson ch. 8, 11, 12 · Boneh & Shoup §5.4, ch. 9 · `tor-spec.txt` §5–6 for the telescoping contrast.
-
-> 🤖 **PROMPT 1** W13 · `GAP:` why raw X25519 output must not be a key, and what HKDF's `info` is for · `CONTEXT:` per-hop keys for a Sphinx header from one ephemeral exchange · `THE DECISION:` whether one DH output can safely produce header key, payload key and blinding factor · `NAMED REAL SYSTEM:` the Noise key schedule, Lightning BOLT #4
-> 🤖 **PROMPT 1** W15 · `GAP:` mechanically why a Sphinx header does not leak hop position — what exactly the padding is derived from · `THE DECISION:` how many header slots, and whether unused slots cost me anything observable
-> 🤖 **PROMPT 3 (REVIEW)** W17 · `COMPONENT:` Sphinx header construction and per-hop processing · `INVARIANT:` a hop cannot determine its position, and serialised size is identical at every hop · `CONSEQUENCE:` position leakage narrows the anonymity set; a size difference is a passive-observer fingerprint
-> 🤖 **PROMPT 5 (ADVERSARY)** W18 · `SYSTEM:` Sphinx packets over a 2-hop circuit · `PROPERTY:` "a relay cannot tell whether it is first or second, and cannot link the packet it received to the one it forwarded" · `CAPABILITIES:` you operate one relay and can observe timing and sizes precisely · `NOT:` you cannot break X25519 or ChaCha20-Poly1305, and you do not see the other hop
-
-## 🛠 🚩 FLAGSHIP #2 + MILESTONE D1 · 60h
-
-📈 **EXIT CRITERIA — D1**
-- [ ] 2-hop Sphinx packet built by the client, processed correctly by hop 1 then hop 2, payload recovered
-- [ ] 🔴 **RapidCheck: for any routing information within limits, the serialised packet length is byte-identical.** Asserted, not assumed — the flagship's central claim
-- [ ] **A hop cannot distinguish its position** — asserted by a test that a hop's observable inputs are statistically identical in position 1 and 2
-- [ ] Per-hop MAC verified **before** any action on the header, using `sodium_memcmp`; a flipped bit is rejected at the right hop
-- [ ] **Replay detection** with a bounded, time-windowed seen-set, and the memory cost stated
-- [ ] **libFuzzer on the header parser: 1h clean locally, 60s in CI. ASan/UBSan/TSan green**
-- [ ] ⚙️ Secret key types wrap `sodium_memzero` on destruction, are non-copyable, and **a test asserts no formatter prints key bytes**
-- [ ] Circuit build measured: **single-pass vs a telescoping implementation you also write**, so the RTT saving is a number and not a claim
-- [ ] `docs/design/packet-format.md` — the wire format with field sizes and the reasoning for each
-- [ ] 15-213 **complete: all 25 lectures, all 9 labs ticked.** Boneh weeks 1–4, 6 ticked
-
-⛓ **PROBLEM CHAIN**
 ```
-"Nonce reuse leaked the plaintext"→ nonce discipline → the per-hop key schedule
-"Raw DH used as a key"           → HKDF → salt and info → domain separation
-"The packet shrank each hop"     → constant size → padding from the hop's own key
-"I could count the layers"       → fixed slot count → unused slots must be indistinguishable
-"Two RTTs before any data"       → single-pass construction → the latency win over Tor  (→ L12)
-"MAC compared with =="           → constant-time compare → sodium_memcmp
-"Now how does it reach hop 2?"   → transport → and TCP is the wrong answer              (→ L4)
+$ ./latency-lab --full
+  ┌─ MEASURED ON: AMD Ryzen 9 5900X · 32GB DDR4-3600 · Samsung 980 Pro ─┐
+  │ L1 cache hit ....................       1.1 ns    (Dean 2020: 1.0)  │
+  │ L2 cache hit ....................       3.9 ns                      │
+  │ L3 cache hit ....................      14.2 ns                      │
+  │ DRAM access (random) ............      78.0 ns    (Dean 2020: 100)  │
+  │ Atomic increment (uncontended) ..      18.3 ns                      │
+  │ Atomic increment (2 threads) ....     104.7 ns    ← 5.7x            │
+  │ Mutex lock/unlock (uncontended) .      21.0 ns                      │
+  │ Branch mispredict ...............       5.2 ns                      │
+  │ NVMe random 4K read .............      82.0 µs                      │
+  │ Syscall (getpid) ................     412.0 ns                      │
+  │ Context switch (same core) ......       1.9 µs                      │
+  │ TCP roundtrip (localhost) .......      28.0 µs                      │
+  │ TCP roundtrip (same AZ) .........     310.0 µs                      │
+  └──────────────────────────────────────────────────────────────────────┘
 ```
 
-## 🎤 INTERVIEW PARAGRAPH — Week 19
-> The packet format is done and it's Sphinx, from the 2009 Danezis and Goldberg paper. I built the obvious onion first, which was the useful part: you encrypt for hop two, wrap it for hop one, and the packet gets *smaller* as it travels — so its size announces how far along the path it is. Size is metadata and metadata is the entire game. Sphinx fixes it by having each hop pad the header back to full length with pseudorandom bytes derived from its own key, so the packet is byte-identical in length at every hop and a relay genuinely cannot tell whether it's first or last. I assert that with a property test over the serialised length rather than trusting it. The other thing Sphinx buys is single-pass construction — the client derives every hop's key up front, so there's no telescoping round trip per hop, and I implemented the telescoping version too so the saving is measured rather than claimed. I also reproduced nonce reuse deliberately: two messages, same key and nonce, XOR the ciphertexts, and the plaintext XOR falls out. Seeing that is why my key schedule has a written argument for nonce uniqueness rather than a hope.
+Include: cache-size discovery by sweeping working-set size and finding the knees in the curve (you can *derive* your L1/L2/L3 sizes from the graph without asking the OS — do that), sequential vs random access at every size, false-sharing demo, and a `--markdown` flag that emits a table for your blog post.
 
-## 🎓 EXIT EXAM
-1. You reuse a nonce with the same key. Exactly what does an attacker recover, and how?
-2. Why can't raw X25519 output be a symmetric key? What does HKDF's `info` do?
-3. Draw the Sphinx header from memory: fields, sizes, what each hop mutates.
-4. Mechanically, why does the header not leak hop position? What is the padding derived from?
-5. What does single-pass construction save, in RTTs and in milliseconds on your own numbers?
-6. Where is the per-hop MAC checked, and what breaks if you check it after acting on the header?
-7. Your replay seen-set is bounded. What does the bound leak, and what is the trade?
+📈 **Exit Criteria**
+- [ ] Your derived cache sizes match `lscpu` within one power of two — and if they don't, you can explain why (inclusive vs exclusive caches, prefetching)
+- [ ] Row-major vs column-major gap is **explained by measured LLC-miss counts**, not asserted
+- [ ] False-sharing fix produces ≥3x throughput improvement and you show the `perf c2c` output
+- [ ] A chart in the README: working-set size (log x) vs ns/access (y), with the L1/L2/L3/DRAM knees annotated
+- [ ] You can recite the ladder from memory, in orders of magnitude, in under 20 seconds
 
-**Pass = 6/7.** Then 🤖 **PROMPT 2** on "the Sphinx packet format and its security properties."
-## 🧩 PROBLEM SOLVING — L2 · W12–19 · 56 problems · 5h/wk
-**Patterns:** linked lists · trees and BSTs · tries · heaps and top-K · 🔴 **bit manipulation**.
-🔗 **The tie, and it is unusually direct:** you are writing a Sphinx header this level — fixed-width fields, XOR-based blinding, MACs over byte ranges. 🔴 **LC 421 (Maximum XOR of Two Numbers) is a trie over bits, which is structurally the same object as the routing-slot lookup you are building**, and the bit-manipulation set is the vocabulary you need to read the paper's pseudocode without stumbling.
-
-| Source | Set |
-|---|---|
-| **NeetCode 150** | Linked List, Trees, Tries, Heap/Priority Queue — all |
-| **LeetCode — trees** | **104** Max Depth · **110** Balanced · **543** Diameter · **236** LCA · **98** Validate BST · **230** Kth Smallest in BST · **124** Binary Tree Max Path Sum · **297** Serialize and Deserialize Binary Tree |
-| **LeetCode — tries** | **208** Implement Trie · **211** Design Add and Search Words · **212** Word Search II · **336** Palindrome Pairs |
-| **LeetCode — heaps** | **23** Merge k Sorted Lists · **215** Kth Largest · **295** Find Median from Data Stream · **703** Kth Largest in a Stream · **621** Task Scheduler |
-| 🔴 **LeetCode — bits** | **136**/**137** Single Number I & II · **190** Reverse Bits · **191** Number of 1 Bits · **260** Single Number III · **268** Missing Number · **371** Sum of Two Integers · 🔴 **421** Maximum XOR of Two Numbers in an Array |
-| **CSES** | *Tree Algorithms* — the first eight |
-| 🏁 **Capstone** | **LC 297** (write it, then break your own format with a malformed input — the same instinct as fuzzing the Sphinx parser) and **LC 212** |
-
-**Design:** a distributed cache, then a key-value store. **You are building a bounded replay seen-set this level — use it as your worked example for eviction policy.**
-**Time box:** Medium 25 · Hard 45. **Codeforces: one virtual in W16 and W19.** Target band by W19: **1550.**
+⛓ **Problem Chain** — *what this drags you into next*
+```
+"Why is column-major slow?"          → cache lines → why DB rows live in 8KB pages (→ 2.1)
+"Why is my atomic counter slow?"     → MESI/contention → why sharded counters exist (→ 4.3)
+"Why does DRAM cost 80ns?"           → why an in-memory index still can't do 100M lookups/s (→ 2.1)
+"Why is a syscall 400ns?"            → syscall cost → why io_uring exists (→ 0.2, flagship #1)
+"Why is same-AZ RTT 300µs?"          → why N+1 queries kill you at 200 rows (→ 1.4, 2.2)
+"Column-oriented is faster for scans"→ Parquet, OLAP, vectorized execution (→ F.4)
+```
 
 ---
----
 
-# ⚡ LEVEL 3 — Compartments ★
+### 0.2 — Processes, Threads, Scheduling & the Concurrency Models
 
-> **Goal:** ★ **the first thing that is real.** One identity, one circuit, one exit, one unmodified Mullvad Browser, bound at the kernel level, with a suite that tries to break the boundary and fails.
-> **⏱ Weeks 20–27 · 01-25 → 03-21 · 76h depth** · **Milestone D2** · **🚩 Flagship #3 `leakproof`** · **📺 Track C: Boneh finish (W20–21), 🌙 Ramadan catch-up (W22–26), CS144 prep (W26)** · **🌙 W22–26 at 20h · W26 = REST WEEK (Eid)**
+> 🔥 **THE WALL**
+> Write the dumbest possible TCP echo server: `accept()` → spawn a thread → `read`/`write` loop. Point 10,000 concurrent connections at it with a load generator.
 >
-> **This is the milestone that makes the project demonstrable.** At the end of Week 27 you can sit someone down and show them two browsers on one laptop that the internet cannot connect to each other. Everything before was necessary; this is the first thing a person can *see*.
+> Watch it die. Note *how* it dies: RAM exhaustion from 10k × 8MB default stacks, or `pthread_create: Resource temporarily unavailable`, or the scheduler thrashing at 40% system CPU doing nothing but context switches.
 >
-> 🌙 **Ramadan 1448 ≈ 8 Feb – 9 Mar 2027 = weeks 22–26, at 20h.** Scope is already moved out: Boneh finishes in W21, CS144 does not start until W27, and this level's heavy netns work lands in W20–21 and W27. **W22–26 is the leak suite, which is many small independent tests — the right shape of work for a reduced month.**
+> Now do it again with `ulimit -n 1024` in place and watch it fail in a completely different way. **Both failures teach different things.**
 
-## 🔥 THE WALL
-Point a normal browser at a SOCKS proxy on your relay. Congratulations, you have a VPN. Now watch it betray you:
-1. **WebRTC.** Load a STUN-probing page. **The browser hands out your real local and public IP as ICE candidates**, around the proxy entirely.
-2. **IPv6.** Host has IPv6, tunnel is IPv4 — **the browser prefers IPv6 and goes direct.** `tcpdump` it.
-3. **DNS.** Your resolver is still your ISP's. **Every destination is logged by name** before a single proxied byte moves.
-4. **Kill the relay mid-download.** The browser retries **without the proxy** and your real IP appears on the wire.
-5. 🔴 **The fifth, which is the actual product:** run two profiles through the same proxy and check whether a site can tell they are the same person. Cookies, `localStorage`, **TLS session tickets**, HTTP/2 connection coalescing, one shared exit IP. **They can.**
+#### 🔎 Diagnose
 
-**Screenshot all five.** **Three of the first four are not the proxy's fault** — they are the application declining to use it — which is the whole argument for enforcing the boundary in the kernel rather than asking the application nicely.
-
-## 📖 THEORY
-**Linux network namespaces** as the boundary: own interfaces, own routing table, own `/etc/resolv.conf`, own idea of what "the network" is. A process inside cannot route around it because **there is no other route.** **veth pairs** to the tunnel; **nftables default-drop** so the kill switch is structural — if the tunnel dies there is no rule permitting anything. 🔴 **A kill switch implemented as "detect and react" is a race; implemented as default-drop it is an invariant.** **Why per-identity namespaces beat browser containers:** containers isolate cookie jars inside one process that still shares one IP, one resolver and one TLS session cache. **The identity as a sealed unit:** circuit + exit + profile directory + namespace, constructed together or not at all — ⚙️ **make it a type whose constructor takes all four and has no setters**, so a mismatched identity is not a bug you can write. **What the network layer cannot fix:** canvas, WebGL, audio, fonts, window size, hardware values — Mullvad Browser normalises those by *uniformity*, which is exactly why you do not touch it.
-
-**📺 Atlas → Boneh weeks 5, 7** (W20–21). **6.858 L4 (buffer overflow defenses) and L12 (web security model)** are useful here and cheap to pull forward.
-**📕 Pages:** Kerrisk *TLPI* ch. 28 (or `namespaces(7)`) · `ip-netns(8)` · the nftables wiki "Quick reference" and "Chains" · **the Mullvad Browser docs** on what it normalises and its statement that it does not hide your IP · 🔴 **the Tor Browser design document, "Cross-Origin Identifier Unlinkability" and "Fingerprinting"** — the most thorough public treatment of browser linkability there is.
-
-> 🤖 **PROMPT 1** W20 · `GAP:` what happens to a socket already open when its namespace's default route is removed · `CONTEXT:` implementing the kill switch as an invariant rather than a reaction · `THE DECISION:` whether default-drop nftables is sufficient or I must also tear the route · `NAMED REAL SYSTEM:` how Mullvad's and Tailscale's Linux kill switches are implemented
-> 🤖 **PROMPT 5 (ADVERSARY)** W27, **the one that matters** · `SYSTEM:` two unmodified Mullvad Browser instances, each in its own netns on its own 2-hop circuit with its own pinned exit · `PROPERTY:` "a tracker present on sites visited by both cannot determine they are the same person" · `CAPABILITIES:` you are a tracker on many sites, you see both identities' requests, you control your own JS · `NOT:` you cannot see the user's machine and cannot break TLS
-
-## 🛠 🚩 FLAGSHIP #3 + MILESTONE D2 · 60h
-
-📈 **EXIT CRITERIA — D2 ★**
-- [ ] 🔴 **An unmodified Mullvad Browser runs in a netns bound to a 2-hop circuit and you browse the real web through it.** The demo
-- [ ] ⚙️ `Identity` **cannot be constructed with a mismatched circuit and namespace** — the constructor takes all four parts and there are no setters. Enforced by the type, not a check
-- [ ] Ephemeral identities: profile wiped on close, verified by test
-- [ ] Named persistent identities with **exits pinned stably across restarts**, verified against an IP-echo endpoint
-- [ ] `adyton identity launch shopping` — **one command** creates the namespace, builds the circuit, starts the browser
-- [ ] 🔴 **`leakproof` in CI, all five tests, red build blocks merge:** **WebRTC** — zero ICE candidates with a non-namespace address · **IPv6** — no IPv6 packet leaves the host attributable to the identity · **DNS** — zero DNS queries on the host uplink during a browse session · **kill switch** — daemon killed mid-transfer, **zero subsequent packets, 20 runs, 20 passes** · **cross-compartment** — two identities share no exit IP, no cookie, no DNS query, **no TLS session ticket**, and produce **identical CreepJS results**
-- [ ] **Fingerprint uniformity across two machines**: identical CreepJS output. Any difference is a bug in your launcher
-- [ ] 🔴 **`docs/browser-delta.md`** — everything you changed about the browser. **If it is longer than "profile directory path and SOCKS endpoint," justify every entry or remove it**
-- [ ] Boneh Crypto I **complete: all 7 weeks ticked**
-- [ ] 🔴 **W26: CS144 handouts and starter repo downloaded and committed to a private mirror** (§VII warning)
-- [ ] **Blog post 1:** *"Your proxy leaks four ways and three of them aren't the proxy's fault"*
-
-⛓ **PROBLEM CHAIN**
-```
-"WebRTC gave up my real IP"  → the app routes around the proxy → kernel-level binding
-"IPv6 went direct"           → dual-stack → drop or tunnel, never ignore
-"DNS went to my ISP"         → resolve at the far end → the compartment has its own resolver
-"Kill switch was a race"     → default-drop nftables → an invariant, not a reaction
-"Two profiles were linkable" → shared exit, cookies, TLS tickets → separate everything
-"The type let me mismatch"   → make the invalid state unconstructible                (→ L10)
-"Which exit does it pin to?" → you need a peer list → everyone must see the same one  (→ L5, L6)
-```
-
-## 🎤 INTERVIEW PARAGRAPH — Week 27
-> This is the month it became real: two browsers on one laptop that the internet cannot connect to each other. But the useful part is what I found first. I pointed a normal browser at a SOCKS proxy on my relay — essentially a VPN — and it betrayed me four ways: WebRTC handed out my real IP as an ICE candidate straight around the proxy, IPv6 went direct because the host was dual-stack, DNS still went to my ISP so every destination was logged by name before a single proxied byte moved, and killing the relay made the browser retry without it. **Three of those four are not the proxy's fault** — they're the application declining to use it — which is the entire argument for enforcing the boundary in the kernel. So each identity is a Linux network namespace with its own routing table and resolver, a veth to the tunnel, and nftables default-drop, which makes the kill switch an invariant rather than a race: if the tunnel dies there's simply no rule permitting anything.
->
-> The fifth failure is the product. Two profiles through one proxy are still linkable — shared exit IP, shared cookie jar, and the one I didn't expect, **shared TLS session tickets.** So compartments are one unmodified Mullvad Browser profile per identity, each in its own namespace on its own circuit with its own pinned exit. The suite that tries to break that runs in CI and its going red is the alarm, because one leak across compartments defeats the entire product. And I deliberately change almost nothing about the browser — the profile path and the SOCKS endpoint, and that list is a document — because every customisation makes my users distinguishable from the crowd they're hiding in.
-
-## 🎓 EXIT EXAM
-1. Name four ways a browser escapes a SOCKS proxy. Which are the proxy's fault?
-2. Why is a network namespace a stronger boundary than a browser container? Be specific about what each isolates.
-3. Why is default-drop a better kill switch than detect-and-react? Give the race in the second design.
-4. What happens to an already-open socket when its namespace's route is removed? How did you verify?
-5. Two identities, one exit IP. Name four separate mechanisms that link them.
-6. Why must you not modify Mullvad Browser? What does each modification cost, and to whom?
-7. ⚙️ Your `Identity` type prevents a mismatch. How, and why is a runtime check insufficient?
-
-**Pass = 6/7.** Then 🤖 **PROMPT 2** on "compartment isolation and browser linkability."
-## 🧩 PROBLEM SOLVING — L3 · W20–27 · 44 problems · 5h/wk (🌙 3.5h W22–25)
-**Patterns:** 🔴 **dynamic programming, part 1** — 1-D, 2-D, knapsack · greedy · graph traversal intro.
-🔴 **The method, used every single time, no exceptions:** state the subproblem **in words** · write the recurrence **in a comment** · identify the base cases · *then* choose memoised recursion or a bottom-up table · optimise space last. **Do not write code before the recurrence exists in a comment.** That habit is the difference between solving DP and guessing at it, and interviewers can see which one you are doing.
-
-| Source | Set |
-|---|---|
-| **NeetCode 150** | 1-D DP and 2-D DP — all |
-| **LeetCode — 1-D** | **70** Climbing Stairs · **198**/**213** House Robber I & II · **91** Decode Ways · **139** Word Break · **322** Coin Change · **518** Coin Change II · **300** Longest Increasing Subsequence · **152** revisit |
-| **LeetCode — 2-D** | **1143** LCS · 🔴 **72** Edit Distance · **62** Unique Paths · **64** Minimum Path Sum · **221** Maximal Square · **5** Longest Palindromic Substring · **647** Palindromic Substrings |
-| **LeetCode — knapsack** | **416** Partition Equal Subset Sum · **494** Target Sum · **474** Ones and Zeroes · **1049** Last Stone Weight II |
-| **LeetCode — graphs (intro)** | **200** Number of Islands · **133** Clone Graph · **207**/**210** Course Schedule I & II · **417** Pacific Atlantic · **130** Surrounded Regions · **695** Max Area of Island · **994** Rotting Oranges · **542** 01 Matrix |
-| 🔴 **AtCoder** | **Educational DP Contest, problems A–L** — `atcoder.jp/contests/dp`. **The best structured DP resource that exists, and it is free** |
-| **CSES** | *Dynamic Programming* — the first ten |
-| 🏁 **Capstone** | **LC 72 Edit Distance from memory**, recurrence first, then the space-optimised version |
-
-🌙 **W22–25 (Ramadan, 3.5h):** **no new topics. Re-solve every DP failure from the log, and work AtCoder DP A–L slowly.** DP is the one topic that rewards slow careful weeks, so this collision is better luck than it looks.
-**Design:** a multi-tenant API with quotas, then identity/auth. **W26: failure-category count — the first one that will actually redirect you.**
-
----
----
-
-# ⚡ LEVEL 4 — Transport & Fingerprints
-
-> **Goal:** per-hop QUIC that removes Tor's head-of-line blocking — and a handshake that does not announce which network you belong to.
-> **⏱ Weeks 28–35 · 03-22 → 05-16 · 80h depth** · **Milestone D3** · **📺 Track C: 🔴 Stanford CS144, complete (W27–38)** · **W34 = buffer · W36 = Eid, 26h**
-
-## 🔥 THE WALL
-Multiplex two independent circuits over **one TCP connection** between two of your relays — which is what Tor does, one TCP connection per relay pair carrying every circuit between them. Now `tc netem loss 2%` on that link and drive both.
-
-**Both circuits stall together.** Circuit A loses a segment; TCP will not deliver *anything* after it until the retransmission arrives — so circuit B, which lost nothing, belongs to a different user, and is doing fine, freezes too. **Measure circuit B's p99 with and without circuit A's loss.**
-
-🔴 **That is head-of-line blocking across unrelated users, and it is the single biggest structural reason Tor feels slow. Screenshot the two p99s side by side. This chart goes in the README and it is the strongest argument in the entire project.**
-
-## 📖 THEORY
-**TCP's in-order guarantee is the problem**: one byte stream, one loss stalls everything behind it. **QUIC gives independent streams over one connection**, so circuit streams map onto QUIC streams and loss is recovered on the hop where it happened. **Per-hop, not end-to-end** — each relay-to-relay link its own QUIC connection with its own congestion control, so a lossy last mile does not degrade the whole path. **Nested congestion control** — know what it does and what per-hop avoids. **QUIC datagrams (RFC 9221)** where unreliable delivery is wanted.
-🔴 **QUIC has a fingerprint.** Connection ID length, version, transport parameters **and their order**, ALPN, initial packet layout, and the TLS ClientHello inside it. **If every Adyton peer's handshake is identical to each other and different from everyone else's, your network's membership list is public** — a spectacular own goal for a privacy system and exactly the mistake a naive implementation makes.
-
-**📺 Atlas → 🔴 Stanford CS144, all eight checkpoints (W27–38).** You build a working TCP in C++: byte stream → reassembler → receiver → **sender (the hardest)** → full connection replacing the kernel's socket → ARP network interface → IP router → end-to-end. **Do not skip to QUIC without this** — QUIC's design decisions are all reactions to TCP's and are incomprehensible until you have implemented the thing being reacted to. Also **15-213 L19–L20 (network programming)** if not already ticked.
-**📕 Pages:** RFC 9000 §2, §5, §12–13, §17; skim §7 · RFC 9221 in full · Peterson & Davie §6.3 · Fall & Stevens ch. 13–15 · **the `ngtcp2` API docs and every field of its settings/transport-params structs — each one is a fingerprint bit.**
-
-> 🤖 **PROMPT 1** W29 · `PREREQ:` I implemented TCP in CS144, including retransmission and windows · `GAP:` exactly which QUIC handshake fields are attacker-observable and which are negotiated in the clear · `CONTEXT:` normalising Adyton's handshake so peers are not identifiable by it · `THE DECISION:` which transport parameters I must pin, and whether their *order on the wire* is observable · `NAMED REAL SYSTEM:` how uTLS fingerprints TLS ClientHellos, and the QUIC-level equivalents
-> 🤖 **PROMPT 5 (ADVERSARY)** W33 · `SYSTEM:` Adyton peers connecting over QUIC via ngtcp2 · `PROPERTY:` "an observer cannot tell this connection belongs to the Adyton network" · `CAPABILITIES:` a passive ISP observer with full captures of many users · `NOT:` you cannot decrypt QUIC payloads
-
-📈 **EXIT CRITERIA — D3**
-- [ ] 🔴 **The head-of-line-blocking chart** — circuit B's p99 under circuit A's loss, TCP-multiplexed vs per-hop QUIC
-- [ ] Per-hop QUIC via **ngtcp2 + BoringSSL**; circuit streams map to QUIC streams; a 2-hop circuit carries a real HTTP request to a gateway
-- [ ] 🔴 **Fingerprint normalisation: a capture diff of two peers' handshakes is byte-identical except the random bits.** Verified by a script, **and the script runs in CI**
-- [ ] Connection ID length, version, ALPN and every transport parameter are fixed constants **with a comment saying why**
-- [ ] Circuit teardown releases every thread, stream and key — **100 build/teardown cycles leave no residual resources** (verified under ASan and with an fd-count assertion)
-- [ ] Every failure path typed and tested: guard unreachable, middle unreachable, handshake rejected, timeout mid-build. **No crashes; ASan/UBSan/TSan green**
-- [ ] Circuit build p50 **<250ms**; TTFB overhead vs direct **<120ms p50**; sustained single-stream **>15 Mbit/s**
-- [ ] 🔴 **CS144 complete: all eight checkpoints ticked, your TCP interoperates with the real internet**
-
-⛓ **PROBLEM CHAIN**
-```
-"Circuit B stalled on A's loss" → TCP in-order delivery → QUIC streams → THE headline chart
-"Loss on one hop hurt all hops" → per-hop connections → independent congestion control
-"All my handshakes looked alike"→ QUIC fingerprint → pin every parameter → verify by diff
-"Nested congestion control"     → what per-hop avoids, and what it still cannot
-"Now who do I connect TO?"      → peer discovery → gossip                            (→ L5)
-```
-
-## 🎤 INTERVIEW PARAGRAPH — Week 35
-> The transport is the part I'd lead with, because it's a structural fix rather than a tuning one. Tor multiplexes every circuit between two relays over a single TCP connection, and TCP guarantees in-order delivery — so when one circuit loses a segment, TCP won't deliver anything behind it and every *other* circuit on that link freezes too. Different users, unrelated traffic, all stalled. I reproduced it with `tc netem` at two percent loss and measured an innocent circuit's p99 with and without a neighbour's loss; that chart is the strongest argument in the project. The fix is per-hop QUIC — each relay-to-relay link is its own QUIC connection, circuit streams map onto QUIC streams, so loss is recovered where it happened and doesn't cross circuits. **I built a TCP from scratch first, in Stanford's CS144, all eight checkpoints including the sender and the router** — which is why I can explain *why* QUIC made each choice instead of repeating that it's better. The subtler thing I found is that QUIC has a fingerprint — connection ID length, version, transport parameters, ALPN — and a naive implementation makes every peer's handshake identical to each other and distinct from everyone else's, which publishes your network's membership list. So every parameter is pinned and CI diffs two peers' captures to prove they're byte-identical apart from the random bits.
-
-## 🎓 EXIT EXAM
-1. Explain head-of-line blocking across circuits with a concrete loss sequence. Give your own two p99 numbers.
-2. What does QUIC give you that TCP cannot, and what does it cost?
-3. Name six observable fields in a QUIC handshake. Which are negotiated in the clear?
-4. Per-hop vs one end-to-end session: what does each concede?
-5. Nested congestion control: what goes wrong, and what does your design do about it?
-6. When would you want a QUIC datagram instead of a stream in Adyton?
-7. From CS144: your TCP sender's retransmission timer. Walk through backoff on repeated loss.
-
-**Pass = 6/7.** Then 🤖 **PROMPT 2** on "QUIC, per-hop transport, and transport fingerprinting."
-## 🧩 PROBLEM SOLVING — L4 · W28–35 · 46 problems · 5h/wk
-**Patterns:** 🔴 **graphs proper** — BFS/DFS on state, topological sort, **Dijkstra, Bellman–Ford, shortest path with constraints**.
-🔗 **The tie, and it is the strongest in the plan:** you are building an IP router in CS144 checkpoint 6 *this level*, and in Level 9 you will build a **constrained multi-criteria path selector** for Adyton. 🔴 **LC 787 (Cheapest Flights Within K Stops) IS Adyton's selector in miniature** — shortest path with a hop constraint — and **LC 1631 (Path With Minimum Effort)** is the same shape with a different objective. When an interviewer asks a shortest-path question you will have a real system to point at.
-
-| Source | Set |
-|---|---|
-| **NeetCode 150 / 250** | Graphs and Advanced Graphs — all |
-| **LeetCode — shortest paths** | **743** Network Delay Time · 🔴 **787** Cheapest Flights Within K Stops · 🔴 **1631** Path With Minimum Effort · **778** Swim in Rising Water · **1976** Number of Ways to Arrive at Destination · **1129** Shortest Path with Alternating Colors · **847** Shortest Path Visiting All Nodes · **864** Shortest Path to Get All Keys |
-| **LeetCode — topological** | **210** revisit · **269** Alien Dictionary · **310** Minimum Height Trees · **802** Find Eventual Safe States · **2115** Find All Possible Recipes · **332** Reconstruct Itinerary |
-| **LeetCode — bipartite/colouring** | **785** Is Graph Bipartite? · **886** Possible Bipartition |
-| **CSES** | 🔴 ***Graph Algorithms* — the whole section's first fifteen.** CSES's graph set is harder and cleaner than LeetCode's and it is the right difficulty for you now |
-| **CF** | Problemset, tag `graphs` + `shortest paths`, rating **1500–1700**, 12 problems |
-| 🏁 **Capstone** | **LC 787 three ways** — Bellman–Ford, Dijkstra with state `(node, stops)`, and BFS by level. **Then explain which one Adyton's selector resembles and why** |
-
-**Design:** a chat/messaging system, then notification fanout. **Codeforces: one virtual in W31 and W35.** Target band by W35: **1650.**
-
----
----
-
-# ⚡ LEVEL 5 — The Mesh
-
-> **Goal:** peers find each other with no directory, across home routers, and detect each other's death without a central watcher — while laptops sleep and wifi drops.
-> **⏱ Weeks 36–43 · 05-17 → 07-11 · 76h depth** · **Milestone D4** · **🚩 Flagship #4 `meshsim`** · **📺 Track C: CS144 finish (W36–38), 🔴 MIT 6.5840 begins (W39)** · **W36 = Eid, 26h · W43 = REST WEEK**
->
-> **AWS free tier: sign up in Week 36** — twelve months from here covers W36–88, exactly when you need multi-region nodes. **Billing alarm at $5 before any resource.**
-
-## 🔥 THE WALL
-Run `adyton-node` on your workstation in Cairo. Run another on a second network. Give each the other's IP. **They cannot connect, in either direction.** Both behind NAT, neither routable. **This is the actual, physical reason peer-to-peer software needs traversal infrastructure**, and it is invisible until you hit it. Now do it with the Oracle box as rendezvous, watch hole punching work — **then find the NAT type where it still does not** and fall back to relay.
 ```bash
-tcpdump -i any -nn 'udp port 3478'   # the STUN exchange
-# ask TWO different rendezvous servers for your external ip:port.
-# If they disagree, you are behind symmetric NAT and punching will not work.
+cat /proc/<pid>/status | grep -i threads     # how many threads before it fell over
+pidstat -w -p <pid> 1                        # voluntary vs involuntary context switches/sec
+cat /proc/<pid>/limits                       # the fd ceiling you just hit
+ss -s                                        # socket state summary — how many in TIME_WAIT?
+perf stat -e context-switches,cpu-migrations -p <pid>
+strace -c -p <pid>                           # syscall histogram: where is time going?
 ```
 
-## 📖 THEORY
-**NAT types:** full-cone, restricted-cone, port-restricted, **symmetric**. Punching works for the first three and **fails for symmetric**, which is why every real P2P system has a relay fallback. **Measure what fraction of your peer pairs need it** — that fraction is a real cost. **SWIM membership:** each node pings one random peer per period; on failure asks *k* others to probe on its behalf (**indirect probing is what makes it robust to one bad link**); updates piggyback on the ping traffic. **O(N) per node per period regardless of mesh size.** **Phi-accrual failure detection:** a *suspicion level* from the distribution of recent inter-arrival times, rather than a binary verdict on a fixed timeout — adapts to a peer on a bad link instead of flapping. **Suspicion and incarnation numbers:** how a node refutes a false death rumour with no authority to appeal to — what stops a 2-second suspend from evicting a healthy peer. 🔴 **The nastiest fault: the asymmetric partition.** A's packets reach B, B's do not reach A. **Every naive liveness check produces a permanently inconsistent view.** This is the shape of how split-brain actually happens.
+**The key observation:** at 10k threads, your process spends more CPU on scheduling than on echoing bytes. That single measurement is why the entire async I/O industry exists.
 
-**📺 Atlas → CS144 checkpoints 6–7** (W36–38). **6.5840 L1–L3 (Introduction/MapReduce, RPC and Threads, GFS)** from W39 — 🔴 **GFS matters more than it looks: the canonical system whose entire design is shaped by "components fail constantly and that is normal," which is your posture toward churn.** **6.5840 Lab 1 (MapReduce) starts W40.**
-**📕 Pages:** 🔴 **SWIM paper, in full** — short and unusually clear · **φ Accrual paper** · 🔴 **DDIA ch. 8 in full** — partial failure, unreliable networks and clocks, **and why you cannot distinguish "slow" from "dead."** The theoretical spine of everything from here · RFC 4787 §4 · RFC 8445 §2 · HashiCorp's Serf Lifeguard docs — a production system's honest account of where the SWIM paper needed fixing.
+#### 📖 Theory
 
-> 🤖 **PROMPT 1** W38 · `GAP:` why symmetric NAT defeats punching, in terms of actual mapping behaviour · `THE DECISION:` attempt punching always and fall back, or detect NAT type first · `NAMED REAL SYSTEM:` how Tailscale's DERP fallback decides, and `pion/ice`'s default
-> 🤖 **PROMPT 1** W40 · `GAP:` how incarnation numbers let a node refute a false death rumour without an authority · `CONTEXT:` a mesh where a laptop's 2-second suspend must not evict it permanently · `THE DECISION:` the suspicion timeout that recovers a sleeping laptop without letting a dead peer linger
+- **Process vs thread vs coroutine vs green thread**: what each costs in bytes and in µs to create — *know the actual numbers on your machine, from `latency-lab`*
+- **The Linux scheduler**: CFS/EEVDF, time slices, `nice`, why a CPU-bound thread starves I/O-bound ones, cgroup CPU throttling (this one will bite you in Kubernetes)
+- **Context switch anatomy**: register save, page-table swap, TLB flush, cold caches. Why the *cache* cost dwarfs the *switch* cost.
+- **Blocking vs non-blocking vs async vs asynchronous-completion**: four different things, routinely conflated
+- **The `select` → `poll` → `epoll` → `io_uring` progression**: O(n) per call → O(n) → O(1) readiness → batched submission/completion queues with zero syscalls in the fast path
+- **Readiness (epoll/kqueue) vs completion (IOCP/io_uring)** models — the fundamental design split
+- **Thread pools, work stealing, M:N scheduling** — how Go's runtime actually schedules goroutines (G-M-P model), why a blocking syscall in Go doesn't stall the world
+- **The async/await coloring problem** — why "async all the way down" is contagious, and why Go/Java-21-loom chose virtual threads instead
+- **File descriptors**: what "everything is a file" actually costs; fd limits, `EMFILE` vs `ENFILE`
+- **Signals, zombie processes, `fork` vs `posix_spawn`, copy-on-write** — and why COW makes Redis `BGSAVE` briefly double memory
 
-## 🛠 🚩 FLAGSHIP #4 `meshsim` + MILESTONE D4 · 60h
-**`meshsim` is what makes Levels 8, 9 and 11 possible.** Every source of nondeterminism injectable and driven by one seeded PRNG: clock · network (delay, drop, reorder, **asymmetric partition**) · peer lifecycle (join, sleep, vanish, **throttle to LTE bandwidth**) · and the Adyton-specific fault — **a peer that lies about its capacity, or behaves well only when it detects it is being probed.**
+#### 📄 Sources
 
-📈 **EXIT CRITERIA — D4**
-- [ ] 🔴 **Two peers behind different NATs discover each other and exchange a circuit.** If your connection is symmetric-NAT, demonstrate relay fallback and **document which it was** — a real finding, not a failure
-- [ ] **Fraction of peer pairs requiring relay, measured** on your actual conditions; **NAT direct-connection success >80%** across the type matrix
-- [ ] A peer joining a 30-node mesh is known to all others **within a bounded number of gossip rounds — measured and plotted against mesh size**
-- [ ] Membership traffic per node **flat as the mesh grows** — the chart, beside the naive O(N²) curve and its extrapolation to 1,000 peers
-- [ ] 🔴 **Phi-accrual vs fixed timeout: false-positive rate and detection latency, both, as a chart**, under `tc netem delay 50ms 30ms distribution normal`
-- [ ] **A 2-second suspend does not evict a healthy peer** — suspicion plus incarnation numbers, asserted
-- [ ] 🔴 **The asymmetric-partition test.** The mesh converges to a consistent view, **or you document exactly why it cannot and what you do instead**
-- [ ] **Circuit recovery under churn: p50 <800ms, p99 <3s** at 20% of peers churning per five-minute window
-- [ ] **Graceful drain:** a peer switched off signals circuits to migrate rather than break. **Zero circuits broken**
-- [ ] `meshsim`: **1,000 seeds nightly in CI**, any failure reproducible from a seed integer
-- [ ] Terraform provisioning free-tier nodes in ≥3 real regions; **$0.00 verified**; **AWS signed up W36 with a tested $5 alarm**
-- [ ] **6.5840 L1–L3 ticked; Lab 1 (MapReduce) complete**
+- **OSTEP — *Operating Systems: Three Easy Pieces*** (Arpaci-Dusseau, free at `pages.cs.wisc.edu/~remzi/OSTEP/`). Chapters 4–10 (virtualization), 25–33 (concurrency). **The single best OS resource in existence and it was absent from v2.**
+- **"The C10K Problem"** — Dan Kegel. Historically essential; read it as an artifact of how the industry got here.
+- **"Blocking I/O, Nonblocking I/O, And Epoll"** — Evan Klitzke (eklitzke.org). Precise and short.
+- **"Efficient IO with io_uring"** — Jens Axboe (the author of io_uring). The primary source.
+- **"Inside NGINX: How We Designed for Performance and Scale"** — NGINX blog.
+- **"The Go scheduler"** — Dmitry Vyukov's design doc + "Scheduling In Go" series by William Kennedy (Ardan Labs). Read all three parts.
+- **"Fibers, Oh My!"** — Cloudflare blog. Coroutines in production.
+- **"Notes on structured concurrency, or: Go statement considered harmful"** — Nathaniel J. Smith. Changes how you think about spawning anything.
 
-## 🎤 INTERVIEW PARAGRAPH — Week 43
-> The mesh exists and two things surprised me. Peer-to-peer is *physically* hard before it is algorithmically hard: two nodes behind home routers cannot connect in either direction, so I implemented STUN-style hole punching with a rendezvous server plus a relay fallback, because punching simply does not work behind symmetric NAT — and I measured what fraction of my peer pairs need the relay, because that is a real cost. Then membership. I started with everyone pinging everyone, fine at thirty nodes and O(N²) — I plotted it and extrapolated to a thousand peers, where every node spends its CPU on membership instead of forwarding. So it's SWIM: ping one random peer per period, ask k others to probe indirectly on failure, piggyback membership updates on the ping traffic so dissemination is free. Traffic per node is flat as the mesh grows and I have the chart. The failure detector is phi-accrual rather than a fixed timeout, chosen after measuring false-positive rates under injected jitter, because a fixed timeout flaps badly on a home connection. And the fault that taught me most is the asymmetric partition — A's packets reach B but B's don't reach A — where a naive liveness check gives a permanently inconsistent view of who's alive. That's the shape of how split-brain actually happens, and it's what pushed me into the next level, because in *this* system two clients disagreeing about the peer list turns out not to be a correctness bug but a privacy bug.
+#### 🛠 FLAGSHIP PROJECT #1 — `c10k-arena` ⭐⭐ *(Instrument archetype, 9/10)*
 
-## 🎓 EXIT EXAM
-1. Four NAT types. Which defeats punching, and what do you do instead? What fraction of your pairs needed it?
-2. Why is SWIM O(N) per node when naive membership is O(N²)? What does indirect probing buy?
-3. Fixed timeout vs phi-accrual: the failure mode of each, and the metric that distinguishes them.
-4. A laptop suspends two seconds. What prevents eviction, and how does the peer refute it?
-5. Asymmetric partition: what does each side believe? What can you actually do?
-6. You cannot distinguish slow from dead. State the consequence for circuit migration.
-7. Why is a peer's self-reported bandwidth worthless, and what do you do instead?
+**Build the same TCP echo server six ways, and build the harness that benchmarks them all.**
 
-**Pass = 6/7.** Then 🤖 **PROMPT 2** on "membership, failure detection and churn."
-## 🧩 PROBLEM SOLVING — L5 · W36–43 · 46 problems · 5h/wk
-**Patterns:** 🔴 **union-find** · minimum spanning trees · **design problems** · reductions and NP-hardness.
-🔗 **The tie:** union-find *is* the connected-components question you are asking about your own mesh — "after this partition, which peers can still reach each other?" — and **W37 is a proving week: three written reductions from Skiena ch. 9.** Being able to say *"this scheduling problem is NP-hard by reduction from 3-SAT, so I used a heuristic and measured how far off optimum it lands"* is a senior answer and it comes up in real design rounds.
+| # | Model | Language |
+|---|---|---|
+| 1 | Process per connection (`fork`) | C or Go |
+| 2 | Thread per connection | C or Go |
+| 3 | Bounded thread pool + blocking I/O | C or Go |
+| 4 | Single-threaded `epoll` event loop | C or Go (raw syscalls) |
+| 5 | `io_uring` submission/completion queues | C (or Go via `iouring-go`) |
+| 6 | Goroutines / virtual threads (runtime-managed M:N) | Go or Java 21+ |
 
-| Source | Set |
+Then build `arena` — the harness that runs all six at 100 / 1k / 10k / 50k concurrent connections and records: throughput (msg/s), p50/p99/p99.9 latency, RSS, thread count, context switches/s, syscalls/s (`strace -c`), and CPU split (user vs sys).
+
+📈 **Exit Criteria**
+- [ ] All six pass an identical correctness test (echo integrity under concurrent load, no interleaving)
+- [ ] Six-line chart: connections (log) vs p99 latency, and a second chart for RSS
+- [ ] You can state **exactly where each model's knee is** and name the resource that caused it
+- [ ] The io_uring version shows **measurably fewer syscalls per message** than the epoll version — with the number
+- [ ] Written teardown answering: *"at what connection count does thread-per-connection stop being the right answer, and what actually breaks first?"*
+- [ ] Bonus: run under `cgroup` CPU limits and show how the ranking changes under CPU throttling (this is the Kubernetes reality)
+
+⛓ **Problem Chain**
+```
+"10k threads = OOM"           → memory per thread → why goroutine stacks start at 2KB & grow (→ C.2)
+"Too many context switches"   → scheduler cost → why event loops win → why Node is single-threaded (→ 0.2)
+"epoll is still 2 syscalls"   → io_uring → why syscall cost drives modern I/O design (→ E.2)
+"EMFILE at 1024 connections"  → fd limits → why LB connection pooling & keep-alive matter (→ 4.1)
+"TIME_WAIT flooded my ports"  → TCP state machine → SO_REUSEADDR, ephemeral port exhaustion (→ 0.3)
+"One slow handler stalls all" → head-of-line blocking → why HTTP/2 multiplexes → why HTTP/3 exists (→ 1.2)
+"CPU-bound task froze the loop"→ why you need a worker pool next to your event loop (→ A.5)
+```
+
+#### 🛠 CORE PROJECT — `minidocker` *(Reimplementation archetype, 8/10)*
+
+Build a container runtime in ~400 lines. Not "use Docker" — *be* Docker:
+
+1. `clone()` with `CLONE_NEWPID | CLONE_NEWNS | CLONE_NEWNET | CLONE_NEWUTS | CLONE_NEWIPC`
+2. `pivot_root` into an extracted rootfs (grab one with `docker export`)
+3. Mount a fresh `/proc` — then run `ps aux` inside and see only your process
+4. Write cgroup v2 files to cap memory at 100MB — then run a memory bomb inside and watch the OOM killer fire *inside the container only*
+5. Set up a veth pair + bridge so the container can reach the internet
+6. Drop capabilities and set a non-root uid
+
+📈 **Exit Criteria**
+- [ ] `ps aux` inside shows PID 1 = your process
+- [ ] A 500MB allocation inside is OOM-killed while the host is fine — show the `dmesg` line
+- [ ] `curl` works from inside the container
+- [ ] You can explain, in one paragraph each, what namespaces, cgroups, and OverlayFS each do — **and what Docker adds on top that you didn't build**
+
+> **Course option (strongly recommended):** **MIT 6.S081 — Operating System Engineering.** You implement pieces of the xv6 kernel: system calls, page tables, a copy-on-write fork, a lazy allocator, a file system with logging, and threads. Free, self-servable, ~80–120h. If you do this, you can skip half of Level 0's core projects — but not `c10k-arena`.
+
+---
+
+### 0.3 — Networking: TCP, DNS, TLS, and the Bytes on the Wire
+
+> 🔥 **THE WALL**
+> Three failures to reproduce, in order:
+>
+> 1. **The 200ms mystery.** Write a client that sends a 5-byte header then a 100-byte body as two separate `write()` calls, and a server that responds. Measure RTT on a loopback. You'll periodically see ~40ms or ~200ms stalls that make no sense. (Nagle's algorithm interacting with delayed ACK.) Fix it with `TCP_NODELAY` and watch the tail vanish.
+> 2. **Port exhaustion.** Open and close 60,000 short-lived TCP connections as fast as you can. Watch `ss -s` fill with `TIME_WAIT` and then watch `connect()` start returning `EADDRNOTAVAIL`.
+> 3. **The silent hang.** Start a request to a server, then `iptables -A INPUT -p tcp --dport 8080 -j DROP` (black-hole it, don't RST it). Your client hangs. For how long? Until the OS TCP retransmit timeout — potentially **15+ minutes**. This is why "every network call needs a timeout" is the most repeated advice in backend engineering.
+
+#### 🔎 Diagnose
+
+```bash
+tcpdump -i lo -nn -A 'port 8080' -w cap.pcap   # then open in Wireshark. Read the actual bytes.
+ss -tin                                         # cwnd, rtt, retransmits, per socket
+ss -s                                           # TIME_WAIT / CLOSE_WAIT counts
+cat /proc/net/netstat | grep -i listen          # ListenOverflows = your accept backlog is full
+netstat -s | grep -i retrans
+dig +trace example.com                          # full resolution chain, root → TLD → authoritative
+openssl s_client -connect example.com:443 -tls1_3 -msg   # watch the actual handshake
+```
+
+**Mandatory exercise:** capture one HTTPS request in Wireshark and *annotate every single packet* — SYN, SYN-ACK, ACK, ClientHello, ServerHello, certificate, Finished, application data, FIN. Screenshot it. You will reference this mental image for the rest of your career.
+
+#### 📖 Theory
+
+- **The three-way handshake, and the four-way teardown.** Every state in the TCP state machine: `SYN_SENT`, `ESTABLISHED`, `FIN_WAIT_1/2`, `TIME_WAIT`, `CLOSE_WAIT`. **`CLOSE_WAIT` piling up always means your application forgot to close sockets — know this on sight.**
+- **Why `TIME_WAIT` exists** (2×MSL, protecting against delayed duplicates), and why `SO_REUSEADDR`/`SO_REUSEPORT` are not the same thing
+- **Flow control (receive window) vs congestion control (cwnd)** — different mechanisms, different problems
+- **Slow start, congestion avoidance, fast retransmit, CUBIC vs BBR** — and why a 10MB transfer takes many RTTs to reach full speed. This is why **connection reuse and keep-alive matter more than bandwidth.**
+- **Bandwidth-delay product**: why a fat, long link needs big windows
+- **Head-of-line blocking** at three layers: TCP, HTTP/1.1 pipelining, HTTP/2 over TCP — and how QUIC/HTTP-3 sidesteps it by moving to UDP
+- **MTU, MSS, fragmentation, PMTU black holes** — the classic "works everywhere except over the VPN" bug
+- **The accept queue vs the SYN queue**, `somaxconn`, `ListenOverflows` — where dropped connections actually go
+- **DNS**: the full chain, TTLs, negative caching, why a low TTL doesn't guarantee fast failover, why DNS-based load balancing is coarse, `SRV` records, DNS in Kubernetes (`ndots:5` and the famous latency bug)
+- **TLS 1.3**: handshake in 1-RTT, 0-RTT resumption **and its replay risk**, certificate chains, SNI, ALPN, mTLS, OCSP stapling, why cert expiry causes so many outages
+- **NAT, keep-alive, and idle timeouts** — why your long-lived connection dies silently after 350 seconds behind a cloud NAT gateway
+
+#### 📄 Sources
+
+- **"High Performance Browser Networking"** — Ilya Grigorik, free at `hpbn.co`. Chapters 1–4 and 11–12. Still the best networking book for engineers.
+- **Beej's Guide to Network Programming** — free. For actually writing socket code.
+- **"The Story of One Latency Spike"** — Marek Majkowski, Cloudflare. A real production TCP debugging story, told end to end.
+- **"How to receive a million packets per second"** — Cloudflare. Where the ceilings actually are.
+- **"HTTP/3 explained"** — Daniel Stenberg (free book) + **"HTTP/2 in Action"**.
+- **"Let's code a TCP/IP stack"** — Saminda Peramune / the `saminiir.com` series. Read before CS144.
+- **"TLS 1.3: 0-RTT, resumption and anti-replay"** — Cloudflare blog.
+- **"Kubernetes DNS `ndots:5` and how it breaks your latency"** — multiple write-ups. A real, common, career-relevant bug.
+
+#### 🛠 FLAGSHIP-GRADE COURSE PROJECT — **Stanford CS144: build your own TCP** ⭐⭐
+
+`cs144.github.io` — free labs, self-servable. You implement, in C++, from nothing:
+a byte stream → a stream reassembler → the TCP receiver (window, seqno unwrapping) → the TCP sender (retransmission, RTO backoff, window management) → the full TCP connection state machine → an ARP-speaking network interface → an IP router.
+
+At the end **your TCP talks to real servers on the real internet.**
+
+📈 **Exit Criteria**
+- [ ] All lab test suites pass
+- [ ] Your stack fetches a real webpage from a real host over the public internet
+- [ ] You can draw the TCP state machine from memory
+- [ ] You can explain exactly what your retransmission timer does when three packets are lost in a row
+
+> This is the single highest-value fundamentals project in existence. **"I implemented TCP from scratch and it talks to real servers"** ends the networking portion of any interview immediately.
+
+#### 🛠 CORE PROJECT — `wire` *(Instrument archetype, 8/10)*
+
+A CLI that takes one logical operation — "fetch user 42 with their 10 most recent orders" — implemented over **REST-JSON, REST-JSON+gzip, gRPC-protobuf, and GraphQL**, and reports for each: bytes on the wire (headers + body, measured with `tcpdump`, not guessed), number of round trips, TLS handshake cost, syscalls, server CPU-ms, and p99 latency at 1 / 100 / 1000 concurrent clients.
+
+📈 **Exit Criteria**
+- [ ] A single comparison table with real measured bytes, not documentation claims
+- [ ] Cold-start (new TLS handshake) vs warm (connection reused) numbers shown separately
+- [ ] You can answer: *"at what payload size does protobuf's advantage over gzipped JSON disappear?"* — with your own data
+- [ ] Published as a blog post. This is the kind of post that gets shared.
+
+⛓ **Problem Chain**
+```
+"200ms stall"           → Nagle × delayed-ACK → why TCP_NODELAY is in every RPC library (→ 1.2)
+"connect() EADDRNOTAVAIL"→ ephemeral ports → why you pool connections (→ 2.2 PgBouncer, 4.1)
+"Request hung 15 min"   → no timeout → timeout budgets, deadline propagation (→ 4.4, 3.1)
+"Slow start costs RTTs" → keep-alive, HTTP/2, connection warming (→ 1.2)
+"CLOSE_WAIT climbing"   → leaked sockets → fd exhaustion → cascading failure (→ 0.4, 4.4)
+"Cert expired at 3am"   → cert rotation, mTLS automation, why service meshes exist (→ 5.4, H.2)
+"DNS TTL didn't fail over"→ health-check-based LB instead of DNS LB (→ 4.1)
+"Works except over VPN" → PMTU black hole → MSS clamping (→ 0.3)
+```
+
+---
+
+### 0.4 — Linux as a Debugger: the skill that makes you the person they call
+
+> 🔥 **THE WALL — The Four Sick Servers**
+> Build (or clone) four small services, each with exactly one pathology, and **do not label them**. Have a friend, or a script, pick one at random. Your job: identify the fault using only Linux tooling, within 10 minutes, and prove it with evidence.
+>
+> 1. **Memory leak** — RSS climbs 5MB/min until the OOM killer arrives
+> 2. **FD leak** — works fine for 40 minutes, then every request returns `EMFILE`
+> 3. **Lock contention** — CPU is at 15%, throughput is at 3% of expected, threads all blocked
+> 4. **Runaway syscall loop** — 90% system CPU, ~0% user CPU, and it's not doing any useful work
+>
+> Then add three harder ones: **disk I/O saturation** (iowait), **a noisy neighbor in a cgroup** (CPU throttling), and **a DNS resolution stall** (5s hangs on every Nth request).
+
+#### 📖 The Toolkit — know what each tool answers, not just its flags
+
+| Question | Tool |
 |---|---|
-| **LeetCode — DSU** | **547** Number of Provinces · **684**/**685** Redundant Connection I & II · **721** Accounts Merge · **990** Satisfiability of Equality Equations · 🔴 **1697** Checking Existence of Edge Length Limited Paths · **305** Number of Islands II · **803** Bricks Falling When Hit |
-| **LeetCode — MST** | **1584** Min Cost to Connect All Points · **1135** Connecting Cities With Minimum Cost · **1489** Critical and Pseudo-Critical Edges in MST |
-| 🔴 **LeetCode — design** | **146** LRU Cache · 🔴 **460** LFU Cache · **355** Design Twitter · **588** Design In-Memory File System · **981** Time Based Key-Value Store · **1146** Snapshot Array · **359** Logger Rate Limiter · **1352** Product of the Last K Numbers · **1206** Design Skiplist · **622**/**641** Design Circular Queue & Deque |
-| **CSES** | *Graph Algorithms* — the rest, plus *Range Queries* first five |
-| **CF EDU** | 🔴 **Disjoint Sets Union** — parts 1 and 2, complete |
-| **Skiena** | **Ch. 9** (intractability). **Write three reductions out longhand in W37** |
-| 🏁 **Capstone** | **LC 460 LFU Cache** — write it with O(1) get and put, from scratch, twice, a week apart. **It is the design problem most likely to appear and most likely to be fumbled** |
+| What's the 60-second overview? | `uptime`, `dmesg -T \| tail`, `vmstat 1`, `mpstat -P ALL 1`, `pidstat 1`, `iostat -xz 1`, `free -m`, `sar -n DEV 1`, `top` |
+| What syscalls is it making? | `strace -c -f -p PID` (histogram first, then `-e trace=` to narrow) |
+| Where is the CPU going? | `perf top`, `perf record -F 99 -g -p PID` → **flame graph** |
+| What files/sockets are open? | `lsof -p PID`, `ls -l /proc/PID/fd \| wc -l` |
+| Who's talking to whom? | `ss -tanp`, `ss -tin`, `tcpdump` |
+| Is the disk the problem? | `iostat -xz 1` (look at `%util` and `await`), `biolatency` (bcc) |
+| Why is memory growing? | `pmap -x`, `/proc/PID/smaps_rollup`, `valgrind --tool=massif`, jemalloc/tcmalloc profilers, `heaptrack` |
+| What's the kernel doing? | `bpftrace`, `bcc` tools (`execsnoop`, `opensnoop`, `tcpconnect`, `runqlat`, `offcputime`) |
+| Why is it in a container and slow? | `cat /sys/fs/cgroup/cpu.stat` → **`nr_throttled` and `throttled_usec`** |
 
-**Design:** service discovery, then a distributed rate limiter. 🔴 **You are building SWIM membership this level — use it as your worked example in the service-discovery design.**
-**W41: first human mock, plus the Raft Figure 8 whiteboard test.** **Codeforces: virtuals W39, W43.**
+#### 📖 Methodologies (this is what separates you from someone who knows commands)
 
----
----
+- **USE Method** (Brendan Gregg): for every resource — Utilization, Saturation, Errors. A checklist that finds problems *systematically* rather than by intuition.
+- **RED Method**: for every service — Rate, Errors, Duration.
+- **The 60-second checklist**: the exact 10 commands, in order, from Netflix's playbook.
+- **Off-CPU analysis**: when CPU is low but latency is high, profile what threads are *blocked on*, not what they're running. Most engineers never learn this and it's where half of real latency lives.
 
-# ⚡ LEVEL 6 — ☕ The Directory
+#### 📄 Sources
 
-> **Goal:** every client sees the same view of the mesh — because **if two clients see different peer sets, that difference is itself a fingerprint that distinguishes them.**
-> **⏱ Weeks 44–52 · 07-12 → 09-12 · 88h depth** · **Milestone D5** · **🚩 Flagship #5 `raft-dir`** · **📺 Track C: 🔴 MIT 6.5840, complete — L4–L22 and Labs 2–5** · **W52 = buffer** · **⚑ CV v3 at W50**
->
-> **☕ The Java level, and Java is 52.7% of your target backend postings — the single most-demanded skill in your corpus, above AWS.** A directory service is stateful, consensus-backed, multi-tenant, and serves verified documents to many readers: precisely what the JVM ecosystem is best at.
->
-> 🔴 **This is where 6.5840 does the real work — and the sequencing is deliberate. You implement Raft in Go for Lab 3 (W45–47), then implement it again in Java as Adyton's directory (W48–52). The second implementation is where the understanding shows**, and being able to say *"I implemented Raft twice, in two languages, and here is what I did differently the second time"* is a genuinely unusual thing to be able to say.
+- **"Linux Performance Analysis in 60,000 Milliseconds"** — Brendan Gregg, Netflix TechBlog.
+- **"Systems Performance: Enterprise and the Cloud" 2nd ed.** — Brendan Gregg. The reference. Chapters 2, 5, 6, 9, 10.
+- **"BPF Performance Tools"** — Brendan Gregg. The modern successor to strace-everything.
+- **Julia Evans** (jvns.ca) — the zines and posts on strace, tcpdump, containers, and networking. Best on-ramp that exists.
+- **"The USE Method"** and **"Off-CPU Analysis"** — brendangregg.com.
 
-## 🔥 THE WALL
-Let each client build its own peer list from gossip — the design Level 5 leaves you with. Instrument two clients and diff their views. **They differ.** Different join times, gossip paths, peers still suspected. Now ask the question that makes this a privacy problem: **a website sees a circuit through peers X and Y. How many Adyton users could have built that circuit?**
+#### 🛠 CORE PROJECT — `sickbay` *(Adversary archetype, 8/10)*
 
-If every client has a slightly different peer list, **the set of clients whose view contained both X and Y may be very small — sometimes one.** Your path selection has become a fingerprint. **Measure it in `meshsim`: with 30 peers and divergent views, compute the anonymity-set size of an observed circuit.**
+Don't just *solve* the four sick servers — **package them.** Build a repo where `make sick-3` launches a containerized service with a randomly-selected injected pathology, and `make diagnose` gives the user a scratchpad. Ship 8 pathologies, each with a hidden `SOLUTION.md` containing the exact command sequence that reveals it and the fix.
 
-## 📖 THEORY
-**Why not consensus among all peers:** a single Raft group across thousands of churning home machines is absurd. **Adyton runs consensus among a small authority set and disseminates a signed document to everyone else** — the ZooKeeper shape, and what Tor does with nine directory authorities. **Epoch documents:** a signed, versioned snapshot — peer list, measured capacities, epoch number, validity window, signature. Clients verify and use *only* the current epoch, so **all clients on epoch N have the same view by construction.** **Raft in full:** terms · randomised election timeouts and why randomisation is load-bearing · the up-to-date-log check · AppendEntries · **the log matching property** · commit index advancement · membership changes. 🔴 **The Figure 8 case** — why a leader may not directly commit an entry from a *previous* term. **The subtle part, what interviewers probe, and you must be able to draw it.** **ReadIndex / lease reads** — linearizable reads without a log write, which matters because the directory is read constantly and written rarely.
-🔴 **FORK CONSISTENCY — the concept that reframes this level.** A compromised authority set can serve *different* epoch documents to different clients — a **fork attack** — recreating the fingerprint you just eliminated, deliberately. Fork consistency says the attacker can fork the views but **cannot keep the fork hidden forever.** The defences: **hash-chaining the epoch documents** so a fork is a visible branch, and **gossiping observed epoch hashes between clients** so two clients comparing notes detect a fork immediately. Certificate Transparency's idea applied to a mesh directory.
-**Measurement without trust:** a peer's claimed bandwidth cannot be believed. Active probing from multiple vantage points, and resistance to peers that behave well only when probed. Prior art: Tor's `sbws`.
-☕ **Java 21 for this:** records and sealed interfaces for the document types · **virtual threads** for the read-serving path (thousands of clients polling for the current epoch is exactly Loom's case) · and 🔴 **a GC pause in a consensus leader looks exactly like a network partition to its followers.**
+📈 **Exit Criteria**
+- [ ] 8 reproducible pathologies, each launching with one command on a clean machine
+- [ ] Your own median time-to-diagnosis under 10 minutes across all 8, on a re-run with shuffled labels
+- [ ] Each `SOLUTION.md` shows the *evidence*, not just the answer (the actual `strace`/`perf`/`ss` output that proves it)
+- [ ] One flame graph committed to the repo, annotated
 
-**📺 Atlas → 🔴 6.5840, the rest of the course:** **L4 Paxos** (W44 — ADR-0004 requires you to have understood it, not dismissed it) · **L6, L7 Raft (1) and (2)** (W44–45) · **L8 Consistency and Linearizability** (W46 — ADR-0005) · **L9 Zookeeper** (W47 — 🔴 Adyton's exact shape) · **L13 Chain Replication** (W48 — the second alternative) · 🔴 **L19 Fork Consistency, SUNDR (W49 — the most important lecture in the Atlas for this project)** · **L21 Byzantine Fault Tolerance** (W51 — so Level 10's "I didn't need PBFT" is credible) · plus L11, L12, L14–L18, L20 in the weekday slots. **Labs 2, 3 (Raft), 4 (KV on Raft) and 5 (sharded KV) — all four.**
-**📕 Pages:** 🔴 **Raft extended paper §5 in full, §6 carefully** — the conference version omits crucial detail · 🔴 **Gjengset, "Students' Guide to Raft"** — read *before* you start, not when stuck · 🔴 **Mahajan et al., SUNDR §2–4** · Laurie, "Certificate Transparency" (CACM 2014) · DDIA ch. 9 in full · **Jepsen's consistency model map** — memorise the hierarchy · Kleppmann "How to do distributed locking" **and** antirez's reply · Goetz *JCiP* ch. 3, 5, 11 · JEP 444 · Shipilëv's "JVM Anatomy Quarks" on allocation and GC.
-
-> 🤖 **PROMPT 1** W45 · `PREREQ:` I watched 6.5840 L6–L7 and read the extended paper, and Lab 3 passes · `GAP:` the Figure 8 scenario — why a leader cannot directly commit an entry from a previous term · `THE DECISION:` whether the no-op-on-election fix is sufficient · `NAMED REAL SYSTEM:` etcd's implementation
-> 🤖 **PROMPT 4 (BRIDGE)** W49, **the important one** · `SOURCE A:` Raft gives me linearizable consensus among the authorities · `SOURCE B:` SUNDR shows a malicious server can still fork clients' views of a consistent log · `DECISION:` what Raft actually buys my *clients*, and what I must add — hash chaining, client gossip, or both
-> 🤖 **PROMPT 5 (ADVERSARY)** W50 · `SYSTEM:` 5 Raft authorities publishing signed, hash-chained epoch documents; clients verify and use only the current epoch · `PROPERTY:` "all clients see the same peer set per epoch, so a circuit does not narrow the anonymity set" · `CAPABILITIES:` you have compromised 3 of the 5 authorities and you also operate a website users visit · `NOT:` you cannot forge the 2 honest signatures
-
-📈 **EXIT CRITERIA — D5**
-- [ ] Leader elected from 5 authorities; re-elected within the timeout after a kill; **no split-brain across 1,000 randomised runs**
-- [ ] **Partition test: a minority partition CANNOT commit, across 500 randomised schedules.** On heal, uncommitted minority entries are correctly overwritten
-- [ ] 🔴 **The Figure 8 scenario constructed deliberately as a test**, and the commit rule shown to prevent it. **You can draw it at a whiteboard in five minutes from memory.** Tested by a human
-- [ ] ReadIndex or lease reads; **linearizable reads without a log write**, latency difference measured
-- [ ] Epoch document signed, versioned, **hash-chained to its predecessor**; clients reject a document whose chain does not extend the one they hold
-- [ ] 🔴 **THE HARD ONE: 100% of peers hold the same epoch-N consensus hash within 30s of epoch close, under 20% churn.** An assertion, not a metric
-- [ ] 🔴 **Fork detection:** clients gossip observed epoch hashes; **a simulated fork (3 compromised authorities, two documents) is detected within N epochs — and you report N**
-- [ ] 🔴 **Anonymity-set measurement:** for an observed circuit, the number of clients whose view contained both hops, **before and after epoch documents.** The number that proves why this level exists
-- [ ] Capacity from **measured** probing at ≥3 vantage points, **within 20% of ground truth**; self-reports never read. **A peer reporting 10× its capacity, and one performing well only when probed, are both down-weighted** — asserted in `meshsim`
-- [ ] **A GC pause on the leader is distinguished from a partition — or documented as indistinguishable**, which is the honest answer, with the consequence stated
-- [ ] `docs/design/consistency.md` + **ADR-0004 (Paxos vs Raft vs Chain Replication)** and **ADR-0005 (consistency model)**
-- [ ] 🔴 **6.5840 complete: all 22 lectures, all 5 labs ticked** — including the sharded fault-tolerant KV store
-- [ ] **CV v3 at W50. Blog post 2:** *"In a privacy network, disagreeing about the peer list is a privacy bug"*
-
-## 🎤 INTERVIEW PARAGRAPH — Week 52 (and CV v3)
-> This is the level I'd most want to be asked about, because the requirement looks like performance and is actually privacy. My peers gossip, so each client builds its own view of the mesh — and when I diffed two clients' views they differed. Harmless, until you ask: a website observes a circuit through peers X and Y; how many Adyton users could have built it? If every client's peer list is slightly different, **the set of clients whose view contained both can be tiny — sometimes one.** Divergence in the peer list is a fingerprint. So the directory publishes signed epoch documents and every client uses only the current epoch, which makes their views identical by construction. Consensus runs among five authorities rather than across all peers, which is the ZooKeeper shape and also what Tor does. **I implemented Raft twice — first in Go for MIT 6.5840's Lab 3, then in Java as this directory — and the second implementation is where the understanding showed**; the part that took longest both times was Figure 8, the case where a leader must not directly commit an entry from a previous term, which I built as a deliberate test rather than waiting to hit it.
->
-> But the thing I'm proudest of came from a lecture I nearly skipped. Raft gives me agreement *among the authorities*. It does not stop a compromised authority set serving **two different epoch documents to two sets of clients** — a fork attack — which recreates the exact fingerprint I'd just eliminated, on purpose. That's fork consistency, and SUNDR works it out: an attacker can fork the views but cannot keep the fork hidden, because once forked the two client sets can never be reconciled without the divergence becoming visible. So epoch documents are hash-chained and clients gossip the hashes they've seen — Certificate Transparency's idea applied to a mesh directory. I simulated three compromised authorities and I can tell you how many epochs it takes to detect.
-
-## 🎓 EXIT EXAM
-1. Why is a divergent peer list a privacy bug and not just a correctness bug? Give your own anonymity-set numbers.
-2. Draw Raft's Figure 2 from memory. Then Figure 8, and the rule that fixes it.
-3. Why consensus among a small authority set rather than all peers? What does it concede, and who else does it this way?
-4. Why is randomising the election timeout load-bearing rather than a detail?
-5. Raft gives agreement among authorities. **What attack does it not prevent, and what did you add?**
-6. Define fork consistency. What is the bound, and what mechanism enforces it?
-7. A peer performs well only when it detects a probe. How do you catch it?
-8. Your leader GC-paused 400ms. What did the followers conclude, and is that distinguishable from a partition?
-9. ☕ You implemented Raft in Go and in Java. Name three things you did differently the second time and why.
-
-**Pass = 8/9.** *The hardest exam in the plan.* Then 🤖 **PROMPT 2** on "consensus, epoch consistency and fork attacks."
-
-## 🧩 PROBLEM SOLVING — L6 · W44–52 · 56 problems · 5h/wk
-**Patterns:** 🔴 **dynamic programming, part 2** — interval DP, DP on subsequences, string DP · intervals and sweep line · greedy with an exchange argument.
-🔗 **The tie:** Raft is a replicated **state machine**, and interval/subsequence DP is where you get comfortable reasoning about "the state after processing a prefix" — the same mental move. And the interval problems are the sweep-line family that shows up whenever you schedule anything, which is what the directory's epoch windows are.
-
-| Source | Set |
-|---|---|
-| 🔴 **LeetCode — interval DP** | **312** Burst Balloons · **546** Remove Boxes · **664** Strange Printer · **1000** Min Cost to Merge Stones · **87** Scramble String |
-| **LeetCode — string DP** | 🔴 **10** Regular Expression Matching · **44** Wildcard Matching · **115** Distinct Subsequences · **940** Distinct Subsequences II · **516** Longest Palindromic Subsequence · **1312** Min Insertions to Make Palindrome |
-| **LeetCode — intervals** | **56** Merge Intervals · **57** Insert Interval · **253** Meeting Rooms II · **435** Non-overlapping Intervals · **452** Min Arrows to Burst Balloons · **1235** Max Profit in Job Scheduling · **1353** Max Events That Can Be Attended · **715** Range Module |
-| **LeetCode — greedy** | **45**/**55** Jump Game II & I · **134** Gas Station · **630** Course Schedule III · **871** Min Refueling Stops · **763** Partition Labels |
-| 🔴 **AtCoder** | **Educational DP Contest, problems M–Z.** Finish the contest. **A–Z complete is a real credential among people who know it** |
-| **CSES** | *Dynamic Programming* — the rest of the section, complete |
-| **CF** | Problemset, tag `dp`, rating **1600–1800**, 12 problems |
-| 🏁 **Capstone** | 🔴 **LC 312 Burst Balloons** and **LC 10 Regular Expression Matching**, both from scratch with the recurrence written first. **These two are the DP problems that most reliably separate candidates** |
-
-**Design:** a distributed lock service, then a sharded database. 🔴 **You are implementing Raft twice this level — the lock-service design is the one where you say *"I built this"* and mean it.**
-**Codeforces: virtuals W47, W51.** 🔴 **Target band by W52: 1750.** **W52: failure-category count and the year-one gate.**
-
-> ### 🚩 END-OF-YEAR-ONE GATE — Week 52
-> **Check honestly: is there a working mesh — peers finding each other across NAT, forwarding Sphinx packets over per-hop QUIC, two unmodified browsers that cannot be linked, and a directory every client agrees with? And are 15-213, Boneh, CS144 and 6.5840 complete with every lab ticked?**
->
-> If yes: **Year 1 delivered the employable core and four completed courses.** Level 7 delivers the shell, and **applications open Week 56.**
-> If no: **go to §XVII and cut in the stated order, now.** The most likely honest answer is that a course slipped — in which case **the course finishes and an Adyton level slips**, not the reverse, because the courses are the thing you cannot get back later.
+> **Why this scores high:** it's a teaching artifact. It gets stars, it gets used in interviews *as* an interview exercise, and it demonstrates you can think from the perspective of someone who has to debug your system.
 
 ---
----
-# YEAR TWO — Mastery, While Interviewing
+
+### 0.X — 🎓 LEVEL 0 EXIT EXAM
+
+Answer without notes. Time-box to 60 minutes.
+
+1. Recite the latency ladder in orders of magnitude, register → cross-region network. Now: how many L1 hits fit in the time of one NVMe read?
+2. You have 10,000 idle WebSocket connections. Estimate memory usage under (a) thread-per-connection, (b) an epoll event loop, (c) goroutines. Show your arithmetic.
+3. `ss -s` shows 28,000 sockets in `CLOSE_WAIT`. What is wrong, and in whose code?
+4. A service shows 8% CPU, 4% iowait, and p99 latency of 3 seconds. Name three plausible causes and the exact command that distinguishes them.
+5. Draw the TCP connection lifecycle including `TIME_WAIT`. Why 2×MSL?
+6. Your pod's CPU limit is `500m`. Your service does 200ms of CPU work per request at 10 RPS. What is your p99 and why is it far worse than 200ms? (Answer must include the word "throttling" and the CFS quota period.)
+7. Explain false sharing to a smart junior engineer in 4 sentences, then give the fix.
+8. What actually happens, in order, from `curl https://api.example.com/v1/x` to the first byte returned? Name at least 15 discrete steps.
+
+**Pass = 7/8 answered confidently and correctly.** Below that, redo the failing topic's wall and project.
+
 ---
 
-# ⚡ LEVEL 7 — Operations and the Shell 🎯
+## ⚡ LEVEL 1 — Protocols & Communication
 
-> **Goal:** the half of the work a screen actually reads — and **the level that opens applications.**
-> **⏱ Weeks 53–58 · 2027-09-13 → 10-24 · 60h depth** · **Milestone D6** · **Core: `gatekeep`, `costwatch`** · **📺 Track C: 🔴 MIT 6.1810 begins (W53)** · **⚑ CV v4 at W55 · 🎯 APPLICATIONS OPEN W56 (2027-10-04) · W58 = REST WEEK**
+> **Goal:** you should be able to design a wire protocol, defend it, evolve it without breaking clients, and debug it from a packet capture.
 >
-> 🔴 **The coverage model says this level matters more than any clever core: the shell alone is 15.1% coverage, a clever core alone is 6.5%.** Six weeks, deliberately front-loaded in Year 2 so the CV is complete before the autumn window.
+> **⏱ Budget:** 70–100 hours · **Chronos milestone:** C1 · **Prereq:** 0.3
 
-## 🔥 THE WALL — six failures, caused deliberately
-1. `CrashLoopBackOff` from a missing ConfigMap key. 2. `Pending` forever — no node satisfies the resource request. 3. ⚙️ **OOMKilled under a "generous" limit** — the container counts your C++ arenas *and* the JVM's heap, metaspace, thread stacks and direct buffers. 4. **CPU throttling** — give a relay `cpus=0.5` and watch p99 hit 400ms for 20ms of work; find `nr_throttled` in `cpu.stat`. **Invisible from inside the container.** 5. **A rolling restart drops circuits**, because the pod dies before draining and there is no `preStop`. 6. **DNS latency** — the `ndots:5` search-domain problem.
+---
 
-## 📖 THEORY
-**The reconciliation loop** — etcd holds desired state, controllers drive actual → desired. **Everything in Kubernetes is `while true { observe; diff; act }`.** **What happens on `kubectl apply`** — client → API server → authN → authZ (RBAC) → admission → etcd → watch → scheduler binds → kubelet → CRI → CNI. **A top-five interview question.** **cgroups v2** and container-aware sizing for both runtimes. **Graceful shutdown for a stateful relay** — SIGTERM, stop accepting circuits, signal migration, exit inside `terminationGracePeriodSeconds`. **The five signals that matter for Adyton:** circuit build success rate · circuit build p99 · consensus epoch agreement · peer count and churn rate · **leak-suite status.** That is the 3am dashboard. **Cost as architecture.**
+### 1.1 — HTTP & REST: the part beyond CRUD
 
-**📺 Atlas → 6.1810 L1–L5 (introduction, C in xv6, OS design, page tables, syscall entry/exit)** + **labs util and syscall.** The page-tables lecture in W56 is a good week for it: you are about to explain container isolation to interviewers.
-**📕 Pages:** **Google SRE Book ch. 3, 4, 6, 21, 22** — 🔴 **ch. 22 (cascading failures) may be the most valuable chapter in the book** · **SRE Workbook ch. 5** (multi-window multi-burn-rate alerting) · Lukša *Kubernetes in Action* ch. 1–7, 12, 17 · Majors et al. *Observability Engineering* ch. 1–6 · **`k8s.af` — read 10** · **AWS Builders' Library — read all ~20 across L7 and L11** · RFC 8446 §2 for `gatekeep`.
+> 🔥 **THE WALL — The Double Charge**
+> Build a `POST /payments` endpoint backed by Postgres. Now write an adversarial client that: sends each request twice concurrently, kills the connection after the server has committed but before it responds, and retries on timeout with no backoff.
+>
+> **Charge the same card twice.** Then make it impossible. Then prove it's impossible with a test that runs 10,000 racing duplicate requests and asserts the ledger sums correctly.
+>
+> This one exercise contains: idempotency keys, unique constraints as a correctness tool, the difference between at-least-once delivery and exactly-once *effect*, request-vs-effect deduplication, and why `POST` retries are dangerous in a way `PUT` retries are not.
 
-> 🤖 **PROMPT 1** W54 · `GAP:` why my container is OOMKilled at a limit that exceeds both my C++ arena budget and the JVM's `-Xmx` · `CONTEXT:` co-locating a C++ relay and a Java directory under cgroup limits · `THE DECISION:` how to size the limit so neither runtime is the one that dies · `NAMED REAL SYSTEM:` how the JVM's container awareness computes default heap
+#### 📖 Theory
 
-📈 **EXIT CRITERIA — D6**
-- [ ] `kubectl apply -k deploy/` brings up a **30-node mesh plus the directory** on local k3s from nothing
-- [ ] 🔴 **Rolling restart of every relay with ZERO circuits dropped**, under sustained traffic. Harder than it sounds and it is the real lesson
-- [ ] Prometheus + Grafana with **the five Adyton signals**; **a dashboard you would actually open at 3am**; given an injected fault, **time-to-root-cause under 5 minutes using only the dashboards, demonstrated on video**
-- [ ] All six wall failures reproduced and fixed, each with a one-paragraph note
-- [ ] `gatekeep`: mTLS between all components; per-peer credentials with rotation; `gitleaks` in CI; **certificate expiry alert tested by fast-forwarding a clock**
-- [ ] `costwatch`: everything in Terraform (`apply` from zero, `destroy` to nothing); hand-written least-privilege IAM verified with the policy simulator; **CI authenticates via OIDC with zero long-lived credentials**; **a $1 billing alarm tested by triggering it** — an untested alarm is not an alarm; free-tier drift detection failing CI on any billable resource
-- [ ] **$0.00 verified from every console and screenshotted — every month from here**
-- [ ] `docs/design/slo.md` — SLOs with error budgets **derived from measured numbers, not aspirations**
-- [ ] 6.1810 L1–L5 ticked; **labs util and syscall complete**
-- [ ] 🔴 **CV v4 written W55. First 12 applications sent W56. Referral activation (§XV.4).** **Blog post 3:** *"Rolling restarts that don't drop circuits"*
+- **REST's actual constraints** (Fielding's dissertation, Ch. 5): client-server, stateless, cacheable, layered, uniform interface, HATEOAS. Then be honest: **almost nothing called REST is REST**, and know precisely which constraints your API does and doesn't satisfy.
+- **Safety and idempotency as a contract**: `GET`/`HEAD` safe; `PUT`/`DELETE` idempotent; `POST`/`PATCH` neither. Why intermediaries (proxies, CDNs, retrying clients) are allowed to act on this.
+- **Idempotency keys**: storage, TTL, the "in-flight" state, what to return on a key collision with a *different* body (409), and how Stripe does it.
+- **Status codes as semantics**: 200 vs 201 vs 202 vs 204; 400 vs 404 vs 409 vs 410 vs 422; 429 with `Retry-After`; 502 vs 503 vs 504 (**know exactly who generated each** — that distinction solves outages).
+- **Pagination**: offset (and why it breaks at page 5000 — the database must scan and discard), keyset/cursor, opaque cursors, stable sorts, and the deleted-row-shifts-the-page bug.
+- **Conditional requests**: `ETag`, `If-None-Match`, `If-Match` for optimistic concurrency — **`If-Match` is how you get compare-and-swap over HTTP**, and nearly nobody uses it.
+- **Caching**: `Cache-Control` directives in detail, `s-maxage`, `stale-while-revalidate`, `Vary`, and how a wrong `Vary` header poisons a shared CDN cache for everyone.
+- **Versioning**: URL vs header vs media-type; the expand/contract approach; why Stripe's date-based versioning with per-account pinning is the strongest design anyone shipped.
+- **Content negotiation, compression, and range requests.**
+- **Error format discipline**: RFC 9457 (Problem Details). Machine-readable `type`, human `detail`, stable error codes clients can switch on.
 
-## 🎤 INTERVIEW PARAGRAPH — Week 58 (and CV v4)
-> This level is the operational half, and I'd argue it matters more than the cryptography for most of what a backend engineer is hired to do. The mesh runs on Kubernetes now — thirty relays plus the directory, brought up from nothing with one command, with rolling restarts that drop zero circuits, which took a `preStop` hook that stops accepting new circuits and signals existing ones to migrate before the pod dies. Getting that wrong loses work on every deploy and almost every team has the bug. The failure that taught me most was OOMKilled at a limit I thought was generous, because the container counts my C++ arena allocations *and* the JVM's heap, metaspace, thread stacks and direct buffers, not just one of them. On the observability side the dashboard is five signals — circuit build success rate, build p99, consensus epoch agreement, peer churn, and leak-suite status — and I can root-cause an injected fault in under five minutes from those alone, on video. Everything is Terraform with OIDC-federated CI so there are no long-lived credentials anywhere, and the billing alarm is tested by triggering it, because an untested alarm is not an alarm. Zero dollars a month, screenshotted.
+#### 📄 Sources
 
-## 🎓 EXIT EXAM
-1. What happens between `kubectl apply` and a running pod? 12+ steps.
-2. ⚙️ Your container is OOMKilled at 4GB with a 2GB JVM heap and a 1GB C++ arena budget. Name four consumers of the difference.
-3. A rolling restart drops circuits. Walk through the fix, in order.
-4. CPU throttling at `cpus=0.5`: why is p99 400ms for 20ms of work, and how do you see it from outside?
-5. Name the five signals on your 3am dashboard and what each tells you.
-6. Design an SLO for circuit build success. SLI, budget, burn-rate alert thresholds.
-7. Your cloud bill is $0.00. Three ways it becomes $400 next month, and the control for each.
+- **Zalando RESTful API Guidelines** — `opensource.zalando.com/restful-api-guidelines/`. The most complete production API guide published. Read all of it once.
+- **Google API Improvement Proposals (AIPs)** — `google.aip.dev`. How Google actually designs APIs internally. Better than most blog advice.
+- **"Idempotency Keys"** and **"Designing robust and predictable APIs with idempotency"** — Brandur Leach / Stripe Engineering.
+- **"APIs as infrastructure: future-proofing Stripe with versioning"** — Stripe Engineering. The canonical versioning case study.
+- **RFC 9110 (HTTP Semantics)** and **RFC 9457 (Problem Details)**. Read RFC 9110 §9 (methods) and §15 (status codes) properly, once. It's shorter than you fear.
+- **"Pagination: You're doing it wrong"** / keyset pagination writeups — `use-the-index-luke.com/no-offset`.
+
+#### 🛠 CORE PROJECT — `ledger-api` *(replaces v2's "Task Manager API", 7/10)*
+
+A money-movement API — because money makes correctness non-negotiable and gives you an invariant a test can check.
+
+Requirements, each of which must be **proven by an adversarial test, not just implemented**:
+1. `POST /transfers` with idempotency keys — proven by 10,000 racing duplicates producing exactly one transfer
+2. Keyset pagination — proven correct while rows are being inserted and deleted mid-pagination
+3. Optimistic concurrency via `ETag` + `If-Match` on `PATCH /accounts/{id}` — proven by a lost-update test that fails without it
+4. RFC 9457 error bodies with stable machine-readable codes
+5. Rate limiting with correct `429` + `Retry-After` + `RateLimit-*` headers
+6. `OpenAPI 3.1` spec **generated from the code**, with schema-validation tests in CI so the spec can never drift
+7. A **backward-compatibility test suite**: v1 client requests replayed against the v2 server must still pass
+
+📈 **Exit Criteria**
+- [ ] `make chaos` runs the duplicate/reorder/kill-connection adversary for 60s; the ledger balances to the cent afterward
+- [ ] The lost-update test **fails** when you remove `If-Match` (prove your protection actually protects)
+- [ ] Offset pagination benchmark at page 1 vs page 10,000 — show the latency curve and explain it with `EXPLAIN`
+- [ ] CI fails if the OpenAPI spec drifts from the implementation
+
+⛓ **Problem Chain**
+```
+"Double charge"           → idempotency → dedup storage → distributed dedup (→ 3.4, 5.2)
+"Idempotency needs state" → where do you store keys? TTL? → Redis vs Postgres tradeoff (→ B.5)
+"Page 10000 is slow"      → OFFSET scans and discards → keyset pagination → index design (→ 2.2)
+"Two clients overwrote"   → lost update → optimistic locking → MVCC & versioning (→ 2.4)
+"Client broke on deploy"  → versioning → expand/contract → contract testing (→ 5.3, D.5)
+"429 without Retry-After" → clients hammer harder → retry storms → jitter & circuit breaking (→ 4.4)
+"CDN served wrong user's data"→ Vary/cache-key bugs → cache poisoning (→ 4.2, H.3)
+```
+
+---
+
+### 1.2 — Binary Protocols: gRPC, Protobuf, HTTP/2 & HTTP/3
+
+> 🔥 **THE WALL — The Field-Number Massacre**
+> Define a protobuf message. Serialize a value. Now, in the schema, **rename** a field (fine), **change its type** from `int32` to `int64` (mostly fine), **reuse a deleted field's number** for a different type (catastrophic), and **change `optional` to `repeated`** (interesting).
+>
+> Deserialize the old bytes with the new schema each time. Watch data silently become wrong — no error, no exception, just corrupted values flowing into your database. **Silent corruption is worse than a crash, and this exercise is why every serious company has schema-evolution rules enforced in CI.**
+>
+> Second wall: run a gRPC client and server, and `tcpdump` the connection. Find the HTTP/2 `SETTINGS` frame, the `HEADERS` frame with HPACK-compressed pseudo-headers, and the `DATA` frames. Now send 100 concurrent RPCs on one connection and watch them interleave on the same TCP socket.
+
+#### 📖 Theory
+
+- **Protobuf wire format**: varints, zigzag encoding for signed ints, field tags = `(field_number << 3) | wire_type`, length-delimited fields, packed repeated fields. **Hand-decode a protobuf message from hex once.** It takes 20 minutes and permanently demystifies binary protocols.
+- **Schema evolution rules**: what's safe (adding optional fields, renaming), what's unsafe (changing types, reusing tags, changing cardinality), and `reserved` as the enforcement mechanism.
+- **Protobuf vs JSON vs Avro vs Thrift vs MessagePack vs Cap'n Proto/FlatBuffers** — and the key axis nobody mentions: *is the schema shipped with the data (Avro) or out-of-band (Protobuf)?* That decision determines your whole data platform design.
+- **HTTP/2**: binary framing, streams, multiplexing, HPACK header compression (and the dynamic table's security implications), flow control at both stream and connection level, server push (and why it died).
+- **HTTP/2's TCP head-of-line blocking** — the multiplexing win is undone by one lost packet. Then **QUIC/HTTP-3**: per-stream loss recovery, 0-RTT, connection migration across networks.
+- **gRPC**: the 4 modes (unary, server-stream, client-stream, bidi), deadlines (**gRPC deadlines propagate — this is the correct model, learn it**), metadata, interceptors, status codes, retries + hedging in the service config, load balancing (pick_first, round_robin, xDS).
+- **When gRPC is the wrong answer**: browsers (needs grpc-web), public APIs, debuggability, and human-inspectable payloads.
+
+#### 📄 Sources
+
+- **"Protocol Buffers Encoding"** — protobuf.dev. The primary source. Read it with a hex editor open.
+- **"Schema evolution in Avro, Protocol Buffers and Thrift"** — Martin Kleppmann. Short and clarifying.
+- **DDIA Chapter 4** — "Encoding and Evolution."
+- **"HTTP/2 in Action"** — Barry Pollard, or the free **"HTTP/2 explained"** by Daniel Stenberg.
+- **"HTTP/3 explained"** — Daniel Stenberg (free).
+- **gRPC official docs**: "Core concepts," "Deadlines," "Retry design" (`grpc/proposal` A6). The retry/hedging proposal is worth reading in full — it's a masterclass in reliability design.
+- **"gRPC Load Balancing"** — grpc.io blog. Why L4 LBs break gRPC and what to do instead. **This exact issue causes real production incidents.**
+
+#### 🛠 FLAGSHIP PROJECT #2 — `h2spec-clean` ⭐⭐ *(Reimplementation archetype, 9/10)*
+
+**Write an HTTP/2 server from scratch — no HTTP/2 library — and pass the `h2spec` conformance suite.**
+
+You implement: the connection preface, frame parsing (`DATA`, `HEADERS`, `PRIORITY`, `RST_STREAM`, `SETTINGS`, `PING`, `GOAWAY`, `WINDOW_UPDATE`, `CONTINUATION`), **HPACK** (static table, dynamic table, Huffman coding, and the size-update rules), the stream state machine, connection-level and stream-level flow control, and correct error handling (stream errors vs connection errors).
+
+Then run `h2spec` against it and fix every failure.
+
+📈 **Exit Criteria**
+- [ ] **`h2spec` reports 146/146 passing** (screenshot it — this is the whole point)
+- [ ] Your HPACK encoder is tested against the official `hpack-test-case` fixtures
+- [ ] `curl --http2` and a real browser both work against it
+- [ ] Benchmark: 100 concurrent streams on one connection vs 100 HTTP/1.1 connections — bytes on the wire and latency
+- [ ] A blog post on the three spec details that were hardest to get right (candidates: dynamic table size updates, flow-control window accounting on `RST_STREAM`, `CONTINUATION` frame handling)
+
+> **Why this is elite:** conformance suites are unfakeable. "My hand-written HTTP/2 implementation passes the full conformance suite" is a claim that survives any amount of interviewer skepticism, and there are maybe a few hundred people on earth who can say it.
+
+#### 🛠 CORE PROJECT — Chronos C1
+
+Give Chronos a gRPC API: `StartWorkflow`, `SignalWorkflow`, `GetHistory` (server-streaming), `PollForTask` (long-poll with deadline). Add interceptors for auth, tracing, and panic recovery. Write a client in a **different language** than the server.
+
+📈 **Exit Criteria**
+- [ ] Deadline set by the client actually cancels server-side work — prove it with a log line from the cancelled handler
+- [ ] Adding a field to the proto doesn't break an old client — prove with a pinned old-client binary in CI
+- [ ] `buf lint` + `buf breaking` run in CI and block backward-incompatible schema changes
+
+⛓ **Problem Chain**
+```
+"Silent field corruption"   → schema evolution rules → registry & CI enforcement (→ F.5)
+"gRPC pinned to one backend"→ L4 LB doesn't rebalance HTTP/2 → client-side LB / xDS (→ 4.1, 5.4)
+"One slow stream stalls all"→ flow control, HOL blocking → QUIC (→ 1.2)
+"Deadline exceeded cascade" → deadline budgets across hops → retry amplification (→ 4.4)
+"Payload got huge"          → streaming vs unary → chunking, backpressure (→ E.4)
+```
+
+---
+
+### 1.3 — Real-Time: WebSockets, SSE, and the Fan-Out Problem
+
+> 🔥 **THE WALL — The Second Instance**
+> Build a WebSocket chat with rooms. Works perfectly. Now run **two** instances behind a load balancer. Alice connects to instance A, Bob to instance B, same room. Alice sends a message. Bob never receives it.
+>
+> This trivial-seeming failure is the doorway to: sticky sessions, shared state, pub/sub fan-out, the fan-out-vs-fan-in tradeoff, presence tracking, and eventually the reason Slack/Discord/WhatsApp all have a dedicated "channel server" tier.
+>
+> **Second wall:** kill instance A. Alice's client reconnects to instance B. Which messages did she miss? Now design so she misses none — you have just invented cursors, resumable streams, and at-least-once delivery with client-side dedup.
+
+#### 📖 Theory
+
+- **The four options and their real costs**: polling, long-polling, SSE, WebSocket. SSE is underrated — HTTP-native, auto-reconnect with `Last-Event-ID`, works through every proxy, no upgrade dance. **Use SSE unless you need client→server streaming.**
+- **The WebSocket upgrade handshake**, frames, masking, ping/pong keepalives, `permessage-deflate` and its memory cost
+- **Fan-out architectures**: direct broadcast, Redis pub/sub relay (lossy!), Kafka-backed (durable), dedicated gateway tier with a routing table
+- **Presence** — the hardest part. Who is online? Distributed, eventually consistent, and expensive at scale.
+- **Backpressure on a socket**: what happens when your producer is faster than a client's downlink? (Unbounded buffer → OOM. Bounded → you must choose: drop, disconnect, or slow the producer.) **Every real-time system that has ever OOM'd did it here.**
+- **Connection state at scale**: 1M connections = how many machines? How much memory per connection? How do you deploy without disconnecting everyone? (Answer: connection draining + client jittered reconnect. Without jitter, your redeploy becomes a self-inflicted DDoS — the **thundering herd on reconnect** is a classic real outage.)
+- **Ordering and delivery guarantees** for a chat: per-room ordering, sequence numbers, gap detection, resume tokens
+
+#### 📄 Sources
+
+- **"How Discord handles two and a half million concurrent voice users using WebRTC"** — Discord Engineering.
+- **"Real World Elixir/Erlang at Discord"** and **"How Discord Scaled Elixir to 5,000,000 Concurrent Users"** — the fan-out and presence problem, honestly described.
+- **"Scaling WhatsApp to 2 million connections per server"** — the famous FreeBSD/Erlang talk. Still the reference point for what's physically possible.
+- **"Slack's real-time messaging"** — Slack Engineering, on their edge/flannel architecture.
+- **"Server-Sent Events vs WebSockets"** — Ably. Balanced.
+- **"Building a distributed WebSocket gateway"** — search Centrifugo / Phoenix Channels design docs.
+
+#### 🛠 CORE PROJECT — `fanout-lab` *(Instrument archetype, 8/10)*
+
+Build **one** real-time app (a live collaborative cursor board — simple, visually demoable) but implement the fan-out layer **four ways**, behind an interface: (a) single instance, in-memory; (b) N instances + Redis pub/sub; (c) N instances + Kafka; (d) N instances + a consistent-hash routing tier where each room has a single owning node.
+
+Then benchmark all four: message fan-out latency p50/p99, messages lost during a rolling restart, memory per connection, and behavior at 10k connections in one room (the "celebrity room" problem).
+
+📈 **Exit Criteria**
+- [ ] A table showing **messages lost during a rolling deploy** for each architecture — this is the number that matters and nobody measures it
+- [ ] Slow-consumer handling proven: attach a client that reads at 1 msg/s while 10k msg/s are published, and show your server does not grow unbounded
+- [ ] Reconnect storm test: kill an instance holding 10k connections; show reconnect latency distribution with and without jitter
+- [ ] Answer with data: *"at what fan-out ratio does Redis pub/sub stop being viable?"*
+
+⛓ **Problem Chain**
+```
+"Two instances can't talk"  → pub/sub → durable log vs lossy bus (→ 3.4)
+"Redis pub/sub lost messages"→ no persistence → Redis Streams / Kafka (→ B.5, 3.4)
+"Server OOM'd on slow client"→ backpressure → bounded queues → load shedding (→ E.4)
+"Redeploy = 10k reconnects" → thundering herd → jitter, staged draining (→ 4.4)
+"One room has 100k members" → celebrity problem → fan-out on read vs write (→ 6.2 Design 4)
+"Who's online?"             → presence → CRDTs, gossip, TTL heartbeats (→ 3.5, 5.2)
+```
+
+---
+
+### 1.4 — GraphQL, BFF & API Gateways: when the shape of the API is the problem
+
+> 🔥 **THE WALL — The 1,247 Queries**
+> Build a GraphQL API over a blog: posts → author → comments → comment author. Request 50 posts with authors and comments with comment-authors. Turn on SQL logging.
+>
+> Count the queries. It will be in the hundreds or thousands. Your one "efficient" GraphQL request just DDoS'd your own database.
+>
+> Then: send a **deeply nested recursive query** (`post → comments → post → comments → …` 15 levels deep). Watch your server die. You have just discovered that **GraphQL moves the denial-of-service surface from the network to the query planner**, and why every production GraphQL deployment needs depth limits, complexity budgets, and persisted queries.
+
+#### 📖 Theory
+
+- **The N+1 problem** and the **DataLoader** pattern: per-request batching + caching, why it must be per-request (cross-request caching leaks authorization), and why batching windows introduce latency
+- **Query complexity analysis and depth limiting**: assigning cost to fields, static analysis vs runtime budget
+- **Persisted queries / trusted documents**: the only real answer for public GraphQL — clients send a hash, not a query
+- **Federation vs schema stitching vs a monolithic schema**; the Apollo Federation model, entity resolution, the `@key` directive
+- **Authorization in GraphQL is genuinely hard** — field-level auth, and why "resolve then filter" leaks data through error messages and timing
+- **BFF (Backend for Frontend)**: one API per client type instead of one API for everyone. Often the right answer where people reach for GraphQL.
+- **API Gateway responsibilities**: authN, rate limiting, routing, request/response transformation, aggregation — and where the anti-pattern begins (business logic in the gateway)
+- **When GraphQL is wrong**: internal service-to-service (use gRPC), file uploads, simple CRUD, when your team can't operate the extra complexity
+
+#### 📄 Sources
+
+- **"GraphQL: A data query language"** — Lee Byron / the original Facebook announcement; and Lee Byron's talks on why it was built (mobile bandwidth, not developer convenience).
+- **"GitHub's GraphQL API"** design notes — GitHub Engineering. Includes their rate-limiting-by-complexity model, which is the interesting part.
+- **"Shopify's GraphQL rate limiting: calculated query cost"** — Shopify docs. Read how they *price* a query.
+- **"Solving the N+1 problem with DataLoader"** — the DataLoader README by Lee Byron is better than most blog posts about it.
+- **"GraphQL Federation"** — Apollo docs, plus **"Why we moved off GraphQL"** posts for balance. Read at least one migration-away story.
+
+#### 🛠 CORE PROJECT — `n+1-hunter`
+
+Build the blog API in GraphQL **and** in REST **and** in gRPC. Then build a middleware that counts and logs every database query per HTTP request, plus a CI test that **fails the build if any endpoint exceeds N queries per request**.
+
+📈 **Exit Criteria**
+- [ ] Before/after DataLoader: query count 1,247 → ≤ 6 for the same request, with the numbers in the README
+- [ ] A malicious 20-level nested query is rejected in <5ms by your complexity analyzer
+- [ ] The CI query-budget test is real and blocks a deliberately-added N+1 in a test PR
+- [ ] Table comparing the three APIs for the same operation: bytes on wire, DB queries, p99, and lines of client code
+
+⛓ **Problem Chain**
+```
+"1,247 queries"      → N+1 → DataLoader → batching windows → why batching adds latency (→ E.3)
+"Recursive query DoS"→ complexity budgets → persisted queries → why public GraphQL is rare (→ H.3)
+"Auth leaked a field"→ field-level authz → policy engines (OPA), ReBAC (→ H.1)
+"Cache is useless now"→ GraphQL breaks HTTP caching → why REST+CDN often wins (→ 4.2)
+"5 teams, 1 schema"  → federation → schema ownership → Conway's law (→ 5.1)
+```
+
+---
+
+### 1.X — 🎓 LEVEL 1 EXIT EXAM
+
+1. A client sends `POST /orders`, times out at 5s, and retries. The server actually succeeded at 5.5s. Design the full fix. Now: where do idempotency records live, what's their TTL, and what happens if the same key arrives with a different body?
+2. Hand-decode this protobuf: `08 96 01 12 03 61 62 63`. What are the field numbers, wire types, and values?
+3. Why does one lost TCP packet hurt HTTP/2 more than it hurts six parallel HTTP/1.1 connections? What does HTTP/3 change?
+4. You have 500k WebSocket connections across 20 nodes. Describe how a message reaches exactly the right 3,000 recipients, and what happens when one node dies.
+5. Your GraphQL p99 is 4s. Name five distinct causes, ordered by likelihood, and the instrumentation that distinguishes them.
+6. Design a versioning scheme for a public API used by 40,000 integrators, where you need to change a field's type. Walk through the full expand/contract migration and how you know when it's safe to remove the old field.
+7. When is SSE strictly better than WebSockets? When is it strictly worse?
+8. `502` vs `503` vs `504`: who generated each, and what does each tell you about where to look?
+
+**Pass = 7/8.**
+
+---
+## ⚡ LEVEL C — Language & Runtime Mastery 🆕
+
+> **Why this level exists:** v2 was language-agnostic to a fault. But in a real interview loop you write code in *one* language, and the senior signal is knowing what your runtime does underneath: where allocations go, when the GC runs, what the memory model guarantees, and how to profile it. This is where most "5 years experience" candidates get exposed.
+>
+> **⏱ Budget:** 60–90 hours · **Prereq:** Level 0
+
+### Choose your primary. Then go deep enough to be dangerous.
+
+| | **Go** | **Java/Kotlin** | **Python** | **Rust** |
+|---|---|---|---|---|
+| Best for | Infra, distributed systems, this roadmap's projects | Large enterprises, Android backend, big-data ecosystem | ML/AI backend, data, rapid services | Systems, performance-critical, new infra |
+| FAANG presence | Google, Uber, Cloudflare, Dropbox, K8s ecosystem | Amazon, Netflix, LinkedIn, most of fintech | Meta, Google, all AI companies, Instagram | AWS (Firecracker, S3 components), Cloudflare, Discord |
+| Interview coding | Acceptable, verbose for DSA | Common | **Best choice for DSA** — write your LeetCode in Python regardless of your backend language | Rarely chosen; slow to write under time pressure |
+
+> **The pragmatic recommendation for this roadmap:** **Go as primary systems language + Python for interviews and data/AI work.** Go's runtime is small enough to actually understand end-to-end, its concurrency is first-class, and the entire cloud-native ecosystem (Kubernetes, etcd, Prometheus, Docker, Terraform) is written in it — which makes source-diving your best teacher. Add Rust later if you want a differentiator.
+
+---
+
+### C.1 — Memory Model & the Garbage Collector
+
+> 🔥 **THE WALL — The Latency Sawtooth**
+> Write a service that allocates a 10MB slice per request and holds it briefly. Load test it. Plot latency over time.
+>
+> You'll see a **sawtooth**: p50 is fine, but every few seconds p99 spikes by 10–100x. Now find out exactly why: `GODEBUG=gctrace=1` (Go) or `-Xlog:gc*` (JVM). Watch the GC cycles line up with the spikes.
+>
+> Then fix it three different ways and measure each: (1) reduce allocation rate via object pooling / `sync.Pool`, (2) tune `GOGC`/heap sizing, (3) restructure to avoid heap allocation entirely (escape analysis). **Which one wins, and by how much, is the actual lesson.**
+
+#### 📖 Theory
+
+- **Stack vs heap, and escape analysis**: why `go build -gcflags='-m'` is one of the most useful commands in the language. In the JVM: scalar replacement and escape analysis in C2.
+- **How your GC actually works**: Go's concurrent tri-color mark-and-sweep with write barriers, no compaction, `GOGC` as a heap-growth ratio, `GOMEMLIMIT` as the soft ceiling that finally made Go container-friendly. JVM: generational hypothesis, G1's region model, ZGC/Shenandoah's colored pointers and sub-ms pauses.
+- **Why GC pauses aren't the whole story**: write barriers, assist work charged to the allocating goroutine, and CPU stolen from your request path. **Throughput cost is usually bigger than pause cost, and everyone measures only pauses.**
+- **Allocator behavior**: size classes, arenas, fragmentation, `malloc` vs jemalloc vs tcmalloc, why RSS doesn't go down after a workload spike (returning memory to the OS is a *policy*, not a law).
+- **The memory model / happens-before**: what a data race actually is, why `sync/atomic` and `volatile` are not interchangeable, why "it worked in testing" means nothing for races. Read your language's memory model spec — it's short.
+- **In containers:** why a JVM/Go process OOM-kills in Kubernetes even with "plenty of heap free" (off-heap, thread stacks, and the container limit counting *everything*). `GOMEMLIMIT` and `-XX:MaxRAMPercentage` exist because of this.
+
+#### 📄 Sources
+
+- **"A Guide to the Go Garbage Collector"** — go.dev official guide. Genuinely excellent; read it twice.
+- **"Getting to Go: The Journey of Go's Garbage Collector"** — Rick Hudson, GopherCon 2018.
+- **"Go memory model"** — go.dev/ref/mem. Short. Read it once fully.
+- **"Java Performance: The Definitive Guide"** — Scott Oaks; or **"Optimizing Java"** — Evans/Gough/Newland.
+- **"What Every Programmer Should Know About Memory"** (again — §4, virtual memory) if you're on the systems track.
+- **CPython:** "CPython Internals" (Anthony Shaw), the GIL, reference counting + generational GC, and `__slots__`/dataclass memory layout. Plus **PEP 703 (free-threaded CPython)** — know the state of GIL removal; it's a live interview topic in 2026.
+
+#### 🛠 CORE PROJECT — `gc-lab`
+
+Instrument one service under four allocation profiles (tiny short-lived, large short-lived, large long-lived, pointer-heavy graph). For each, publish: allocation rate, GC cycles/s, GC CPU %, p99 latency, RSS over time. Then show the effect of each fix.
+
+📈 **Exit Criteria**
+- [ ] Chart: p99 latency over time with GC cycles overlaid — the correlation must be visible
+- [ ] You reduce GC CPU by ≥50% on one workload and can explain the mechanism
+- [ ] You demonstrate a case where object pooling makes things **worse** (it often does) and explain why
+- [ ] You explain from memory why RSS stayed at 4GB after the load test ended
+
+---
+
+### C.2 — Profiling: reading the machine instead of guessing
+
+> 🔥 **THE WALL — Your Intuition Is Wrong**
+> Take any service you've written. **Write down where you think the time goes.** Percentages. Commit to it in a file.
+>
+> Now profile it. You will be wrong — usually badly. Most engineers guess "the database" and find 40% of CPU in JSON serialization, or logging, or `time.Now()`, or reflection.
+>
+> Repeat this three times over the roadmap. The goal is to stop trusting your intuition and start reaching for the profiler reflexively.
+
+#### 📖 Theory & Toolkit
+
+- **CPU profiling** (sampling): `pprof`, `perf record`, async-profiler (JVM), `py-spy` (Python — works on a *running production process without restarting it*, which is a superpower)
+- **Flame graphs**: how to read one in 10 seconds — width = time, y-axis = stack depth, look for wide plateaus. **Icicle graphs** for the inverted view.
+- **Off-CPU profiling**: where threads are *blocked* — `offcputime` (bcc), Go's block and mutex profiles. **The single most under-used technique in the industry.** If CPU is low and latency is high, on-CPU profiling tells you nothing.
+- **Heap profiling**: `pprof -alloc_space` vs `-inuse_space` (allocation rate vs retained), and the difference between a leak and a cache
+- **Continuous profiling in production**: Parca, Pyroscope/Grafana Phlare, Google-Wide Profiling. **Reading GWP's paper is a strong senior signal.**
+- **Benchmarking methodology** — this is where most people go wrong:
+  - Warm-up, steady state, and why the first 1000 iterations are lies
+  - **Coordinated omission** — the reason your load-test p99 is a fantasy. Read Gil Tene. Use an open-loop generator (`wrk2`, `k6` with constant-arrival-rate, `vegeta`) not a closed-loop one.
+  - Why the mean is useless and p99 of p99s isn't a thing
+  - Statistical significance: run 5x, report distributions, use `benchstat`
+  - Measuring on a laptop with turbo boost and thermal throttling ≠ measuring
+
+#### 📄 Sources
+
+- **"How NOT to Measure Latency"** — Gil Tene (video). **Mandatory.** Watch it before you publish any benchmark in this roadmap.
+- **"Flame Graphs"** — Brendan Gregg. The original post + the CPU/off-CPU/memory variants.
+- **"Profiling Go Programs"** — the official Go blog post + `pprof` docs.
+- **"Google-Wide Profiling: A Continuous Profiling Infrastructure for Data Centers"** — Ren et al. (paper).
+- **"Systems Performance" 2nd ed.** — Gregg, Ch. 6 (CPUs) and 13 (perf).
+- **"Understanding Software Dynamics"** — Richard Sites. Underrated modern book on measuring where time actually goes.
+
+#### 🛠 FLAGSHIP-ADJACENT PROJECT — `syscall-xray` ⭐ *(Instrument archetype, 8/10)*
+
+**How expensive is "hello world" in each web framework?** Nobody has published good data on this.
+
+Build the same trivial JSON endpoint in 8 stacks (Go net/http, Go+Gin, Python+Flask+gunicorn, Python+FastAPI+uvicorn, Node+Express, Node+Fastify, Java+Spring Boot, Rust+Axum). For each, per single request, measure: syscalls made (`strace -c -f`), CPU instructions (`perf stat`), context switches, bytes allocated, p50/p99 at 1 and 500 concurrency, RSS at idle and under load, and cold-start time.
+
+Publish the table, the flame graphs, and — most importantly — **an explanation of *why* the outliers are outliers.**
+
+📈 **Exit Criteria**
+- [ ] Reproducible harness (containerized, pinned CPU, `taskset`, turbo disabled) that anyone can rerun
+- [ ] All measurements taken with an **open-loop** load generator; you explicitly address coordinated omission
+- [ ] A flame graph for the slowest and fastest stacks, annotated
+- [ ] Written analysis of the biggest surprise you found
+
+> This kind of post is bookmarked and cited for years. It's also a complete demonstration of measurement rigor — which is exactly what a senior interviewer is probing for.
+
+---
+
+### C.3 — Reading Source Code Like a Senior
+
+> 🔥 **THE WALL** — Clone the Redis source. Answer, using only the source and `gdb`/`rr`: *what exactly happens between `GET foo` arriving on the socket and the reply being written?* Name every function in the path. Then answer: *why is `SET` with an existing key sometimes slower than with a new key?*
+
+**Why this matters:** at FAANG you will be dropped into a 12-million-line codebase and asked to change something in week two. Nobody will explain it. The skill of *orienting in unfamiliar code fast* is more valuable than any framework knowledge, and it is trainable.
+
+**The method:**
+1. **Find the entry point** (`main`, the request handler, the CLI parser) and read *outward*, never top-down.
+2. **Follow one request end-to-end** with a debugger or added log lines. One path, all the way. Don't browse.
+3. **Read the tests first** for unfamiliar modules — they're executable documentation of intent.
+4. **`git log -S "symbol"`** to find *why* a line exists. `git blame` → the PR → the discussion. Archaeology beats guessing.
+5. **Draw the diagram yourself.** If you can't draw it, you don't understand it.
+
+**Exercises (do 3):**
+- Trace a `GET` through Redis (C, ~150k lines — the friendliest large C codebase in existence)
+- Trace `kubectl apply` through the Kubernetes API server to a running pod (Go, huge — practice at navigating scale)
+- Trace a `SELECT` through SQLite's parser → bytecode VM → B-tree → pager (the best-documented database source there is)
+- Trace an HTTP request through Go's `net/http` from `Serve()` to your handler
+- Find and read the actual implementation of `sync.Map`, and explain why it exists and when it's the wrong choice
+
+📈 **Exit Criteria:** one written "code tour" post per exercise, with a diagram and permalinks to specific lines.
+
+---
+
+## ⚡ LEVEL A — Code Architecture & Design Patterns
+
+> **Goal:** move from code that works to code that survives three years of other people changing it. This is the layer interviewers probe with "how would you structure this?" and the layer that determines whether you're trusted with a large surface area.
+>
+> **⏱ Budget:** 60–90 hours · **Chronos milestone:** C2 · **Prereq:** C.1
+
+---
+
+### A.1 — SOLID, and the honest case against it
+
+> 🔥 **THE WALL — The Three-Day Feature**
+> Clone a deliberately-bad service (write it yourself in 2 hours, or fork one of the many "legacy code kata" repos). Requirements, in order — **time yourself on each**:
+> 1. Add a new payment method → you edit a 300-line `switch` in 4 files
+> 2. Write a unit test for the order total calculation → **you can't, without a live database and an SMTP server**
+> 3. Change the tax rule for one country → you break checkout for all of them
+>
+> Now refactor. Then re-do the same three tasks and time yourself again. **The ratio between the two timings is the entire argument for architecture,** and it's a number you can quote in an interview.
+
+#### 📖 Theory
+
+Each SOLID principle, framed as *the pain it prevents* (see v2's treatment, which was good — keep it) — plus the pushback that makes you sound senior rather than dogmatic:
+
+- **SRP** — "one reason to change" is really "one *actor* who requests changes" (Martin's clarification, and it's much more useful than the folk version)
+- **OCP** — the trap: you cannot predict which axis will vary. Premature OCP produces abstraction rubble. **Wait for the second instance before abstracting.**
+- **LSP** — the classic `Square extends Rectangle`; in practice, the violations you'll hit are in interfaces that throw `NotImplementedError`
+- **ISP** — small interfaces. Go's `io.Reader` is a single method and is the most reused abstraction in the language. *Accept interfaces, return structs.*
+- **DIP** — the one that actually earns its keep, because it's what makes code testable
+- **The counterweights, which you must be able to argue:**
+  - **"The Wrong Abstraction"** — Sandi Metz: *duplication is far cheaper than the wrong abstraction*
+  - **"A Philosophy of Software Design"** — John Ousterhout: **deep modules** (simple interface, complex implementation) beat many shallow ones; this book directly contradicts parts of Clean Code and is more right
+  - **"Goodbye, Clean Code"** — Dan Abramov
+  - **Locality of behaviour** vs. separation of concerns — the modern pushback
+
+#### 🛠 CORE PROJECT — `fitness-functions` ⭐ *(Adversary archetype, 8/10)*
+
+Don't just refactor — **make the architecture enforceable by CI.**
+
+Refactor the bad service into layers, then add **automated architecture tests** that fail the build on violation: `import-linter` (Python), `go-arch-lint`/`depguard` (Go), or ArchUnit (Java). Rules like: *the domain package may not import the persistence package; nothing may import the HTTP layer except main; no package may have a cyclic dependency.*
+
+Then open a PR that deliberately violates a rule and screenshot CI rejecting it.
+
+📈 **Exit Criteria**
+- [ ] The three timed tasks are ≥3x faster post-refactor — with your actual before/after timings in the README
+- [ ] Domain-layer unit tests run with **zero** I/O, in under 2 seconds total
+- [ ] Architecture rules enforced in CI, with a screenshot of a rejected violation PR
+- [ ] A dependency graph diagram, generated (`godepgraph`, `pydeps`), before and after
+
+> **Why the fitness functions matter so much:** anyone can say "I follow clean architecture." Almost nobody has made it mechanically impossible to violate. That's the difference between an opinion and an engineering practice.
+
+---
+
+### A.2 — The GoF Patterns as They Actually Appear
+
+Keep v2's catalog — it was solid — but change the *pedagogy*. Don't learn patterns from a catalog; learn them from the wild.
+
+> 🔥 **THE WALL** — Before reading any pattern definition: implement a payment system where you must support 6 providers, add logging/retry/caching to any of them without editing them, queue payments for later execution, notify 4 subsystems on completion, and model the payment lifecycle as states with illegal transitions rejected at compile time or by test.
+>
+> Build it however you want. Then read the pattern catalog and **find out which patterns you reinvented, which you should have used, and which you used badly.** Discovering that you independently invented Strategy and Decorator is worth 50 pages of reading.
+
+#### 🛠 PROJECT — `pattern-archaeology` ⭐ *(Instrument archetype, 8/10)*
+
+**Write the definitive post on design patterns in a real codebase.** Pick one large open-source project you'll use anyway (Kubernetes, Django, Redis, Postgres, Kafka) and find *real, cited* instances of at least 10 patterns — with permalinks to the exact lines, an explanation of the problem it solved there, and a note on where the textbook version was deliberately deviated from.
+
+📈 **Exit Criteria**
+- [ ] ≥10 patterns, each with a GitHub permalink to real production code
+- [ ] At least 3 instances where the codebase *deviated* from the textbook pattern, with your analysis of why
+- [ ] At least 1 instance you judge to be an over-application, argued
+- [ ] Published; this is a genuinely useful artifact for other engineers
+
+#### 🛠 PROJECT — `chaos-payments` (the pattern-driven build)
+
+Build the payment system from The Wall properly, deliberately using: **Strategy** (providers), **Decorator** (retry/log/cache/metrics wrappers, composable in any order), **Command** (each payment is a serializable, queueable, replayable object), **Observer** (completion fan-out), **State** (lifecycle machine that rejects illegal transitions), **Factory** (provider construction from config), **Adapter** (a deliberately awful third-party API you must wrap), **Circuit Breaker** (a Proxy, really).
+
+📈 **Exit Criteria**
+- [ ] Adding a 7th provider requires **zero** edits to existing files — prove it with the diff
+- [ ] All decorators compose in any order and the test suite proves the ordering semantics
+- [ ] The state machine test enumerates all illegal transitions and asserts each is rejected
+- [ ] Every provider swapped for a fake in tests; full suite runs offline in <3s
+
+---
+
+### A.3 — Application Architecture: Hexagonal, Repository, Service Layer, CQRS, Outbox
+
+Keep v2's content (it was good) and add these, which were missing:
+
+- **The Transactional Outbox in full** — including the part everyone skips: the **poller vs CDC** decision, ordering guarantees, at-least-once + consumer idempotency, and how the outbox table becomes a hot table you must clean up
+- **The Inbox pattern** — the consumer-side twin. Dedup on the receiving end.
+- **Transaction script vs domain model** — Fowler's actual guidance: most services should be transaction scripts, and reaching for a rich domain model too early is a common senior-engineer mistake
+- **Anemic domain model** — the debate, and why "anemic" is often just fine
+- **Modular monolith** — the architecture most teams should choose and almost nobody discusses. Module boundaries enforced in-process, with the *option* to extract later. **Being able to argue for a modular monolith over microservices is a strong senior signal in a design interview** (see also: Shopify's and Amazon Prime Video's public write-ups).
+- **Dependency injection without a framework** — constructor injection and `main()` as the composition root. Why DI containers are usually unnecessary.
+- **Feature flags and the strangler fig** — how you actually change a running system
+
+#### 🛠 CHRONOS MILESTONE C2
+
+Restructure Chronos into a hexagonal core: `engine/` (pure — no imports of `sql`, `net`, `time`), `ports/` (interfaces), `adapters/` (postgres, memory, grpc, http). The scheduling and state-transition logic must be testable with a **fake clock** and an **in-memory store**.
+
+📈 **Exit Criteria**
+- [ ] `go list -deps ./engine` (or equivalent) shows zero infrastructure dependencies — enforced in CI
+- [ ] Full engine test suite runs in <2s with no Docker, no network, no real time
+- [ ] Swapping Postgres → in-memory is a one-line change in `main()`
+- [ ] Time is injectable everywhere: you can advance the clock by 30 days in a test in microseconds — **this becomes the foundation of Level D's simulation testing, which is why it must be right now**
+
+---
+
+### A.4 — Domain-Driven Design (strategic first, tactical second)
+
+Keep v2's content, but reverse the emphasis: **strategic DDD (bounded contexts, context maps, ubiquitous language) is what pays in interviews and in real service decomposition. Tactical DDD (aggregates, value objects) is a code style you may or may not want.**
+
+Additions v2 was missing:
+- **EventStorming** — the workshop technique for discovering bounded contexts. Do one solo on a domain you know (run it on paper with sticky notes). It's the fastest way to make bounded contexts click.
+- **Context mapping relationship types**: Partnership, Shared Kernel, Customer/Supplier, Conformist, Anti-Corruption Layer, Open Host Service, Published Language, Separate Ways. **Being able to name and choose these in a design interview is a differentiator.**
+- **Aggregate design rules** (Vernon's four): reference other aggregates by identity only; one aggregate per transaction; small aggregates; use eventual consistency between aggregates. **The "one aggregate per transaction" rule is the single most practical thing in DDD** and it directly determines your service boundaries.
+- **Domain events vs integration events** — the boundary-crossing distinction (Jimmy Bogard).
+
+**Book upgrade:** start with **"Learning Domain-Driven Design"** (Vlad Khononov, 2021) — clearer, shorter, and more current than Evans. Read Evans' Blue Book afterward, as reference.
+
+#### 🛠 PROJECT — `context-map`
+
+Take a real, complex domain you actually understand (ride-hailing, hotel booking, payroll, a hospital, an airline). Produce: an EventStorming photo/diagram, a context map with named relationship types, the ubiquitous language glossary per context, and **a written argument for where you'd draw service boundaries and — critically — where you'd deliberately NOT split.**
+
+📈 **Exit Criteria**
+- [ ] ≥5 bounded contexts identified with explicit relationship types
+- [ ] At least one place where the same word means different things in two contexts, documented
+- [ ] A section titled "Why I would keep these three as one service" — arguing *against* decomposition is the senior move
+- [ ] This becomes a reusable 10-minute answer for any "design X" interview in that domain
+
+---
+
+### A.5 — Concurrency Patterns
+
+Keep v2's list (worker pool, fan-out/fan-in, pipeline, semaphore, context propagation, optimistic concurrency) and add what was missing:
+
+- **Structured concurrency** — no goroutine outlives its parent scope; `errgroup`, nurseries, Java's `StructuredTaskScope`. This is the modern answer to leaked goroutines.
+- **Goroutine/thread leaks** — the most common Go bug in production. Detect them with `goleak` in every test.
+- **Bounded queues everywhere.** An unbounded channel or queue is a latent OOM. **Rule: every queue in your system has a maximum size and a defined policy for what happens when it's full** (block, drop-oldest, drop-newest, reject). Write the policy down.
+- **Backpressure vs load shedding vs buffering** — three different responses to overload, and the difference decides whether you degrade or collapse (→ Level E).
+- **Singleflight / request coalescing** — N concurrent identical cache misses become 1 backend call. This one pattern prevents a whole class of outage.
+- **The actor model** — Erlang/Akka, and why "state owned by one goroutine, communicate via channel" is often better than a mutex
+- **Lock-free and wait-free basics** — CAS loops, ABA, and knowing when *not* to reach for them
+- **Deadlock, livelock, priority inversion, convoying, thundering herd** — name them, cause each one deliberately, then fix it
+
+#### 🛠 CORE PROJECT — `race-museum` *(Adversary archetype, 8/10)*
+
+Build a repo of **10 deliberately-broken concurrent programs**, each demonstrating a distinct pathology, each with a test that *reliably* fails (this is the hard part — reproducing races deterministically is itself the lesson) and a fix.
+
+Pathologies: data race on a shared map · lost update (read-modify-write) · deadlock via inconsistent lock ordering · goroutine leak on early return · unbounded queue → OOM · thundering herd on cache expiry · double-close of a channel · context not propagated (work continues after cancellation) · time-of-check-to-time-of-use · false sharing.
+
+📈 **Exit Criteria**
+- [ ] Every failure is **deterministic** or reproduces within 100 runs — use `-race`, fault injection, or `GOMAXPROCS` manipulation to force it
+- [ ] `-race` / TSan is clean after all fixes
+- [ ] `goleak` verifies zero leaked goroutines after every test
+- [ ] A README table: pathology → symptom in production → detection tool → fix
+
+> **Interview payoff:** "tell me about a concurrency bug you've debugged" is a standard senior question. You'll have ten.
+
+---
+
+### A.X — 🎓 LEVEL A + C EXIT EXAM
+
+1. Your service's p99 spikes every 8 seconds. Walk through your diagnosis, naming the exact commands.
+2. Show a flame graph (bring one from your own project) and read it aloud: where's the time, what would you fix first, and what would you expect the improvement to be?
+3. Explain why object pooling can *increase* latency.
+4. When is duplication better than abstraction? Give a concrete example from your own code.
+5. Argue for a modular monolith over microservices for a 15-engineer startup. Now argue the reverse. Which do you actually believe and why?
+6. You have `Order` and `Inventory`. A business rule spans both. Do you put them in one aggregate? Walk through the tradeoff.
+7. Design a worker pool that (a) bounds concurrency, (b) propagates cancellation, (c) never leaks a goroutine, (d) applies backpressure to the producer. Write it on a whiteboard.
+8. What does `go build -gcflags='-m'` tell you and why do you care?
+
+**Pass = 7/8.**
+
+---
+## ⚡ LEVEL 2 — Databases & Storage Engines
+
+> **Goal:** stop being a database *user*. Understand the machine well enough that when it misbehaves you can predict what it's doing before you look.
+>
+> **⏱ Budget:** 120–160 hours · **Chronos milestone:** C3 · **Prereq:** 0.1, 0.4
+
+> **⭐ THE SINGLE BEST THING IN THIS LEVEL: CMU 15-445 / 15-721** (Andy Pavlo, `15445.courses.cs.cmu.edu`). Free lectures, free projects. You implement, in C++, inside the BusTub database: a buffer pool manager with LRU-K replacement, a B+Tree index with concurrent latch crabbing, query execution operators (including hash join and aggregation), and multi-version concurrency control. **v2 omitted this entirely, and it is the highest-value database education available to anyone for free.** Budget 80–120 hours. Do it. It replaces half this level.
+
+---
+
+### 2.1 — Storage Engines: how bytes actually land on disk
+
+> 🔥 **THE WALL — The Torn Write**
+> Build the simplest possible durable key-value store: append `key,value` to a file, keep an in-memory hashmap of key → offset.
+>
+> Now: while it's writing, `kill -9` it. Restart. **Is your data correct?** Run this 500 times in a loop with random kill timing.
+>
+> You will find: truncated records, records that parse but are garbage, an index that points past EOF, and — the nastiest one — records that *look* valid but are half-old-half-new. Now discover that `write()` returning success means **nothing** was persisted (it's in the page cache), that `fsync()` is what actually persists, that `fsync()` costs ~1ms on spinning disks and ~100µs on NVMe, and that on some filesystems a failed `fsync` marks the pages clean anyway so **retrying `fsync` after an error can lose your data silently** (the "fsyncgate" that hit PostgreSQL).
+>
+> This one exercise is the entire reason WALs, checksums, and torn-page protection exist.
+
+#### 📖 Theory
+
+- **B-Trees**: pages, branching factor, why a 4-level B-tree indexes billions of rows, splits and merges, write amplification, in-place update, latch crabbing for concurrency, fill factor
+- **LSM Trees**: memtable → immutable memtable → SSTables → leveled/tiered compaction, read amplification vs write amplification vs space amplification (**the RUM conjecture: you may optimize two of Read, Update, Memory — never all three**), Bloom filters to skip SSTables, tombstones and why deletes are the hardest operation in an LSM
+- **B-Tree vs LSM, honestly**: LSM wins on write throughput and compression; B-Tree wins on predictable read latency and range scans; LSM compaction causes latency spikes and consumes background I/O you must budget for
+- **WAL**: write-ahead logging, redo vs undo, ARIES, group commit, `synchronous_commit` levels, checkpointing, and the durability-vs-latency dial
+- **Torn pages**: `full_page_writes`, double-write buffers (InnoDB), checksums, and why an 8KB page write is not atomic on a 4KB-sector device
+- **MVCC in detail**: PostgreSQL's tuple versions with `xmin`/`xmax`, why `UPDATE` is `DELETE`+`INSERT`, **bloat**, `VACUUM` and autovacuum, transaction ID wraparound (**a real, famous cause of full outages** — Sentry's is the well-known write-up), and how MySQL's undo-log approach differs
+- **The buffer pool**: why databases bypass the OS cache and manage their own, clock-sweep eviction, `shared_buffers` sizing, `pg_buffercache`
+- **Page layout**: heap pages, tuple headers, HOT updates, TOAST for oversized values, fillfactor
+- **Column stores**: layout, dictionary/RLE encoding, vectorized execution, why they're 100x faster for analytics (→ Level F)
+
+#### 📄 Sources
+
+- **DDIA Chapter 3.** Read it twice; second time after the project. *(Check for the 2nd edition — a substantially updated version has been in early release.)*
+- **"Database Internals"** — Alex Petrov. Part I is the best single treatment of storage engines in print.
+- **CMU 15-445 lectures 3–7** — buffer pool, hash tables, B+Trees, index concurrency.
+- **"How RocksDB Works"** and the **RocksDB wiki** — the real-world LSM reference (used by MyRocks, CockroachDB, TiKV, Kafka Streams).
+- **"Bitcask: A Log-Structured Hash Table"** — Riak paper. 6 pages. Your v1 target.
+- **"PostgreSQL 14 Internals"** — Egor Rogov (free PDF, `postgrespro.com/community/books/internals`). **Outstanding, free, and unknown to most engineers.** Read the MVCC and vacuum chapters at minimum.
+- **"Can Applications Recover from fsync Failures?"** — Rebello et al. (paper) + the PostgreSQL "fsyncgate" mailing-list thread.
+- **"The RUM Conjecture"** — Athanassoulis et al.
+
+#### 🛠 CORE PROJECT — `crashdb` ⭐ *(Adversary archetype, 9/10)*
+
+Build a storage engine **and the harness that tries to destroy it.** The harness is what makes this project rare.
+
+**The engine** (v1 → v5):
+1. Append-only log + in-memory hash index (Bitcask)
+2. CRC32 per record + record framing; detect and recover from partial tails
+3. Log compaction/merge with hint files
+4. Bloom filter per segment
+5. WAL + crash recovery with a checkpoint
+
+**The harness — `crashdb-torture`:**
+- Runs a random workload while `kill -9`ing the process at random intervals
+- Verifies after every restart: **every acknowledged write is present, no unacknowledged write is present, no key has a torn/garbage value, and the index never points outside the file**
+- A mode that injects failures at the *syscall* level using `LD_PRELOAD` or a FUSE filesystem: `write()` succeeds but only writes half; `fsync()` returns `EIO`; the file is truncated at a random offset
+- Runs 1,000 crash cycles in CI
+
+📈 **Exit Criteria**
+- [ ] 1,000 random-kill cycles, zero invariant violations
+- [ ] Torn-write injection is caught by checksums 100% of the time (show a failing case *before* you added CRCs)
+- [ ] Benchmark: writes/sec with `fsync` per write vs group commit vs no fsync — and a written argument for which one you'd ship and why
+- [ ] Bloom filter measurably reduces disk reads for missing keys — with the number and the false-positive rate you configured
+- [ ] Written: "what my database guarantees, and what it does not" — a real durability contract
+
+> **Why this beats v2's version:** v2 said "build a Bitcask KV store," which thousands of people have done. **Nobody builds the crash-torture harness.** The harness is the senior artifact — it demonstrates that you think about correctness as something to be *proven*, not assumed.
+
+⛓ **Problem Chain**
+```
+"kill -9 corrupted my data"  → fsync, WAL, checksums → durability levels (→ 2.4)
+"fsync is 1ms"               → group commit → why throughput ≠ 1/latency (→ E.3)
+"Compaction spiked latency"  → background I/O budget → why LSMs have p99 problems (→ E.1)
+"Deletes made reads slower"  → tombstones → why range scans degrade in LSMs (→ 2.3)
+"My index is bigger than RAM"→ B-tree fanout, buffer pool, page cache (→ 2.2)
+"fsync returned EIO"         → fsyncgate → you cannot retry fsync → why DBs panic (→ D.3)
+```
+
+---
+
+### 2.2 — PostgreSQL to a Professional Standard
+
+> 🔥 **THE WALL — The Four Disasters**
+> Load 50 million rows of realistic data. Then reproduce all four of these, and fix each:
+>
+> 1. **The index that isn't used.** Write a query with a perfect index on the column — and watch `EXPLAIN` choose a sequential scan anyway. (Causes: low selectivity, stale statistics, a function on the indexed column, type mismatch, `LIKE '%x'`.) You must be able to name *which* one it is.
+> 2. **The connection storm.** Open 500 connections. Watch throughput *drop* as concurrency rises. Learn why Postgres's process-per-connection model means more connections = less work done, and why PgBouncer isn't optional.
+> 3. **The vacuum death spiral.** Run a long-idle-in-transaction session while doing heavy updates. Watch the table bloat to 5x its size, watch autovacuum fail to reclaim anything, watch queries slow to a crawl. Then find it with `pg_stat_activity` and fix it.
+> 4. **The lock pileup.** Run `ALTER TABLE ... ADD COLUMN ... DEFAULT (volatile)` on a large busy table (or an `ALTER` needing an `ACCESS EXCLUSIVE` lock) and watch every query queue behind it. Find the lock tree with `pg_locks`/`pg_blocking_pids`.
+
+#### 📖 Theory
+
+- **`EXPLAIN (ANALYZE, BUFFERS, VERBOSE)`** — read plans fluently. Node types (Seq Scan, Index Scan, Index Only Scan, Bitmap Heap Scan, Nested Loop, Hash Join, Merge Join, Sort, Gather). **Estimated vs actual rows — a big divergence is the #1 signal of a bad plan.** `buffers` tells you cache hit vs disk.
+- **Index types and when each wins**: B-tree, Hash, GIN (JSONB, full-text, arrays), GiST (ranges, geometry), SP-GiST, BRIN (huge, naturally-ordered tables — a cheap superpower most people don't know), and **HNSW/IVFFlat via pgvector** (→ Level G)
+- **Composite index column order** — the leftmost-prefix rule; why `(a,b)` serves `WHERE a=` and `WHERE a= AND b=` but not `WHERE b=`
+- **Covering indexes / `INCLUDE`** → index-only scans, and the visibility-map requirement that makes them work
+- **Partial and expression indexes** — often a 10–100x win for almost no cost
+- **Statistics and the planner**: `ANALYZE`, `n_distinct`, `default_statistics_target`, extended statistics for correlated columns, and why the planner's row estimate being off by 1000x explains most bad plans
+- **Locks**: the full table-lock conflict matrix, row locks, `FOR UPDATE` vs `FOR NO KEY UPDATE` vs `FOR SHARE`, **`SKIP LOCKED`** (the key to building a queue on Postgres — Chronos C3 uses this), advisory locks, `lock_timeout`
+- **Connection management**: process-per-connection cost, PgBouncer in session vs transaction vs statement mode, **and what breaks in transaction mode** (prepared statements, `SET`, advisory locks, `LISTEN/NOTIFY`)
+- **Partitioning**: declarative range/list/hash, partition pruning, and the operational win — *dropping a partition is instant; `DELETE FROM ... WHERE date <` is not*
+- **`pg_stat_statements`, `auto_explain`, `pg_stat_user_tables`, `pgstattuple`** — the observability kit
+- **JSONB**: when it's right, GIN index operator classes, and why it's a schema-design smell if it's your primary access path
+
+#### 📄 Sources
+
+- **"Use The Index, Luke!"** — `use-the-index-luke.com`, Markus Winand. Free. **The best practical indexing resource on the internet.** Read all of it.
+- **"SQL Performance Explained"** — Winand's book version.
+- **"PostgreSQL 14 Internals"** — Egor Rogov (free). Chapters on MVCC, vacuum, indexes, planner.
+- **pganalyze blog** — "Explaining the Postgres Query Optimizer" series; the best plan-reading content anywhere.
+- **"How Notion sharded their Postgres"** and **"Herding elephants: Lessons learned from sharding Postgres at Notion"** — Notion Engineering. The full multi-year story.
+- **"Postgres at Scale"** talks from Citus/Crunchy Data.
+- **"Zero-downtime Postgres migrations"** — the `braintree/pg_ha_migrations` README and Gitlab's migration style guide are the two best real-world references.
+
+#### 🛠 FLAGSHIP PROJECT #3 — `pgshift` ⭐⭐ *(Reimplementation archetype, 9/10)*
+
+**Change a table's shape while it's serving 1,000 writes/second, with zero downtime and zero errors.** This is a top-5 real-world backend skill and almost nobody practices it.
+
+**Setup:** a 50M-row `users` table under continuous load (a writer doing 1k inserts/updates per second, a reader doing 500 QPS), with p99 latency monitored on a live Grafana dashboard.
+
+**The migration:** change `user_id` from `INT` to `BIGINT` and split `full_name` into `first_name`/`last_name` — using **expand/contract**:
+1. **Expand** — add new nullable columns (fast, no rewrite — but prove it: `ALTER TABLE ADD COLUMN` with a non-volatile default is metadata-only in PG11+; with a volatile default it rewrites the whole table. **Demonstrate both and show the latency graph difference.**)
+2. **Dual-write** — application writes both old and new
+3. **Backfill** — chunked, throttled, resumable: 5,000 rows per batch, keyed by primary key range, with an adaptive sleep that backs off when replication lag or p99 rises
+4. **Verify** — a full comparison pass proving old and new agree for every row, including rows written *during* the backfill
+5. **Switch reads** — behind a feature flag, with instant rollback
+6. **Contract** — stop dual-writing, drop old columns
+
+Then build `pgshift` itself: the reusable tool that does chunked, throttled, resumable backfills with lag-aware pacing.
+
+📈 **Exit Criteria**
+- [ ] **Zero errors and p99 degradation under 20%** for the entire migration, proven by the Grafana screenshot across the whole window
+- [ ] Backfill is resumable: kill it at 40%, restart, it completes correctly
+- [ ] A verification pass proves 50,000,000/50,000,000 rows match
+- [ ] The "wrong way" is demonstrated too: run the naive `UPDATE users SET ...` with no batching, capture the lock wait and the outage, and put **both graphs side by side in the README**
+- [ ] Written runbook: "how to change a column type on a hot table," with the checklist and the rollback plan at every step
+
+> **Why this is a 9/10:** it is exactly the work that senior engineers do at scale, it produces two dramatic graphs, and the "here's what happens if you do it naively" comparison is a story that lands in every interview.
+
+⛓ **Problem Chain**
+```
+"ALTER TABLE locked everything" → lock levels → expand/contract → online DDL (gh-ost, pt-osc)
+"Backfill caused replica lag"   → lag-aware throttling → why replicas fall behind (→ 2.5)
+"Dual write got inconsistent"   → ordering → outbox/CDC → why you verify, always (→ 5.2, F.5)
+"Index build blocked writes"    → CREATE INDEX CONCURRENTLY → and its failure modes
+"Planner picked a bad plan after migration" → stats → ANALYZE → plan stability (→ 2.2)
+```
+
+---
+
+### 2.3 — The NoSQL Landscape: choosing by access pattern
+
+> 🔥 **THE WALL — The Query You Can't Run**
+> Model a Twitter-like feed in **DynamoDB** (or Cassandra) with a single table. Now answer: "give me all posts by users this user follows, newest first."
+>
+> In SQL: one join. In DynamoDB: **you cannot**, unless you designed the table for that query on day one. Discover that in a wide-column/KV store, **you model the queries, not the data** — and that a partition key choice made in week one determines what your product can do in year three.
+>
+> Then create a **hot partition**: put all data for one popular user under one partition key and watch throughput collapse to a single shard's limit while the rest of your cluster idles.
+
+#### 📖 Theory
+
+- **Document (MongoDB, DocumentDB)**: embedding vs referencing, the 16MB doc limit as a design constraint, the unbounded-array anti-pattern, indexes on nested fields
+- **Wide-column (Cassandra, ScyllaDB, HBase, Bigtable)**: partition key vs clustering key, the query-first data model, denormalize-and-duplicate as *correct* practice, tunable consistency (`ONE`/`QUORUM`/`ALL`), hinted handoff, read repair, anti-entropy, tombstone hell and why `DELETE`-heavy workloads destroy Cassandra
+- **Key-value (DynamoDB, Redis)**: single-table design, GSIs and LSIs, partition throughput limits, adaptive capacity, hot keys
+- **Graph (Neo4j, dgraph)**: when traversal depth makes SQL joins untenable; index-free adjacency
+- **Time-series (TimescaleDB, InfluxDB, Prometheus TSDB)**: hypertables, chunk pruning, downsampling, retention, delta-of-delta + Gorilla compression (**read the Gorilla paper** — it's short and beautiful)
+- **Search (Elasticsearch/OpenSearch, Lucene)**: **inverted index construction**, term dictionary, postings lists, segments and merges, analyzers/tokenizers, TF-IDF and BM25 scoring, the deep-pagination problem, and why ES is *not* a system of record. **v2 barely mentioned search; it's a huge real-world category.**
+- **NewSQL (CockroachDB, Spanner, TiDB, YugabyteDB)**: distributed SQL with serializable transactions, and what it costs in latency
+- **The actual decision framework**: access patterns → consistency needs → scale → operational burden → team familiarity. **In an interview, "I'd use Cassandra" without stating the access pattern is an instant negative signal.**
+
+#### 📄 Sources
+
+- **DDIA Chapter 2** — data models and query languages.
+- **"The DynamoDB Book"** — Alex DeBrie. The single-table-design bible. Also his free posts.
+- **Dynamo (2007)** and **DynamoDB (USENIX ATC 2022, "Amazon DynamoDB: A Scalable, Predictably Performant, and Fully Available NoSQL Database")** — read the 2022 one; it's more current and describes what they actually learned.
+- **Bigtable (2006)** and **Gorilla (VLDB 2015)** papers.
+- **"How Discord Stores Billions of Messages"** (Cassandra) → **"How Discord Stores Trillions of Messages"** (ScyllaDB migration). Read them as a pair — it's the best public "we outgrew our first choice" story that exists.
+- **"Elasticsearch: The Definitive Guide"** (free, older but the inverted-index chapters are timeless) + the Lucene `postings` format docs.
+
+#### 🛠 CORE PROJECT — `access-pattern-lab`
+
+Implement **the same feature** (a social feed with follows, posts, likes, and a "who liked this" view) on Postgres, DynamoDB-local, and Cassandra/Scylla. Same data volume, same query mix.
+
+📈 **Exit Criteria**
+- [ ] Latency table (p50/p99) for each of 6 query types on each of the 3 stores
+- [ ] Storage-size comparison, including the duplication cost of the denormalized designs
+- [ ] Demonstrate a hot partition and show the throughput collapse graph, then fix it with key sharding/salting
+- [ ] Demonstrate one query that is trivial in Postgres and **impossible** in your Cassandra model, and explain what redesign would be required
+- [ ] A written decision matrix you'd actually use in a design interview
+
+#### 🛠 BONUS PROJECT — `tinysearch` *(Reimplementation, 8/10)*
+
+Build a search engine from scratch: tokenizer → inverted index → postings lists with skip pointers → BM25 ranking → phrase queries → incremental segment merging. Index all of Wikipedia's abstracts (or 1M documents). Compare recall/latency vs Elasticsearch on the same corpus.
+
+📈 **Exit:** sub-50ms p99 for single-term queries over 1M docs, correct BM25 scores validated against a reference implementation, and a written explanation of segment merging.
+
+---
+
+### 2.4 — Transactions, Isolation & the Anomalies
+
+> 🔥 **THE WALL — Steal Money From Your Own Bank**
+> Build accounts and transfers. Then write **five** attack scripts, one per anomaly, each of which *provably* corrupts your data at `READ COMMITTED`:
+>
+> 1. **Lost update** — two concurrent `balance = balance - 100`, one vanishes
+> 2. **Write skew** — the doctor on-call rule: two doctors each check "at least one other on call" simultaneously, both go off-call, hospital has zero doctors. **No row was written twice. No constraint violated. Data is wrong anyway.** This is the anomaly that convinces people isolation levels matter.
+> 3. **Read skew** — a report that sums two accounts mid-transfer and sees money that doesn't exist
+> 4. **Phantom read** — a range check that passes, then a concurrent insert invalidates it
+> 5. **The double-spend under retry** — combine with 1.1's idempotency wall
+>
+> Then fix each **three different ways** and measure the cost of each: pessimistic locking (`SELECT FOR UPDATE`), optimistic (version column + retry), and `SERIALIZABLE` isolation. **The measured throughput cost of `SERIALIZABLE` under contention is the number you'll quote in interviews.**
+
+#### 📖 Theory
+
+- **ACID, precisely.** Atomicity is not Consistency. "Consistency" in ACID is the *application's* invariant, not the database's — Kleppmann's point, and it's the one most people get wrong.
+- **Isolation levels** and the anomalies each permits — build the full matrix yourself. Know that **PostgreSQL's `REPEATABLE READ` is actually snapshot isolation** and that `READ UNCOMMITTED` behaves as `READ COMMITTED`; know that Oracle's "serializable" is snapshot isolation; know that MySQL's default is `REPEATABLE READ` while Postgres's is `READ COMMITTED` — *and that this difference silently changes application correctness when you migrate.*
+- **Snapshot isolation and write skew** — SI prevents everything except write skew and phantoms in a specific form. This is exactly why SSI exists.
+- **Serializable Snapshot Isolation (SSI)** — PostgreSQL's optimistic approach: track read/write dependencies, abort on dangerous structures. Your app **must** handle `40001` serialization failures with a retry loop. Most don't.
+- **2PL vs MVCC vs OCC** — the three families
+- **Deadlocks**: how the detector works, victim selection, and the practice that eliminates most of them (**always acquire locks in a consistent global order**)
+- **Long-running transactions** — the silent killer: they block vacuum, hold locks, and bloat tables
+- **Distributed transactions**: 2PC and its blocking problem (coordinator dies → participants hold locks forever), why sagas exist, Percolator/Spanner-style transactions
+
+#### 📄 Sources
+
+- **DDIA Chapter 7.** Twice, slowly. The best chapter in the book.
+- **"A Critique of ANSI SQL Isolation Levels"** — Berenson, Bernstein, Gray et al. (1995). The paper that named the anomalies the standard forgot.
+- **"Generalized Isolation Level Definitions"** — Adya et al.
+- **"Serializable Snapshot Isolation in PostgreSQL"** — Ports & Grittner (VLDB 2012).
+- **Kyle Kingsbury's Jepsen analyses** (`jepsen.io/analyses`) — read three, ideally of databases you use. They are the highest-quality distributed-correctness writing in existence.
+- **"Hermitage"** — Martin Kleppmann's repo of concrete test cases showing exactly which anomalies each database permits at each level. **Run it against Postgres and MySQL yourself.**
+
+#### 🛠 CORE PROJECT — `isolation-museum` *(Adversary archetype, 8/10)*
+
+Package all five anomalies as **runnable, deterministic reproductions** against Postgres, MySQL, and one more engine (CockroachDB or SQLite). For each: the attack, the observed corruption, the three fixes, and the measured throughput cost of each fix under 1/8/64 concurrent workers.
+
+📈 **Exit Criteria**
+- [ ] All 5 anomalies reproduce deterministically (use advisory barriers/sleeps to force the interleaving)
+- [ ] A matrix: anomaly × database × isolation level → occurs / doesn't. **Compare your results to the documentation and note any surprise.**
+- [ ] Throughput cost chart: `READ COMMITTED` vs `REPEATABLE READ` vs `SERIALIZABLE` at 1/8/64 workers
+- [ ] A working serialization-failure retry loop with exponential backoff, and a measurement of retry rate under contention
+
+---
+
+### 2.5 — Replication, Sharding & Multi-Region
+
+> 🔥 **THE WALL — "My Own Write Disappeared"**
+> Set up Postgres primary + async replica. Point writes at the primary and reads at the replica. Now: `POST /profile` then immediately `GET /profile` — and watch your own change not be there.
+>
+> Then fix it four ways and understand what each costs: (1) read-your-writes via sticky routing to the primary for N seconds, (2) LSN tokens — the client carries the write position and the replica waits for it, (3) synchronous replication (and measure the write-latency cost), (4) don't read from replicas for that endpoint.
+>
+> Then **kill the primary during a write burst** and promote the replica. **How many acknowledged writes did you just lose?** Measure it. That number is your RPO, and it's the number an interviewer will ask for.
+
+#### 📖 Theory
+
+- **Replication mechanisms**: statement-based (dangerous — nondeterministic functions), WAL/physical (Postgres), logical/row-based (Postgres logical replication, MySQL binlog ROW), and trigger-based
+- **Sync vs async vs semi-sync**, `synchronous_commit` levels, quorum commit, and the RPO/latency tradeoff dial
+- **Replication lag**: causes (long transactions, single-threaded apply, network, vacuum), monitoring it, and designing around it
+- **Consistency guarantees you can actually offer**: read-your-writes, monotonic reads, consistent prefix reads. **Name them precisely; interviewers notice.**
+- **Failover**: automatic (Patroni, orchestrator) vs manual, **split-brain and fencing (STONITH)**, and why GitHub's 2018 outage is the canonical cautionary tale
+- **Multi-leader**: when (multi-region writes, offline clients), conflict resolution (LWW and why it silently loses data, CRDTs, application-level merge)
+- **Leaderless (Dynamo-style)**: quorums, `W + R > N`, sloppy quorums and hinted handoff, read repair, and **why `W + R > N` does *not* actually guarantee you read the latest write** in the presence of concurrent writes or failed writes — Kleppmann's key point
+- **Sharding**: range vs hash vs directory; **consistent hashing with virtual nodes** (implement it — it's a common interview ask); rebalancing without downtime; **the cross-shard query and cross-shard transaction problems**; shard key selection and how to fix a bad one (you can't, easily — that's the lesson)
+- **Multi-region**: latency floors imposed by the speed of light (~65ms US-east↔US-west RTT is physics, not engineering), active-active vs active-passive, and where consensus becomes too slow
+
+#### 📄 Sources
+
+- **DDIA Chapters 5 & 6.**
+- **"Herding elephants: Sharding Postgres at Notion"** — the full case study, including how they chose the shard key.
+- **"Vitess"** docs and the YouTube/PlanetScale sharding story.
+- **"How GitHub's database outage happened" (Oct 2018 postmortem)** — split-brain across regions. Read the whole thing; you'll rebuild it in Incident Archaeology.
+- **"Consistent Hashing with Bounded Loads"** — Google/Vimeo, and the original Karger et al. paper.
+- **"Amazon Aurora: Design Considerations..."** (SIGMOD 2017) — how to redesign replication when you control the storage layer. One of the best systems papers of the last decade.
+
+#### 🛠 CHRONOS MILESTONE C3 + PROJECT `replica-lab`
+
+**C3:** Chronos's durable queue on Postgres using `SELECT ... FOR UPDATE SKIP LOCKED` with lease expiry, heartbeats, and visibility timeouts.
+
+📈 **C3 Exit Criteria**
+- [ ] 64 concurrent workers × 100,000 tasks: **every task executes exactly once** (verified by a unique-execution table with a unique constraint)
+- [ ] Kill a worker mid-task: the task is re-leased after the visibility timeout and completes — and you can explain why this is at-least-once, not exactly-once, and where the idempotency boundary is
+- [ ] Throughput benchmark and the identified bottleneck (it will be `fsync` or lock contention on the queue table — know which)
+- [ ] You handle the "task took longer than its lease" case correctly (fencing tokens — a lease-expired worker must not be able to commit)
+
+**`replica-lab`:** the four read-your-writes fixes, measured, plus a failover with measured RPO/RTO.
+
+📈 **Exit:** a table of the four approaches with p99 read latency, p99 write latency, and staleness bound for each; plus your measured data loss on unplanned failover.
+
+---
+
+### 2.X — 🎓 LEVEL 2 EXIT EXAM
+
+1. Draw an LSM tree and a B+Tree. For each, give a workload where it wins decisively and explain the amplification factors.
+2. `EXPLAIN ANALYZE` shows `rows=1` estimated, `rows=2,400,000` actual. What went wrong, what are the three likely causes, and what do you run first?
+3. Explain write skew with an example that isn't the doctors. Which isolation levels prevent it?
+4. A table is 40GB but `SELECT count(*)` says 2 million small rows. Diagnose.
+5. Design a queue on Postgres that supports 10,000 jobs/sec with exactly-one-consumer semantics and visibility timeouts. What's the bottleneck at 100,000/sec, and what would you change?
+6. You must change a column type on a 200M-row table serving 5k QPS. Full plan, including rollback at every step.
+7. Your read replica is 45 seconds behind. Give five possible causes and how you'd distinguish them.
+8. `W=2, R=2, N=3`. A client writes and gets an ack. Another client reads. Is it guaranteed to see the write? Justify carefully — the naive answer is wrong.
+9. Design the partition key for a chat application's message store in Cassandra. Now: what breaks when one channel has 50 million messages?
+
+**Pass = 8/9.** This is the level where most candidates are separated.
+
+---
+
+## ⚡ LEVEL D — Testing, Correctness & Verification 🆕
+
+> **Why this level exists:** v2 had no testing content at all. This is the rarest skill set in the industry and the highest-leverage differentiator on a portfolio. Anyone can build a system; almost nobody can *prove* one is correct. Two of your eight flagship projects live here.
+>
+> **⏱ Budget:** 70–110 hours · **Chronos milestone:** C5 · **Prereq:** A.3, 2.4
+
+---
+
+### D.1 — The Testing Pyramid, Honestly
+
+> 🔥 **THE WALL** — Take a project you've already built in this roadmap. Run a mutation testing tool (`mutmut`/`cosmic-ray` for Python, `go-mutesting`, PIT for Java). It mutates your source (flips `>` to `>=`, deletes lines) and reports how many mutants your test suite *failed to kill*.
+>
+> Your coverage is probably 85%. Your mutation score will probably be under 50%. **This is the proof that line coverage measures nothing.**
+
+#### 📖 Theory
+
+- **Test doubles precisely**: dummy, stub, spy, mock, fake. **Prefer fakes.** An in-memory implementation of your repository port is a fake and it's better than a mock, because mocks test that you called a method, not that the behavior is right.
+- **London vs Chicago (mockist vs classicist) schools** — and why over-mocking produces suites that pass while production burns
+- **The test pyramid vs the testing trophy** — and the real criterion: *how fast does it run and how confident does it make you?*
+- **Integration testing with real dependencies**: **Testcontainers**. Never mock the database. Test against real Postgres in Docker. This is now standard practice and if you're still using SQLite-in-tests-Postgres-in-prod you have an entire class of bug you cannot see.
+- **Contract testing (Pact)** — consumer-driven contracts, so a provider's deploy can't break a consumer without CI knowing
+- **Flaky tests** — the true cost, quarantine policies, and the top causes (time, ordering, shared state, real network)
+- **What NOT to test** — and the courage to delete a test
+
+#### 📄 Sources
+- **"Unit Testing: Principles, Practices, and Patterns"** — Vladimir Khorikov. The best modern testing book. Replaces a decade of blog arguments.
+- **"Working Effectively with Legacy Code"** — Michael Feathers. Seam-finding; how to get untestable code under test.
+- **"Software Engineering at Google"** (free online) — Chapters 11–14 on testing at scale. Read the "Large Scale Changes" chapter too; it's unlike anything else published.
+- **Testcontainers docs** and **Pact docs**.
+
+---
+
+### D.2 — Property-Based Testing & Fuzzing
+
+> 🔥 **THE WALL** — Take your `crashdb`. Write a property test asserting: *for any sequence of puts, deletes, and gets, the store behaves identically to a Python dict / Go map.*
+>
+> Let Hypothesis/`testing/quick`/`gopter` generate 10,000 random sequences. **It will find a bug in under a minute** — an ordering issue, an empty-key edge case, a compaction race. Then watch it *shrink* the failing case from 400 operations down to the 3 that actually matter. That shrinking step is the magic.
+
+#### 📖 Theory
+- **Properties, not examples**: invariants (`sorted(x)` is always sorted, and a permutation of `x`), round-trips (`decode(encode(x)) == x`), **model-based testing** (compare against a simple reference implementation — the most powerful form), metamorphic relations
+- **Stateful property testing** — generate sequences of *operations*, not just values. This is what finds real bugs in systems.
+- **Shrinking** — why it's what makes PBT usable
+- **Coverage-guided fuzzing**: AFL++, libFuzzer, Go's native `go test -fuzz`, Python's Atheris. **Structure-aware fuzzing** for protocol/parser code.
+- **Differential fuzzing** — feed the same input to two implementations and diff the output. This is how real bugs get found in parsers, compressors, and TLS stacks.
+- **OSS-Fuzz** — and the fact that you can get your project onto it
+
+#### 🛠 CORE PROJECT — fuzz something real, find a real bug
+Fuzz your own `h2spec-clean` HPACK decoder and your `crashdb` record parser. Then go further: pick a small, real open-source parser (a config format, a serialization library, an image decoder) and fuzz it for 24 hours.
+
+📈 **Exit Criteria**
+- [ ] ≥3 real bugs found by PBT/fuzzing in your own code, each with the shrunk minimal reproducer committed as a regression test
+- [ ] A differential fuzz harness comparing your implementation to a reference
+- [ ] Fuzzing wired into CI with a corpus committed
+- [ ] **Stretch, and worth a lot:** find a bug in someone else's OSS project and report it responsibly. A merged fix from a fuzzing-found bug is a resume line by itself.
+
+---
+
+### D.3 — Deterministic Simulation Testing (DST)
+
+> **This is the crown jewel of Level D and one of the rarest skills you can demonstrate.** FoundationDB, TigerBeetle, Antithesis, and increasingly the whole serious-distributed-systems world use it. Almost no candidate has heard of it.
+
+> 🔥 **THE WALL** — Your Chronos passes all its tests. Now answer: *what happens if the network delays a message by 8 seconds, then the leader's disk returns `EIO`, then a clock jumps backward 4 seconds, then two workers claim the same lease?*
+>
+> You cannot test that combination by hand. There are millions of them. **So make the entire universe deterministic and let a random-number generator explore it for you.**
+
+#### 📖 Theory & method
+
+The idea: replace every source of nondeterminism with a *simulated* implementation controlled by a single seeded PRNG.
+
+```
+Real world                    Simulation
+────────────────────────────────────────────────────────
+time.Now()               →    sim.Clock (advances only when you say)
+time.Sleep()             →    sim.Sleep (instant; advances virtual time)
+net.Dial / RPC           →    sim.Network (can delay, drop, reorder, partition)
+os.File / fsync          →    sim.Disk (can tear writes, return EIO, lose the tail)
+goroutine scheduling     →    sim.Scheduler (deterministic single-threaded interleaving)
+rand.Int()               →    rng.Int() (seeded)
+```
+
+Then: `for seed := 0; seed < 100_000; seed++ { run(seed) }`. Each run executes a *different* schedule of failures. When one violates an invariant, **you have a seed integer that reproduces it exactly, forever.**
+
+Requirements: your core logic must be pure and single-threaded (this is why Chronos C2's hexagonal architecture with injectable time was mandatory), and you must define **invariants** that are checked continuously — not just at the end.
+
+#### 📄 Sources
+- **"Testing Distributed Systems w/ Deterministic Simulation"** — Will Wilson, Strange Loop 2014 (FoundationDB). **Watch this. It is the single most important 40 minutes in this entire roadmap.**
+- **TigerBeetle's VOPR / simulation docs** and their blog posts on DST. Open source, readable, modern.
+- **"Simulation testing"** posts from Antithesis, and **Resonate/Temporal**'s writing on deterministic replay.
+- **`madsim`** (Rust) and **`sim` / `testing/synctest`** in the Go ecosystem — real implementations to study.
+- **FoundationDB paper** (SIGMOD 2021) — §4 on simulation.
+
+#### 🛠 FLAGSHIP PROJECT #5 — `simd` (Chronos milestone C5) ⭐⭐⭐ *(Adversary archetype, 10/10)*
+
+Build the deterministic simulation harness for Chronos.
+
+**Components:**
+1. `SimClock` — virtual time, jumps instantly to the next scheduled event
+2. `SimNetwork` — configurable per-link latency distribution, drop rate, reordering, duplication, and **partitions** (including asymmetric ones, where A can reach B but not vice versa — these find the nastiest bugs)
+3. `SimDisk` — configurable fsync latency, torn writes, `EIO` injection, tail truncation on crash
+4. `SimScheduler` — deterministic goroutine/task interleaving from the seed
+5. **The invariant checker**, run after every simulated step:
+   - No workflow task is ever executed concurrently by two workers
+   - Every acknowledged workflow eventually completes or is explicitly failed
+   - Workflow history is append-only and never rewritten
+   - A workflow's replay produces byte-identical decisions
+6. `nemesis` — the fault injector that randomly partitions, crashes, and slows components
+7. The runner: N seeds in parallel; on failure, dump the seed + a human-readable event trace
+
+📈 **Exit Criteria**
+- [ ] **10,000+ seeds run clean in CI** (nightly), each simulating hours of virtual time in milliseconds of real time
+- [ ] **You find at least 3 real bugs in Chronos this way** — document each in the README with its seed and the trace that exposed it. *This is the deliverable.* A DST harness that finds nothing means your fault injection isn't aggressive enough.
+- [ ] Any failure is reproducible from its seed integer alone, on any machine
+- [ ] A written post: "I found 3 bugs in my workflow engine that no test suite would have caught" — with the traces
+
+> **Interview payoff:** describing this project marks you, instantly and unambiguously, as someone who operates at the level of infrastructure teams at FoundationDB/AWS/Cloudflare. There is no faster credibility signal available in a portfolio.
+
+---
+
+### D.4 — Consistency Checking & Jepsen-style Testing
+
+> 🔥 **THE WALL** — Set up a distributed system with a *deliberately wrong* configuration (Postgres with async replication behind a naive proxy; MongoDB with `w:1`; Redis with Sentinel and default settings; etcd with a too-short election timeout). Now prove it violates the guarantee it appears to offer.
+>
+> This is harder than it sounds: you must record a history of concurrent operations with real-time bounds and then *check* whether that history is explicable by any valid serialization.
+
+#### 📖 Theory
+- **Consistency models as a lattice**: linearizability → sequential → causal → PRAM → eventual; and the transactional side: strict serializable → serializable → snapshot isolation → read committed. Know the Jepsen consistency-model map by heart.
+- **Linearizability checking** — the Wing & Gong algorithm, why it's NP-hard in general, and how Knossos/Porcupine make it tractable
+- **Elle** — Kyle Kingsbury's transactional-anomaly checker that infers a dependency graph from observed values and finds cycles. **Read the Elle paper**; it's a genuinely clever piece of engineering.
+- **Nemesis design** — partitions (simple, bridge, ring, asymmetric), clock skew, process pauses (SIGSTOP is more realistic than SIGKILL), disk faults
+
+#### 📄 Sources
+- **Jepsen analyses** at `jepsen.io/analyses` — read the etcd, MongoDB, PostgreSQL, and Redis-Raft ones.
+- **"Elle: Inferring Isolation Anomalies from Experimental Observations"** — Kingsbury & Alvaro (VLDB 2020).
+- **"Strong consistency models"** and **"The trouble with timestamps"** — aphyr.com.
+- **Porcupine** (Go linearizability checker) — small enough to read entirely.
+
+#### 🛠 FLAGSHIP PROJECT #4 — `elle-lite` ⭐⭐ *(Adversary archetype, 9/10)*
+
+1. Build a **history recorder**: a client wrapper that logs every operation with invoke/complete timestamps.
+2. Build a **linearizability checker** for a register/KV model (implement Wing-Gong with the standard optimizations, or the P-compositionality trick).
+3. Build a **cycle-detecting transactional checker** (a simplified Elle) for read-write registers.
+4. Build a **nemesis** that partitions and pauses.
+5. **Then use it.** Point it at: your own Chronos, your Raft implementation, and — critically — **a real system you've misconfigured**, and produce a report showing the anomaly you found with the exact history that proves it.
+
+📈 **Exit Criteria**
+- [ ] Your checker correctly flags a known-bad history and passes a known-good one (validate against Porcupine's or Knossos's test fixtures)
+- [ ] **A real, reproduced anomaly in a real system**, with the history, the visualization, and an explanation of the configuration that caused it
+- [ ] A visualization of the violating history (a timeline diagram) in the README
+- [ ] Written up as a mini-Jepsen report, in Kingsbury's format
+
+---
+
+### D.5 — Formal Methods, Lite: TLA+
+
+> Not academic. Amazon uses TLA+ on S3, DynamoDB, and EBS, and published a paper about the bugs it caught that testing never would have.
+
+> 🔥 **THE WALL** — Write a TLA+ spec of your Chronos lease protocol. Model check it with TLC. **It will find a bug** — almost certainly a case where a worker whose lease expired still commits a result, or where two workers hold the lease simultaneously across a specific interleaving. Then find that same bug in your implementation.
+
+#### 📖 What to learn
+- PlusCal (the friendlier syntax), states/actions/behaviors, safety vs liveness, invariants, temporal properties, model checking with TLC, state-space explosion and how to bound it
+- **What TLA+ is for:** protocols and concurrent algorithms — *not* code verification. Spec the 200 lines that matter.
+
+#### 📄 Sources
+- **"Learn TLA+"** — learntla.com (Hillel Wayne). The best on-ramp, free.
+- **"Practical TLA+"** — Hillel Wayne (book).
+- **"How Amazon Web Services Uses Formal Methods"** — Newcombe et al., CACM 2015. **Read this to understand why it's worth your time**; it lists the specific bugs TLA+ found in DynamoDB that had survived extensive testing.
+- Leslie Lamport's **TLA+ Video Course**.
+
+#### 🛠 CORE PROJECT — spec two protocols
+1. Your Chronos lease/heartbeat protocol
+2. A distributed lock or a two-phase commit variant
+
+📈 **Exit Criteria**
+- [ ] Both specs model-check clean for safety invariants
+- [ ] **At least one real design bug found by TLC**, documented with the counterexample trace TLC produced
+- [ ] A written comparison: what TLA+ found vs. what your DST harness found. They catch *different* classes of bug, and articulating that distinction is a genuinely senior insight.
+
+---
+
+### D.X — 🎓 LEVEL D EXIT EXAM
+
+1. Your test suite has 92% coverage and a 40% mutation score. What does that mean and what do you do?
+2. Explain deterministic simulation testing to a skeptical manager in 90 seconds, including what it costs to adopt.
+3. Give an invariant for a payment system that a unit test cannot check but a simulation harness can.
+4. What's the difference between a mock and a fake, and when does over-mocking cause a production incident?
+5. `W=1, R=1` on a 3-node cluster with a partition. Sketch a history that violates linearizability. How would a checker detect it?
+6. When is TLA+ worth it and when is it theatre?
+7. Your CI has 40 flaky tests. What's your plan, in order, and what's your policy going forward?
 
 **Pass = 6/7.**
 
-## 🧩 PROBLEM SOLVING — L7 · W53–58 · 32 problems · 6h/wk 🔴 **+ OA DRILLS BEGIN**
-> 🔴 **From W53 Track I is 10h/week (6 DSA + 4 design), because applications open in three weeks.**
+---
+## ⚡ LEVEL B — DevOps, Containers & Orchestration
 
-**Patterns:** 🔴 **concurrency problems in C++** · design-heavy problems · heaps and scheduling.
-🔗 **The tie:** you are writing `preStop` drain logic and a rolling-restart path this level. **LC 1188 (Design Bounded Blocking Queue) with a real `std::condition_variable` is the same problem** — and infrastructure loops ask concurrency questions that most candidates have never written.
-
-| Source | Set |
-|---|---|
-| 🔴 **LeetCode — concurrency, in C++** | **1114** Print in Order · **1115** Print FooBar Alternately · **1116** Print Zero Even Odd · **1117** Building H2O · **1195** Fizz Buzz Multithreaded · **1226** The Dining Philosophers · 🔴 **1188** Design Bounded Blocking Queue |
-| **LeetCode — scheduling/heaps** | **621** revisit · **1834** Single-Threaded CPU · **1642** Furthest Building You Can Reach · **502** IPO · **857** Min Cost to Hire K Workers |
-| **LeetCode — design** | **362** Design Hit Counter · **348** Design Tic-Tac-Toe · **1610** Max Number of Visible Points · **295** revisit, then **480** Sliding Window Median |
-| **Own work** | ⚙️ Producer/consumer, bounded buffer and dining philosophers **in C++ with `std::jthread` and `condition_variable`**, from scratch, no library help |
-| 🏁 **Capstone** | **LC 1188 in C++**, then break it: what happens with a spurious wakeup, and what happens if `enqueue` throws? |
-
-### 🔴 OA DRILLS — start now, they are a different skill
-**An online assessment is not an interview.** No interviewer, no partial credit for approach, **hidden tests, a hard clock, and often 2–4 problems in 60–120 minutes.** The failure mode is not "couldn't solve it" — it is **misreading the spec, missing an edge case, or spending 40 minutes on problem 1 of 3.**
-
-**The drill, from W53, one per week, 90 minutes, no narration:** pick **two unseen LeetCode Mediums or one Medium and one Hard**, set a timer, and **write your own test cases before submitting.** Score yourself on: did both compile first try · did you read the constraints and pick the right complexity · **did you budget the clock across problems.** Log it in `dsa/OA-LOG.md` separately from mocks — **it measures something mocks do not.**
-
-**Design (4h/wk):** a metrics pipeline, then a deployment/rollout system. **W55: the Final Gauntlet. W57: FULL TIMED LOOP #1.**
+> **Goal:** own your service end to end. v2's content here was good — v3 keeps the theory and replaces the projects with harder, rarer ones.
+>
+> **⏱ Budget:** 80–110 hours · **Chronos milestone:** C4 · **Prereq:** 0.2, 0.4
 
 ---
+
+### B.1 — Containers (you already built one in Level 0)
+
+Because you built `minidocker` in 0.2, you skip the "what is a namespace" phase and go straight to production concerns.
+
+> 🔥 **THE WALL — The Container That Lies**
+> Run a JVM or Go service in a container with `--memory=512m`. Set its heap to 400MB. Watch it get OOM-killed anyway with "plenty of heap free."
+>
+> Then: run a CPU-bound service with `--cpus=0.5`. Watch p99 latency go to 400ms for work that takes 20ms. Find `nr_throttled` in `cpu.stat`. **CFS quota throttling is one of the most common and least understood causes of latency in Kubernetes,** and it's invisible from inside the container.
+
+#### 📖 Theory (beyond v2)
+- Image layers, OverlayFS, multi-stage builds, distroless/scratch, non-root, `HEALTHCHECK`, `.dockerignore`, BuildKit cache mounts, **reproducible builds** and why image digests beat tags
+- **Container ≠ VM security boundary.** Namespaces are not a hypervisor. gVisor, Kata, and Firecracker exist because of this. Know when you need one.
+- **Signals and PID 1**: why `SIGTERM` doesn't reach your app when it's a child of a shell, `tini`/`--init`, and why this causes 30-second deploys and dropped connections
+- **Graceful shutdown**: `SIGTERM` → stop accepting → drain in-flight → close → exit, within `terminationGracePeriodSeconds`. **Getting this wrong drops requests on every single deploy**, and almost every team has this bug.
+- **The container memory/CPU model**: cgroup v2, `memory.max` vs `memory.high`, CPU shares vs quota, `GOMEMLIMIT` / `MaxRAMPercentage`, why `nproc` inside a container lies
+- **Supply chain**: image signing (cosign/sigstore), SBOMs (syft), vulnerability scanning (trivy/grype), base image policy
+
+#### 🛠 CORE PROJECT — `container-forensics`
+Take one service and produce a measured report: naive image vs optimized (size, layers, build time cold/warm, cold-start time), the OOM-under-limit reproduction and its fix, the CPU-throttling reproduction with `nr_throttled` evidence and its fix, and a graceful-shutdown test that proves **zero dropped requests during a rolling restart under load** (this last one is the real deliverable — measure it before and after).
+
+📈 **Exit:** a table with all of it; and a `SIGTERM` handling test that fails when you remove the drain logic.
+
 ---
 
-# ⚡ LEVEL 8 — The Attack Lab
+### B.2 — Kubernetes: past `kubectl apply`
 
-> **Goal:** build the adversary against your own network, on real internet topology, and publish a number you did not choose in advance.
-> **⏱ Weeks 59–66 · 10-25 → 12-19 · 80h depth** · **Milestone D7** · **🚩 Flagship #6 `ascorr`** · **📺 Track C: 6.1810 L6–L14 + labs pgtbl, traps, cow** · **W66 = buffer**
->
-> **The expected result is that Adyton is comparable to Tor and not better**, because your path selection is still naive. **That is the honest result and it is why Level 9 exists.** Publishing the unflattering number is what makes Level 9's improvement believable.
+> 🔥 **THE WALL — Six Kubernetes Failures**
+> Cause each of these deliberately in a local cluster (kind/k3d), diagnose each with `kubectl` + logs only, and write the fix:
+> 1. `CrashLoopBackOff` from a missing ConfigMap key
+> 2. `ImagePullBackOff` from a private registry with no `imagePullSecret`
+> 3. `Pending` forever because no node satisfies the resource request
+> 4. **OOMKilled** under a memory limit that seemed generous
+> 5. **Requests dropped during a rolling update** because the readiness probe lies (returns 200 before dependencies are ready) — *and* because there's no `preStop` sleep, so the pod stops before endpoints propagate
+> 6. **DNS latency**: every request takes an extra 5ms or occasionally 5s — the `ndots:5` + `search` domain problem
 
-## 🔥 THE WALL
-Build a circuit. Now look at it the way a real adversary does — not "which relays" but **"which autonomous systems do the packets traverse?"** Take your client's IP and your guard's IP: what AS path connects them? Then exit to destination. **If the same AS appears on both the client→guard and exit→destination segments, that AS sees both ends and the two-hop split-trust guarantee is gone** — not because a relay was malicious, but because **the network underneath both hops is one organisation.** Compute how often that happens for randomly chosen relays. **It is far more often than you expect**, because a handful of transit providers carry a large fraction of all internet paths.
+#### 📖 Theory
+- Keep v2's full list (Pods, Deployments, Services, Ingress/Gateway API, ConfigMaps/Secrets, StatefulSets, DaemonSets, Jobs, PV/PVC, HPA/VPA/Cluster Autoscaler, affinity, taints, CNI, kube-proxy, CoreDNS) — it was accurate.
+- **Add the control-plane mental model**, which is what interviews actually probe: **the reconciliation loop**. etcd holds desired state; controllers watch and drive actual → desired; the scheduler is just another controller; the kubelet reconciles pods on a node. **Everything in Kubernetes is `while true { observe; diff; act }`.** If you internalize only one thing, internalize this.
+- **What actually happens on `kubectl apply`** — the full path: client-side → API server → authN → authZ (RBAC) → **admission (mutating then validating, then webhooks)** → etcd write → watch event → scheduler binds → kubelet → CRI → CNI → CSI → running container. **This is a top-5 most-asked K8s interview question.**
+- **Probes precisely**: liveness (restart me) vs readiness (route to me) vs startup. **A liveness probe that checks a dependency creates cascading restarts** — a classic self-inflicted outage.
+- **PodDisruptionBudgets, topology spread, priority & preemption, QoS classes** (Guaranteed/Burstable/BestEffort and eviction order)
+- **Operators & CRDs** — the reconciliation pattern as an extension mechanism
+- **GitOps** — Argo CD/Flux, drift detection, why `kubectl apply` from a laptop is an anti-pattern
 
-## 📖 THEORY
-**BGP and inter-domain routing** — ASes, customer/provider/peer relationships, and the fact that **AS paths cannot be observed directly from one vantage point. You *infer* them.** **The valley-free property** — up the provider hierarchy, possibly across one peer link, then down; the constraint that makes inference tractable. **CAIDA's AS-relationship dataset** plus AS-to-organisation so sibling ASes owned by one company are collapsed — a subtlety most implementations miss. **IXP overlap** — two ASes that never share a path may still meet at an exchange that sees both. 🔴 **Inference accuracy is the integrity question of the whole level.** Your compromise probabilities rest on inferred paths — **validate against RouteViews/RIPE RIS and report the disagreement rate.** Skip this and every claim for the rest of the plan is unfalsifiable, and an interviewer who knows this area will ask inside five minutes. **Guard compromise over time** — rotating entry relays constantly *guarantees* eventual hostile selection; **sticky guards convert certainty into a gamble you probably win.** Your instinct will be rotation; the field discovered rotation is the dangerous choice.
+#### 📄 Sources
+- **"Kubernetes in Action" 2nd ed.** — Marko Lukša. Still the best book.
+- **"Kubernetes: Up and Running"** — Burns, Beda, Hightower *(a book, not an article — v2 miscategorized it)*.
+- **"Programming Kubernetes"** — Hausenblas & Schimanski. For operators/CRDs.
+- **"Kubernetes Failure Stories"** — `k8s.af`. Read 10. This is the highest-density learning per minute in the whole ecosystem.
+- **"Kubernetes the Hard Way"** — Kelsey Hightower. Do it once; you'll never be confused about the control plane again.
+- **Borg paper** (2015) and **"Borg, Omega, and Kubernetes"** (CACM 2016) — the why.
 
-**📺 Atlas → 6.1810 L6–L14 + labs pgtbl, traps, cow.** Also **CS144's BGP lecture** if you skipped it, and **15-721 L6 (vectorized execution)** early if you want the technique for scoring millions of candidate circuits.
-**📕 Pages:** 🔴 **Luckie et al., *AS Relationships, Customer Cones, and Validation* §2–4** — the inference model you are implementing · Kurose & Ross §5.4 · **Sun et al., *Counter-RAPTOR* §3–5**; skim **Astoria** and **DeNASA** · **Elahi et al., *Changing of the Guards* §3–5** · **Douceur, *The Sybil Attack*** — short, and it frames Level 10.
+#### 🛠 FLAGSHIP-ADJACENT PROJECT — Chronos C4: **write a real Kubernetes Operator** ⭐ *(8/10)*
 
-> 🤖 **PROMPT 1** W59 · `GAP:` how valley-free inference picks *one* path when several are legal, and what it does with incomplete data · `THE DECISION:` how to handle IP pairs with no valley-free path in the dataset — drop, guess, or report separately · `NAMED REAL SYSTEM:` how Counter-RAPTOR's implementation handles inference gaps
-> 🤖 **PROMPT 4 (BRIDGE)** W61 · `SOURCE A:` my inferred AS paths · `SOURCE B:` RouteViews' observed paths, which disagree in X% of cases · `DECISION:` whether my compromise-probability numbers are publishable given that rate, and how to state the uncertainty
-> 🤖 **PROMPT 5 (ADVERSARY)** W65 · `SYSTEM:` 2-hop circuits with naive capacity-weighted selection · `PROPERTY:` "no single party sees both who you are and where you are going" · `CAPABILITIES:` you control one large transit AS carrying a significant share of internet paths · `NOT:` you operate no Adyton relay and cannot decrypt anything
+Not "deploy to Kubernetes" (everyone has done that). **Extend Kubernetes.**
 
-📈 **EXIT CRITERIA — D7**
-- [ ] CAIDA AS-relationships and AS-to-organisation loaded; sibling ASes collapsed; graph queryable
-- [ ] Valley-free inference; **missing relationships handled explicitly, never guessed silently**
-- [ ] 🔴 **Inference validated against RouteViews/RIPE RIS: agreement rate reported honestly, disagreement cases characterised.** Expect 60–80%. **Every downstream number carries this caveat, stated**
-- [ ] Adversary model parameterised by controlled ASes and IXPs, presets: one large transit AS · a national ISP · a five-AS coalition · an IXP operator
-- [ ] 🔴 **Circuit-compromise probability computed for Adyton *and* Tor's selection, under all four presets, with the adversary definitions published**
-- [ ] IXP overlap folded in via PeeringDB
-- [ ] **Guard-compromise model:** eventual-compromise probability under per-circuit rotation vs sticky guards, **for Adyton's actual mesh size and circuit rate.** A curve, not a point
-- [ ] **Sybil cost curve:** peers required at real VPS prices to control 10% / 25% / 50% of paths. **USD/month**
-- [ ] **Churn adversary:** selective peer dropping to force re-routing — paths captured per unit of effort
-- [ ] `lab/` has its own CI; **`lab/reproduce.sh` regenerates every number in `docs/results/` with one command**
-- [ ] The GCP $300 window planned in `docs/design/gcp-window.md` **before spending a cent**: one 72-hour run at 200 nodes to validate the simulator
-- [ ] 6.1810 L6–L14 ticked; **labs pgtbl, traps, cow complete**
-- [ ] **Blog post 4:** *"I attacked my own privacy network. Here is the number, and it isn't flattering."*
+Define a CRD: `kind: Workflow`. Write a controller (controller-runtime / kubebuilder) that reconciles it — creating Jobs, tracking status, handling retries, updating `.status.conditions`, emitting Events, and cleaning up finished workflows. Add a validating admission webhook that rejects malformed workflow specs. Add finalizers so deletion cleans up properly.
 
-## 🎤 INTERVIEW PARAGRAPH — Week 66
-> The part of this project I'd point at first is the attack lab, because anyone can claim a system is private. I built the adversary against my own network on real internet topology — CAIDA's AS-relationship dataset with valley-free path inference. The insight that started it: two hops is not really two hops. If the same autonomous system appears on both the client-to-guard path and the exit-to-destination path, that AS sees both ends and the split-trust guarantee is gone, with no relay having been malicious. A handful of transit providers carry a large share of all internet paths, so it happens far more often than you'd guess. Given an adversary defined by which ASes and IXPs it controls, I compute the probability a circuit is compromised — for my selection and for Tor's.
->
-> Two things I'd say unprompted. The honest result: my selection is currently naive, capacity-weighted only, so I'm **comparable to Tor and not better**, which is exactly why the next level is AS-aware selection. Publishing the unflattering number is what makes the improvement believable. Second, and it's the question I'd ask if I were interviewing me: these paths are *inferred*, not observed, because you cannot see inter-domain paths from one vantage point. So I validated the inference against RouteViews and reported the disagreement rate, and every number I publish carries that caveat. A compromise probability built on unvalidated inference is unfalsifiable, and I'd rather state the uncertainty than have someone find it.
+📈 **Exit Criteria**
+- [ ] `kubectl apply -f workflow.yaml && kubectl get workflows` shows real live status
+- [ ] The reconciler is **idempotent and level-triggered** — prove it by deleting a child Job and watching it be recreated
+- [ ] It survives being killed mid-reconcile with no duplicate work
+- [ ] The admission webhook rejects an invalid spec with a clear message
+- [ ] Written explanation of level-triggered vs edge-triggered reconciliation and why Kubernetes chose level
 
-## 🎓 EXIT EXAM
-1. Explain the valley-free property and why AS paths cannot be observed from one vantage point.
-2. Your two-hop circuit is compromised by a party operating no relay. How?
-3. What is your inference agreement rate, and what does it do to your published numbers?
-4. Define "compromised" precisely for your adversary model. Name the four presets.
-5. Rotation vs sticky guards: state the counter-intuitive result in two sentences and give your curve.
-6. What does 25% path control cost an attacker per month, and what changes that number?
-7. Why is publishing a result that makes your system look no better than Tor the right move?
-
-**Pass = 6/7.** Then 🤖 **PROMPT 2** on "AS-level correlation and path inference."
-## 🧩 PROBLEM SOLVING — L8 · W59–66 · 46 problems · 6h/wk
-**Patterns:** 🔴 **hard graph algorithms** — Tarjan's bridges and articulation points, strongly connected components, Euler tours, max flow (intro).
-🔗 **The tie, and it is the most literal in the entire plan:** 🔴 **LC 1192 "Critical Connections in a Network" asks you to find the bridges in a graph — which is exactly the question "which single peer's removal partitions my mesh?"** You are computing that for real in `meshsim` this level. **Articulation points are not an interview trick for you; they are a property of your own system that you need to know.**
-
-| Source | Set |
-|---|---|
-| 🔴 **LeetCode — bridges & articulation** | 🔴 **1192** Critical Connections in a Network · **1568** Min Days to Disconnect Island · **928** Minimize Malware Spread II · **924** Minimize Malware Spread |
-| **LeetCode — SCC / condensation** | **1489** revisit · **802** revisit · **1462** Course Schedule IV · **1857** Largest Colour Value in a Directed Graph |
-| **LeetCode — flow-ish / matching** | **1349** Max Students Taking Exam · **785**/**886** revisit · **1723** Find Min Time to Finish All Jobs |
-| **LeetCode — hard traversal** | **773** Sliding Puzzle · **815** Bus Routes · **1102** Path With Maximum Minimum Value · **1102**'s cousin **778** revisit |
-| **CSES** | 🔴 ***Graph Algorithms* — the advanced half**, including the SCC and Euler-path problems |
-| **CF EDU** | **Maximum Flow, part 1** — the whole section |
-| **CF** | Problemset, tag `graphs` + `dfs and similar`, rating **1700–1900**, 12 problems |
-| 🏁 **Capstone** | 🔴 **LC 1192 from scratch, then run the same algorithm on your own mesh's peer graph and report which peers are articulation points.** That is the same code answering an interview question and a real question about your system, in one sitting |
-
-**Design:** a fraud/abuse detection system, then a graph-processing system. **Weekly full loops from W59. Weekly OA drill continues.** **Codeforces: virtuals W62, W66.**
+> "I wrote a Kubernetes operator" is a materially different claim from "I've used Kubernetes," and it's the one that gets you infrastructure-team interviews.
 
 ---
+
+### B.3 — Message Queues & Task Systems
+
+Keep v2's RabbitMQ/Celery theory (it was accurate and complete) and add the parts that separate a senior from a user:
+
+> 🔥 **THE WALL — The Poison Pill Cascade**
+> Build a Celery/worker system consuming from a queue. Now enqueue one message that causes a crash *during* processing (not an exception — a segfault or OOM). With `acks_late=True`, it's redelivered. It crashes the next worker. And the next.
+>
+> **You have just built a self-replicating worker killer that will take down your entire fleet in 90 seconds.** Watch it happen. Then fix it: delivery counts, DLQ after N attempts, and — the subtle one — **the difference between "the task failed" and "the worker died," which the broker cannot distinguish.**
+
+#### 📖 Additional theory
+- **Delivery semantics, precisely**: at-most-once, at-least-once, and why **exactly-once *delivery* is impossible** but exactly-once *processing* is achievable via idempotent consumers or transactional dedup. Being crisp about this distinction is a strong signal.
+- **Poison messages, DLQ design, redrive**, and the operational question: who looks at the DLQ? (Answer: nobody, unless you alert on it.)
+- **Prefetch/QoS and head-of-line blocking**: one slow message blocking a prefetched batch
+- **Queue-per-tenant vs shared queue with priorities** — noisy-neighbor isolation
+- **Backpressure**: what happens when the queue grows without bound — and why "the queue absorbs the spike" is only true until memory runs out
+- **The scheduling problem**: delayed messages, timer wheels, why "sleep 30 days" is hard, and how Chronos will solve it
+- **Kafka vs RabbitMQ vs SQS vs NATS vs Redis Streams** — with the honest guidance: **most task queues should just be Postgres** until proven otherwise (`SKIP LOCKED`, which you built in C3)
+
+#### 🛠 CORE PROJECT — `queue-shootout`
+Implement the same job workload on four backends (Postgres `SKIP LOCKED`, Redis Streams, RabbitMQ, Kafka). Measure: throughput, p99 end-to-end latency, message loss on broker restart, message loss on worker `kill -9`, behavior when consumers are 10x slower than producers, and operational complexity (lines of config, failure modes).
+
+📈 **Exit Criteria**
+- [ ] A loss matrix: for each backend × each failure mode → messages lost. Measured, not documented.
+- [ ] Poison-pill cascade reproduced and fixed on all four
+- [ ] A written recommendation: "for a team of 5 doing 500 jobs/sec, use X, because…"
+
 ---
 
-# ⚡ LEVEL 9 — Path Selection ⭐
+### B.4 — Redis in Anger
 
-> **Goal:** ⭐ **the research contribution.** Make circuits safer against AS-level correlation — then prove you did not hand the attacker a targeting oracle in exchange.
-> **⏱ Weeks 67–76 · 12-20 → 2028-02-27 · 88h depth** · **Milestone D8** · **🚩 Flagship #7 `guardplace`** · **📺 Track C: 6.1810 L15–22 + labs net, lock, fs, mmap (W67–70); slack W71; 🌙 Ramadan 1449 W72–76 at 20h** · **W76 = REST WEEK (Eid)**
->
-> 🌙 **Ramadan 1449 ≈ 28 Jan – 26 Feb 2028 = weeks 72–76, at 20h.** Scope moved out in advance: **the three candidate selectors and the C++ port land in W67–71 at full load; W72–75 is the parameter sweep**, which is compute-bound and script-driven rather than design-bound — the right shape of work for a reduced month. **6.1810 finishes W70, before Ramadan.**
+Keep v2's data-structure catalog (it was genuinely good) and add:
 
-## 🔥 THE WALL
-Implement AS-aware selection: score candidates on AS-path disjointness between the two ends, prefer the best. Re-run Level 8's adversary. **Compromise probability drops meaningfully. Excellent.**
+> 🔥 **THE WALL — Three Redis Outages**
+> 1. **`KEYS *` in production.** Run it against a 10M-key instance while serving traffic. Redis is single-threaded — watch every other request block for seconds. Now use `SCAN` and compare.
+> 2. **Cache stampede.** Have 500 concurrent clients request a key that just expired. Watch 500 identical queries hit your database simultaneously. Fix with singleflight, then with probabilistic early expiration (XFetch), and measure both.
+> 3. **The lock that isn't.** Implement a `SETNX` lock. Now have the lock holder pause (SIGSTOP) past the TTL while another client acquires it. Both now believe they hold the lock. **Read the Kleppmann/antirez Redlock exchange and understand why a lock without a fencing token is not a lock in an asynchronous system.**
 
-Now put on the attacker's hat: **your selector is deterministic and its scoring function is public — it is in your open-source repository. Where should I put my relays so that your algorithm prefers them?** Place ten relays chosen to maximise their score under *your* function. Measure how often they get selected. **It will be dramatically more than their fair share.** You have made the average case better and the targeted case worse, and **a defender who only measured the average would never have noticed.**
+#### Additional theory
+- Single-threaded event loop → **any O(N) command is an outage**: `KEYS`, `SMEMBERS` on a huge set, `HGETALL`, big `DEL` (use `UNLINK`), Lua scripts that run long
+- Memory: `maxmemory-policy` (all 8 of them — know `allkeys-lru` vs `volatile-lru` vs `noeviction` and what each does when full), fragmentation ratio, `MEMORY DOCTOR`
+- Persistence tradeoffs (RDB fork + COW doubling memory, AOF rewrite), and why **`BGSAVE` on a 20GB instance can OOM the box**
+- Cluster: hash slots, hash tags, MOVED/ASK redirects, why multi-key ops break, resharding
+- **Redis is not a database**: what you lose (durability guarantees, transactions across nodes, consistency during failover — see the Jepsen Redis analyses)
 
-🔴 **That tension — AS-diversity versus predictability — is the project's research contribution, and nobody has published the curve.**
-
-## 📖 THEORY
-**AS-aware scoring:** AS-path disjointness between client→guard and exit→destination · IXP overlap · jurisdictional diversity · latency budget · measured capacity. Prior art **Astoria**, **Counter-RAPTOR**, **DeNASA**, **CLAPS** — **none deployed anywhere.** 🔴 **Guard placement attacks** (Wan et al., PoPETs 2019): AS-aware selection makes your selector *predictable*, and a predictable selector is a **targeting oracle**. **Controlled randomness** as the mitigation, on a **single tunable** from 0 (pure score) to 1 (pure capacity-weighted random) — **and the trade must be measured across the range, not asserted at one point.** **Guard rotation policy chosen from Level 8's curve rather than instinct.** 🔴 **The latency budget outranks the score** — Adyton's whole trilemma choice was low latency; a selector that improves compromise probability at 200ms of added build cost has violated the premise. **If the winner exceeds the budget, the budget wins and that is documented.** **Evaluate in Python before writing C++** — 43% of your postings, and it is how you avoid spending a month implementing the wrong algorithm in a language where changing your mind is expensive.
-
-**📺 Atlas → 6.1810 L15–L22 + labs net, lock, fs, mmap (W67–70) — the course completes here.** 🔴 **Lab `net` is a network device driver: the other end of CS144, and a genuinely satisfying place to arrive.** **No course covers guard placement — this is the frontier, and noticing that the material has run out is part of the education.**
-**📕 Pages:** 🔴 **Wan, Johnson, Wails, Wagner, Jansen — *Guard Placement Attacks on Path Selection Algorithms for Tor* (PoPETs 2019) §3–6** — **the paper this level exists to answer** · **Rochet et al., *CLAPS* (CCS 2020) §3–5** · Counter-RAPTOR §3–5 re-read with implementation in hand · Elahi et al. §5 re-read with your own curve.
-
-> 🤖 **PROMPT 1** W68 · `GAP:` how an adversary actually *optimises* relay placement against a known scoring function — the algorithm, not the intuition · `THE DECISION:` whether placement is tractable optimisation or requires search, and what that says about a real attacker's cost · `NAMED REAL SYSTEM:` the methodology in Wan et al. 2019 and how they modelled the adversary's budget
-> 🤖 **PROMPT 5 (ADVERSARY)** W72, **this *is* the flagship** · `SYSTEM:` Adyton's AS-aware selector with randomness parameter r, scoring on AS disjointness, IXP overlap, jurisdiction, latency and measured capacity. **The scoring function is public — it is in my open-source repo** · `PROPERTY:` "circuits are chosen to minimise the chance one AS sees both ends" · `CAPABILITIES:` you can rent relays anywhere with a budget of N, you can read my source, you can join the mesh legitimately · `NOT:` you cannot compromise the authorities or break the crypto
-> 🤖 **PROMPT 4 (BRIDGE)** W74 · `SOURCE A:` Counter-RAPTOR and Astoria — AS-aware selection substantially reduces compromise probability · `SOURCE B:` Wan et al. — AS-aware selection is predictable and enables guard placement · `DECISION:` where to set my randomness parameter, and how to present a result where both papers are right
-
-📈 **EXIT CRITERIA — D8**
-- [ ] Three candidate selectors implemented **in Python first**, scored over the same graph against the same adversary presets. **Winner chosen on data, with the reason recorded**
-- [ ] Winner ported to C++ in `adyton-core/select`; **cross-language test vectors: the C++ selector matches the Python one on ≥99% of 10,000 cases**
-- [ ] AS-graph data distributed **via the epoch document**, compact — clients must not each download CAIDA dumps. **Loads in <200ms, fits in <40MB**
-- [ ] Controlled randomness as a **single documented tunable**, with its meaning written down, not just its range
-- [ ] 🔴 **The guard-placement adversary implemented and run against your own selector**, reporting the selection rate achieved by adversary-placed relays
-- [ ] 🔴 **THE CURVE, published:** for ≥5 randomness settings, **compromise probability against the AS adversary** *and* **adversary-placed-relay selection rate**, on one plot. `docs/results/tradeoff-curve.md`
-- [ ] **The operating point chosen off the curve, with the reason written down.** Not by instinct
-- [ ] Guard rotation interval set from Level 8's curve, published alongside
-- [ ] **Added circuit-build latency from AS scoring: <40ms p50.** If it exceeds the budget, the budget wins and that is documented
-- [ ] 🔴 **6.1810 complete: all 22 lectures, all 9 labs ticked**
-- [ ] 🔴 **Blog post 5:** *"AS-aware path selection makes you predictable. Here is the curve."* **The plot is the post.** A front-page candidate and the most novel thing you will write
-
-> **If W75 arrives and the sweep is not achievable:** cut the CLAPS candidate retroactively and take Counter-RAPTOR-style on the literature's evidence, spending the recovered time on the sweep. **Do not cut the guard-placement run** — it is the level's entire point and the write-up's centrepiece.
-
-## 🎤 INTERVIEW PARAGRAPH — Week 76
-> This is the month I'd call research rather than engineering, and the only part of the project where I have a result nobody has published. AS-aware path selection is published — Astoria, Counter-RAPTOR, DeNASA, CLAPS — and none of it is deployed anywhere, which is itself interesting. I implemented it and compromise probability against my AS-level adversary dropped substantially. Good result. Then I read Wan et al. from PoPETs 2019, which says something uncomfortable: AS-aware selection makes your selector **predictable**, and mine is open source so its scoring function is public. A predictable selector is a targeting oracle. So I built that adversary against my own selector, placed ten relays optimised against my own scoring function, and they were chosen far more often than their share.
->
-> **Both papers are right**, and a defender who only measured the average case would never have noticed. The mitigation is controlled randomness on a single tunable, and the point is that the trade has to be *measured* across the parameter range rather than asserted at one setting. So the artifact is a curve — compromise probability against adversary-placed-relay selection rate, across five settings — and I chose my operating point off that plot with the reason written down. That curve does not exist publicly. It's small, it's honest, and it's mine. The discipline I'd want credit for is that the latency budget outranks the score: the whole project's premise was low latency, so a selector that improves safety at 200 milliseconds of build cost has violated the premise, and I documented that constraint rather than quietly relaxing it.
-
-## 🎓 EXIT EXAM
-1. Name the four scoring dimensions and what each buys. Which conflict?
-2. State the guard-placement attack in two sentences. Why does a *better* defence enable it?
-3. How does an adversary optimise placement against a public scoring function? Is it tractable?
-4. Where did you set your randomness parameter and why? Answer from the curve.
-5. Your selector added latency. What is your budget, where did it come from, and what did you do?
-6. Why evaluate three selectors in Python before writing any C++?
-7. Why is the trade-off curve a better artifact than a single "40% improvement" claim?
-
-**Pass = 6/7.** Then 🤖 **PROMPT 2** on "AS-aware path selection and guard placement."
-## 🧩 PROBLEM SOLVING — L9 · W67–76 · 42 problems · 6h/wk (🌙 4h W72–75)
-**Patterns:** 🔴 **probability and expectation** · randomised algorithms · weighted sampling · number theory and modular arithmetic.
-🔗 **The tie, and it is exact:** 🔴 **LC 528 "Random Pick with Weight" is capacity-weighted relay selection** — the prefix-sum-plus-binary-search structure is what Adyton's selector does on every circuit build. And the whole level is about a **randomness dial**, so the probability set is not adjacent to the work, it *is* the work. The guard-rotation curve from Level 8 is an expectation calculation.
-
-| Source | Set |
-|---|---|
-| 🔴 **LeetCode — weighted sampling** | 🔴 **528** Random Pick with Weight · **710** Random Pick with Blacklist · **382** Linked List Random Node · **398** Random Pick Index · **497** Random Point in Non-overlapping Rectangles |
-| **LeetCode — randomised** | **384** Shuffle an Array · **470** Implement Rand10 Using Rand7 · **478** Generate Random Point in a Circle · **519** Random Flip Matrix |
-| **LeetCode — expectation/probability** | **837** New 21 Game · **808** Soup Servings · **688** Knight Probability in Chessboard · **1230** Toss Strange Coins |
-| **LeetCode — math** | **50** Pow(x,n) · **69** Sqrt(x) · **29** Divide Two Integers · **166** Fraction to Recurring Decimal · **233** Number of Digit One · **372** Super Pow · **204** Count Primes |
-| **CSES** | *Mathematics* — the first twelve |
-| **CF** | Problemset, tag `probabilities` + `math`, rating **1600–1900**, 10 problems |
-| **Reading** | **Mitzenmacher & Upfal ch. 5** (balls into bins) — 🔴 **this is literally your relay-load-distribution problem** and it is already Track F block F16 |
-| 🏁 **Capstone** | 🔴 **LC 528, then implement the same weighted-sampling structure inside `adyton-core/select` and check the distribution over 10⁶ draws against the intended weights.** Same algorithm, interview and product |
-
-🌙 **W72–75 (Ramadan, 4h):** **no new topics. Re-solve from the log, and work the CSES *Mathematics* set slowly** — number theory rewards slow weeks.
-**Design:** recommendation/ranking, then search. **W76: failure-category count.** 🔴 **Target band by W76: 1850.**
+#### 🛠 CORE PROJECT — `redis-patterns` (v2's version, sharpened)
+Keep v2's 7 features (cache+TTL, leaderboard, sliding-window rate limit via Lua, distributed lock, pub/sub fanout, HyperLogLog, Streams audit log) but add the requirements that make it real:
+- Every Lua script must be proven atomic under 1,000 concurrent clients
+- The rate limiter must be **exactly correct** at the boundary — test with a burst precisely at the window edge
+- The distributed lock must include a **fencing token**, and you must demonstrate the failure mode without one
+- Cache stampede protection measured: DB QPS during a mass-expiry event, with and without
 
 ---
----
 
-# ⚡ LEVEL 10 — ☕ Credentials & Abuse
+### B.5 — CI/CD & Infrastructure as Code
 
-> **Goal:** ban an abuser without knowing who they are. **Adyton's strongest design argument against Tor, and the reason daily browsing can work at all.**
-> **⏱ Weeks 77–84 · 02-28 → 04-23 · 76h depth** · **Milestone D9** · **🚩 Flagship #8 `privacypass`** · **📺 Track C: 🔴 CMU 15-445 begins (W77) — lectures 0–14, projects P0–P2** · **W84 = buffer**
->
-> ☕ **Java again** — a stateful, high-throughput, cryptographically careful service with a public API.
+Keep v2's pipeline design; add what makes it senior:
 
-## 🔥 THE WALL
-Stand up a gateway and let anyone with the client use it. Then be the abuser: send spam, hammer a login endpoint, scrape aggressively. Now try to stop yourself. **You cannot.** Two options, both bad: **ban the exit IP** — which bans every honest user sharing it — or **identify the abuser** — which destroys the product. 🔴 **This is Tor's structural bind, reproduced in an afternoon**, and it is *the* reason Tor users get CAPTCHAs on every site while a VPN user does not. Then notice what your weaker threat model bought: **you never promised anonymity against *yourself*, only unlinkability against third parties. That opens a door Tor's threat model keeps shut.**
+- **Build reproducibility & caching** — why your CI takes 18 minutes and how to get it to 4
+- **Deployment strategies with real mechanics**: rolling (and why it needs readiness gates + `maxUnavailable` tuning), blue/green (and the database problem — **you cannot blue/green a schema**), canary with automated analysis (Argo Rollouts/Flagger + metric-based abort), and **feature flags as the decoupling of deploy from release**
+- **Progressive delivery and automatic rollback on SLO burn**
+- **DORA metrics**: deployment frequency, lead time, change failure rate, MTTR. Measure them on your own repo.
+- **Terraform in practice**: state, locking, `plan` in PR, drift, modules, and **the blast-radius discipline** (separate state per environment). Plus the OpenTofu fork's existence and why it happened.
+- **Secrets**: never in env vars in the repo; External Secrets Operator, SOPS, Vault, cloud secret managers, and **short-lived credentials via OIDC federation from CI** (this is the modern correct answer and it impresses)
 
-## 📖 THEORY
-**Privacy Pass / VOPRF tokens** — the user gets tokens blind-signed by the issuer; on spending one the issuer can verify validity **but cannot link the redemption to the issuance, even holding all its own records.** So "is this a valid member?" is answerable and "which member?" is not. **Revocation without linkage** — revoke and the holder loses access, while **no other user is deanonymised and no past redemption becomes linkable.** **Rate limiting without a per-user log.** **Credential-gated admission and sybil resistance** — a cost to join plus clustering detection by AS, subnet, join time and behavioural signature; **re-measure Level 8's sybil cost curve with admission on.** **Fairness without an identifying ledger** — relay-to-use reciprocity, or credentials *earned* by relaying. 🔴 **A bandwidth ledger keyed on peer identity is trivial to build and is a surveillance system inside an anti-surveillance system.** That constraint is what makes it hard. 🔴 **Why not full BFT** — PBFT solves agreement among mutually distrusting replicas on an *ordering*, at O(N²) messages; Adyton's failure model is crash-recovery plus a lying minority in *measurement*. **Being able to say precisely why you chose the lighter model is worth more than a half-finished PBFT** — and you watched 6.5840 L21 so the sentence is credible. **What you cannot solve, said out loud:** sybil in a *truly* open mesh needs proof-of-work, staking or a web of trust, none of which you built; large-scale collusion defeats any reputation scheme; a perfectly-timed defection by a long-trusted peer gets through once.
+#### 🛠 CORE PROJECT — full pipeline + `deploy-metrics`
+Build v2's 9-stage pipeline, then add: **a canary deploy with automated rollback triggered by a real metric**, and a small tool that computes your own DORA metrics from git + deployment history and renders them.
 
-**📺 Atlas → 15-445 L0–L14 + projects P0 (C++ primer), P1 (buffer pool), P2 (B+Tree).** 🔴 **L16 (concurrency control theory) and L19 (MVCC) are the credential store's theory; L20–21 (logging, recovery) are its durability.** Also **6.5840 L21 (PBFT)** re-watch if you did not tick it.
-**📕 Pages:** 🔴 **Davidson, Goldberg, Sullivan, Tankersley, Valsorda — *Privacy Pass* (PETS 2018) §2–4** · **RFC 9576** (architecture) and **RFC 9577** (issuance) §1–4 each · **Castro & Liskov, *PBFT* — abstract and §1–2 only**, so you can articulate what you deliberately did not build · **Douceur** re-read now that you are building admission · Aumasson ch. 10 (signatures).
-
-> 🤖 **PROMPT 1** W77 · `GAP:` mechanically why the issuer cannot link a redemption to its issuance, even with all its own logs · `THE DECISION:` whether one credential can be spent many times or must be one-shot, and what each leaks · `NAMED REAL SYSTEM:` Cloudflare's Privacy Pass deployment and Apple's Private Access Tokens
-> 🤖 **PROMPT 5 (ADVERSARY)** W81 · `SYSTEM:` Privacy Pass credentials gating gateway access, with revocation · `PROPERTY:` "the operator can verify membership and revoke abusers without learning which user is which, and without making past activity linkable" · `CAPABILITIES:` **you are the issuer AND the gateway operator, you keep every log you like, and you can also join as a user** · `NOT:` you cannot break the VOPRF
-
-📈 **EXIT CRITERIA — D9**
-- [ ] Blind-signature issuance, redemption and verification using an **audited VOPRF library — you do not implement the primitive**
-- [ ] 🔴 **Unlinkability proven by a test that would fail if it were linkable:** issue 1,000 tokens, redeem in shuffled order, assert the server cannot recover the mapping better than chance
-- [ ] 🔴 **Revocation: the holder loses access within one epoch, no other user is deanonymised, and no past redemption becomes linkable.** All three asserted
-- [ ] Per-credential rate limiting **with no per-user log**; the privacy argument written out explicitly
-- [ ] Credential-gated admission wired to clustering detection; peers enter the consensus view **only after measurement**
-- [ ] 🔴 **Sybil cost curve re-measured with admission on: cost to control 25% of paths, before and after.** Target ≥10×; **if it is not 10×, report the real number**
-- [ ] **Fairness:** reciprocity via earned credentials, earning and spending unlinkable; a peer that uses without relaying is throttled within one epoch. **If this does not converge by W83, ship the design doc plus a throttling stopgap and say in the README that fairness is designed but not fully implemented** — a legitimate answer; a broken mechanism is not
-- [ ] `adyton-gateway`: public API with **OpenAPI 3.1 and CI drift detection**, quotas, correct `429` + `Retry-After`, **RFC 9457 Problem Details**, idempotency keys
-- [ ] Credential issue+redeem **<50ms p99**; **10k redemptions/sec** on the free-tier box, measured
-- [ ] `docs/design/trust-model.md` — the threat model and **an explicit section on what you do NOT defend against.** **ADR-0007: why not PBFT**
-- [ ] 15-445 L0–L14 ticked; **P0, P1, P2 complete** — 🔴 **P2 is a concurrent B+Tree, the hardest project in the Atlas**
-- [ ] **Blog post 6:** *"Banning abusers without knowing who they are"* — the most broadly interesting post of the two years. Write it for Hacker News
-
-## 🎤 INTERVIEW PARAGRAPH — Week 84
-> The design argument I'd defend hardest is accountability. Tor's usability problems are not bugs, they're structural: exit IPs are shared with abusers and Tor cannot ban anyone, because anonymity means no accountability — so sites block the exits and daily browsing breaks. I reproduced that bind in an afternoon: I stood up a gateway, abused it myself, and found exactly two options — ban the shared exit IP and punish every honest user, or identify the abuser and destroy the product. My threat model is weaker than Tor's — I never promised anonymity against *myself*, only unlinkability against third parties — and that weakness buys the door Tor's threat model keeps shut. Privacy Pass-style blind signatures let a user prove they're a valid member without revealing which member, so I can revoke an abuser without deanonymising them or anyone else. Exits stay clean, sites don't block them, browsing works. That's a virtuous cycle Tor is structurally unable to enter.
->
-> The constraint I found hardest was fairness. A mesh where everyone relays for everyone collapses to freeloaders without a mechanism, but any bandwidth ledger keyed on peer identity is a surveillance system inside an anti-surveillance system. So it's reciprocity through *earned* credentials where earning and spending are unlinkable, and I wrote out the privacy argument rather than waving at it. And I'm explicit about what I didn't build: sybil resistance in a truly open mesh needs proof-of-work or staking or a web of trust; large-scale collusion beats any reputation scheme; and I chose redundant measurement plus majority agreement over full Byzantine consensus — which I can defend because I watched the PBFT lecture specifically so that "I didn't need it" would be a credible sentence rather than an excuse.
-
-## 🎓 EXIT EXAM
-1. Reproduce Tor's accountability bind in three sentences. What in your threat model escapes it?
-2. Mechanically, why can the issuer not link a redemption to its issuance?
-3. Revoke a credential. Prove no other user is affected and no past activity becomes linkable.
-4. Rate-limit per credential with no per-user log. How?
-5. Sybil cost for 25% path control, before and after admission. Your real numbers.
-6. Why not PBFT? What does your model concede that PBFT would not?
-7. Fairness without an identifying ledger. Your mechanism, and what it does not prevent.
-8. ☕ From 15-445 P2: your B+Tree under concurrent insert and delete. What is latch crabbing and where did it bite you?
-
-**Pass = 7/8.** Then 🤖 **PROMPT 2** on "anonymous credentials, revocation and sybil resistance."
-## 🧩 PROBLEM SOLVING — L10 · W77–84 · 46 problems · 6h/wk
-**Patterns:** 🔴 **segment trees and Fenwick trees** · order statistics · coordinate compression · sweep line with a tree.
-🔗 **The tie:** you are building 15-445's **concurrent B+Tree (Project 2)** in the very same weeks. **A segment tree and a B+Tree are both "a tree over a range with an aggregate at each node"** — doing them together is the single best week-pairing in the plan, and the latch-crabbing you learn for P2 is the concurrency story for both.
-
-| Source | Set |
-|---|---|
-| 🔴 **LeetCode — BIT / segment tree** | 🔴 **307** Range Sum Query – Mutable · 🔴 **315** Count of Smaller Numbers After Self · **493** Reverse Pairs · **327** Count of Range Sum · **673** Number of Longest Increasing Subsequence |
-| **LeetCode — sweep + tree** | 🔴 **218** The Skyline Problem · **699** Falling Squares · **732** My Calendar III · **850** Rectangle Area II · **715** revisit |
-| **LeetCode — order statistics** | **480** Sliding Window Median · **295** revisit · **1235** revisit with a BIT |
-| **CF EDU** | 🔴 **Segment Tree, part 1 AND part 2 — complete.** This is the definitive free treatment; part 2 (lazy propagation, descending the tree) is where most people stop and should not |
-| **CSES** | 🔴 ***Range Queries* — the whole section** |
-| **CF** | Problemset, tag `data structures`, rating **1700–2000**, 10 problems |
-| 🏁 **Capstone** | 🔴 **LC 315 solved three ways** — merge sort, Fenwick tree, and segment tree — **then say which you would write under interview pressure and why.** Then **LC 218**, which is the one people remember you for |
-
-**Design:** an auth/token service, then a quota and fair-share system. 🔴 **You are building Privacy Pass and per-credential rate limiting this level — both designs are things you have implemented.**
-**Weekly loops and OA drills continue. Codeforces: virtuals W80, W84.**
+📈 **Exit Criteria**
+- [ ] A deliberately-broken deploy is **automatically rolled back** by metric analysis, with the Grafana screenshot showing detection and rollback
+- [ ] Pipeline p50 duration under 6 minutes, with a before/after showing what you cached
+- [ ] CI authenticates to the cloud via OIDC with **zero long-lived secrets** in the repo
+- [ ] Your DORA dashboard, with real numbers from your own commits
 
 ---
+
+## ⚡ LEVEL 3 — Distributed Systems Core
+
+> **The hard one.** This is where the roadmap earns its name. Budget more than you think.
+>
+> **⏱ Budget:** 180–260 hours (Raft alone is 80–150) · **Chronos milestone:** C6 · **Prereq:** Level 2, D.3
+
 ---
 
-# ⚡ LEVEL 11 — Deep Operations
+### 3.1 — The Eight Fallacies, Made Concrete
 
-> **Goal:** observability inside an anti-surveillance system, and the chaos programme that makes on-call real.
-> **⏱ Weeks 85–92 · 04-24 → 06-18 · 76h depth** · **Milestone D10** · **Core: `privcount`** · **📺 Track C: 15-445 L15–25 + projects P3, P4 (W85–90); 15-721 begins W91** · **W86 = Eid, 26h · W92 = REST WEEK**
-
-## 🔥 THE WALL — build the wrong thing on purpose
-Add normal, sensible metrics: per-relay bytes forwarded at five-minute granularity, scraped by Prometheus. Exactly what you'd do for any service. Now **attack your own metrics.** Correlate the byte counts across relays over the same window and try to reconstruct which relays carried the same circuit. **It works.** 🔴 **You have built a traffic-confirmation attack, hosted it yourself, and pointed it at your own users.** Anyone can add Prometheus; **demonstrating the attack your own telemetry enables and then defeating it is the interview story.**
-
-## 📖 THEORY
-**Why naive aggregates leak** — a relay's exact byte count in a window, correlated across relays, is a confirmation attack. **Private aggregation:** **Prio** (split each value into shares across non-colluding aggregators — Mozilla and ISRG deploy this in Firefox) vs **PrivCount** (calibrated noise under a tracked differential-privacy budget — built by the Tor Project for exactly this problem). 🔴 **A budget that can be exhausted:** ε tracked per metric per period, and **when spent, queries fail rather than silently degrading.** Test the failure. **What you lose** — state which operational questions you can no longer answer and how you debug without them; this is the honest cost and a strong thing to volunteer. **Chaos as method** — an incident you caused on purpose, with a timeline and a runbook, is worth more than three you survived by luck.
-
-**📺 Atlas → 15-445 L15–L25 + P3 (query execution), P4 (MVCC concurrency control)** — 🔴 **the course completes W90.** **15-721 L0–L8** from W91.
-**📕 Pages:** 🔴 **Dwork & Roth, *The Algorithmic Foundations of Differential Privacy* ch. 2, §3.1–3.3** (free) — the one genuinely mathematical block in two years · 🔴 **Jansen & Johnson, PrivCount §3–5** · **Corrigan-Gibbs & Boneh, *Prio* §1–4** · **Nygard, *Release It!*** — circuit breaker and bulkhead as named patterns; the most relevant book to this level · **`github.com/danluu/post-mortems`** — one a week for the rest of the plan · **Lamport, "Time, Clocks, and the Ordering of Events" (1978)** — eight pages, the most cited paper in the field.
-
-> 🤖 **PROMPT 5 (ADVERSARY)** W85, on your own metrics · `SYSTEM:` relays exporting per-relay bytes-forwarded at 5-minute granularity, scraped centrally · `PROPERTY:` "the metrics contain no per-user information" · `CAPABILITIES:` you can read the entire metrics store historically, and you operate a website one target visits · `NOT:` you cannot see circuit contents or relay internal state
-> 🤖 **PROMPT 1** W87 · `GAP:` how to choose ε for a real metric, and what composition does across a day of scrapes · `THE DECISION:` whether scraping every 60 seconds exhausts a sane daily budget, and what the right period is · `NAMED REAL SYSTEM:` PrivCount's actual parameters, and what Tor Metrics publishes today
-
-📈 **EXIT CRITERIA — D10**
-- [ ] 🔴 **The naive-metrics correlation attack demonstrated against your own telemetry, with its success rate reported** — then mitigated, with the after number beside it
-- [ ] Private aggregation implemented (PrivCount-style noise under a tracked budget, or Prio-style shares); **ε chosen, justified in writing, enforced in code**
-- [ ] 🔴 **The budget can exhaust and queries FAIL rather than degrade silently.** Asserted by test
-- [ ] **The naive raw per-relay endpoint is deleted, not disabled.** No per-user logging, ever, including for debugging
-- [ ] **What you lost, written down** — the operational questions you can no longer answer, and how you debug without them
-- [ ] 🔴 **≥20 injected incidents**, each with the alert that fired (**or the alert that should have and did not**), a timeline, root cause and a runbook entry. Injections: relay kill mid-circuit · directory leader kill mid-epoch · **asymmetric partition** · disk fill · certificate expiry · **all 30 relays restarting at once** · a lying peer at scale · **clock skew** · DP budget exhaustion · seed-node death (**your bootstrap SPOF — what actually happens?**)
-- [ ] 🔴 **The clock-skew incident done properly.** Skew one relay by four seconds: **nothing fails loudly.** Epoch validity windows misjudged, measurement timestamps disagreeing, circuit lifetimes computed against a clock the directory does not share — **the relay quietly makes wrong decisions while every dashboard stays green.** Then write the invariant: **relays report clock offset relative to the directory, and one beyond a threshold is quarantined**
-- [ ] **≥4 famous outages reproduced locally** with instrumentation and verified fixes. Recommended: **Meta 2021** (🔴 does your admin surface depend on the mesh it administers? does your directory depend on something the mesh provides? **check**) · **GitHub 2018** (split-brain — reproduce it *without* Raft and fencing, then show yours surviving) · **Roblox 2021** (🔴 your monitoring must not depend on what it monitors) · **Cloudflare 2019** (a global config push — and you push epoch documents to every client)
-- [ ] Every alert reviewed: actionable? runbook? worth 03:00? **An alert without a runbook is deleted, not documented**
-- [ ] One deliberate **error-budget burn** with the written decision that follows
-- [ ] `docs/analysis/sim-fidelity.md` — the same experiments on the real 30-node mesh and a 30-node simulation. Where they agree, where they diverge, by how much, and **does divergence grow at the GCP window's 200 nodes?**
-- [ ] 🔴 **15-445 complete: all 25 lectures, all 5 projects ticked.** 15-721 L0–L8 ticked
-- [ ] **Blog post 7:** *"I built a traffic-confirmation attack against my own privacy network's metrics"*
-
-## 🎤 INTERVIEW PARAGRAPH — Week 92
-> Observability inside an anti-surveillance system is a trap and I walked into it deliberately. Standard practice is per-service metrics at reasonable cardinality — so I did that, per-relay bytes forwarded at five-minute granularity, scraped by Prometheus. Then I correlated those counters across relays over the same window and reconstructed which relays had carried the same circuit. **I had built a traffic-confirmation attack, hosted it myself, and pointed it at my own users.** Anyone can add Prometheus; demonstrating the attack your telemetry enables and then defeating it is the actual work. The fix is private aggregation — PrivCount, which the Tor Project built for exactly this — with an explicit differential-privacy budget tracked in code that **fails queries when exhausted rather than quietly degrading.** I also wrote down what I lost: there are operational questions I can no longer answer, and that's the honest price.
+> 🔥 **THE WALL — Prove Each Fallacy Wrong, With Evidence**
+> Don't read the list of eight fallacies. **Demonstrate each one** on a two-service setup using `tc netem` and `iptables`:
+> 1. *The network is reliable* → `tc qdisc add dev eth0 root netem loss 3%` — now measure your error rate. It's not 3%.
+> 2. *Latency is zero* → add 100ms and watch your N+1 service call turn a 50ms endpoint into 5 seconds
+> 3. *Bandwidth is infinite* → `netem rate 1mbit` and watch your "small" JSON response time out
+> 4. *The network is secure* → capture your own service-to-service traffic in plaintext
+> 5. *Topology doesn't change* → kill a node and watch stale DNS/connection pools route to it for 60 seconds
+> 6. *There is one administrator* → change a config in one place and watch it not propagate
+> 7. *Transport cost is zero* → measure serialization CPU as a fraction of total (it's often 20-40%)
+> 8. *The network is homogeneous* → MTU mismatch, PMTU blackhole
 >
-> The other half is twenty-odd incidents I caused on purpose, each with the alert that fired — or the alert that should have and didn't — a timeline, a root cause and a runbook. The one that taught me most was clock skew: I skewed one relay by four seconds and **nothing failed loudly.** Epoch validity windows were misjudged, measurement timestamps disagreed, and the relay quietly made wrong decisions while every dashboard stayed green. And I found a circular dependency in my own recovery by reproducing Meta's 2021 outage locally — the one where a BGP change took out their DNS and also the tools they needed to fix it. My admin surface partly depended on the mesh it administers. That's written down now rather than discovered during an incident.
+> **The most important one to reproduce is the asymmetric partition:** A can send to B, but B cannot send to A. Every naive failure detector gets this wrong, and it's how split-brain happens in the real world.
 
-## 🎓 EXIT EXAM
-1. Your metrics contained no user data and still enabled an attack. Explain the mechanism and your success rate.
-2. Prio vs PrivCount: which fits Adyton and why? What is your ε and what justifies it?
-3. Your DP budget is exhausted. What should happen, and what must never happen?
-4. Your clocks skew four seconds. What breaks, and why does nothing alert?
-5. Why must observability not depend on what it observes? Which Adyton component violated this?
-6. Pick one reproduced outage: trigger, amplifier, containment failure, recovery obstacle.
-7. Your seed node dies while peers are churning. Walk through the next ten minutes.
-8. ☕ From 15-445 P4: what anomaly does snapshot isolation *not* prevent, and does Adyton care?
+#### 📖 Theory
+- **Partial failure** and why it's the defining property of distributed systems: you cannot distinguish "slow" from "dead"
+- **Failure detectors**: the impossibility of a perfect one in an asynchronous network; heartbeats, timeouts, phi-accrual, and the **fundamental tradeoff between detection time and false positives**
+- **FLP impossibility** — no deterministic consensus in an asynchronous system with even one crash fault. What it does and doesn't mean in practice (partial synchrony saves you).
+- **CAP, stated correctly** — it's about *behavior during a partition*, not a permanent choice of two letters. Then **PACELC**, which is the more useful framing (during Partition: A or C; Else: Latency or Consistency).
+- **Two Generals and Byzantine Generals**
+- **Idempotency, retries, and retry amplification** — why a naive retry policy turns a small blip into a full outage (a 3x retry across 4 hops = 81x load)
+- **Backpressure and load shedding as distributed-systems primitives** (→ Level E)
 
-**Pass = 7/8.**
-
-## 🧩 PROBLEM SOLVING — L11 · W85–92 · 46 problems · 6h/wk
-**Patterns:** 🔴 **string algorithms — KMP, Z-function, rolling hash, suffix arrays** · plus combinatorics.
-⚠️ 🔴 **This is the gap level, and you must treat it differently.** Strings, combinatorics and number theory get **zero reinforcement from Adyton** — there is no place in a privacy relay where you naturally write KMP. **Everything else in this plan is learned twice: once in the course, once in the product. This is learned once.** So: **more problems, slower, and re-solve everything at +3 days and +2 weeks rather than +3 days alone.** If your failure log has a bulge anywhere at Week 104, it will be here.
-
-| Source | Set |
-|---|---|
-| 🔴 **LeetCode — KMP / prefix function** | **28** Find the Index of the First Occurrence · 🔴 **214** Shortest Palindrome · **459** Repeated Substring Pattern · 🔴 **1392** Longest Happy Prefix · **686** Repeated String Match · **1743**'s cousin **1147** Longest Chunked Palindrome Decomposition |
-| 🔴 **LeetCode — rolling hash** | 🔴 **1044** Longest Duplicate Substring · **187** Repeated DNA Sequences · **1062** Longest Repeating Substring · **1554** Strings Differ by One Character |
-| **LeetCode — string DP revisit** | **5**, **516**, **647**, **1312** — revisit now that you have KMP; **notice which ones the prefix function makes trivial** |
-| **LeetCode — tries revisit** | **212**, **336**, **421** — revisit; **you will see the structure differently after suffix arrays** |
-| **CF EDU** | 🔴 **Suffix Array — the whole section**, and the string-hashing material |
-| **CSES** | 🔴 ***String Algorithms* — the whole section.** The single best string problem set available free |
-| **CF** | Problemset, tag `strings` + `hashing`, rating **1700–2000**, 10 problems |
-| 🏁 **Capstone** | 🔴 **LC 1044 Longest Duplicate Substring** (binary search over length + rolling hash, and understand the collision risk) **and LC 214 Shortest Palindrome** (KMP on `s + '#' + reverse(s)` — a trick worth genuinely understanding rather than memorising) |
-
-**Design:** a time-series/metrics database, then an incident-management system. 🔴 **You are building DP-budgeted telemetry this level — the metrics-database design is yours.**
-**Codeforces: virtuals W88, W92. W92: failure-category count.** 🔴 **Target band by W92: 1950.**
+#### 📄 Sources
+- **DDIA Chapter 8.**
+- **"Notes on Distributed Systems for Young Bloods"** — Jeff Hodges. Read it once a year.
+- **"A Note on Distributed Computing"** — Waldo et al. (1994). Why RPC's transparency is a lie.
+- **"Fallacies of Distributed Computing Explained"** — Rotem-Gal-Oz.
+- **"Metastable Failures in Distributed Systems"** (HotOS 2021) — **read this.** It explains the class of outage where a system stays broken after the trigger is removed. Almost nobody knows this concept and it's extremely impressive in a design interview.
+- **"The Tail at Scale"** — Dean & Barroso (CACM 2013). Why p99 matters more than the mean, and hedged requests. **Essential.**
 
 ---
----
 
-# ⚡ LEVEL 12 — Performance, 1BRC & the Tor Benchmark
+### 3.2 — Consensus: implement Raft, for real
 
-> **Goal:** make it fast on hardware a volunteer actually owns, and produce the benchmark table you will show for the rest of your career.
-> **⏱ Weeks 93–98 · 06-19 → 07-30 · 60h depth** · **Milestone D11** · **🚩 Flagship #9 `tor-bench`, 🔴 Flagship #10 `1brc`** · **Core: `pgshift`** · **📺 Track C: 15-721 L9–L22 (W93–100); 6.858 begins W95**
->
-> Two years of *write correct C++ first, optimise second.* **This is second.** The constraint that shapes it: **this runs on volunteers' laptops, not servers you own.** So the number that matters most is not throughput but **CPU cost per forwarded megabyte** — what decides whether someone's battery survives, and the number almost nobody measures.
+> **This is the crown jewel of the roadmap. Do not skip it. Do not use a library.**
 
-## 🔥 THE WALL
-Before touching anything: **write down your prediction of the top three costs in the forwarding path and commit it to the repo.** Then profile. **You will be wrong, and being wrong here is the point** — this is the exercise that calibrates your performance intuition for the rest of your career.
+#### ⭐ MIT 6.5840 (formerly 6.824) — Distributed Systems
+`pdos.csail.mit.edu/6.824/` — lectures, papers, and labs are all public.
 
-## 📖 THEORY
-Profiling with `perf` and flamegraphs · **the cost of a syscall per packet, and why batching with `sendmmsg`/`recvmmsg` and GSO changes the shape** · where the crypto actually costs (usually not the bottleneck) · allocation in the forwarding path · ⚙️ **removing only the copies the profile says are expensive**, not the ones that look expensive · **and the correctness gate: after every optimisation the full suite, RapidCheck, fuzz targets, ASan/UBSan/TSan and `leakproof` must be green, or the optimisation does not land. A fast deanonymisation bug is worse than a slow correct one.**
-**Fair benchmarking against Tor:** same client machine, same destinations, same conditions, same window. 🔴 **State the hop counts in the table header** — three hops against your two is not like-for-like and every reader knows it — **and include your own three-hop row.** Tor is solving a harder problem under a stronger threat model; say so. The comparison is still favourable and now it is credible.
-
-**📺 Atlas → 🔴 15-721 L6 (vectorized execution), L7 (code generation), L8 (scheduling & coordination), L12 (networking protocols), L16 (cost models)** — the five lectures that pay here, in the weeks you need them. Plus **15-213 ch. 5 optimisation lecture** re-watched, and **6.858 L20 (CPU timing attacks)** from W95 — 🔴 **relevant, because a timing difference in your forwarding path is a side channel, not just a slow patch.**
-**📕 Pages:** CS:APP ch. 5 in full, §6.4–6.6 · Gregg *Systems Performance* ch. 6 §6.6, ch. 13 · Drepper §6.2–6.4 again, now with a profile in front of you.
-
-> 🤖 **PROMPT 3 (REVIEW)** after the optimisations land · `COMPONENT:` the relay forwarding hot path after batching and copy elimination · `LANG:` C++20 · `INVARIANT:` every packet decrypted, MAC-verified and forwarded exactly once, **and no timing difference correlates with packet content** · `CONSEQUENCE:` a dropped or duplicated cell breaks a circuit; a timing side channel leaks position or content · `CONCURRENCY MODEL:` one thread per circuit, batched UDP I/O on a shared socket
-
-## 🚩 FLAGSHIP #10 — `1brc`: the One Billion Row Challenge
-> ⚙️ **Gunnar Morling's challenge (Jan 2024): parse 1,000,000,000 lines of `station;temperature` and print min/mean/max per station, as fast as the machine allows.** Reference: **https://github.com/gunnarmorling/1brc** · **W93–95, 20h.**
->
-> **Why it earned its place in this plan.** It is the purest available exercise in the thing Level 12 is about, and unlike almost every other artifact here **the number is checkable by a stranger against a public leaderboard** rather than self-reported. It is also the direct application of 15-213's cache and optimisation lectures and 15-721's vectorized-execution lecture — **you will have completed both by Week 93**, which is exactly why it sits here and not earlier.
->
-> 🔴 **And you already have a baseline.** In Week 5, before any of the eight courses, you wrote the naive version and committed the number. **The delta between `1brc-pass1` and `1brc-pass2` is not a benchmark — it is a two-year measurement of your own growth, and there is no other way to obtain that number.**
-
-### 🔥 THE WALL
-Open `1brc-pass1`. **Re-read your own Week-5 code.** You will see: a `std::string` allocated per line, a hash of that string, `std::stod` parsing a 4-character number through a general-purpose float parser, and one thread. **Before you touch anything, write down which of those four you think costs most and commit the prediction** — the same discipline as the forwarding-path prediction, on a problem where you can be checked.
-
-### 📖 THEORY — the eight things that actually move it
-1. **`mmap` the whole file** — no `read()` syscalls, no copies, no buffer management; the kernel pages it in.
-2. **Partition by thread on line boundaries** — split the mapping into N chunks, then advance each boundary to the next `\n`. Embarrassingly parallel, and the merge is trivial because the key space is small.
-3. **Parse the number by hand.** The format is fixed: optional `-`, one or two digits, `.`, one digit. **A branchless integer parse into fixed-point tenths is ~20× faster than `std::stod`**, and you never need a float.
-4. **Find delimiters with SIMD** — `memchr` is already vectorized; explicit AVX2 over 32-byte blocks is faster still.
-5. ⚙️ **Write your own open-addressing hash map** with `std::string_view` keys into the mapping, linear probing, power-of-two capacity, and **no allocation after construction.** `unordered_map` is a node-per-entry pointer chase and it is the single biggest win to remove.
-6. **Cache-aware layout** — the per-station accumulator must be one cache line, and 15-213 Lab 4 is why you know that.
-7. **Avoid the false sharing** you measured in Week 1: per-thread maps, merged once at the end.
-8. **Know when to stop.** Past a point you are fighting page-fault cost and memory bandwidth, and **saying "I stopped here because I was bandwidth-bound and here is the arithmetic" is a better answer than one more percent.**
-
-**📺 Atlas → 15-213 L9–L10 (cache), L15 (code optimization), L21–L24 (concurrency)** — all ticked long ago; **15-721 L6 (vectorized execution)** in W93.
-**📕 Pages:** CS:APP ch. 5 in full · Drepper §3, §6.2–6.4 · Agner Fog's instruction tables if you go to intrinsics.
-
-> 🤖 **PROMPT 1** · `PREREQ:` I have mmap'd the file, partitioned across threads, and written a branchless fixed-point parser · `GAP:` why my custom hash map is still slower than I expect, and how to tell whether I am now memory-bandwidth-bound or still latency-bound · `CONTEXT:` 1BRC in C++ on my own workstation · `THE DECISION:` whether further hash-map tuning can pay, or whether I have hit the bandwidth wall and should stop · `NAMED REAL SYSTEM:` the top C++ 1BRC entries and what they claim their bottleneck is
-
-📈 **`1brc` EXIT CRITERIA**
-- [ ] 🔴 **Correctness first: your output matches the reference implementation's byte-for-byte on the official test files.** A fast wrong answer scores zero, and the challenge has fixtures precisely because people get rounding wrong
-- [ ] **Pass 2 is ≥50× faster than your Week-5 pass 1** on the same machine and the same file
-- [ ] **Every optimisation has its own before/after number**, and each is attributed to one of the eight mechanisms above — **or marked "unattributed"**
-- [ ] **Your committed prediction compared against the profile.** Report how wrong you were
-- [ ] **Single-threaded and multi-threaded numbers reported separately**, so the parallel speedup is visible and you can state your scaling efficiency
-- [ ] `perf stat` for both passes committed: instructions, IPC, LLC misses, page faults. 🔴 **The IPC change between pass 1 and pass 2 is the most interesting single number in the whole exercise**
-- [ ] 🔴 **A written stopping argument:** the arithmetic showing what you are now bound by, and why further work does not pay
-- [ ] ⚙️ **ASan and UBSan clean on the final version** — mmap plus manual pointer arithmetic plus SIMD is exactly where C++ bites, and a fast segfault is not a result
-- [ ] **`docs/results/1brc.md`** — pass 1 number, pass 2 number, the delta, the eight mechanisms with their individual contributions, the stopping argument, and **an honest comparison against the public leaderboard's C++ entries**
-- [ ] **Blog post:** *"The One Billion Row Challenge, twice, two years apart"* — 🔴 **the two-year delta is the story, and nobody else has that framing**
-
-📈 **EXIT CRITERIA — D11**
-- [ ] **Baseline recorded before any optimisation** — pps/core and CPU-per-MB, on your laptop and on the ARM free-tier box. You cannot claim an improvement otherwise
-- [ ] 🔴 **Your written prediction of the top three costs, committed before profiling**, then compared against the flamegraph. **Report how wrong you were**
-- [ ] Top three costs identified and addressed; **each fix has a before/after number or is reverted**
-- [ ] Batched I/O (`sendmmsg`/`recvmmsg`, GSO where available), with the measured delta
-- [ ] **Forwarding throughput >200k pps/core** and **CPU per forwarded MB <1.5ms/MB** — the battery number
-- [ ] ⚙️ **The correctness gate held: every optimisation shipped with the full suite, RapidCheck, fuzz, all three sanitizers and `leakproof` green**
-- [ ] 🔴 **THE TOR TABLE:** circuit build time, TTFB, sustained throughput, p50/p99, **1080p video viability with the bitrate stated** — Adyton 2-hop, Adyton 3-hop, Tor. **One script reproduces every number**
-- [ ] 🔴 **Every win attributed to a named mechanism:** circuit build → Sphinx removing per-hop telescoping; tail latency → per-hop QUIC removing head-of-line blocking. **An unexplained benchmark is not evidence**
-- [ ] `aarch64` build and a **per-component x86-vs-ARM delta**, attributed to cache sizes, memory bandwidth and vector width
-- [ ] `pgshift`: a **50M-row migration on the directory's metadata store under live load** — expand/contract, chunked resumable backfill, **zero errors, p99 degradation <20%**, and **the naive version's outage graph beside the correct one**
-- [ ] `docs/REPORT.md` — the technical report, 20–30 pages, **with an honest limitations section.** That section is what makes the rest credible
-- [ ] 15-721 L9–L22 ticked; 6.858 L1–L8 ticked
-- [ ] **Blog post 8:** *"Adyton versus Tor: the table"* — the most-linked thing you write
-
-## 🎤 INTERVIEW PARAGRAPH — Week 98
-> This was performance, and the constraint that shaped it is that this runs on volunteers' laptops rather than servers I own. So the two numbers I care about are packets per second per core and **CPU cost per forwarded megabyte** — the second decides whether someone's battery survives, and most projects never measure it. I wrote down my prediction of the top three costs before profiling, which I'd recommend to anyone, because I was wrong about two: I'd assumed crypto dominated and it was actually the syscall per packet and a copy in the forwarding path. Two years of deliberately writing correct C++ and copying freely, and this is where I removed the copies the profile said were expensive rather than the ones that looked expensive. The gate I held is that every optimisation shipped with the fuzzers, all three sanitizers and the leak suite green — a fast deanonymisation bug is worse than a slow correct one — and I'd add that a *timing* difference in the forwarding path is a side channel, not just a slow patch, which is a lesson from 6.858's timing-attacks lecture landing in the same month.
->
-> Then the table against Tor. I state hop counts in the header and include my own three-hop row, because three against two isn't like-for-like and every reader knows it, and Tor is solving a harder problem under a stronger threat model. The comparison is still favourable and now it's credible. And I attribute each win to a mechanism rather than claiming a number: the circuit-build advantage is Sphinx removing the per-hop telescoping round trip; the tail-latency advantage is per-hop QUIC removing head-of-line blocking. One script regenerates the whole table, because a benchmark you can't reproduce is a marketing claim.
-
-## 🎓 EXIT EXAM
-1. What were your top three costs? How wrong was your prediction, and what does that tell you?
-2. Why is CPU-per-MB the number that matters here rather than throughput?
-3. What does batched I/O change, mechanically? Give your delta.
-4. What makes a benchmark against Tor fair? Name four requirements you met.
-5. Attribute each win to a mechanism. Which win did you expect and not get?
-6. ⚙️ An optimisation made it 30% faster and turned one fuzz target red. What do you do?
-7. A timing difference in the forwarding path. Why is that a security bug and not a performance bug?
-8. `ALTER TABLE` on a hot 50M-row table. Full plan including rollback at every step.
-
-**Pass = 7/8.**
-
-## 🧩 PROBLEM SOLVING — L12 · W93–98 · 40 problems · 6h/wk 🔴 **SPEED PHASE**
-🔴 **Topic learning is over. This level and the next are entirely about speed, volume and composure.** No new patterns. If a pattern is missing at Week 93, the failure log says so and you fix that one thing — you do not start a new topic.
-
-| Source | Set |
-|---|---|
-| 🔴 **LeetCode, company-tagged** | **Filter by your seven targets, last 6 months. 30 problems, every one timed at 25 minutes and narrated aloud, recorded.** Premium is worth the $35 for these two levels |
-| **Meta-specific** | 🔴 **Meta's screen is two problems in 45 minutes.** Drill *pairs*: two Mediums, 45 minutes total, twice a week. **Speed matters more at Meta than anywhere else and it is a trainable, separate skill** |
-| **Hard mixed** | 10 unseen Hards, 45-minute box, from the tags your failure log flags |
-| **CF** | One **rated** contest per week if the timing works, virtual otherwise |
-| 🏁 **Capstone** | 🔴 **Three consecutive days of a full timed loop.** Not to prove you can solve them — **to find out what you are like on day three.** Real onsites are four hours and most candidates degrade badly in round three; you want to discover that now |
-
-**Design:** full 45-minute designs, one per week, recorded. 🔴 **Every one of them should contain the sentence *"I built this; here is what I chose and here is the number I measured"*** — practise it deliberately, because it does not happen naturally under pressure.
-**Weekly loops and OA drills continue.**
-
----
----
-
-# ⚡ LEVEL 13 — Release & Synthesis
-
-> **Goal:** the last measured result, then make it something a stranger can run and verify — then convert.
-> **⏱ Weeks 99–104 · 07-31 → 09-10 · 60h depth** · **Milestone D12** · **Core: `shape` (reduced)** · **📺 Track C: 🔴 6.858 finishes — L9–L23 + all 5 labs** · **W104 = REST WEEK**
-
-## 🔥 THE WALL
-Your traffic is encrypted end to end. Now be a passive observer who cannot decrypt anything, and ask what is still visible: **packet sizes, directions and timings.** Take one browse session's capture and, by hand, mark where each page load starts and ends. **You will be able to, easily.** That shape is the residual leak the trilemma choice left you with, and it is what shaping addresses.
-
-> 🔴 **Scope decision, stated honestly.** The full website-fingerprinting evaluation — training Deep Fingerprinting and Var-CNN on your own traffic and publishing the accuracy-versus-overhead curve — **was cut from this plan when `1brc` took its flagship slot** (§X, §XVII). What remains is `shape`: **implement the defence, measure what it costs, and be precise about what you did not measure.** That is a smaller claim and it is an honest one. **The full evaluation is the first item in `docs/NEXT.md`**, and it is a good six-week project for the months after Week 104.
-
-## 📖 THEORY
-Website fingerprinting: the attacker classifies traffic *shape*, not content · padding and timing defences: **WTF-PAD-style adaptive padding**, FRONT-style front-loaded padding · 🔴 **the hard boundary: Adyton's trilemma choice was low latency and low overhead, so a defence costing 100% overhead is not available to you even if it works — and enforcing that in code rather than in a comment is the engineering** · 🔴 **and the discipline that matters most here: know that the 2018 deep-learning attacks (Deep Fingerprinting, Var-CNN) broke WTF-PAD, so implementing WTF-PAD and claiming protection would be dishonest.** You are implementing a defence whose published effectiveness is *known to be limited*, measuring its cost, and saying so. **What remains unsolved even in the literature: multi-tab browsing and coarse-grained features, explicitly open as of the 2025 survey.**
-
-**📺 Atlas → 🔴 6.858 L9–L23 + all five labs — the course, and the Atlas, complete here.** 🔴 **Lab 5 is a final project: submit Adyton's threat model and attack lab as it.** **L19 (anonymous communication)** you watched in Week 12; **re-watch it in Week 100 with two years of implementation behind you** — it will read completely differently, and that difference is the education.
-**📕 Pages:** **Sirinam et al., *Deep Fingerprinting* (CCS 2018) §3–5** · **Juarez et al., *WTF-PAD*** and **Gong & Wang, *FRONT*** · the 2025 WF survey's problem statement and open-problems section.
-
-> 🤖 **PROMPT 4 (BRIDGE)** W101 · `SOURCE A:` WTF-PAD's paper reports meaningful accuracy reduction · `SOURCE B:` Deep Fingerprinting (2018) reports that WTF-PAD is broken · `DECISION:` what I am entitled to claim about a defence I implemented but did not evaluate against a modern classifier
-> 🤖 **PROMPT 5 (ADVERSARY)** W100, on the whole system · `SYSTEM:` Adyton, complete · `PROPERTY:` *no company can assemble one profile that contains all of you* · `CAPABILITIES:` you are an ad-tech firm with trackers on 60% of the top 10,000 sites, you buy broker data, and you operate one Adyton relay · `NOT:` you cannot observe the whole network and cannot break the crypto. **Put the result in `docs/threat-model.md`.**
-
-📈 **EXIT CRITERIA — D12**
-- [ ] **`shape` implemented** in `adyton-core/shape`: WTF-PAD-style adaptive padding, parameterised by an overhead budget; **hard latency cap enforced in code: ≤25ms p50 added**
-- [ ] **Bandwidth overhead measured** as padding bytes over payload bytes, per configuration, ≥5 settings
-- [ ] **A page-load-boundary visibility test:** can you still mark page boundaries by hand in a capture, with shaping on at each setting? A qualitative result, honestly labelled as qualitative
-- [ ] 🔴 **`docs/LIMITATIONS.md` states plainly what you did NOT measure:** no trained classifier, therefore **no accuracy-reduction claim of any kind.** You implemented a defence and measured its cost; you did not measure its effectiveness. **Saying that clearly is worth more than a curve you did not earn**
-- [ ] **The full WF evaluation written up as the first item in `docs/NEXT.md`**, scoped as a six-week post-plan project
-- [ ] 🔴 **Reproducible builds: two independent environments produce identical binary hashes**, documented and third-party verifiable. **A person deciding whether to forward strangers' traffic on their own laptop must be able to verify the binary rather than trust you**
-- [ ] 🔴 **`docs/threat-model.md` published, final** — reviewed line by line against §IX. **The killed / weakened / not-solved table in the README, verbatim.** First-screen disclaimer: *research prototype; not for anyone whose safety depends on it; use Tor*
-- [ ] Install guide for Arch, Debian/Ubuntu, macOS; **tested by three people who are not you, ≥2 of 3 succeeding without your help.** If fewer, the guide is wrong — fix and retest
-- [ ] `SECURITY.md` with a disclosure policy; `CONTRIBUTING.md`
-- [ ] **≥3 peers running on hardware you do not control, in ≥2 countries** — recruited only now, because §IX forbids inviting users before reproducible builds and the threat model exist. **If nobody volunteers by W103, take the honest fallback: free-tier peers in more regions, and say in the README and in interviews that the mesh has not been tested with independent operators. Do not claim volunteers you do not have**
-- [ ] **README final for a ten-minute reader**, tested on a human with a timer, confusion points fixed · **`docs/TOUR.md`** · **the 10 ADRs** · **`docs/LIMITATIONS.md` linked from the first screen** · **`docs/COMPARISON.md`** vs Tor, Nym, iCloud Private Relay, Arti and a VPN
-- [ ] 🔴 **`docs/RETROSPECTIVE.md`** — hours estimated vs actual **per level and per course**, and the ratio; every target you set before measuring, with both numbers. **Almost no candidate has this document, and yours covers two years and 166 lectures**
-- [ ] **The paper-style write-up (8–12 pages)** on whichever produced the better result — **guard-placement resistance (L9) or the shaping evaluation (L13)** — posted, and **sent directly to two or three researchers whose papers you cited**, with a short specific message
-- [ ] **The 45-minute demo rehearsed and timed three times**, including peers joining and dropping live, and **recorded** — the artifact a hiring manager watches on a train
-- [ ] 🔴 **6.858 complete: all 23 lectures, all 5 labs.** 🔴 **THE ATLAS IS COMPLETE: 166 lectures, 41 labs, eight courses**
-- [ ] **`docs/NEXT.md`** — the plan beyond W104: application volume, live loops, and **how you sustain 8h/week with no roadmap telling you to**
-- [ ] **Blog posts 9 and 10:** *"What traffic shaping actually buys, in numbers"* and *"Two years, eight courses, and what I got wrong"*
-
-## 🎤 THE FULL ANSWER — Week 104
-> I spent two years building an open privacy relay network and completing eight university courses with all forty-one of their labs. The problem is that no single company sees your whole life, but the trackers, brokers and ISPs together assemble one profile that contains all of it — and the existing answers all fail differently: a VPN moves the trust to one company, Tor is correct but nearly unusable for daily life, and iCloud Private Relay has the right architecture but is Apple-only and puts all your browsing in one bucket. **Onion routing is solved and Tor does it better than I ever will**; Arti, Nym, Sphinx, Counter-RAPTOR and Privacy Pass are all published work I implemented rather than invented.
->
-> The product is not anonymity, it's unlinkability: your shopping self and your reading self get separate paths, separate exits, separate browser profiles, bound by Linux network namespaces so a leak between them is structurally prevented rather than merely unlikely. The design thesis is the anonymity trilemma — I take low latency and low bandwidth overhead, which means I explicitly do not defend against a global passive adversary, and that concession is in the README rather than a footnote.
->
-> Five results I'd want to be asked about. ⚙️ **The language argument:** this is a daemon parsing hostile input where a memory bug is a deanonymisation vulnerability. Rust gives you that safety by construction; I chose C++ and had to earn it with sanitizers on every CI run, libFuzzer with a committed corpus, a documented subset, and three real bugs my own fuzzer found, written up. **Per-hop QUIC:** Tor multiplexes every circuit between two relays over one TCP connection, so one lost segment stalls unrelated users' circuits; I reproduced that and fixed it structurally, and I can explain why QUIC made each of its choices because I built a TCP first in CS144. **The directory:** my clients gossiped, so their peer lists diverged — and a circuit through peers only a few clients knew about narrows the anonymity set to almost nothing, so divergence is a *fingerprint*. Signed epoch documents fix it, and then SUNDR taught me that consensus among my authorities does not stop a *fork attack* on clients, so the documents are hash-chained and clients gossip the hashes. **Path selection:** AS-aware selection cut compromise probability and made my selector predictable, which is a targeting oracle — so I built the guard-placement adversary against my own algorithm and published the trade-off curve, which is the one thing here that doesn't exist anywhere else. And **the metrics:** I added ordinary per-relay counters and then used them to reconstruct which relays carried the same circuit — I'd hosted a traffic-confirmation attack against my own users, and fixing it meant differential privacy with a budget that fails closed.
->
-> The things I say without being asked: **my mesh is thirty to fifty nodes I run plus a few free-tier boxes and a simulator**, and I validated the simulator against the real mesh and published where they diverge. I'm slower than Tor on throughput and I can tell you precisely why. My path inference is inference, validated against RouteViews with the disagreement rate reported. Sybil resistance in a truly open mesh needs something I didn't build. And this is a research prototype — **if your safety depends on it, use Tor.** All of that is in a limitations document linked from the first screen.
-
-## 🎓 EXIT EXAM
-1. Explain Adyton to a smart non-specialist in two sentences.
-2. Name the five prior systems and where your design diverges from each.
-3. Your three most interesting technical decisions, with the alternative you rejected.
-4. Why is evaluating a shaping defence against pre-2018 attacks dishonest?
-5. Why must reproducible builds exist before you invite a single user?
-6. The sharpest question an interviewer can ask — what is it, and your answer? *(It is: "why would anyone use this instead of Tor?" The answer: for daily browsing, because pinned exits and revocable credentials make it usable where Tor structurally cannot be — and for anything where safety matters they should use Tor, and I say so in my README.)*
-7. Estimated vs actual hours across two years and eight courses. What is your ratio and what will you do differently?
-
-**Pass = 6/7.** Then 🤖 **PROMPT 2** on Adyton as a whole — **and this time, run it on all ten flagships in sequence.** It is the last calibration before the loops that matter.
-
-## 🧩 PROBLEM SOLVING — L13 · W99–104 · 30 problems · 6h/wk 🔴 **THE FAILURE-LOG BLITZ**
-🔴 **This level is not driven by a topic list. It is driven entirely by `dsa/FAILURES.md`.** Eight failure-category counts across two years have told you exactly what you are worst at. **Spend these six weeks on that and nothing else.**
-
-| If your log says mostly… | These six weeks are |
-|---|---|
-| **recognition** | 40 unseen Mediums across *varied* tags, 25-minute box, no hints. Breadth is the cure |
-| **approach** | 15 Hards with a **written plan before any code** — recurrence, invariant or reduction stated first |
-| **implementation** | Re-solve your 25 most-failed problems from scratch, twice, a week apart. **Do not add new problems** |
-| **speed** | Two rated Codeforces contests a week plus daily 2-problems-in-45-minutes pairs |
-| **edge cases** | Every problem, write the test cases **before** the solution. 30 problems, and score yourself on tests-first compliance rather than on solving |
-
-**Regardless of category:** **W99 and W102 are full timed loops. W103 is the second Final Gauntlet.** **Retire the failure log** — every entry re-solved correctly three times is struck out, and the ones that remain go in `docs/RETROSPECTIVE.md` as *"what I would still study."* 🔴 **That last list is an unusually honest artifact and worth showing.**
-
-🔴 **Final targets by W104: Codeforces ≥2000 · 602 named problems with ≥70% solved unaided in 25 minutes · 30+ Hards · 24 written designs · 20+ full loops · the failure-log queue empty.**
-
----
----
-
-# 🎯 TRACK I — The Interview Machine
-
-> **Daily from Week 1.** **Y1: 8h/week** (5h DSA + 3h design) · **Y2: 10h/week** (6h DSA + 4h design). Never batched. Never skipped.
-> You can complete eight courses and build Adyton and still be rejected in a 45-minute phone screen. **This is the track that cannot be crammed.**
-
-## The ratio that governs it
-
-| Round | Named in backend postings |
-|---|---|
-| **System design** | **76.3%** |
-| Algorithms / DSA | 18.3% |
-
-**System design is a first-class daily thread from Week 1.** But **DSA is a gate** — frequency is irrelevant when 100% of the loops contain two coding rounds, and the bar has risen. **~320h DSA aimed at hard-problem fluency, ~170h system design.**
-
-⚙️ **Language: C++.** You are writing C++ for two years anyway, it is 19.4% of backend postings, and it is your contest language. **This is the one place where the language decision costs you nothing and gains you fluency you need daily.**
-
-## Volume
-
-| Period | Weeks | DSA | Design | Total |
-|---|---|---|---|---|
-| Y1 Levels 0–6 | 1–52 | 5 | 3 | ~370 |
-| Y2 Levels 7–13 | 53–104 | 6 | 4 | ~450 |
-
-**≈ 490 hours after rest and Ramadan reductions.**
-
-🔴 **The count, reconciled — because it should add up:** the fourteen per-level sets in §XII–XIII name **602 specific problems.** On top of those: **~30 Codeforces contests** (≈90 problems attempted), the **CSES sections** assigned per level (≈200, overlapping the named sets only partly), **AtCoder DP A–Z** (26), and **re-solves**, which are not new problems but are where the learning happens. **The honest total of distinct problems attempted is 750–850; the number that matters is 602 named ones done properly, not a bigger number done badly.**
-
-**Do not chase the count.** A problem you solved by opening the editorial after eight minutes did not happen. **A problem you failed and rebuilt from scratch two days later counts double.** 🔴 **And 602 problems over 104 weeks is 5.8 a week — this plan is deliberately not a grind. It is a slow, high-retention pass with the failure log doing the compounding.**
-
-## 🔴 The progression — what "good enough to pass" actually means, phase by phase
-
-**You asked for really strong problem-solving alongside the learning. This is the shape of it.** Four phases, and **the point of the table is that each phase has a different definition of success** — measuring yourself against the wrong one is how people plateau.
-
-| Phase | Weeks | The goal | Success is | Codeforces |
-|---|---|---|---|---|
-| **1 · Patterns** | 1–27 | **See the shape.** Every core pattern encountered at least twenty times | You can name the pattern within 60 seconds of reading a problem, even if you cannot yet implement it fast | 1450 → **1550** |
-| **2 · Depth** | 28–52 | **Derive, don't recall.** Graphs, DP and design at real difficulty | You can rebuild a solution from the idea, not from memory. **Recurrence before code, every time** | 1550 → **1750** |
-| **3 · Speed & gates** | 53–92 | **Perform under a clock, and pass OAs** | A random unseen Medium, narrated, in ≤25 min, ≥80% of the time. **Two problems in 90 min with no interviewer** | 1750 → **1950** |
-| **4 · Composure** | 93–104 | **Four rounds in a day without degrading** | Round three is as good as round one. The failure log is empty | **2000+** |
-
-🔴 **On the Codeforces numbers:** they are a *calibration instrument, not a goal*. **1750 is comfortably past the bar for a FAANG coding round; 2000 is past it with room.** If you hit 1900 by Week 76 and stall, that is fine — **stop optimising the rating and optimise the 25-minute narrated Medium instead**, because that is the actual interview condition and the rating is only a proxy for it.
-
-## 🔴 The three different skills, and why people confuse them
-
-Most candidates train one thing and are surprised by the others. **This plan trains all three, separately.**
-
-| | The **coding interview** | The **online assessment** | The **contest** |
-|---|---|---|---|
-| **You have** | An interviewer, hints, partial credit | Hidden tests, a hard clock, nothing else | A leaderboard and 2+ hours |
-| **You are judged on** | Reasoning **out loud**, clean code, complexity, edge cases | **Passing all tests.** Nothing else | Solving more than other people |
-| **Fails because** | 🔴 **Silence.** A candidate who can solve it but does not narrate | 🔴 **Misreading the spec, or spending 40 of 90 minutes on problem 1 of 3** | Speed |
-| **Trained by** | Mocks and loops (§Mock schedule) · **narrate always, even alone** | 🔴 **OA drills from W53** — 90 min, two unseen problems, no narration, **write your own tests first** | Weekly virtuals and rated contests |
-| **Logged in** | `dsa/mocks.md` | 🔴 `dsa/OA-LOG.md` | Your CF profile |
-
-🔴 **The OA is the one people neglect and it is the first gate you hit.** Amazon, Meta and most second-tier companies screen with one before a human ever sees your CV. **From Week 53 you do one drill a week, and the score you track is not "did I solve them" but "did I budget the clock and did I write tests before submitting."**
-
-## Sources
-
-| Source | For | How |
+| Lab | What you build | Realistic hours |
 |---|---|---|
-| **NeetCode 150 / 250** | The pattern spine, W1–30 | In order, grouped by pattern. Do not skip the easy ones |
-| **LeetCode, company-tagged** | W31–104 | Filter by your targets, last 6 months. Premium is worth $35 for two months before a loop |
-| **Codeforces Div 2 A–D** | Weekly, both years | Rated when it fits, virtual when not. Band 1400 → 1900 |
-| 🔴 **Codeforces EDU (ITMO)** | `codeforces.com/edu/courses` | **Binary Search (L1) · Two Pointers (L0) · DSU (L5) · Segment Tree parts 1–2 (L10) · Suffix Array (L11) · Max Flow part 1 (L8).** The best free structured material in existence for these six topics — **all of them are assigned in this plan** |
-| 🔴 **CSES Problem Set** | `cses.fi/problemset` | **300 problems, organised by topic, no editorials.** Harder and cleaner than LeetCode at the same tag. **Sections assigned per level: Introductory, Sorting & Searching, DP, Graph Algorithms, Range Queries, Tree Algorithms, Mathematics, String Algorithms** |
-| 🔴 **AtCoder Educational DP Contest** | `atcoder.jp/contests/dp` | **26 problems, A–Z, and it is the best DP resource that exists.** A–L in Level 3, M–Z in Level 6. **A–Z complete is a real credential among people who know it** |
-| 📺 **MIT 6.006 / 6.046** | The *why* behind the patterns | `ocw.mit.edu`. **6.046** for randomised algorithms, flows, NP-completeness — and it pairs with Level 8's probability work |
-| **Skiena, *Algorithm Design Manual* 3rd ed.** | Reductions and intractability | **Ch. 8** (DP), **ch. 9** (intractability — supports the W37 proving week) |
-| **Laaksonen, *CP Handbook*** (free) | Reference | **Ch. 7, 9, 13–15, 26** |
-| **Alex Xu, *System Design Interview* Vol. 1 & 2** | Design | You own both |
-| **`interviewing.io` / Pramp** | Mocks | Free peer mocks; **one paid mock with a real FAANG engineer around W50** |
+| 1 | MapReduce (coordinator + workers, fault-tolerant) | 15–25 |
+| 2 | Key/Value server with at-most-once RPC semantics | 10–15 |
+| 3 | **Raft**: leader election, log replication, persistence, snapshots | **60–120** |
+| 4 | Fault-tolerant KV service on top of your Raft | 25–40 |
+| 5 | Sharded KV with reconfiguration across Raft groups | 30–50 |
 
-## 🔗 Where the courses and Track I compound — the unfair advantage
+> **Honest warning that v2 didn't give you:** v2 budgeted "2–3 weeks" for all five labs. That is wrong by roughly 4x. Lab 3 alone defeats most people on the first attempt. Budget **8–14 weeks at 10–15 h/week**, expect to rewrite your Raft at least once, and expect the `TestFigure8Unreliable` test to humble you. Finishing this puts you ahead of the large majority of working senior engineers.
 
-🔴 **This is the thing that makes the two-year plan pay in interviews, and it is not obvious.** Eight courses' worth of papers *are* system-design answers:
+**Do this alongside it:** the **Fly.io Gossip Glomers** challenges (`fly.io/dist-sys/`) — 6 distributed-systems challenges (unique IDs, broadcast with partitions, grow-only counter, replicated log, totally-available transactions) using the Maelstrom test harness. Much shorter than 6.5840, immediately satisfying, and Maelstrom *checks your consistency for you* — which pairs perfectly with Level D.
 
-| You will have read | And they will ask you to design |
-|---|---|
-| **GFS, Spanner, Chain Replication** (6.5840 L3, L12, L13) | A distributed file store · a globally consistent database |
-| **ZooKeeper** (6.5840 L9) | A service-discovery / coordination system |
-| **Memcached at Facebook** (6.5840 L16) | A cache tier at scale |
-| **MapReduce, Spark, Ray** (6.5840 L1, L18) | A batch/stream processing platform |
-| **Dremel, Snowflake, Redshift, DuckDB** (15-721 L17–22) | An analytics warehouse |
-| **Buffer pools, B+trees, MVCC, ARIES** (15-445) | A storage engine · a transactional store |
-| **Firecracker, WebAssembly, RLBox** (6.858 L6–L8) | A multi-tenant compute sandbox |
-| **Your own Raft, twice** | 🔴 *"I built one; here is what I chose and the number I measured"* |
+#### 📖 Theory
+- **Raft in full**: terms, election timeouts and randomization, the log-matching property, commit rules, **why a leader may not commit an entry from a previous term directly** (the Figure 8 case — this is *the* subtle part), membership changes (joint consensus vs single-server), log compaction and snapshots, and read-only optimizations (**ReadIndex and lease reads**, which is how etcd serves linearizable reads without a log write)
+- **Paxos** — Single-decree, Multi-Paxos, and why Raft won on understandability. Read "Paxos Made Simple" *after* implementing Raft; it's much clearer then.
+- **Consistency models**: linearizability (real-time ordering), sequential consistency, causal consistency (**the strongest model available under partition** — a great interview point), eventual consistency
+- **Quorum intersection** as the underlying idea of everything
+- **Replicated state machines** as the unifying abstraction
+- **CRDTs** — G-Counter, PN-Counter, OR-Set, LWW-Register, and operational vs state-based. Where they beat consensus (collaborative editing, shopping carts, offline-first).
+- **Gossip / epidemic protocols** — SWIM, and how Cassandra/Consul/Serf do membership
 
-**Most candidates answer design questions from a book. You will answer them from papers you read and systems you built.** Practise that move deliberately in the W57 and W80 mocks, because **it does not happen naturally under pressure.**
+#### 📄 Sources
+- **"In Search of an Understandable Consensus Algorithm (Extended Version)"** — Ongaro & Ousterhout. Read the *extended* version; the conference version omits crucial detail. Then read **Ongaro's PhD thesis** for membership changes and log compaction.
+- **"Paxos Made Simple"** — Lamport; and **"Paxos Made Live"** — Chandra, Griesemer, Redstone (Google). The second one is more valuable: it's about all the things the paper doesn't tell you.
+- **"Students' Guide to Raft"** — Jon Gjengset. The single most useful supplement while doing Lab 3.
+- **The Raft visualization** at `thesecretlivesofdata.com/raft/` and `raft.github.io`.
+- **DDIA Chapter 9.**
+- **"A Comprehensive Study of CRDTs"** — Shapiro et al.; and Kleppmann's CRDT work / Automerge.
 
-## 🔴 The failure log
-Solving problems does not make you better. **Reviewing failures does.** `dsa/FAILURES.md`, an entry every time you miss the time box or use the wrong approach: date · link · topic · time box · outcome · what I tried · **why it failed, specifically** ("didn't see it was a graph problem" is a different bug from "saw it and implemented BFS wrong") · the insight I was missing · **category: recognition / approach / implementation / speed / edge cases** · re-solve due +3 days.
+📈 **Exit Criteria for Level 3.2**
+- [ ] All 6.5840 labs pass, including with `-race`, run 100 consecutive times without flake
+- [ ] You can draw Raft's Figure 2 from memory
+- [ ] You can explain the Figure 8 scenario at a whiteboard in under 5 minutes
+- [ ] Gossip Glomers challenges 1–5 complete, verified by Maelstrom
+- [ ] **Chronos C6:** Chronos's control plane runs on *your own* Raft implementation. Kill the leader mid-commit under load; prove no acknowledged workflow is lost.
 
-**The category field is the whole point.** After thirty entries, **count them:** mostly *recognition* → need breadth, more varied problems · *approach* → need depth, slow down and work the reasoning · *implementation* → need reps, re-solve and do not move on · *speed* → knowledge is fine, do timed sets · *edge cases* → process problem, write test cases *before* code.
-
-**Do the count in every rest week — W6, 19, 26, 43, 58, 76, 92, 104.** Twenty minutes, and it redirects the next quarter. **Most people never do it and spend two years fixing the wrong thing.**
-
-**Time boxes:** Easy 15 min · Medium 25 min · Hard 45 min. **Never exceed the box.**
-
-## System design — 24 written designs
-Each produces a full doc: **Summary · Context · Goals · Non-Goals · Proposal · Alternatives Considered (minimum three) · Risks · Rollout · Operational Impact.**
-**The 45-minute structure:** 0–5 requirements, functional **and** non-functional, on the board · 5–10 estimation (**round aggressively, show the arithmetic**) · 10–15 API and data model · 15–25 high-level design (**state your choices as choices**) · 25–40 deep dive (where the grade is decided) · 40–45 failure modes and 10×.
-> **The single highest-leverage habit: say the words "I'm optimising for X, which costs me Y." Every time.**
-
-**Numbers to memorise:**
+⛓ **Problem Chain**
 ```
-1 machine:  ~10-50k QPS simple requests · 64-256GB RAM · 10-40 cores
-Postgres:   ~5-50k simple QPS · ~1-5k writes/s with fsync
-Redis:      ~100k-1M ops/s single instance (single-threaded!)
-Kafka:      ~100k-1M msg/s per broker (small, batched)
-NVMe:       ~500k-1M IOPS · 3-7 GB/s        Network: 10 Gbps = 1.25 GB/s
-RTT:        same-AZ ~0.3-0.5ms · cross-region 30-150ms
-Time:       1 day ≈ 10^5 s · 1M req/day ≈ 12 QPS · 1B req/day ≈ 12k QPS
+"Leader elected twice"      → terms, split votes → randomized timeouts → why (→ 3.2)
+"Committed entry lost"      → Figure 8 → commit rules → the no-op-on-election trick
+"Reads returned stale data" → linearizable reads → ReadIndex / lease reads → clock assumptions (→ 3.4)
+"Consensus is slow"         → 1 RTT + fsync per op → batching, pipelining → why not everything is Raft
+"Adding a node broke quorum"→ joint consensus / single-server changes
+"Raft can't do 100k ops/s"  → sharding into multiple Raft groups → the Spanner/Cockroach model (→ 5.1)
 ```
 
-## Mock and loop schedule
-
-| When | What |
-|---|---|
-| **W41** | First human mock + **the Raft Figure 8 whiteboard test** (a checkable gate, not a formality) |
-| W47, W50 | Monthly mock. **W50: one paid mock with a real FAANG engineer**, if affordable |
-| **W57** | **Full timed loop #1** — 4 rounds in one day |
-| W59–104 | **Weekly full loops.** ~20 total by W104 |
-
-**A full loop:** two 45-min coding rounds with a human, one 45-min system design, one 30-min behavioural, **in a single day** with realistic breaks. **Not four sessions across a week** — the exhaustion is what you are training for.
-**Speak while you solve, always, including alone.** The most common cause of a failed coding round in a candidate who *can* solve the problem is silence.
-
-## 📈 EXIT CRITERIA
-- [ ] **602 named problems complete** (§XII–XIII), **≥70% solved unaided within 25 minutes**; a random unseen Medium **narrated** in ≤25 min, ≥80% of the time
-- [ ] Complexity stated before code, every time · 30+ Hard problems · **failure-log queue empty** · Codeforces ≥1750
-- [ ] **24 written system design docs** + 24 more practised verbally
-- [ ] **20+ full timed loops** · 14 behavioural stories on video, **≥4 from Logic Leap**
-- [ ] 🔴 **40+ OA drills logged in `dsa/OA-LOG.md`**, with clock-budgeting and tests-first scored separately from correctness
-- [ ] 🔴 **AtCoder Educational DP Contest A–Z complete** · **CSES: 200+ solved** · **CF EDU: all six assigned sections complete**
-- [ ] 🔴 **~30 Codeforces contests** (rated or virtual) across two years, and a rating of **2000+**
-
----
 ---
 
-# 🧭 TRACK J — Craft, Career & Visibility
+### 3.3 — Time, Clocks & Ordering
 
-> **Y1: 2h/week · Y2: 4h/week.** What separates an L4 from an L5 is not knowing more systems facts. It is **judgement, communication and impact beyond your own keyboard.**
+> 🔥 **THE WALL — Move Time Backwards**
+> Run a service that timestamps records with `time.Now()`. Now run `sudo date -s "-5 seconds"` (or use `libfaketime`) mid-workload.
+>
+> Watch: records with duplicate timestamps, records appearing to happen before their causes, a TTL that never expires, a leader lease that overlaps with the next leader's. **Then switch to a monotonic clock for durations and a logical clock for ordering, and see the problems disappear.**
 
-## J.1 — Design docs and ADRs
-**The design doc is the unit of senior technical work**; promotion at every large company is decided by written artifacts. The two sections that separate senior from mid are **Alternatives Considered** and **Non-Goals** — a doc without a serious alternatives section reads as advocacy, not engineering.
+#### 📖 Theory
+- **Wall clock vs monotonic clock** — the single most practical thing in this section. **Never measure a duration with a wall clock.** Never. Know that `time.Since()` in Go uses the monotonic reading and why that's a deliberate design decision.
+- **NTP**, clock drift, slew vs step, leap seconds and leap smearing
+- **Lamport timestamps** — cause → effect ordering, but not the converse
+- **Vector clocks** — detecting concurrency; and why they don't scale to many nodes
+- **Hybrid Logical Clocks (HLC)** — CockroachDB's approach: causally consistent and close to physical time
+- **TrueTime** — Spanner's atomic-clock-and-GPS uncertainty interval, and the `commit-wait` trick: *wait out the uncertainty so external consistency is guaranteed.* Understanding that Spanner buys consistency by **deliberately waiting** is a genuinely deep insight.
+- **Leases and fencing tokens** — the correct pattern for "only one node may do X." Read Kleppmann's "How to do distributed locking" for the definitive treatment.
 
-**Scheduled:** `threat-model.md` (W11, revised every phase) · `cpp-subset.md` (W11) · `packet-format.md` (W19) · `browser-delta.md` (W27) · `consistency.md` (W52) · `slo.md` (W58) · `trust-model.md` (W84) · `sim-fidelity.md` (W92) · `LIMITATIONS.md` + `COMPARISON.md` (W102) · `RETROSPECTIVE.md` (W103).
-**The ten ADRs (W102):** 0001 ⚙️ C++ for the data plane and the safety apparatus that earns it · 0002 the C++/Go/Java boundary · 0003 two hops not three · 0004 Raft vs Paxos vs Chain Replication · 0005 the consistency model per component · 0006 hash-chained epoch documents and client gossip · 0007 why not PBFT · 0008 Sphinx over telescoping · 0009 per-hop QUIC over one end-to-end session · 0010 where the randomness dial sits.
+#### 📄 Sources
+- **"Time, Clocks, and the Ordering of Events in a Distributed System"** — Lamport (1978). The most cited paper in the field. Read it; it's 8 pages.
+- **"Spanner: Google's Globally-Distributed Database"** (OSDI 2012) and **"Spanner, TrueTime and the CAP Theorem"**.
+- **"Living Without Atomic Clocks"** — CockroachDB blog, on HLC.
+- **"How to do distributed locking"** — Martin Kleppmann. Then antirez's reply. Read both.
+- **"There is No Now"** — Justin Sheehy (ACM Queue).
 
-## J.2 — Writing: post the results, not the progress
+#### 🛠 CORE PROJECT — `clock-chaos`
+Add clock faults to your `simd` harness: skew, jumps forward and backward, and drift. Then run your Chronos lease protocol under them.
 
-| Week | Post | Why it travels |
-|---|---|---|
-| 27 | **"Your proxy leaks four ways and three of them aren't the proxy's fault"** | Broadly useful and immediately actionable |
-| 35 | ⚙️ **"I chose C++ for an anonymity network. Here are the three bugs my fuzzer found."** | 🔴 The honest version of a language argument people usually make with slogans |
-| 43 | **"Rolling restarts that don't drop circuits"** | Practical, and it is what the shell is for |
-| 52 | 🔴 **"In a privacy network, disagreeing about the peer list is a privacy bug"** | The anonymity-set argument plus fork consistency. **Genuinely novel framing** |
-| 66 | **"I attacked my own privacy network. The number isn't flattering."** | Publishing the unflattering result is what makes the next post believable |
-| 76 | 🔴 **"AS-aware path selection makes you predictable. Here is the curve."** | **The plot is the post. Front-page candidate and the most novel thing you write** |
-| 84 | **"Banning abusers without knowing who they are"** | The most broadly interesting post of the two years. Write it for Hacker News |
-| 92 | 🔴 **"I built a traffic-confirmation attack against my own privacy network's metrics"** | Observability inside an anti-surveillance system. Nobody writes about this |
-| 98 | **"Adyton versus Tor: the table"** | The most-linked thing you write |
-| 104 | **"Two years, eight courses, and what I got wrong"** | 🔴 The retrospective is trusted more than any technical post |
-
-Own the domain; cross-post to Hacker News, Lobsters, `r/cpp`, `r/netsec`, `r/privacy`. **One post reaching the HN front page generates more inbound recruiting than 200 applications.** **Give one talk** — a Cairo meetup counts.
-
-## J.3 — Open source: the Arti track
-🔴 **Arti is the Tor Project's Rust Tor implementation**, and a merged patch there is a career artifact you cannot manufacture another way: public, permanent, reviewed by strangers who owed you nothing, **in exactly the domain you are claiming.** *(And yes, Arti is Rust while Adyton is C++ — which is fine and even useful: it demonstrates you can read and contribute to a codebase in a language that is not your product's.)*
-
-| Week | Activity | h |
-|---|---|---|
-| 16 | Read the architecture: `tor-proto`, `tor-circmgr`, `tor-netdir`. **Note two candidate contribution areas** | 4 |
-| 30 | Join the channels, read the contribution guide, watch the tracker for a month | 2 |
-| 45 | Pick a first issue — docs, a test, a small bug. **Small and finishable** | 3 |
-| 60 | Submit it. Respond to review promptly and without defensiveness | 4 |
-| 80 | Second contribution, more substantial — **ideally something your own implementation taught you** | 8 |
-| 100 | Final contribution or follow-through | 6 |
-
-**Pick the issue you can finish, not the impressive one.** A merged three-line documentation fix is worth more than an abandoned feature branch, because the artifact is *"contributed to Arti"* and the second is far easier once you have been through the process. **By W80 you will have implemented Sphinx, per-hop QUIC, AS-aware selection and guard rotation — you will have opinions about circuit management grounded in having built one.** That is where a substantial contribution comes from. **Also worth PRs:** `ngtcp2`, `libsodium` docs, `pion/ice`. **Target: 3+ merged, one non-trivial, ≥1 in Arti.**
-
-## J.4 — 🔴 The referral problem, from Egypt — pipeline opens Week 20
-**A referred application is read by a human. A cold one from Cairo to a Dublin req frequently is not.** **The mistake is waiting until W56 and messaging strangers** — a referral is someone putting their reputation on your application, and nobody does that for someone who appeared in their inbox last Tuesday. **You have 36 weeks of runway before applications open. Use them.**
-
-**Channel 1 — the Egyptian engineering diaspora. Highest return.** Substantial numbers at Google Dublin and Zurich, Meta London, Amazon Dublin, Microsoft. LinkedIn alumni search on your university, then other Egyptian universities, filtered by company. **They were where you are, and they are disproportionately willing to help and disproportionately under-asked.** Not "can you refer me":
-
-> I'm a backend engineer in Cairo building an open privacy relay network — Sphinx onion packets over per-hop QUIC, a Raft-backed directory, per-identity compartments enforced with Linux network namespaces. I'm working through MIT 6.5840 alongside it. I'm on the directory's fork-consistency problem now and I'd value fifteen minutes of your view on [one specific technical question you genuinely have]. No obligation and no ask beyond that.
-
-**Target: 3 conversations/month from W20 — that is 100+ conversations and 40–50 people by W56 who know what you are building.** That is a genuinely different position from any 12-month plan.
-
-**Channel 2 — build in public** (J.2). **Channel 3 — Arti** (J.3). **Channel 4 — the technical report** (W98): most candidates have a GitHub link; **a 20–30 page report with benchmarks and an honest limitations section is a different object and it gets forwarded.** **Channel 5 — the communities:** the `tor-dev` list · the `ngtcp2` and QUIC communities · **RIPE** (Egypt is in the RIPE NCC service region, meetings have full remote participation, the routing-security WG is directly relevant to your AS-path work) · **PETS**, your write-up's audience · **FOSDEM** (Brussels, early February, free) if you can travel once.
-
-**The direct ask, W56, to people you have known for eight months:**
-> I'm applying to [specific role, specific office] this week. Here's the project [link] and my CV. If you're comfortable referring me I'd be grateful; if not, no problem at all — and I'd still value knowing whether the CV reads clearly to someone inside.
-
-**The second half matters** — it gives them an out that is not a rejection and frequently produces useful feedback from people who will not refer you. **What does not work:** mass LinkedIn requests · "I'd love to connect" with no content · commenting to be seen · referral-request forms · paid referral services.
-
-## J.5 — 🔴 The Logic Leap track: sourcing what a solo project cannot
-**Mentoring 36.6% · Communication 34.4% · Collaboration 31.2% · Leadership 17.2%.** Adyton demonstrates **none.** **Two years makes this easier, not harder — you have eight quarters instead of four.** But it only works if it is deliberate; left to chance you arrive at W100 with fourteen stories, twelve about a side project, and interviewers notice.
-
-| Weeks | What to deliberately do at Logic Leap | The story |
-|---|---|---|
-| **1–26** | **Review other people's PRs**, seriously, weekly. Leave the comment you would want to receive | *"Improving quality without authority"* |
-| **27–52** | **Write one design doc for real work** and circulate it before implementing | *"Aligning people on a technical decision"* — the Alternatives section is the artifact |
-| **27–52** | **Onboard or unblock someone**; track what they were stuck on | *"Mentoring"* — the largest soft gap at 36.6% |
-| **53–76** | **Take one cross-team dependency end to end**, driving the conversation | *"Cross-functional work"* · *"Working across teams"* is 59.1% of duties |
-| **53–76** | **Disagree with a senior person, in writing, with data**, and handle the outcome either way | *"Disagreeing with a senior person"* — required, and you cannot fabricate it |
-| **77–104** | **Lead one thing end to end**: scope, plan, delegate a piece, ship, own the outcome | *"Leading a project"* is 30.1% of duties |
-
-**Log each in `career/LOGICLEAP.md` as it happens, with dates and specifics.** You will not remember details two years later, and vague behavioural answers are the most common way strong technical candidates fail loops.
-> 🔴 **Do not let Adyton eclipse your paid work.** **At least four of fourteen stories must come from Logic Leap.** An interviewer who hears twelve about a side project and two about the job you were paid to do draws a conclusion you do not want. **And over two years you should be getting promoted at Logic Leap — that is itself a CV line and it is evidence Adyton did not cost you your day job.**
-
-## J.6 — Target companies
-| Company | Offices | Note |
-|---|---|---|
-| 🔴 **Cloudflare** | London, Lisbon, Austin, remote (varies) | **The single best fit.** They *wrote* "The Trouble with Tor." QUIC, NAT traversal and DDoS-adjacent work is their product |
-| 🔴 **Fastly** | London, remote | Edge/data plane, same domain, C++ and Rust |
-| 🔴 **Tailscale** | Remote-first, Toronto-anchored | **NAT traversal and mesh networking. Level 5 is literally their problem** |
-| **Datadog** | Paris, Dublin | Ingest at scale; Level 11's private telemetry is an unusual version of their core problem |
-| **Google** (infra/SRE) | Dublin, Zurich, London, Munich, **Warsaw** | Zurich strongest and hardest; **Warsaw more accessible** |
-| **Meta** (infra) | London, Dublin | Fast, volume-heavy loop |
-| **Amazon / AWS** (infra) | Dublin, London, Berlin, Luxembourg, **UAE** | Most reqs, most accessible tier-1 entry. **Gulf offices are a real route from Egypt** |
-| **Microsoft** (Azure infra) | Dublin, London, Cambridge, Munich, **Cairo** | 🔴 **The only tier-1 with engineering in Cairo. Apply there regardless** — a local tier-1 role is a legitimate route to internal transfer |
-| **Stripe** | Dublin, London | Backend-heavy; **values written communication — your report and ADRs are unusually well-matched** |
-
-**Second tier, several of them your project's direct neighbours:** 🔴 **Mullvad** (Sweden — you built the network layer for their browser) · **Brave** · **Proton** · **Nym** · **Protocol Labs / libp2p** · **Grafana Labs** (remote-first) · 🔴 **ClickHouse, Confluent, Redpanda, Materialize, StarTree, Snowflake** (**where 15-445 and 15-721 pay**) · **Elastic** · **HashiCorp** (Consul is SWIM in production) · **Canonical** (fully remote, global hiring, heavy systems interviews) · **Bloomberg** London (large C++) · **Booking.com**, **Adyen**, **Klarna** infra.
-**Calibration tier** (W44–55, no cooldown risk): Instabug, Swvl, Halan, Paymob, MaxAB (Cairo); Careem, Talabat, Tabby (Gulf); any European startup with a real systems interview.
-
-## J.7 — CV versions
-**One page. Every line traceable to something in the repo the day you write it.** Structure: name, GitHub, **"Cairo, Egypt · open to relocation · requires EU/UK sponsorship"** · two-line summary · 🔴 **SELECTED PROJECT — ADYTON, 5–7 bullets, above employment** · Logic Leap, 3–4 quantified bullets · 🔴 **a COURSEWORK line — see below** · Skills · **Education, one line, last.**
-> **The degree line:** *"BSc Management Information Systems, [University], [year]."* **No parenthetical. No "(self-taught in CS)". No apologetic adjective.**
-> 🔴 **The coursework line, which is new and which the two-year plan earns you:** *"Completed, with all labs: CMU 15-213, 15-445, 15-721 · MIT 6.5840, 6.1810, 6.858 · Stanford CS144 · Stanford Cryptography I."* **That is one line and it does more work against the equivalent-experience clause than anything else on the page.**
-
-| Version | Week | Adds |
-|---|---|---|
-| v1 | 27 | ⚙️ Sphinx in C++ with the safety apparatus; kernel-enforced compartments; the leak suite in CI |
-| v2 | 43 | Per-hop QUIC and the head-of-line-blocking measurement; the 30-node mesh with sub-second churn recovery; **CS144 and 15-213 complete** |
-| v3 | 50 | ☕ Raft twice (Go and Java); epoch consensus at 100% agreement; **fork detection**; **6.5840 complete with all five labs** |
-| **v4** | **55** | 🎯 **The applying version.** The operational shell: k8s, zero-drop rolling restarts, Terraform + OIDC, SLOs, $0/month |
-| v5 | 76 | ⭐ AS-aware selection and **the published trade-off curve**; the attack lab's compromise probabilities; **6.1810 complete** |
-| v6 | 98 | Privacy Pass credentials; the DP-budgeted telemetry and the attack it defeats; **the Tor benchmark table**; **15-445 complete** |
-| v7 | 104 | The full eight-course line; reproducible builds; the paper; Arti contributions |
-
-## J.8 — Applications
-| Weeks | Volume | Targets |
-|---|---|---|
-| 44–55 | 2–3/month | **Calibration tier only** — real loops, low cost of a poor performance |
-| 56–70 | 10/week | 🔴 **Cloudflare, Fastly, Tailscale, Mullvad first** — your best-fit tier — then tier-1 EMEA |
-| 71–90 | 8/week | Remaining tier-1 and second tier. **Every completed course makes you better in the loops you are already sitting** |
-| 91–104 | 6/week | Mostly conversion now |
-
-**≈250 applications across Year 2**, every one logged in `career/APPLICATIONS.md` with date, company, office, role, referral (y/n, by whom), response, stage, outcome. **Sequence your loops:** 3–4 companies you care less about *first*; your fifth loop is dramatically better than your first. **Then overlap the real ones so offers arrive within ~2 weeks** — competing offers are the only real leverage.
-### 🚨 If the response rate is low (checked W70, ~150 out)
-**Below 10%, stop and diagnose before sending more with the same CV.** In order: **targeting** (reqs wanting 5+ years will not respond) · **the sponsorship filter** (invisible, and not about you) · 🔴 **the top third of the CV** — if it does not contain **Java (52.7%), distributed systems (48.4%), AWS (48.4%), Python (43%), Go (37.6%), C++ (19.4%), Kubernetes (30.1%)** it is miscalibrated. **Sphinx and guard placement are interview content; the top of the CV is screening surface** · **referral ratio** — under a third referred? The fix is J.4, not more applications. **Fix in W71. Do not respond to a low response rate by increasing volume.**
-
-## J.9 — Negotiation (W95+)
-**Never give a number first**, including on the recruiter's first call — *"I'd like to focus on whether this is the right fit; I'm confident we can align on compensation"* is a complete and expected answer. **Competing offers are the only real leverage** — hence overlapping loops. **Negotiate the whole package:** base · equity **and its vesting schedule** · sign-on (most flexible) · **level — worth more than any of the above over three years** · start date · **relocation and visa costs, which candidates moving from outside the EU routinely forget to ask for.** 🔴 **Applying from Egypt creates an anchoring risk** — recruiters may benchmark against Egyptian salaries. **Do not accept that framing**; compensation is for the role in that location, and know your target level's `levels.fyi` number for that company and office **before the first call.** **Read Haseeb Qureshi, "Ten Rules for Negotiating a Job Offer."** Be gracious; you will work with these people.
-
-## J.10 — What the loops look like (verify with your recruiter)
-**Google:** phone screen → 2–3 coding, 1 system design, 1 Googleyness & Leadership → **hiring committee and team matching** (a strong loop can stall at team match — normal, not a rejection). **Meta:** phone screen (**2 problems in 45 min — speed matters more here than anywhere**) → 2 coding, 1 design, 1 behavioural. **Amazon:** OA → 4–5 rounds, **every round includes Leadership Principle questions**; the **Bar Raiser** is external with veto power. **Microsoft:** coding + design + an "as appropriate" round with a senior leader. 🔴 **Cloudflare / Fastly / Tailscale / Mullvad:** **practical over puzzle** — debugging unfamiliar code, extending real code, deep protocol and systems discussion. **Adyton plus eight courses prepares you for these better than any other combination, and these are also your best-fit employers.**
-**Leveling:** L3/E3 (new grad) → **L4/E4 (2–5 yrs)** → **L5/E5 (5+ yrs, owns ambiguous projects end to end — where system design decides it).** **You will be ~4 years' experience at W104.** Interview for the level your evidence supports; being under-levelled costs years of compensation, so push back with evidence if the loop went well.
+📈 **Exit:** demonstrate a correctness violation with wall-clock leases, then show the fencing-token version surviving the same seeds. **This is a two-graph story that explains fencing tokens better than any article.**
 
 ---
----
 
-# 📅 The 104-Week Calendar
+### 3.4 — Logs, Streams & Kafka
 
-**Year 1 week: 32h = 11 Courses / 11 Depth / 8 Interview / 2 Craft.** **Year 2 week: 32h = 8 Courses / 10 Depth / 10 Interview / 4 Career.**
-Your shape: **4h weekdays + 6h each weekend day.** **Weekday evenings are lectures, reading, DSA and system design. The weekend blocks are labs and Adyton** — course labs and protocol work both need uninterrupted hours and neither survives being chopped into evenings.
+> 🔥 **THE WALL — Lose Data Three Ways**
+> With a real Kafka cluster:
+> 1. Produce with `acks=1`, kill the leader broker mid-write, and **measure how many acknowledged messages vanished.**
+> 2. Consume with auto-commit enabled, crash the consumer after committing but before processing. **Messages silently skipped.** Then crash after processing but before committing → duplicates. **You cannot have neither, without changing where the offset lives.**
+> 3. Rebalance storm: add and remove consumers rapidly and watch the group spend all its time rebalancing and none consuming. (Then learn cooperative sticky assignment and static membership.)
 
-**🛌 Rest weeks (10h): 6, 19, 26, 43, 58, 76, 92, 104.** **🔧 Buffer weeks: 34, 52, 66, 84.** **🌙 Ramadan (20h): 22–25 and 72–75** (W26 and W76 are rest weeks and carry Eid al-Fitr). **Eid al-Adha (26h): 36 and 86.**
+#### 📖 Theory
+- **The log as the fundamental abstraction** (Kreps) — and the realization that a database, a queue, a cache, and a replica are all just different views of a log
+- Kafka internals: partitions as the unit of parallelism and ordering, the **ISR (in-sync replicas)** set, `min.insync.replicas` + `acks=all` as the actual durability contract, high watermark vs log end offset, leader epochs (and the truncation bug they fixed), KRaft replacing ZooKeeper
+- **Consumer groups**: assignment strategies, rebalance protocols (eager vs cooperative incremental), and why rebalancing is the source of most Kafka operational pain
+- **Delivery semantics**: at-least-once by default; **exactly-once via the idempotent producer + transactions** — and its exact scope (Kafka-to-Kafka only; your database write is *not* in that transaction, which is why the outbox pattern exists)
+- **Log compaction** — the changelog/table duality
+- **Partitioning and key choice**: ordering is per-partition only; a hot key is a hot partition; changing partition count breaks key→partition affinity forever
+- **Consumer lag** as the primary health metric
+- **CDC** — Debezium, logical decoding, the initial-snapshot problem, and CDC as the correct alternative to dual writes
+- **Stream processing**: windowing (tumbling/hopping/session), watermarks, **event time vs processing time**, late data, stateful operators, exactly-once in Flink via checkpointing/Chandy-Lamport
 
-> 🔴 **The two numbers, and why they differ.** The calendar below **allocates 3,044 hours.** §II commits **2,485 hours to named deliverables.** The difference — **~559 hours — is deliberate slack, distributed across every week rather than parked at the end.** That is not padding: over 104 weeks you will have illnesses, work crunches, a lab that takes three times its estimate, and weeks where life simply wins. **A two-year plan with no slack fails in month five.** If you find yourself consistently finishing a week's named work early, the slack goes to the courses — they are the thing you cannot get back later.
+#### 📄 Sources
+- **"The Log: What every software engineer should know about real-time data's unifying abstraction"** — Jay Kreps. Long, foundational, worth every minute.
+- **"Kafka: a Distributed Messaging System for Log Processing"** (2011) and **"Exactly Once Semantics in Apache Kafka"** — Confluent.
+- **DDIA Chapters 11 & 12.**
+- **"Streaming Systems"** — Akidau, Chernyak, Lax. The definitive book on event time, watermarks, and windowing. **Missing from v2 and it's the standard reference.**
+- **"Turning the database inside-out"** — Martin Kleppmann (talk). Changes how you see everything.
+- **"Delivering Billions of Messages Exactly Once"** — Segment Engineering. A great real-world dedup story.
 
-## Year One — W1–52
+#### 🛠 CORE PROJECT — `outbox-cdc-lab`
+Build the same "order placed → email sent" integration **three ways** and break each one:
+1. **Dual write** (DB + Kafka in the app) → prove inconsistency by crashing between the two writes
+2. **Transactional outbox + poller** → prove correctness, then measure the polling latency and the outbox table's growth
+3. **CDC via Debezium** → prove correctness, then explore the snapshot problem and schema-change handling
 
-| Wk | Starts | L | Course | Focus | C | D | I | J | Tot |
-|---|---|---|---|---|---|---|---|---|---|
-| 1 | 2026-09-14 | 0 | 15-213 | Repo, CI, 4 toolchains, `latency-lab` · 🔴 `docs/legal.md` · prompts/ | 11 | 11 | 8 | 2 | **32** |
-| 2 | 09-21 | 0 | 15-213 | 🔴 SCALE-RISK: node ceiling, Oracle RTT · `lab/bench` open-loop · `sickbay` | 11 | 11 | 8 | 2 | **32** |
-| 3 | 09-28 | 0 | 15-213 | Cache/false-sharing walls measured · latency ladder chart | 11 | 11 | 8 | 2 | **32** |
-| 4 | 10-05 | 0 | 15-213 | `sickbay` 8 pathologies · benchstat CI gate | 11 | 11 | 8 | 2 | **32** |
-| 5 | 10-12 | 0 | 15-213 | 15-213 L9–L10 land · working-set sweep | 11 | 11 | 8 | 2 | **32** |
-| 6 | 10-19 | 0 | 15-213 | 🛌 REST — L0 exit exam, category count | 0 | 0 | 6 | 4 | **10** |
-| 7 | 10-26 | 1 | 15-213 | 🔴 6.858 L1 · Trilemma paper · the naive relay, attacked 5 ways | 11 | 11 | 8 | 2 | **32** |
-| 8 | 11-02 | 1 | 15-213 | ⚙️ ASan/UBSan/TSan in CI · libFuzzer on the parser | 11 | 11 | 8 | 2 | **32** |
-| 9 | 11-09 | 1 | 15-213 | ⚙️ `cpp-subset.md` · clang-tidy · RapidCheck codec | 11 | 11 | 8 | 2 | **32** |
-| 10 | 11-16 | 1 | 15-213 | ⚙️ PROMPT 3 on my own parser · the fuzzer's bugs written up | 11 | 11 | 8 | 2 | **32** |
-| 11 | 11-23 | 1 | 15-213 | 🔴 `threat-model.md` v1 · README v1 · **D0** | 11 | 11 | 8 | 2 | **32** |
-| 12 | 11-30 | 2 | 15-213 | 🔴 6.858 L19 (Tor paper) · crypto: nonce-reuse experiment | 11 | 11 | 8 | 2 | **32** |
-| 13 | 12-07 | 2 | 15-213 | X25519 + HKDF key schedule · zeroizing types | 11 | 11 | 8 | 2 | **32** |
-| 14 | 12-14 | 2 | 15-213 | Sphinx header construction · Malloc Lab | 11 | 11 | 8 | 2 | **32** |
-| 15 | 12-21 | 2 | 15-213 | 🔴 The onion shrinks — constant-size padding · Proxy Lab | 11 | 11 | 8 | 2 | **32** |
-| 16 | 12-28 | 2 | 15-213 | Per-hop MAC, replay set · **Arti architecture read** | 11 | 11 | 8 | 2 | **32** |
-| 17 | 01-04 | 2 | Boneh | Boneh W1–2 · RapidCheck size invariant | 11 | 11 | 8 | 2 | **32** |
-| 18 | 01-11 | 2 | Boneh | Boneh W3–4 · single-pass vs telescoping measured | 11 | 11 | 8 | 2 | **32** |
-| 19 | 01-18 | 2 | Boneh | 🛌 REST — **D1**, L2 exam, category count | 0 | 0 | 6 | 4 | **10** |
-| 20 | 01-25 | 3 | Boneh | 🤝 **REFERRALS OPEN** · netns + veth + nftables default-drop | 11 | 11 | 8 | 2 | **32** |
-| 21 | 02-01 | 3 | Boneh | The sealed `Identity` type · Boneh finishes | 11 | 11 | 8 | 2 | **32** |
-| 22 | 02-08 | 3 | 🌙 catch-up | 🌙 WebRTC + IPv6 leak tests | 7 | 5 | 5 | 3 | **20** |
-| 23 | 02-15 | 3 | 🌙 catch-up | 🌙 DNS leak + kill-switch tests (20/20) | 7 | 5 | 5 | 3 | **20** |
-| 24 | 02-22 | 3 | 🌙 catch-up | 🌙 Cross-compartment: cookies, TLS tickets | 7 | 5 | 5 | 3 | **20** |
-| 25 | 03-01 | 3 | 🌙 catch-up | 🌙 Fingerprint uniformity, two machines | 7 | 5 | 5 | 3 | **20** |
-| 26 | 03-08 | 3 | 🌙 catch-up | 🛌 REST · Eid — **D2 ★** · 🔴 CS144 handouts mirrored | 0 | 0 | 6 | 4 | **10** |
-| 27 | 03-15 | 3 | CS144 | CS144 check0–1 · `browser-delta.md` · **CV v1** · Blog 1 | 11 | 11 | 8 | 2 | **32** |
-| 28 | 03-22 | 4 | CS144 | CS144 check2 · the HOL-blocking experiment | 11 | 11 | 8 | 2 | **32** |
-| 29 | 03-29 | 4 | CS144 | CS144 check3 (sender) · ngtcp2 transport | 11 | 11 | 8 | 2 | **32** |
-| 30 | 04-05 | 4 | CS144 | CS144 check3 · circuit↔stream mapping | 11 | 11 | 8 | 2 | **32** |
-| 31 | 04-12 | 4 | CS144 | CS144 check4 — my TCP replaces the kernel's | 11 | 11 | 8 | 2 | **32** |
-| 32 | 04-19 | 4 | CS144 | 🔴 QUIC fingerprint normalisation + CI capture diff | 11 | 11 | 8 | 2 | **32** |
-| 33 | 04-26 | 4 | CS144 | CS144 check5 · circuit teardown, 100 cycles clean | 11 | 11 | 8 | 2 | **32** |
-| 34 | 05-03 | 4 | CS144 | 🔧 BUFFER · CS144 check6 (IP router) | 11 | 11 | 8 | 2 | **32** |
-| 35 | 05-10 | 4 | CS144 | CS144 check7 · **D3** · build p50 <250ms | 11 | 11 | 8 | 2 | **32** |
-| 36 | 05-17 | 5 | CS144 | 🌙 Eid · **AWS signup + $5 alarm** · CS144 finishes | 9 | 9 | 6 | 2 | **26** |
-| 37 | 05-24 | 5 | CS144 | 6.5840 L1–L2 · NAT: two peers cannot connect | 11 | 11 | 8 | 2 | **32** |
-| 38 | 05-31 | 5 | CS144 | STUN punching + relay fallback · fraction measured | 11 | 11 | 8 | 2 | **32** |
-| 39 | 06-07 | 5 | 6.5840 | 6.5840 L3 (GFS) + Lab 1 · SWIM gossip | 11 | 11 | 8 | 2 | **32** |
-| 40 | 06-14 | 5 | 6.5840 | `meshsim`: clock, network, asymmetric partition | 11 | 11 | 8 | 2 | **32** |
-| 41 | 06-21 | 5 | 6.5840 | phi-accrual vs fixed timeout chart · **first human mock** | 11 | 11 | 8 | 2 | **32** |
-| 42 | 06-28 | 5 | 6.5840 | Churn recovery p50/p99 · graceful drain | 11 | 11 | 8 | 2 | **32** |
-| 43 | 07-05 | 5 | 6.5840 | 🛌 REST — **D4**, **CV v2**, category count | 0 | 0 | 6 | 4 | **10** |
-| 44 | 07-12 | 6 | 6.5840 | ☕ 6.5840 L4 (Paxos), L6 (Raft 1) · Java 21 ramp | 11 | 11 | 8 | 2 | **32** |
-| 45 | 07-19 | 6 | 6.5840 | 6.5840 L7 (Raft 2) + **Lab 3: Raft in Go** | 11 | 11 | 8 | 2 | **32** |
-| 46 | 07-26 | 6 | 6.5840 | 6.5840 L8 (Linearizability) · Lab 3 continues | 11 | 11 | 8 | 2 | **32** |
-| 47 | 08-02 | 6 | 6.5840 | 6.5840 L9 (Zookeeper) + **Lab 4: KV on Raft** | 11 | 11 | 8 | 2 | **32** |
-| 48 | 08-09 | 6 | 6.5840 | L13 (Chain Replication) · Raft in Java begins · `adyton-measure` | 11 | 11 | 8 | 2 | **32** |
-| 49 | 08-16 | 6 | 6.5840 | 🔴 **6.5840 L19 SUNDR** · hash-chained epoch documents | 11 | 11 | 8 | 2 | **32** |
-| 50 | 08-23 | 6 | 6.5840 | Fork detection + client hash gossip · **CV v3** | 11 | 11 | 8 | 2 | **32** |
-| 51 | 08-30 | 6 | 6.5840 | L21 (PBFT) + **Lab 5: sharded KV** · anonymity-set measurement | 11 | 11 | 8 | 2 | **32** |
-| 52 | 09-06 | 6 | 6.5840 | 🔧 BUFFER · **D5** · 🚩 **YEAR-ONE GATE** · Blog 2 | 11 | 11 | 8 | 2 | **32** |
-
-## Year Two — W53–104
-
-| Wk | Starts | L | Course | Focus | C | D | I | J | Tot |
-|---|---|---|---|---|---|---|---|---|---|
-| 53 | 2027-09-13 | 7 | 6.1810 | 6.1810 L1–L2 + lab util · k8s: 30-node mesh | 8 | 10 | 10 | 4 | **32** |
-| 54 | 09-20 | 7 | 6.1810 | L3–L4 (page tables) + lab syscall · rolling restart, zero drops | 8 | 10 | 10 | 4 | **32** |
-| 55 | 09-27 | 7 | 6.1810 | The 3am dashboard · `gatekeep` · **CV v4** | 8 | 10 | 10 | 4 | **32** |
-| 56 | 10-04 | 7 | 6.1810 | 🎯 **APPLICATIONS OPEN — first 12 sent** · `costwatch` + tested $1 alarm | 8 | 10 | 10 | 4 | **32** |
-| 57 | 10-11 | 7 | 6.1810 | `slo.md` · **FULL LOOP #1** · RCA <5min on video | 8 | 10 | 10 | 4 | **32** |
-| 58 | 10-18 | 7 | 6.1810 | 🛌 REST — **D6**, category count · Blog 3 | 0 | 0 | 6 | 4 | **10** |
-| 59 | 10-25 | 8 | 6.1810 | 6.1810 L6–L8 + lab pgtbl · CAIDA load, valley-free inference | 8 | 10 | 10 | 4 | **32** |
-| 60 | 11-01 | 8 | 6.1810 | L9–L10 (locking) · 🔴 inference validated vs RouteViews | 8 | 10 | 10 | 4 | **32** |
-| 61 | 11-08 | 8 | 6.1810 | L11–L12 + lab traps · adversary presets | 8 | 10 | 10 | 4 | **32** |
-| 62 | 11-15 | 8 | 6.1810 | L13–L14 (crash recovery) · compromise probability: Adyton vs Tor | 8 | 10 | 10 | 4 | **32** |
-| 63 | 11-22 | 8 | 6.1810 | + lab cow · guard-compromise curve | 8 | 10 | 10 | 4 | **32** |
-| 64 | 11-29 | 8 | 6.1810 | Sybil cost curve (USD/month) · churn adversary | 8 | 10 | 10 | 4 | **32** |
-| 65 | 12-06 | 8 | 6.1810 | `lab/reproduce.sh` · GCP window planned | 8 | 10 | 10 | 4 | **32** |
-| 66 | 12-13 | 8 | 6.1810 | 🔧 BUFFER · **D7** · Blog 4 | 8 | 10 | 10 | 4 | **32** |
-| 67 | 12-20 | 9 | 6.1810 | 6.1810 L15–L17 + lab net · three selectors in Python | 8 | 10 | 10 | 4 | **32** |
-| 68 | 12-27 | 9 | 6.1810 | L18–L19 + lab lock · winner chosen on data | 8 | 10 | 10 | 4 | **32** |
-| 69 | 01-03 | 9 | 6.1810 | L20 (networking), L21 (Meltdown) + lab fs · C++ port + cross-lang vectors | 8 | 10 | 10 | 4 | **32** |
-| 70 | 01-10 | 9 | 6.1810 | L22 + lab mmap — **6.1810 COMPLETE** · guard-placement adversary | 8 | 10 | 10 | 4 | **32** |
-| 71 | 01-17 | 9 | slack | Slack · randomness parameter · AS graph in the epoch doc | 8 | 10 | 10 | 4 | **32** |
-| 72 | 01-24 | 9 | 🌙 lectures | 🌙 The sweep begins | 5 | 6 | 6 | 3 | **20** |
-| 73 | 01-31 | 9 | 🌙 lectures | 🌙 The sweep · compromise probability by setting | 5 | 6 | 6 | 3 | **20** |
-| 74 | 02-07 | 9 | 🌙 lectures | 🌙 The sweep · adversary selection rate by setting | 5 | 6 | 6 | 3 | **20** |
-| 75 | 02-14 | 9 | 🌙 lectures | 🌙 🔴 **THE TRADE-OFF CURVE** · operating point chosen | 5 | 6 | 6 | 3 | **20** |
-| 76 | 02-21 | 9 | 🌙 lectures | 🛌 REST · Eid — **D8**, **CV v5**, category count · Blog 5 | 0 | 0 | 6 | 4 | **10** |
-| 77 | 02-28 | 10 | 15-445 | ☕ 15-445 L0–L2 + P0 · the accountability bind reproduced | 8 | 10 | 10 | 4 | **32** |
-| 78 | 03-06 | 10 | 15-445 | L3–L5 + P1 (buffer pool) · Privacy Pass issuance | 8 | 10 | 10 | 4 | **32** |
-| 79 | 03-13 | 10 | 15-445 | L6–L8 + P1 · redemption + unlinkability test | 8 | 10 | 10 | 4 | **32** |
-| 80 | 03-20 | 10 | 15-445 | L9–L11 + **P2 (B+Tree)** · revocation without linkage · `adyton-gateway` | 8 | 10 | 10 | 4 | **32** |
-| 81 | 03-27 | 10 | 15-445 | L12–L14 + P2 · rate limiting with no per-user log | 8 | 10 | 10 | 4 | **32** |
-| 82 | 04-03 | 10 | 15-445 | P2 · credential-gated admission + clustering | 8 | 10 | 10 | 4 | **32** |
-| 83 | 04-10 | 10 | 15-445 | Sybil cost re-measured with admission · fairness via earned credentials | 8 | 10 | 10 | 4 | **32** |
-| 84 | 04-17 | 10 | 15-445 | 🔧 BUFFER · **D9** · `trust-model.md` + ADR-0007 · Blog 6 | 8 | 10 | 10 | 4 | **32** |
-| 85 | 04-24 | 11 | 15-445 | 15-445 L15–L18 + P3 · 🔴 the metrics attack on my own telemetry | 8 | 10 | 10 | 4 | **32** |
-| 86 | 05-01 | 11 | 15-445 | 🌙 Eid · L19 (MVCC), L20 (logging) + P3 | 7 | 8 | 8 | 3 | **26** |
-| 87 | 05-08 | 11 | 15-445 | L21 (recovery) + **P4 (MVCC)** · private aggregation, ε chosen | 8 | 10 | 10 | 4 | **32** |
-| 88 | 05-15 | 11 | 15-445 | L22–L23 + P4 · budget that fails closed · naive endpoint deleted | 8 | 10 | 10 | 4 | **32** |
-| 89 | 05-22 | 11 | 15-445 | L24–L25 · 20 incidents begin · 🔴 the clock-skew incident | 8 | 10 | 10 | 4 | **32** |
-| 90 | 05-29 | 11 | 15-445 | **15-445 COMPLETE** · 4 famous outages reproduced | 8 | 10 | 10 | 4 | **32** |
-| 91 | 06-05 | 11 | 15-721 | 15-721 L0–L4 · error-budget burn · `sim-fidelity.md` | 8 | 10 | 10 | 4 | **32** |
-| 92 | 06-12 | 11 | 15-721 | 🛌 REST — **D10**, category count · Blog 7 | 0 | 0 | 6 | 4 | **10** |
-| 93 | 06-19 | 12 | 15-721 | 15-721 L5–L6 (vectorized) · 🔴 predict top 3 costs, commit, then profile | 8 | 10 | 10 | 4 | **32** |
-| 94 | 06-26 | 12 | 15-721 | L7–L8 (codegen, scheduling) · batched I/O `sendmmsg`/GSO | 8 | 10 | 10 | 4 | **32** |
-| 95 | 07-03 | 12 | 15-721 + 6.858 | 6.858 L1–L4 · L12 (networking protocols) · >200k pps/core | 8 | 10 | 10 | 4 | **32** |
-| 96 | 07-10 | 12 | 15-721 + 6.858 | 6.858 L5–L8 · 🔴 **THE TOR TABLE**, one script | 8 | 10 | 10 | 4 | **32** |
-| 97 | 07-17 | 12 | 15-721 + 6.858 | L16 (cost models) · aarch64 delta · `pgshift` | 8 | 10 | 10 | 4 | **32** |
-| 98 | 07-24 | 12 | 15-721 + 6.858 | **15-721 COMPLETE** · `docs/REPORT.md` · **D11** · **CV v6** · Blog 8 | 8 | 10 | 10 | 4 | **32** |
-| 99 | 07-31 | 13 | 15-721 + 6.858 | 6.858 L9–L13 + lab 1 (buffer overflows) · WF dataset ≥100×50 | 8 | 10 | 10 | 4 | **32** |
-| 100 | 08-07 | 13 | 15-721 + 6.858 | L19 re-watch + labs 2–3 · DF + Var-CNN trained · 🔴 PROMPT 5 on the whole system | 8 | 10 | 10 | 4 | **32** |
-| 101 | 08-14 | 13 | 6.858 | L20 (timing attacks) + lab 4 · 🔴 the shaping curve | 8 | 10 | 10 | 4 | **32** |
-| 102 | 08-21 | 13 | 6.858 | L21–L23 + lab 5 (Adyton as the project) · **10 ADRs · LIMITATIONS · COMPARISON** | 8 | 10 | 10 | 4 | **32** |
-| 103 | 08-28 | 13 | 6.858 | 🔴 Reproducible builds ×2 · threat model published · install guide ×3 testers · **RETROSPECTIVE** | 8 | 10 | 10 | 4 | **32** |
-| 104 | 09-04 | 13 | 6.858 | 🛌 REST — **D12** · external peers · the 45-min demo recorded · **CV v7** · `NEXT.md` · Blogs 9–10 | 0 | 0 | 6 | 4 | **10** |
-
-<!-- TOTAL 3044 -->
-
-**No week exceeds 32 hours.** The 12-month versions of this plan had four over-budget weeks; the two-year version has none, because the courses got the room they actually need.
+📈 **Exit Criteria**
+- [ ] A crash-injection test that produces a **provable** inconsistency in approach 1 (an order with no event, or an event with no order)
+- [ ] Approaches 2 and 3 survive 1,000 crash injections with zero inconsistencies
+- [ ] Latency and throughput comparison across all three
+- [ ] Written: "when I'd choose each, and what CDC costs operationally"
 
 ---
+
+### 3.X — 🎓 LEVEL 3 EXIT EXAM
+
+1. Draw Raft's Figure 2 from memory. Now explain the Figure 8 scenario and the rule that fixes it.
+2. Your 5-node cluster partitions 3/2. What does each side do? What if the partition is asymmetric?
+3. Explain why exactly-once delivery is impossible and exactly-once processing is achievable. Give a concrete implementation.
+4. When is causal consistency the right choice over linearizability? Name a real system that made that call.
+5. Your Kafka consumer lag is growing linearly. Give six causes and the metric that distinguishes each.
+6. What is a metastable failure? Give an example and a mitigation.
+7. Explain fencing tokens. Why is a TTL-based lock insufficient?
+8. Design a system that must not lose an acknowledged write, ever. What's the minimum you need, and what does it cost in latency?
+9. What does TrueTime buy Spanner and what does it cost?
+
+**Pass = 8/9.**
+
+---
+## ⚡ LEVEL 4 — Infrastructure & Reliability
+
+> **Goal:** build systems that degrade instead of collapsing, and that tell you what's wrong before a customer does.
+>
+> **⏱ Budget:** 90–120 hours · **Chronos milestone:** C7 · **Prereq:** Level 3 (partly parallel)
+
 ---
 
-# ✂️ The Cut Order
+### 4.1 — Load Balancing, Proxies & Service Discovery
 
-**Cut in this sequence, top first. Never out of order, and never silently — every cut gets a line in `docs/LIMITATIONS.md` saying what was dropped and why.**
+> 🔥 **THE WALL — The Load Balancer That Made It Worse**
+> Put 3 backends behind round-robin. Make one backend 10x slower (not dead — *slow*). Measure overall p99.
+>
+> Round-robin keeps sending it a third of traffic; your p99 is now dominated by the slow node. Health checks say it's healthy — it returns 200s! Now implement **least-outstanding-requests** and measure again. Then implement **EWMA/peak-latency-aware** selection. The improvement is dramatic and it explains why "the load balancer is smarter than you think" at every large company.
+>
+> **Second wall:** put a **gRPC** service behind an L4 load balancer with 3 backends. Scale to 6 backends. Watch traffic stay pinned to the original 3, because HTTP/2 connections are long-lived and L4 balances *connections*, not requests. This is a real, common production incident.
 
-| # | What gets cut | Costs you | Why it's first |
+#### 📖 Theory
+- **L4 vs L7**, and why L7 is required for gRPC, retries, and per-request routing
+- **Algorithms**: round-robin, weighted RR, least-connections, **least-outstanding-requests (the usual best default)**, **power of two random choices (P2C)** — near-optimal with almost no coordination; read the "Power of Two Choices" result, it's beautiful — EWMA/latency-aware, consistent hashing (for cache affinity), **and consistent hashing with bounded loads**
+- **Health checks**: active vs passive, **shallow vs deep** — and the crucial trap: a deep health check that verifies the database will fail *all* your instances at once when the database blips, converting a degradation into a total outage. **Health-check design is a top-tier interview topic.**
+- **Outlier detection / passive ejection** (Envoy's model) — eject a host based on observed error rate, then probe it back
+- **Connection draining and graceful shutdown** across the LB + orchestrator boundary
+- **Client-side LB and service meshes** (gRPC + xDS), and the tradeoff vs a central proxy
+- **Service discovery**: DNS, Consul, etcd, Kubernetes Endpoints/EndpointSlices, and **propagation delay** as the thing that actually bites you
+- **Anycast and GSLB** for global traffic; **Maglev** (Google's) and consistent hashing at the packet level
+
+#### 📄 Sources
+- **"Introduction to modern network load balancing and proxying"** — Matt Klein (Envoy's author). **The best single article on the topic, full stop.**
+- **"The power of two random choices"** — Mitzenmacher; and the practical writeups (NGINX, HAProxy, Finagle).
+- **"Maglev: A Fast and Reliable Software Network Load Balancer"** (NSDI 2016).
+- **"Consistent Hashing with Bounded Loads"** — Google Research blog + paper.
+- **"gRPC Load Balancing"** — grpc.io blog.
+
+#### 🛠 CORE PROJECT — `lb-lab` *(Instrument archetype, 8/10)*
+Write your own L7 load balancer (it's ~500 lines) implementing **six** algorithms, then benchmark all six against a backend pool where you can independently control each backend's latency distribution, error rate, and capacity.
+
+Scenarios to test: homogeneous backends · one slow backend · one backend returning errors · a backend that's slow only at p99 · adding capacity mid-test · removing a backend mid-request.
+
+📈 **Exit Criteria**
+- [ ] Six-algorithm comparison chart of overall p99 under each scenario
+- [ ] Demonstrate the **deep health check cascade**: show how a shared-dependency blip takes 100% of your fleet out, then fix it (fail-open, separate liveness from readiness, cached health status)
+- [ ] Demonstrate the gRPC/L4 pinning problem and fix it with client-side LB
+- [ ] Zero requests dropped during a backend removal — proven by a request-count assertion
+
+---
+
+### 4.2 — Caching at Every Layer
+
+> 🔥 **THE WALL — The Cache That Caused the Outage**
+> Three failures to cause on purpose:
+> 1. **Stampede.** 10,000 clients, one hot key, TTL expires. Your database gets 10,000 identical queries in 50ms and falls over.
+> 2. **Cold cache after deploy.** Restart your service. Every request is now a miss. Your database, sized for a 95% hit rate, now gets 20x its normal load. **This is how a routine deploy causes an outage** — and it's why cache warming and staged restarts exist.
+> 3. **The stale-forever key.** Write-through cache, a failed invalidation, and a key that's now permanently wrong. Find it. (You won't, without a TTL as a backstop — which is the actual lesson: **always have a TTL, even on "invalidated" caches.**)
+
+#### 📖 Theory
+- **Patterns**: cache-aside, read-through, write-through, write-behind, refresh-ahead — and the failure mode of each
+- **Invalidation**: TTL, event-driven, versioned keys (`user:42:v7` — never delete, just bump the version; this sidesteps a whole class of race), tag-based, and **why "there are only two hard things" is a real engineering statement**
+- **Stampede protection**: request coalescing / singleflight, probabilistic early expiration (**XFetch** — read the paper, it's 3 pages and the formula is elegant), staggered TTLs with jitter, "never expire, refresh in background"
+- **Eviction**: LRU, LFU, **TinyLFU/W-TinyLFU** (what Caffeine and Ristretto use, and it's substantially better than LRU — knowing this is a differentiator), ARC, S3-FIFO (the recent one), and the scan-resistance problem
+- **Negative caching** — cache the misses too, or a nonexistent-key flood becomes a database DDoS
+- **Multi-tier**: in-process L1 (nanoseconds, per-instance, inconsistent) → Redis L2 (sub-ms, shared) → CDN → browser. **Coherence across L1 instances is the hard part.**
+- **CDN**: cache keys, `Vary`, `Cache-Control` vs `Surrogate-Control`, purge vs soft-purge, `stale-while-revalidate`, `stale-if-error` (**underused and excellent — serve stale content during an origin outage**), tiered caching, cache hit ratio economics
+- **Consistency**: what staleness bound are you actually offering the user? Say it out loud in design interviews.
+
+#### 📄 Sources
+- **"Scaling Memcache at Facebook"** (NSDI 2013). **One of the best systems papers ever written for practitioners** — leases, gutter pools, stampede control, regional invalidation. Read it twice.
+- **"TAO: Facebook's Distributed Data Store for the Social Graph"** (USENIX ATC 2013).
+- **"Optimal Probabilistic Cache Stampede Prevention"** — Vattani, Chierichetti, Lowenstein (VLDB 2015).
+- **"TinyLFU: A Highly Efficient Cache Admission Policy"** — Einziger, Friedman, Manes.
+- **Caffeine's design docs** (GitHub wiki) — an unusually well-explained real cache implementation.
+
+#### 🛠 CORE PROJECT — `cache-lab` *(Instrument archetype, 8/10)*
+Build a multi-tier cache library: in-process W-TinyLFU L1 + Redis L2 + singleflight + probabilistic early expiration + negative caching + per-tier metrics.
+
+Then build the **workload generator** with realistic access distributions (Zipfian with a configurable skew — real traffic is always Zipfian, and using a uniform distribution is why most cache benchmarks are meaningless).
+
+📈 **Exit Criteria**
+- [ ] Hit-rate comparison: LRU vs LFU vs W-TinyLFU vs S3-FIFO at the same memory budget, under Zipf(0.99) — **publish the chart; W-TinyLFU should win clearly, and you should be able to explain why**
+- [ ] Stampede demo: DB QPS during mass expiry, with and without protection (expect ~1000x difference)
+- [ ] Cold-start demo: origin load after a restart, with and without cache warming
+- [ ] A scan-resistance test: a full-table scan should not evict your hot working set
+- [ ] Written: "the staleness contract this cache offers"
+
+---
+
+### 4.3 — Rate Limiting, Quotas & Fairness
+
+> 🔥 **THE WALL — The Boundary Burst**
+> Implement a fixed-window rate limiter: 100 requests/minute. Now send 100 requests at 11:59:59 and 100 more at 12:00:00. **You just allowed 200 requests in one second** through a limiter that promised 100/minute. Reproduce it, then fix it with a sliding window, and prove the fix with the same attack.
+>
+> **Second wall:** run your Redis-backed limiter with 50 concurrent clients using GET-then-SET instead of an atomic Lua script. Count the actual allowed requests. It'll be well over the limit. **Race conditions in rate limiters are how "we had a limit" becomes "we had an outage."**
+
+#### 📖 Theory
+- **The five algorithms**, with their exact memory/accuracy tradeoffs: fixed window (cheap, bursty at boundaries), sliding window log (exact, memory-heavy), sliding window counter (the usual sweet spot), token bucket (allows controlled bursts — usually what you actually want), leaky bucket (smooths output)
+- **Distributed rate limiting**: centralized Redis (accurate, adds a network hop and a SPOF), local with periodic sync (fast, approximate), and **the "sold quota" model** where a central authority leases capacity to each node
+- **Concurrency limits vs rate limits** — limiting in-flight requests is often more useful than limiting arrival rate, because it self-adjusts to your actual capacity (→ Level E's adaptive limits)
+- **Fairness and multi-tenancy**: per-tenant quotas, weighted fair queuing, **the noisy-neighbor problem**, and the shuffle-sharding trick from AWS (**read "Workload isolation using shuffle-sharding"** — an elegant idea that dramatically limits blast radius, and a great thing to bring up in a design interview)
+- **What to do at the limit**: reject (429 + `Retry-After` + `RateLimit-*` headers per the IETF draft), queue, or degrade
+- **Where to enforce**: edge/CDN, gateway, service, database. Usually all four, for different reasons.
+
+#### 📄 Sources
+- **"Scaling your API with rate limiters"** — Stripe Engineering. Their four limiter types and why each exists.
+- **"An alternative approach to rate limiting"** — Figma Engineering (the sliding-window-with-weighting approach).
+- **"Workload isolation using shuffle-sharding"** — AWS Builders' Library. Read the whole Builders' Library, honestly.
+- **"How we built rate limiting capable of scaling to millions of domains"** — Cloudflare.
+- **"Fair queuing"** and the Kubernetes API Priority and Fairness (APF) design doc.
+
+#### 🛠 CORE PROJECT — `ratelimit` (library + attack suite)
+All five algorithms, single-node and Redis-distributed (atomic Lua), plus **the adversarial test suite** that tries to exceed each limiter's promise (boundary bursts, concurrent races, clock skew between nodes, Redis failover mid-window).
+
+📈 **Exit Criteria**
+- [ ] Each limiter's promise holds under its attack — with the measured over-admission rate for each (some over-admission is acceptable; **you must state the bound**)
+- [ ] Throughput/latency cost of each algorithm at 10k RPS
+- [ ] Shuffle-sharding implemented, with a simulation showing blast radius: "with 8 shards of 2, a single abusive tenant affects X% of other tenants" — the combinatorics chart is a great artifact
+- [ ] Correct `429` semantics with `Retry-After` and `RateLimit-*` headers
+
+---
+
+### 4.4 — Resilience: timeouts, retries, circuit breakers, bulkheads
+
+> 🔥 **THE WALL — Build a Retry Storm**
+> A → B → C. Give each hop 3 retries. Make C slow (not failing — *slow*).
+>
+> A's retries multiply B's retries multiply C's load: **3 × 3 = 9x amplification**, and if each retry also times out and retries, you get a positive feedback loop. Watch C, which was merely slow, become completely dead — **caused entirely by your own reliability mechanisms.** Then measure it, and fix it with: retry budgets (max 10% of requests may be retries), retries only at one layer, circuit breakers, and jittered backoff.
+>
+> **Then reproduce the metastable failure:** remove the original trigger and watch the system stay down because the retry load is now self-sustaining. Recovery requires shedding load, not just fixing the original problem. **This is one of the most valuable things you can learn to explain.**
+
+#### 📖 Theory
+- **Timeouts**: connect vs read vs total; **deadline propagation** across hops (the gRPC/context model — the correct design); why every timeout must be shorter than its caller's remaining budget; **and the fact that a timeout without a cancel just abandons work that keeps running**
+- **Retries done right**: only on idempotent operations or with idempotency keys; only on retryable errors; **exponential backoff with full jitter** (read the AWS post — "full jitter" beats "equal jitter" and both crush no-jitter); retry budgets/token buckets; **never retry a timeout without exponential backoff, and never retry at more than one layer**
+- **Hedged requests** — send a duplicate after p95 and take the first response. **The Tail at Scale's central technique.** Cost: ~5% more load for a dramatic p99 improvement.
+- **Circuit breakers**: closed → open → half-open; error-rate vs consecutive-failure triggers; per-endpoint not per-service; and the honest critique — **circuit breakers are frequently mis-tuned and can cause the outage they're meant to prevent** (Netflix eventually moved away from Hystrix; know why)
+- **Bulkheads**: separate connection pools/thread pools per dependency so one slow dependency can't consume all your concurrency
+- **Graceful degradation**: serve stale, serve partial, serve a default. **Decide, per feature, what "degraded" means — and write it down before the incident.**
+- **Load shedding and admission control** (→ Level E)
+- **SLIs/SLOs/error budgets**: define an SLI as a ratio of good events to valid events; multi-window multi-burn-rate alerting (**the SRE Workbook's alerting chapter is the single most practically useful thing Google published**)
+- **Chaos engineering**: hypothesis-driven, blast-radius-limited, in production eventually. Not "randomly break things."
+
+#### 📄 Sources
+- **AWS Builders' Library** — "Timeouts, retries and backoff with jitter," "Avoiding fallback in distributed systems," "Using load shedding to avoid overload," "Caching challenges and strategies," "Avoiding insurmountable queue backlogs." **This whole library is the best free reliability writing that exists. Read all ~20 articles.**
+- **"Exponential Backoff and Jitter"** — Marc Brooker, AWS.
+- **"The Tail at Scale"** — Dean & Barroso.
+- **"Release It!" 2nd ed.** — Michael Nygard. **The origin of circuit breaker and bulkhead as named patterns. v2 omitted this book and it is the single most relevant book to this section.**
+- **Google SRE Book** Ch. 3, 4, 6, 21, 22 (Addressing Cascading Failures) + **The SRE Workbook** Ch. 5 (Alerting on SLOs).
+- **"Metastable Failures in Distributed Systems"** (HotOS 2021).
+
+#### 🛠 CHRONOS C7 + PROJECT `resilience-kit`
+Build the resilient client (timeout + deadline propagation + jittered retry with budget + circuit breaker + bulkhead + hedging) **and the adversarial dependency** that can be configured for: slow, flapping, failing, partial-failure, and "returns 200 with garbage."
+
+📈 **Exit Criteria**
+- [ ] **Retry amplification measured and charted** — 3 hops with and without retry budgets, showing the multiplication factor
+- [ ] **Metastable failure reproduced and then made impossible** — two graphs
+- [ ] Hedging: p99 improvement vs additional load, measured, with the crossover point where hedging stops being worth it
+- [ ] Circuit breaker tuning study: show a configuration that makes things *worse*, and explain it
+- [ ] Deadline propagation proven: a 100ms client deadline results in the 4th-hop service actually cancelling its database query — show the log line
+
+---
+
+### 4.5 — Observability
+
+> 🔥 **THE WALL — Debug Blind**
+> Take a 3-service system. Have someone inject a failure in service C that manifests as elevated latency in service A. Now debug it **with only logs**. Time yourself.
+>
+> Then add metrics. Time yourself again. Then add distributed tracing. Time yourself again. **The three numbers are the entire business case for observability**, and they're numbers you can quote when someone asks you to justify the cost.
+
+#### 📖 Theory
+- **Metrics**: counters/gauges/histograms/summaries; **why you almost always want histograms** (you can't average percentiles — averaging p99s across instances is meaningless and everybody does it); cardinality as the thing that will blow up your bill; Prometheus data model, PromQL (`rate`, `histogram_quantile`, `increase`, recording rules); exemplars linking metrics → traces
+- **RED** (Rate, Errors, Duration) for services; **USE** (Utilization, Saturation, Errors) for resources; **the Four Golden Signals**
+- **Structured logging**: JSON, levels, sampling (**log sampling at high volume is mandatory** and most people learn this from the bill), correlation/trace IDs on every line, and never logging PII/secrets
+- **Distributed tracing**: spans, W3C `traceparent` propagation, head-based vs **tail-based sampling** (tail lets you keep 100% of the errors and slow traces, which is what you actually want), and the instrumentation cost
+- **OpenTelemetry** — the standard; the Collector as a pipeline; why vendor-neutral instrumentation matters
+- **Continuous profiling** as the fourth pillar (→ C.2)
+- **Alerting philosophy**: alert on **symptoms** (SLO burn), not causes; every page must be actionable and urgent; **multi-window multi-burn-rate** alerts; runbook links in every alert
+- **Cardinality and cost** — the practical reality that observability often costs more than the infrastructure it observes
+
+#### 📄 Sources
+- **"Observability Engineering"** — Majors, Fong-Jones, Miranda. The modern reference.
+- **Google SRE Workbook Ch. 5** — "Alerting on SLOs." Multi-burn-rate alerting explained properly.
+- **"Distributed Tracing at Uber"** / Jaeger papers; **Dapper** (Google, 2010) — the original.
+- **"Prometheus: Up & Running"** 2nd ed., and the PromQL docs.
+- **"Logs, metrics and traces: the three pillars is a lie"** — various critiques worth reading for balance (the argument that they're three views of the same events).
+
+#### 🛠 CORE PROJECT — `observability-stack` (Chronos)
+Full OTel instrumentation of Chronos: traces spanning the API → queue → worker → child workflow (**including a trace that spans a 30-day timer — this is genuinely hard and interesting**), RED dashboards, SLO definitions with error budgets, multi-burn-rate alerts, exemplars linking a latency spike to a specific trace, and continuous profiling.
+
+📈 **Exit Criteria**
+- [ ] Given an injected fault, **time-to-root-cause under 5 minutes** using only the dashboards — demonstrate it on video/GIF
+- [ ] An SLO with a real error budget and a burn-rate alert that fires correctly in a fault drill (and does *not* fire on a brief blip)
+- [ ] Trace context correctly propagated across an asynchronous queue boundary — screenshot the trace
+- [ ] A cardinality audit: your metric label sets, and the estimated series count, with a justification for each high-cardinality label
+
+---
+
+## ⚡ LEVEL E — Performance Engineering 🆕
+
+> **Why this level exists:** v2 said "benchmark it" a dozen times without ever teaching how to benchmark, how queueing works, or what to do when you're overloaded. Performance work is a distinct discipline, and the ability to reason about *queueing* rather than just *speed* is a hard senior signal.
+>
+> **⏱ Budget:** 60–90 hours · **Prereq:** C.2, 4.4
+
+---
+
+### E.1 — Queueing Theory for Engineers (the math that explains everything)
+
+> 🔥 **THE WALL — The Cliff**
+> Load test a service. Plot **offered load (x) vs p99 latency (y)** from 10% to 120% of capacity, in 5% increments.
+>
+> You will not see a gentle slope. You will see a **hockey stick**: latency is flat and boring up to ~70% utilization, starts bending at 80%, and goes vertical past 90%. **At 100% utilization, queueing latency is mathematically infinite.**
+>
+> This single graph explains: why you don't run servers at 90% CPU, why autoscaling thresholds are ~60-70%, why a small traffic increase caused a huge latency increase, and why "we just need one more server" is sometimes true and sometimes hopeless.
+
+#### 📖 Theory — you need surprisingly little math, and it pays constantly
+- **Little's Law: `L = λW`.** Concurrency = arrival rate × latency. Rearranged: if you know two, you know the third. **Use it constantly** — "we do 2000 RPS at 50ms, so we have ~100 requests in flight, so a pool of 20 connections is the bottleneck" is a 5-second calculation that most engineers never make.
+- **Utilization law and the queueing curve**: for M/M/1, `W = S / (1 - ρ)`. At ρ=0.5, latency is 2×service time. At ρ=0.9, it's 10×. At ρ=0.99, it's 100×. **Memorize this shape.**
+- **Why variance is the enemy**: with high service-time variance, the curve bends *much* earlier. This is why a single slow query type poisons an entire pool.
+- **Multi-server queues (M/M/c)** and why one queue with c servers beats c queues with one server each (the supermarket-checkout result) — this is the argument for shared thread pools and for **least-outstanding-requests** load balancing
+- **The Universal Scalability Law (USL)** — Gunther: throughput doesn't just plateau with added concurrency, it *decreases* past a point, because of contention (α) and crosstalk/coherency (β). **This is why adding workers made it slower**, and it's the most useful capacity model there is.
+- **Amdahl's and Gustafson's laws**
+- **Coordinated omission** (again — it's this important): a closed-loop load generator that waits for a response before sending the next request **cannot measure the latency of the requests it failed to send.** Your p99 is a lie. Use open-loop generators.
+- **Percentiles compose badly**: the p99 of a request that makes 10 backend calls is roughly the p90 of the backend, not the p99. Fan-out multiplies tail latency — this is the core of "The Tail at Scale."
+
+#### 📄 Sources
+- **"Systems Performance"** — Gregg, Ch. 2 (Methodologies) — the queueing sections.
+- **"Guerrilla Capacity Planning"** — Neil Gunther (USL).
+- **"How NOT to Measure Latency"** — Gil Tene. Again. Yes, again.
+- **"Performance Under Load"** — Netflix Tech Blog (adaptive concurrency limits).
+- **Brendan Gregg's "The USE Method"** and Marc Brooker's blog (`brooker.co.za`) — **Brooker's posts on queueing, retries, and load are among the best systems writing being published.**
+
+#### 🛠 PROJECT — `queue-theory-lab`
+Build a simulator implementing M/M/1, M/M/c, and USL, then **validate the model against a real load test of one of your services.** Predict p99 at 85% utilization from measurements taken at 30% and 50%; then run at 85% and see how close you were.
+
+📈 **Exit Criteria**
+- [ ] Predicted vs actual p99 within 30% — and an explanation of the gap (it's usually variance)
+- [ ] The hockey-stick chart for a real service, with the knee annotated
+- [ ] A USL fit showing your system's α and β, and the concurrency level at which throughput *peaks and starts falling*
+- [ ] Written: "the capacity model for this service and the utilization target I'd set, with justification"
+
+---
+
+### E.2 — Optimization in Practice
+
+> 🔥 **THE WALL** — Take one endpoint and make it **10x faster.** Not 20%. 10x. Document every step: the profile, the hypothesis, the change, the measurement, and the new bottleneck. Most 10x wins come from removing work, not from making work faster — and discovering that yourself is the point.
+
+#### 📖 The optimization hierarchy (in order of payoff)
+1. **Don't do it** — cache it, precompute it, delete the feature
+2. **Don't do it now** — make it async, return 202
+3. **Don't do it N times** — batch, coalesce, fix the N+1
+4. **Don't do it on the hot path** — move it to a background job
+5. **Do less of it** — better algorithm, better index, less data over the wire
+6. **Do it in parallel** — but mind the USL
+7. **Do it faster** — micro-optimize, and only now: allocation reduction, SIMD, better serialization
+
+#### 📖 Specific techniques
+- **Serialization is usually 20-40% of a JSON API's CPU** — measure it before you assume it's the database
+- **Compression tradeoffs**: gzip vs zstd vs lz4 vs brotli — the CPU-vs-bytes curve, and why zstd is usually the right default now
+- **Connection pooling and reuse everywhere** (HTTP keep-alive, DB pools, gRPC channels); pool sizing via Little's Law
+- **Batching**: the fundamental latency-vs-throughput dial; adaptive batching (batch until N items *or* T milliseconds)
+- **Zero-copy**: `sendfile`, `splice`, `io_uring` fixed buffers, `mmap` and its pitfalls
+- **Precomputation and materialized views**
+- **The database is usually the answer** — index, query shape, or round trips
+
+#### 🛠 PROJECT — `10x` (a written case study)
+Pick the slowest endpoint across all your roadmap projects. Get 10x. Write it up as a narrative with the flame graph at each stage.
+
+📈 **Exit:** ≥10x on p99 with the profile-driven story; **and an explicit statement of what you did NOT optimize and why** (knowing when to stop is the senior part).
+
+---
+
+### E.3 — Overload: backpressure, load shedding & admission control
+
+> 🔥 **THE WALL — Goodput Collapse**
+> Drive your service to 3x its capacity with an open-loop generator. Plot **offered load vs *successful* responses per second (goodput)**.
+>
+> A naive service's goodput doesn't plateau at capacity — **it collapses toward zero.** The server spends all its resources on requests that will time out before they're answered. Every one of those is wasted work. **This graph is the single most persuasive artifact in performance engineering** and almost nobody has produced one.
+>
+> Then implement, in order, and re-measure each time: (1) bounded queues, (2) **drop requests whose deadline has already passed** (the cheapest huge win — never work on a request nobody is waiting for), (3) LIFO queueing under overload (counterintuitive and correct: under overload, serving the newest request means at least *someone* gets a fresh answer), (4) adaptive concurrency limits (Little's-Law-based, TCP-Vegas-style), (5) priority-based shedding.
+
+#### 📖 Theory
+- **Backpressure vs load shedding vs buffering** — propagate the signal upstream, drop, or absorb. Buffering is the one that looks like it works and then kills you (**"queues are where latency goes to die"**).
+- **Admission control** — decide at the door, cheaply, before you've spent resources
+- **Deadline-aware processing** — check the deadline at each stage and abandon expired work
+- **LIFO vs FIFO under overload** — Facebook's finding; FIFO means everyone gets a timed-out response, LIFO means some people get a good one
+- **Adaptive concurrency limits** — Netflix's `concurrency-limits` (AIMD / gradient / Vegas-style): infer capacity from observed latency instead of configuring a fixed number. **This is the modern correct answer and it's a great thing to bring into a design interview.**
+- **Priority and QoS**: shed the cheapest/least-important traffic first; separate critical from bulk paths
+- **Brownout / graceful degradation**: turn off recommendations before you turn off checkout
+- **Cell-based architecture and shuffle sharding** as blast-radius control
+
+#### 📄 Sources
+- **"Using load shedding to avoid overload"** and **"Avoiding insurmountable queue backlogs"** — AWS Builders' Library.
+- **"Performance Under Load: Adaptive Concurrency Limits at Netflix"** — Netflix Tech Blog. Plus the `Netflix/concurrency-limits` source.
+- **Google SRE Book Ch. 21 (Handling Overload) and Ch. 22 (Addressing Cascading Failures).** Chapter 22 is possibly the most valuable chapter in the book.
+- **"Fail at Scale"** — Facebook, ACM Queue (the LIFO/adaptive-timeout findings).
+- **Marc Brooker on "Will circuit breakers solve my problems?"** — the honest critique.
+
+#### 🛠 FLAGSHIP PROJECT #6 — `overload` ⭐⭐ *(Instrument archetype, 9/10)*
+
+**Build the goodput lab, and publish the curves nobody publishes.**
+
+A service, an open-loop load generator, and six configurations: naive · bounded queue · + deadline-aware dropping · + LIFO under overload · + adaptive concurrency limit · + priority shedding.
+
+For each, plot: offered load (0.5x → 5x capacity) vs **goodput**, vs p99 of *successful* requests, vs wasted work (CPU spent on requests that timed out).
+
+📈 **Exit Criteria**
+- [ ] The collapse curve and the graceful curve on the same chart — this is the money graph
+- [ ] Quantified: "at 3x overload, the naive service delivers X% of capacity; the adaptive service delivers Y%"
+- [ ] Adaptive limiter tracks a *changing* backend capacity (make the backend slower mid-test and show the limiter adapting)
+- [ ] Wasted-work metric: CPU-seconds spent on requests that were never delivered
+- [ ] Written up. This is a post that gets shared, because everyone's system has this problem and almost nobody has measured it.
+
+---
+
+### E.X — 🎓 LEVEL 4 + E EXIT EXAM
+
+1. Your service runs at 70% CPU and p99 is 80ms. Traffic increases 20%. Estimate the new p99 and explain the model you used.
+2. A → B → C, each with 3 retries. C gets slow. Draw the load amplification and explain how to fix it in three ways.
+3. Explain coordinated omission and how you'd design a load test that avoids it.
+4. Design a health check for a service that depends on a database. What does it check, and what happens when the database is degraded but not down?
+5. You have 200ms of budget. A must call B (p99 50ms) and C (p99 120ms) and D (p99 30ms). Design the call pattern and the timeout for each.
+6. Why does adding more worker threads sometimes reduce throughput? Name the model.
+7. Your cache hit rate is 94%. You want 97%. What do you measure first, and what are the three most likely levers?
+8. Your service is at 3x capacity. Rank your options and justify the order.
+9. Why can't you average p99s across instances? What should you do instead?
+
+**Pass = 8/9.**
+
+---
+## ⚡ LEVEL 5 — Advanced Architecture
+
+> **⏱ Budget:** 90–130 hours · **Chronos milestone:** C8 · **Prereq:** Level 3, Level 4
+
+---
+
+### 5.1 — Service Decomposition (and the courage not to)
+
+> 🔥 **THE WALL — The Distributed Monolith**
+> Split a working monolith into 4 services *badly*, on purpose: split by technical layer instead of business capability, share one database between services, and make every user action require 3 synchronous hops.
+>
+> Now measure what you've done: p99 latency (worse), failure modes (any service down = everything down), deployment coupling (you must deploy them together), and debugging difficulty. **You've built a distributed monolith — all the costs of microservices, none of the benefits.**
+>
+> Then re-split correctly along bounded contexts with owned data and async integration, and measure again. **This exercise, and the ability to narrate it, is worth more in an architecture interview than any amount of microservices vocabulary.**
+
+#### 📖 Theory
+- **When to split, honestly**: team autonomy (Conway's law is the real driver — you're designing an org chart), independent scaling, independent deploy cadence, fault isolation, technology heterogeneity. **Not: "it's more modern."**
+- **When NOT to split**: <20 engineers, unclear domain boundaries, no operational maturity (if you can't do observability and CI/CD well, microservices will destroy you), transactional consistency requirements across the boundary
+- **The modular monolith** as the default. Extract when a module proves it needs independence. **Read Shopify's "Deconstructing the Monolith" and Amazon Prime Video's "Scaling up the Prime Video audio/video monitoring service and reducing costs by 90%" (they moved from microservices *back* to a monolith).** Being able to argue both directions is the senior signal.
+- **Data ownership**: one service owns each piece of data; **no shared databases, ever**; read models via events; **and the honest cost — you now have eventual consistency everywhere**
+- **Sync vs async integration**: request/response couples availability (your uptime becomes the product of your dependencies'); events decouple but make flows hard to trace
+- **Sagas**: choreography (events, decentralized, hard to see the whole flow) vs orchestration (a coordinator — which is exactly what Chronos is); **compensating transactions and why they're not rollbacks** (you can't un-send an email; you send an apology)
+- **API gateway vs BFF vs service mesh** — three different jobs, routinely conflated
+- **Anti-patterns**: distributed monolith, shared database, chatty interfaces, nano-services, the entity service ("UserService" that everything calls is a bottleneck and a coupling magnet)
+- **Strangler fig** — how you actually migrate a live system, incrementally, with a reversible step at every stage
+
+#### 📄 Sources
+- **"Building Microservices" 2nd ed.** — Sam Newman. The reference.
+- **"Monolith to Microservices"** — Sam Newman. More practically useful than the first book.
+- **"Software Architecture: The Hard Parts"** — Ford & Richards. Especially the data-decomposition chapters.
+- **"Fundamentals of Software Architecture"** — Ford & Richards. Read before Hard Parts.
+- **"The Majestic Monolith"** — DHH; **"Prime Video: reducing costs by 90%"** — AWS; **"Deconstructing the Monolith"** — Shopify. Read all three for the counterweight.
+- **"Pattern: Saga"** and the rest of `microservices.io` — Chris Richardson's pattern catalog.
+
+#### 🛠 CORE PROJECT — `decompose` (two-part)
+Part 1: the deliberately-bad split, measured. Part 2: the correct split, measured. Publish both, side by side, with the numbers.
+
+📈 **Exit Criteria**
+- [ ] p99, availability (computed from dependency availability), and deploy-coupling comparison between the two designs
+- [ ] A saga implemented **both ways** (choreography and orchestration) for the same flow, with an honest assessment of debuggability
+- [ ] A compensating transaction that handles the "compensation itself fails" case
+- [ ] A written ADR: "why we split here and not there"
+
+---
+
+### 5.2 — Event Sourcing & CQRS
+
+> 🔥 **THE WALL — The Unfixable Bug**
+> Build an event-sourced ledger. Deploy. Now discover a bug in an event handler that has been silently producing wrong projections for 6 months.
+>
+> Fix the handler and replay. **Your events are immutable — but your handler wasn't, and now you must reason about versioning, upcasting old event schemas, and what to do about the side effects those old events already caused** (emails were sent; you can't un-send them by replaying).
+>
+> This teaches: event schema versioning, upcasters, the distinction between rebuildable projections and irreversible side effects, and why event sourcing is powerful *and* a serious long-term commitment.
+
+#### 📖 Theory
+- Events as the source of truth; state as a fold over events; the append-only store
+- **Projections/read models**, rebuild from zero, and the operational reality of rebuilding a 500M-event projection
+- **Snapshots** — and why they're a cache, never a source of truth
+- **Event schema versioning**: upcasting, weak schema, and never changing a published event's meaning
+- **CQRS** — the read/write split; **and the honest note that CQRS does not require event sourcing and event sourcing does not require CQRS**; they're independently useful
+- **Eventual consistency in the UI** — the read-your-own-writes problem after a command, and the three standard fixes
+- **When event sourcing is right**: audit is a requirement (finance, healthcare), temporal queries ("what did we believe on March 3rd?"), complex domains with many derived views. **When it's wrong: CRUD apps, small teams, unclear domains.**
+
+#### 📄 Sources
+- **"Event Sourcing"** and **"CQRS"** — Martin Fowler.
+- **Greg Young's** talks and the "CQRS Documents."
+- **"Versioning in an Event Sourced System"** — Greg Young (free book). The part everyone skips and then regrets.
+- **"Building a Secure Money Transfer Service"** and the ledger posts — Monzo Engineering.
+- **"Immutability Changes Everything"** — Pat Helland (CACM). Read anything by Pat Helland; also **"Life Beyond Distributed Transactions"** and **"Data on the Outside vs Data on the Inside"** — all three are short, deep, and quotable.
+
+#### 🛠 CORE PROJECT — `ledger` ⭐ *(8/10)*
+An event-sourced **double-entry** ledger — because double-entry gives you an invariant a machine can check: **every transaction's debits equal its credits, and the sum of all account balances is always zero.**
+
+Requirements: command handlers with optimistic concurrency on the aggregate version · projections (balances, statements, a daily-close report) · snapshotting · schema versioning with at least one upcast · a full rebuild-from-zero path · **an invariant checker that runs continuously** · and a chaos test doing 10,000 concurrent transfers across 100 accounts with random crashes.
+
+📈 **Exit Criteria**
+- [ ] After 10,000 concurrent transfers with random process kills, **the ledger sums to zero to the cent** — automated assertion
+- [ ] Full projection rebuild from 1M events, with the measured wall-clock time
+- [ ] An event schema change handled by an upcaster, with old events still replaying correctly
+- [ ] Time-travel query: "what was account X's balance at timestamp T" — answered from events alone
+- [ ] A deliberately wrong handler, fixed, and the projection rebuilt — with a written analysis of the already-emitted side effects
+
+---
+
+### 5.3 — Multi-Tenancy & Platform Concerns 🆕
+
+> **v2 had nothing on multi-tenancy, and it's the defining architectural concern of essentially every SaaS backend job.**
+
+> 🔥 **THE WALL — The Noisy Neighbor**
+> Build a multi-tenant API. Now have one tenant send 50,000 requests/second and one submit a query that scans 200M rows. **Watch every other tenant's latency go to hell.** Then implement isolation and measure how much you recovered.
+
+#### 📖 Theory
+- **Isolation models, from cheap to expensive**: shared everything (row-level `tenant_id`) → shared schema, separate row-level security → schema-per-tenant → database-per-tenant → cluster-per-tenant (**"silo"**). Cost, blast radius, and per-tenant customization tradeoffs at each level.
+- **Row-Level Security (Postgres RLS)** — enforcement at the database rather than trusting every query. **The `tenant_id` you forgot in one `WHERE` clause is a data breach**, and RLS is the structural fix.
+- **Noisy-neighbor control**: per-tenant rate limits, quotas, concurrency caps, query timeouts, separate worker pools, and **shuffle sharding** for blast-radius reduction
+- **Per-tenant cost accounting** — attributing compute, storage, and egress to tenants. **The bridge between engineering and the business, and a strong senior signal.**
+- **Cell-based architecture** — partition the whole stack into cells; a failure affects one cell. AWS's model. Read the Builders' Library article.
+- **Tenant lifecycle**: onboarding, data export, and **deletion (which GDPR makes a hard requirement, and which is genuinely hard when data is spread across 12 systems and a data lake)**
+- **Per-tenant migrations** — you now have 5,000 databases to migrate; how?
+
+#### 📄 Sources
+- **AWS SaaS Factory** whitepapers on multi-tenant patterns; **"Reducing the Scope of Impact with Cell-based Architecture"** (AWS).
+- **Postgres RLS docs** + Citus/Crunchy multi-tenant guides.
+- **"Multi-tenant data isolation"** — the Neon/PlanetScale/Supabase engineering blogs are all good here.
+
+#### 🛠 CHRONOS C8 — make Chronos multi-tenant
+Per-tenant queues, quotas, concurrency limits, RLS-enforced data isolation, per-tenant cost accounting (workflow-seconds, storage, API calls), and a tenant-deletion path that provably removes everything.
+
+📈 **Exit Criteria**
+- [ ] Noisy-neighbor test: one tenant at 100x normal load; **other tenants' p99 degrades by <10%** — measured
+- [ ] A deliberate missing-`tenant_id` query is blocked by RLS — with the test proving it
+- [ ] A cost report per tenant that reconciles to total infrastructure cost within 5%
+- [ ] Tenant deletion verified by a scan proving zero residual rows across all stores
+
+---
+
+### 5.4 — Service Mesh, Gateways & Zero Trust
+
+Keep v2's content and add the honest framing:
+
+- **What a mesh actually gives you**: mTLS everywhere without app changes, uniform retries/timeouts/circuit-breaking, traffic splitting for canaries, and golden signals for free
+- **What it costs**: a sidecar per pod (memory, CPU, +1-3ms per hop), a control plane to operate, and a genuinely steep debugging story. **Ambient/sidecar-less modes exist now precisely because of this.**
+- **When you don't need one**: <20 services, or when a good client library gets you 80% of the value
+- **Gateway API** replacing Ingress; **xDS** as the universal config protocol
+- **Zero trust**: authenticate every request, no network-perimeter trust, **SPIFFE/SPIRE for workload identity** (the standard worth knowing by name)
+
+#### 🛠 CORE PROJECT
+Chronos on Kubernetes with Istio/Linkerd: automatic mTLS, a canary rollout with traffic split and automated abort on error-rate, and a distributed trace across the mesh.
+
+📈 **Exit:** measure the mesh's latency tax per hop and its memory cost per pod, and write the honest verdict on whether it was worth it for a system of your size.
+
+---
+
+## ⚡ LEVEL F — Cloud & Data Platform 🆕
+
+> **Why this level exists:** v2 mentioned S3 twice and never covered cloud primitives, batch processing, columnar formats, or data warehousing. Most backend roles require at least one cloud deeply, and data-adjacent work is now a majority of backend work.
+>
+> **⏱ Budget:** 70–100 hours
+
+---
+
+### F.1 — Cloud Primitives (pick AWS unless you have a reason not to)
+
+> 🔥 **THE WALL — The $4,000 Weekend**
+> Build a small system on real cloud infrastructure with a budget alert at $20. Then deliberately create three cost disasters in a sandbox: a NAT gateway processing 500GB of traffic, cross-AZ data transfer in a chatty service, and an un-lifecycled S3 bucket with versioning. **Understanding cloud pricing as an architectural constraint separates senior engineers from everyone else** — most cloud bills are architecture problems wearing a finance costume.
+
+#### 📖 What to actually know
+- **Compute**: EC2 instance families and when each matters, spot/preemptible economics, Lambda (cold starts, concurrency limits, the 15-min ceiling, when serverless is wrong), Fargate/Cloud Run, ECS vs EKS
+- **Storage**: **S3 in depth** — the consistency model (strong read-after-write since 2020, and know what it was before and why that mattered), storage classes, lifecycle policies, multipart upload, presigned URLs, S3 Select, event notifications, **and the request-rate scaling behavior by key prefix**. EBS vs EFS vs instance store. **Object storage is the foundation of modern data infrastructure — know it cold.**
+- **Networking**: VPC, subnets, route tables, security groups vs NACLs, NAT gateway (and its cost), VPC endpoints, PrivateLink, ALB/NLB, Route 53, CloudFront
+- **Managed data**: RDS/Aurora (and how Aurora's storage disaggregation works — read the paper), DynamoDB, ElastiCache, MSK, SQS/SNS/EventBridge, Kinesis
+- **IAM**: policies, roles, assume-role, instance profiles, **OIDC federation for CI (no long-lived keys)**, least privilege, and the confused-deputy problem
+- **Cost engineering**: on-demand vs reserved vs savings plans vs spot; **data transfer as the hidden killer** (cross-AZ, NAT, egress); right-sizing; tagging for attribution; FinOps basics
+- **Regions, AZs, and what a "multi-AZ" guarantee actually promises**
+
+#### 📄 Sources
+- **AWS Builders' Library** (again — it's the best thing AWS publishes).
+- **"Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases"** (SIGMOD 2017).
+- **"AWS Well-Architected Framework"** — skim all six pillars once; it's how cloud architects are expected to think.
+- **"The Cloud Resume Challenge"** / **"How I passed the AWS SA-Pro"** style guides only if you want the cert. **The cert is worth little compared to a built system — but it does get past some resume filters.**
+
+#### 🛠 CORE PROJECT — deploy Chronos to real cloud, with a cost model
+Terraform-defined: VPC, EKS or ECS, RDS, ElastiCache, S3, ALB, and an OIDC-federated CI pipeline. Then produce **a cost model**: cost per 1,000 workflow executions, broken down by component, with the three biggest levers identified.
+
+📈 **Exit Criteria**
+- [ ] `terraform apply` from zero to a working system, and `terraform destroy` leaving nothing behind
+- [ ] A unit-economics document: "$X per 1,000 workflows, of which Y% is compute, Z% is data transfer"
+- [ ] Three cost optimizations implemented with measured savings
+- [ ] Zero long-lived cloud credentials anywhere in the repo or CI
+
+---
+
+### F.2 — Batch Processing & Distributed Compute
+
+> 🔥 **THE WALL — The Job That Takes 14 Hours**
+> Write a naive aggregation over 100GB of data on a single machine. It takes hours or OOMs. Then: partition it, process in parallel, and discover **data skew** — one partition holds 60% of the data because you keyed on something with a power-law distribution, and one worker runs for hours while 63 idle.
+>
+> Skew is *the* defining problem of distributed data processing, and salting/repartitioning is the fix nobody teaches until you've hit it.
+
+#### 📖 Theory
+- **MapReduce** and its descendants; why the shuffle is the expensive part
+- **Spark**: RDD/DataFrame, lazy evaluation and the DAG, narrow vs wide transformations, the shuffle, partitioning strategies, broadcast joins vs sort-merge joins, **skew handling (salting, AQE)**, caching/persistence, and reading a Spark UI
+- **Columnar formats**: **Parquet** (row groups, column chunks, pages, dictionary/RLE encoding, min/max statistics for predicate pushdown), ORC, Arrow as the in-memory standard. **Understanding why Parquet + predicate pushdown gives a 100x scan speedup is a genuinely useful mental model.**
+- **Table formats**: Iceberg, Delta Lake, Hudi — ACID on object storage, snapshot isolation, time travel, schema evolution, compaction. **Iceberg is where the industry has converged; know its manifest/metadata design.**
+- **Orchestration**: Airflow/Dagster/Prefect — DAGs, idempotent tasks, backfills, and the golden rule: **every batch job must be idempotent and re-runnable for any date**
+- **Batch vs streaming**, the Lambda and Kappa architectures, and the modern "just use one engine" position
+
+#### 📄 Sources
+- **DDIA Chapter 10.**
+- **MapReduce (2004)**, **GFS (2003)**, **Spark/RDD (NSDI 2012)**, **Dremel (2010)** papers.
+- **"Spark: The Definitive Guide"** or **"Learning Spark" 2nd ed.**
+- **"Designing Data-Intensive Applications" Ch. 10-12** + **"Fundamentals of Data Engineering"** — Reis & Housley (the best modern overview of the data platform landscape).
+- **Apache Iceberg spec** — read the table spec; it's clear and short.
+
+#### 🛠 CORE PROJECT — `skew-lab`
+Process a 50–100GB dataset (NYC taxi, GitHub Archive, Common Crawl index) with Spark. Deliberately create a skewed join, diagnose it in the Spark UI, and fix it three ways (salting, broadcast join, AQE). Then convert the source from CSV/JSON to Parquet and measure the scan-time and cost difference.
+
+📈 **Exit Criteria**
+- [ ] Before/after skew fix: wall clock and the task-duration distribution chart from the Spark UI
+- [ ] CSV vs Parquet: bytes scanned, wall clock, and cost, for the same query — expect 10–100x
+- [ ] Predicate/projection pushdown demonstrated with the bytes-read metric
+- [ ] An Airflow/Dagster DAG that is provably idempotent — run the same day twice and show identical output
+
+---
+
+### F.3 — The Analytics Side: OLAP & Warehouses
+
+- **OLTP vs OLAP** — row store vs column store, and why you should never run analytics on your production primary
+- **Warehouses** (Snowflake, BigQuery, Redshift) vs **lakehouses** (Databricks, Iceberg + Trino) vs **real-time OLAP** (ClickHouse, Druid, Pinot). **ClickHouse in particular is worth hands-on time — it's fast, free, and increasingly the default for real-time analytics.**
+- **Vectorized execution and late materialization** — the reasons columnar engines are 100x faster
+- **Star schema, dimensional modeling, slowly changing dimensions**
+- **Serving analytics to users**: pre-aggregation, materialized views, approximate algorithms (HyperLogLog, t-digest for quantiles, count-min sketch) — **probabilistic data structures are a great interview topic and a genuinely useful tool**
+
+#### 🛠 PROJECT — `realtime-analytics`
+Build a user-facing analytics dashboard: events → Kafka → ClickHouse (with materialized views for pre-aggregation) → a query API with sub-200ms p99 over 1B rows.
+
+📈 **Exit:** p99 < 200ms for a 1B-row aggregation; a comparison against the same query on Postgres (which will be minutes or impossible); and HyperLogLog-based unique counts with measured error vs exact.
+
+---
+
+### F.4 — Data Contracts, Quality & Governance
+
+- **Schema registry** (Confluent/Apicurio), compatibility modes (backward, forward, full, transitive) — the CI gate that prevents a producer from breaking every consumer
+- **Data contracts** — the modern practice: producers commit to a schema and SLA, enforced in CI
+- **Data quality**: Great Expectations / dbt tests / Soda — freshness, volume, distribution, and null checks as first-class monitored assertions
+- **Lineage** (OpenLineage, DataHub) — "which dashboards break if I change this column?"
+- **PII handling in the data platform**: classification, tokenization, deletion propagation (→ Level H)
+
+---
+
+## ⚡ LEVEL G — AI/ML Systems Infrastructure 🆕
+
+> **Why this level exists:** it is 2026. A large and growing share of backend work is serving models, building retrieval systems, and operating GPU-bound infrastructure. v2 had zero coverage. **This is currently the highest-leverage differentiator available to a backend engineer** — the demand vastly exceeds the supply of people who understand both distributed systems and inference economics.
+>
+> **⏱ Budget:** 60–90 hours · **Prereq:** Level 4, E.3
+>
+> **Note:** this is *systems* work, not ML research. You do not need to train models or know backpropagation. You need to know how to serve, scale, cache, batch, evaluate, and pay for them.
+
+---
+
+### G.1 — Inference Serving & Token Economics
+
+> 🔥 **THE WALL — The $18,000 Bill**
+> Build a naive LLM-backed endpoint: user request → API call → response. Now load test it, and measure four things nobody measures: **time to first token (TTFT)**, **inter-token latency**, **tokens per second per user under concurrency**, and **cost per request**.
+>
+> Then discover: your p99 TTFT is 8 seconds under load; you're paying for the same prompt prefix 10,000 times a day; one user's 100k-token request blocks everyone; and a retry loop on a timeout doubles your bill while the original request is still running.
+
+#### 📖 Theory
+- **The inference request lifecycle**: prefill (compute-bound, parallel over the prompt) vs decode (memory-bandwidth-bound, sequential per token). **This asymmetry explains nearly every performance property of LLM serving.**
+- **Latency metrics that matter**: TTFT, TPOT/ITL, end-to-end, and why the usual p99-of-total-latency is the wrong metric for a streaming response
+- **Continuous/in-flight batching** — the single biggest throughput win (vLLM, TensorRT-LLM); why static batching wastes the GPU
+- **KV cache**: what it is, why it dominates GPU memory, PagedAttention, and **prefix caching** (shared system prompts cached across requests — often a 50%+ cost reduction for free)
+- **Streaming**: SSE for token streaming, backpressure on a slow client, and cancellation (**a cancelled request must actually stop generating, or you pay for tokens nobody reads**)
+- **Token-aware rate limiting** — requests-per-minute is the wrong unit; you need TPM and RPM, and you must *estimate* the cost before admitting the request
+- **Semantic caching** — embed the query, look up near-duplicates, and the accuracy/staleness tradeoff
+- **Routing and fallback** — small model first, escalate on difficulty; multi-provider failover; and the fact that **providers have outages and rate limits, so your reliability engineering from Level 4 applies directly**
+- **Cost accounting** — per-request, per-tenant, per-feature, with token counts attributed
+- **Self-hosted vs API**: GPU economics, utilization, cold starts on GPU nodes, quantization (INT8/FP8/AWQ/GPTQ) and its quality tradeoff, speculative decoding
+
+#### 📄 Sources
+- **vLLM's paper: "Efficient Memory Management for Large Language Model Serving with PagedAttention"** (SOSP 2023). Read it — it's the clearest explanation of why inference serving is hard.
+- **"AI Engineering"** — Chip Huyen (2025). The best systems-oriented book on building with models.
+- **"Designing Machine Learning Systems"** — Chip Huyen. For the classical-ML side.
+- **Anthropic and OpenAI API docs** on prompt caching, batching, and streaming — the actual mechanics you'll build against.
+- **vLLM / SGLang / TensorRT-LLM docs** for self-hosted serving.
+- **"LLM Inference Performance Engineering: Best Practices"** — Databricks/MosaicML.
+
+#### 🛠 FLAGSHIP PROJECT #8 — `llmgw` ⭐⭐ *(9/10)*
+
+**An LLM inference gateway** — the piece every company building with models needs and few have done well.
+
+Features: multi-provider routing with automatic failover · **token-aware rate limiting** (TPM + RPM per tenant, with pre-request cost estimation) · **semantic caching** (embedding-based near-duplicate detection with a configurable similarity threshold) · exact prefix caching · request batching where the provider supports it · SSE streaming pass-through **with correct cancellation propagation** · per-tenant cost accounting and budgets with hard cutoffs · retries with jitter that **do not** double-bill · full observability (TTFT, ITL, tokens/sec, cost per request, cache hit rate) · and a fallback chain (big model → small model → cached → graceful error).
+
+📈 **Exit Criteria**
+- [ ] **Measured cost reduction** from semantic + prefix caching on a realistic workload — target ≥40%, and report the cache hit rate and any quality impact
+- [ ] TTFT p99 under load, with and without batching/queueing — charted
+- [ ] Client disconnect **provably** stops generation (show the provider-side token count for a cancelled request)
+- [ ] A tenant hitting their budget is cut off cleanly, with a correct error, and no over-spend
+- [ ] Chaos test: primary provider returns 429s and 500s; the gateway degrades to the fallback chain with **zero user-visible errors**
+- [ ] A cost dashboard by tenant and by feature
+
+> **Why this is a 9/10 in 2026:** it sits exactly at the intersection of "classic backend engineering" (rate limiting, caching, failover, streaming, multi-tenancy, cost) and "the thing every company is currently building." It demonstrates that your Level 4 skills transfer to the newest problem domain, which is precisely what hiring managers are trying to determine.
+
+---
+
+### G.2 — Vector Search & Retrieval Infrastructure
+
+> 🔥 **THE WALL — Recall You Can't See**
+> Build semantic search with an approximate nearest-neighbor index. It returns results. They look fine. **But you have no idea what you're missing** — ANN indexes trade recall for speed, and the failure is silent.
+>
+> Compute ground truth with brute-force exact search on 100k vectors, then measure your index's **recall@10**. It may well be 0.75 when you assumed 1.0. Now tune it and plot the **recall-vs-latency curve** — the fundamental tradeoff of the entire field.
+
+#### 📖 Theory
+- **Embeddings** as opaque vectors; cosine vs dot vs L2, and normalization
+- **The exact-search cost**: brute force is O(N·d) — fine at 100k vectors, impossible at 100M
+- **ANN algorithms**: **HNSW** (hierarchical navigable small world graphs — `M`, `efConstruction`, `efSearch` and what each controls), IVF-PQ (inverted file + product quantization), ScaNN, DiskANN for billion-scale on SSD
+- **Quantization** — scalar, product, and binary — the memory/recall tradeoff
+- **The metrics that matter**: recall@k, QPS, p99 latency, index build time, memory per vector. **A vector DB benchmark without recall is meaningless, and most published ones are.**
+- **Filtering + ANN (the hard part)**: pre-filter destroys the graph's connectivity, post-filter destroys recall. This is where most real systems break.
+- **Hybrid search**: BM25 + vector, fused with Reciprocal Rank Fusion; **and the fact that keyword search often beats pure vector search for real queries**
+- **Reranking** — cross-encoders as a second stage
+- **Where to put it**: pgvector (usually the right first answer — one fewer system to operate), Qdrant/Weaviate/Milvus, Elasticsearch/OpenSearch kNN, or a managed service
+- **Incremental indexing, deletes, and index rebuilds** — the operational reality nobody discusses
+
+#### 📄 Sources
+- **"Efficient and robust approximate nearest neighbor search using HNSW graphs"** — Malkov & Yashunin. The HNSW paper; readable.
+- **`ann-benchmarks.com`** — the standard benchmark suite and its methodology.
+- **pgvector's README and the HNSW implementation** — short enough to read entirely.
+- **"Product Quantization for Nearest Neighbor Search"** — Jégou et al.
+
+#### 🛠 CORE PROJECT — `hnsw-from-scratch` *(Reimplementation, 8/10)*
+Implement HNSW yourself (~400 lines), index 1M vectors, and produce the **recall-vs-latency curve** against exact brute-force ground truth. Then benchmark against pgvector and one dedicated vector DB on identical data.
+
+📈 **Exit Criteria**
+- [ ] recall@10 vs QPS curve for your implementation at several `efSearch` values
+- [ ] Your implementation within 3x of pgvector's QPS at equal recall (or a written analysis of why not)
+- [ ] Filtered search implemented, with the recall degradation measured — **this is the number that matters in production and nobody publishes it**
+- [ ] Memory per vector measured for each quantization level, with the recall cost
+
+---
+
+### G.3 — RAG & Agent Infrastructure (as a systems problem)
+
+- **The ingestion pipeline** as a real data pipeline: chunking strategies and their measurable effect on retrieval quality, incremental re-indexing, deduplication, **and document-level access control that must be enforced at retrieval time** (a retrieval system that ignores permissions is a data breach with extra steps)
+- **Evaluation as engineering**: a golden dataset, retrieval metrics (recall@k, MRR, nDCG), end-to-end metrics, LLM-as-judge and its biases, and **regression testing for prompt/model changes in CI**. Shipping a prompt change without an eval suite is shipping untested code.
+- **Agent execution as a distributed systems problem**: tool calls are RPCs (they need timeouts, retries, idempotency, and circuit breakers), multi-step agents need **durable execution** (this is literally Chronos — connect them), loops need budget caps, and every tool call is an authorization decision
+- **Guardrails**: input validation, prompt-injection defense as an *architectural* problem (untrusted content must never gain the authority of an instruction; capability-limiting beats filtering), output validation, PII redaction
+- **Observability for nondeterministic systems**: tracing multi-step chains, capturing inputs/outputs for replay, and versioning prompts as artifacts
+
+#### 🛠 PROJECT — connect Chronos to G.3
+Run a multi-step agent workflow **on Chronos**: each tool call is a durable activity with retries and timeouts; the workflow survives a worker crash mid-agent-run and resumes exactly where it left off; and a budget cap kills runaway loops.
+
+📈 **Exit:** kill the worker mid-agent-run and show it resumes without repeating completed tool calls (this is exactly the durable-execution value proposition, demonstrated concretely) · a golden eval suite running in CI · and a per-run cost cap that provably holds.
+
+---
+
+## ⚡ LEVEL H — Security, Privacy & Compliance
+
+> **⏱ Budget:** 50–70 hours · **Prereq:** Level 1, Level 5
+
+---
+
+### H.1 — AuthN & AuthZ, Properly
+
+> 🔥 **THE WALL — Break Your Own Auth**
+> Build a JWT-based auth system, then attack it yourself:
+> 1. Set `alg: none` and see if it's accepted (the classic)
+> 2. Sign with the public key using HMAC when the server expects RS256 (algorithm confusion)
+> 3. Log out, then keep using the old token. **It works — for up to 15 minutes.** JWTs cannot be revoked, and this is the single most important thing to understand about them.
+> 4. Steal a refresh token and use it twice — does the system detect the theft? (It should: **refresh token rotation with reuse detection** is the correct design.)
+> 5. **IDOR**: change the ID in a URL and read another user's data. This remains the #1 real-world API vulnerability.
+
+#### 📖 Theory
+- **Passwords**: Argon2id (or bcrypt/scrypt), correct parameters, why "salting" is table stakes and peppering is optional, timing-safe comparison, breach-list checks
+- **Sessions vs JWTs, honestly**: sessions are revocable, simple, and correct for most apps. JWTs trade revocability for statelessness. **Short access token + rotating refresh token + a revocation list is the standard compromise.** Read "Stop using JWT for sessions" and be able to argue both sides.
+- **JWT security**: always pin the algorithm server-side, validate `iss`/`aud`/`exp`/`nbf`, key rotation via JWKS, never put secrets in the payload
+- **OAuth 2.0 / OIDC**: authorization code + **PKCE** (the only correct flow for public clients now), client credentials for service-to-service, why implicit and password grants are deprecated, and the difference between **authentication (OIDC) and authorization (OAuth)** — routinely confused
+- **Authorization models**: RBAC → ABAC → **ReBAC** (Google Zanzibar — read the paper; it's how Google Docs sharing works and it's the model everyone is copying); policy engines (OPA/Cedar); and **where authorization is enforced** (never only in the UI, never only in the gateway)
+- **Service-to-service identity**: mTLS, SPIFFE, workload identity federation
+
+#### 📄 Sources
+- **"OAuth 2.0 Simplified"** — Aaron Parecki; **RFC 9700 (OAuth 2.0 Security Best Current Practice)**; **RFC 8725 (JWT BCP)**.
+- **"Zanzibar: Google's Consistent, Global Authorization System"** (USENIX ATC 2019). **One of the most practically influential papers of the last decade.**
+- **OWASP API Security Top 10** and the **OWASP Cheat Sheet Series** — the single most useful free security resource for backend engineers.
+
+#### 🛠 CORE PROJECT — `authlab` *(Adversary archetype, 8/10)*
+Build the auth service (Argon2id, short-lived access tokens, rotating refresh tokens **with reuse detection**, revocation via a Redis denylist, OIDC login, MFA/TOTP, per-account rate limiting on auth endpoints, secure cookie flags) — **and the attack suite that tries all five wall attacks plus token replay, session fixation, and IDOR across every endpoint.**
+
+📈 **Exit Criteria**
+- [ ] All attacks in the suite fail against the final version — and **each one succeeds against a "vulnerable" branch you keep for comparison**, with the diff showing the fix
+- [ ] Refresh-token reuse detection revokes the entire token family and logs a security event
+- [ ] An automated IDOR scanner that walks every endpoint with two users' credentials and asserts isolation
+- [ ] A written threat model for the service (STRIDE)
+
+---
+
+### H.2 — Application & Infrastructure Security
+
+- **The OWASP Top 10 and API Top 10 — exploit each one in your own code**, then fix it. Reading about SQL injection teaches nothing; extracting your own database with `' OR 1=1--` teaches permanently.
+- **Injection**: SQL (and why parameterized queries, not escaping), NoSQL, command, template, LDAP
+- **SSRF** — the one that gets cloud services owned (metadata endpoint `169.254.169.254`, IMDSv2 as the fix); **read the Capital One breach post-mortem**
+- **Deserialization, XXE, path traversal, mass assignment**
+- **Secrets management**: Vault/cloud secret managers, dynamic short-lived credentials, secret scanning in CI (gitleaks), and **rotation as a practiced procedure, not a policy document**
+- **Supply chain**: dependency pinning and lockfiles, SBOM, `cosign` signing, SLSA levels, provenance. **Read the `event-stream`, SolarWinds, and `xz-utils` incidents** — the last one especially; it's the most sophisticated supply-chain attack ever publicly caught.
+- **Crypto for engineers**: what to use (libsodium, AES-GCM, TLS 1.3, Argon2), what never to do (roll your own, ECB, static IVs, `==` on secrets), envelope encryption with a KMS, encryption at rest vs in transit vs in use
+- **Threat modeling**: STRIDE, data-flow diagrams, trust boundaries. **Do one for Chronos.**
+- **Rate limiting and abuse prevention as security controls** (credential stuffing, enumeration, scraping)
+
+#### 🛠 PROJECT — `vulnlab`
+Take one of your own services, introduce 10 real vulnerabilities on a branch, write working exploits for each, then fix each and write the detection (a test, a lint rule, a WAF rule, or a monitoring alert).
+
+📈 **Exit:** 10 working exploits + 10 fixes + 10 detections + a STRIDE threat model. **This is also excellent interview material** — "walk me through a security issue you found" becomes a strong answer.
+
+---
+
+### H.3 — Privacy, Data Protection & Compliance
+
+> **v2 had nothing here, and it's a routine part of senior backend work at any company with EU or California users.**
+
+- **PII classification and data mapping** — you cannot protect what you haven't inventoried
+- **GDPR's engineering consequences**: lawful basis, data minimization, **the right to erasure (Article 17) — which is genuinely hard when data is in Postgres + Kafka + S3 + a warehouse + backups + a vendor's system**, the right to access/portability, breach notification within 72 hours
+- **Deletion strategies**: hard delete, soft delete + purge job, **crypto-shredding (encrypt each user's data with a per-user key; delete the key)** — the elegant answer for immutable stores and backups, and a great design-interview answer
+- **Data residency** and regional isolation
+- **Pseudonymization vs anonymization vs tokenization** — and why "we removed the names" is not anonymization
+- **Audit logging**: what, immutability, retention, and the fact that audit logs themselves contain PII
+- **SOC 2 / ISO 27001 / PCI-DSS / HIPAA** — what they actually require of an engineer (access control, change management, logging, encryption, vendor review). You don't need to be an expert; you need to not be surprised.
+
+#### 🛠 PROJECT — `gdpr-ready`
+Implement, in Chronos or the ledger: a data inventory, per-user crypto-shredding, a working "export all my data" endpoint, a deletion pipeline that propagates across Postgres + object storage + the event log + the analytics store, and an immutable audit log.
+
+📈 **Exit:** a deletion request provably removes or renders-unreadable every trace across all five stores, verified by an automated scan · and a written data-flow map with trust boundaries.
+
+---
+## ⚡ LEVEL 6 — System Design Mastery
+
+> **⏱ Budget:** 80–120 hours · **Chronos milestone:** C9 · **Prereq:** everything
+
+---
+
+### 6.1 — The Framework (and what interviewers are actually scoring)
+
+#### The 45-minute structure
+
+| Minutes | Phase | What you must do |
+|---|---|---|
+| 0–5 | **Requirements** | Functional (what it does) + **non-functional (scale, latency, consistency, availability)**. Write them on the board. Ask: how many users? read/write ratio? latency target? can we lose data? |
+| 5–10 | **Estimation** | QPS, storage/year, bandwidth, memory for cache. **Round aggressively.** Show the arithmetic. |
+| 10–15 | **API + data model** | The 3-5 endpoints that matter. The core entities. This anchors everything after. |
+| 15–25 | **High-level design** | Boxes and arrows. Data flow for the primary read path and the primary write path. **State your choices as choices.** |
+| 25–40 | **Deep dive** | The interviewer picks. Go deep. This is where the grade is decided. |
+| 40–45 | **Failure modes + scale** | What breaks first? What happens when a component dies? What at 10x? What do you monitor? |
+
+#### The rubric interviewers are actually filling in
+
+| Signal | Weak (L3) | Strong (L5+) |
+|---|---|---|
+| **Requirements** | Starts drawing immediately | Spends 5 min narrowing scope; states what's out of scope |
+| **Estimation** | Skips it or hand-waves | "100M DAU × 10 posts read = 1B reads/day ≈ 12k QPS average, 40k peak" |
+| **Tradeoffs** | "I'll use Cassandra" | "I'll use Cassandra because writes dominate and I need multi-DC — but I'm giving up ad-hoc queries and I'll need a separate store for analytics" |
+| **Failure modes** | Assumes everything works | "When the cache tier restarts, origin load goes 20x — so I need staged restarts and request coalescing" |
+| **Numbers** | Vague | Quotes real latencies and capacities from measurements they've taken |
+| **Depth** | Same altitude throughout | Zooms from architecture to a specific index and back |
+| **Communication** | Silent or rambling | Narrates thinking; checks in; adjusts on hints |
+
+> **The single highest-leverage habit:** say the words *"I'm optimizing for X, which costs me Y."* Every time. It is the phrase that separates senior candidates from everyone else, and it's trainable.
+
+#### Estimation numbers to memorize
+
+```
+1 machine:      ~10-50k QPS simple requests · ~64-256GB RAM · ~10-40 cores
+Postgres:       ~5-50k simple QPS/instance · ~1-5k writes/s w/ fsync (higher w/ group commit)
+Redis:          ~100k-1M ops/s single instance (single-threaded!)
+Kafka:          ~100k-1M msg/s per broker (small messages, batched)
+Disk:           NVMe ~500k-1M IOPS · ~3-7 GB/s · HDD ~100-200 IOPS
+Network:        10 Gbps NIC = 1.25 GB/s · same-AZ RTT ~0.3-0.5ms · cross-region 30-150ms
+Storage:        1 char ≈ 1 byte · UUID = 16 bytes · timestamp = 8 · a "row" ≈ 100-1000 bytes
+Time:           1 day = 86,400s ≈ 10^5 · 1 month ≈ 2.6M s · 1 year ≈ 31.5M s
+Handy:          1M req/day ≈ 12 QPS · 1B req/day ≈ 12k QPS
+```
+
+---
+
+### 6.2 — The 20 Canonical Designs (build the doc, not just the whiteboard)
+
+For each: produce a **written design doc** (§J.1's template) with requirements, estimates, the diagram, the data model, **three alternatives you rejected with reasons**, failure modes, and the scaling story. Twenty of these is a portfolio in itself.
+
+**Tier 1 — the fundamentals (do all 8)**
+1. **URL shortener** — hashing vs counters, the base62 encoding, cache design, analytics fan-out, custom aliases and the collision problem
+2. **Rate limiter as a service** — distributed counters, the accuracy/latency tradeoff, multi-tenancy
+3. **Distributed cache (Redis-like)** — consistent hashing, replication, eviction, cluster resharding
+4. **News feed / timeline** — fan-out on write vs read, **the celebrity problem and the hybrid solution**, ranking, pagination with a moving feed
+5. **Chat / messaging** — delivery guarantees, ordering, presence, read receipts, offline delivery, group scaling, end-to-end encryption implications
+6. **Notification system** — multi-channel, priority, deduplication, rate limiting per user, delivery tracking, quiet hours, and the "don't notify 10M people at once" problem
+7. **Web crawler** — frontier management, politeness, dedup at scale (Bloom filters), distributed coordination, trap detection
+8. **Search autocomplete** — trie vs FST, distributed sharding, ranking, personalization, and the sub-50ms latency budget
+
+**Tier 2 — the infrastructure designs (do 6)**
+9. **A message queue (Kafka-like)** — partitioning, replication, ISR, consumer groups, exactly-once
+10. **Object storage (S3-like)** — metadata service, erasure coding vs replication, consistency, multipart, lifecycle
+11. **A distributed job scheduler (this is Chronos — you have the real answer)**
+12. **Container orchestrator (Kubernetes-like)** — the reconciliation loop, scheduler design, etcd as the state store, and how the control plane survives its own restart
+13. **CI/CD system (GitHub Actions-like)** — job scheduling, runner fleets, artifact storage, secret injection, tenant isolation for untrusted code
+14. **Monitoring/metrics system (Prometheus-like)** — the TSDB, ingestion, cardinality limits, query engine, long-term storage, downsampling
+
+**Tier 3 — the product-scale designs (do 6)**
+15. **Ride sharing (Uber)** — geospatial indexing (**geohash vs S2 vs H3** — know all three), matching, real-time location updates at scale, surge, and the dispatch consistency problem
+16. **Video streaming (YouTube/Netflix)** — upload, transcoding pipeline, adaptive bitrate, CDN strategy, recommendations, and the thumbnail/metadata read path
+17. **Payment system** — idempotency, double-entry ledger, reconciliation, the saga across payment-processor boundaries, PCI scope, and **what happens when the processor times out** (the hardest question in the design)
+18. **Google Docs / collaborative editing** — **OT vs CRDT** (know the difference and the tradeoff), presence, offline, conflict resolution, and the history/undo model
+19. **Ticketmaster / flash sale** — the extreme-contention problem: inventory reservation, virtual waiting rooms, queue-based admission, and preventing overselling **without** a global lock
+20. **An LLM API platform** — token-based rate limiting, GPU scheduling and batching, streaming, cost attribution, multi-tenancy, model versioning, and safety filtering (**increasingly asked in 2026 interviews**)
+
+> **How to practice:** one design every 3 days. First pass alone with a 45-minute timer. Second pass: read how the real company did it (the engineering blogs). Third pass: write the doc. Fourth pass: explain it out loud to a camera in 45 minutes and watch it back. **The fourth step is the one everyone skips and it's the one that improves you fastest.**
+
+---
+
+### 6.3 — 🔥 INCIDENT ARCHAEOLOGY: Rebuild 10 Famous Outages
+
+> **This is the most unique section of this roadmap.** Nobody does this, and it is the most efficient way to learn failure modes that exist — because every one of these took down a multi-billion-dollar company, was written up publicly in detail, and has a reproducible core mechanism.
+>
+> **For each:** read the public postmortem → **build a minimal local reproduction** → observe the failure → implement the fix → write your own analysis of what you'd have done differently. Each takes 4–12 hours.
+
+#### FLAGSHIP PROJECT #7 — `incident-lab` ⭐⭐⭐ *(Autopsy archetype, 10/10)*
+
+| # | Incident | The mechanism you'll reproduce | What it teaches |
 |---|---|---|---|
-| 1 | **`shape` — the reduced traffic-shaping work** (L13) | A paragraph in the threat model. The full WF evaluation was already moved to `NEXT.md` | Last, self-contained, and L9 already gives you the publishable contribution |
-| 1b | **`1brc` pass 3** — keep the W5 naive pass and the W93 assault, drop any further tuning | Leaderboard position, not the artifact. **You still have the two-year delta, which is the point** | Diminishing returns past the first big win |
-| 2 | **`pgshift`** (W97) | PostgreSQL evidence goes from strong to adequate | 15-445's five projects already demonstrate storage far better than a migration script |
-| 3 | **CMU 15-721** — lectures 9–11, 13–15, 17–22 (keep 6, 7, 8, 12, 16) | The parallel career investment thins. **Keep the five that serve Adyton** | It is the one course explicitly *not* on the critical path. **Move the rest to `NEXT.md`** |
-| 4 | **The aarch64 port and x86/ARM analysis** (W97) | A free result and a blog post | Genuinely optional |
-| 5 | **Two of the four reproduced outages** (W90) | The chaos programme weakens but survives at two | The 20 self-inflicted incidents matter more than the famous ones |
-| 6 | **Client-side fork-hash gossip** (W50) — ship hash chaining only | Fork detection becomes theoretical rather than measured. **Document the residual exposure in the threat model** | Hash chaining alone still bounds the attack; the gossip is the measurement |
-| 7 | **The GCP 200-node window** (W65) | Simulator validation at scale; `sim-fidelity.md` gets weaker and you must say so | Costs credibility, not correctness |
-| 8 | **CLAPS as a third candidate selector** (W67) | One row in a comparison table | Take Counter-RAPTOR-style on the literature's evidence; spend the time on the sweep |
-| 9 | **Fairness via earned credentials** (W83) — ship the design doc plus a throttling stopgap | An implementation. **Say in the README that fairness is designed, not built** | A legitimate answer; a broken mechanism is not |
-| 10 | **MIT 6.858 labs 2–4** (keep lab 1 and lab 5) | Three labs. **Keep lab 1 — it is the one that justifies your C++ subset — and lab 5, which is Adyton itself** | It is the last course and the most compressible |
-| 11 | **The third hop option** and per-application isolation beyond the browser | Two paragraphs in the spec | "Designed, not yet built, here is why it is next" is a fine answer |
+| 1 | **AWS S3 outage, Feb 2017** | An operator command with a typo removed far more capacity than intended; the subsystem's restart had never been tested at that scale and took hours | Blast radius of operational tooling · **never-tested recovery paths** · why the status page depended on S3 (circular dependency) |
+| 2 | **GitHub outage, Oct 2018** | A 43-second network partition between coasts caused an automated failover; the two sides then accepted conflicting writes → 24 hours of manual reconciliation | **Split-brain** · orchestrated failover across regions · why "automatic failover" needs fencing · RPO in practice |
+| 3 | **Cloudflare outage, July 2019** | A regex with catastrophic backtracking deployed globally in one step consumed 100% CPU on every edge machine | **ReDoS** · global config deploys need staged rollout · CPU limits on user-supplied patterns · the value of a kill switch |
+| 4 | **Cloudflare outage, July 2020** | A router config change caused a backbone withdrawal cascading across regions | Config as the #1 cause of outages · staged rollout for network config |
+| 5 | **Facebook/Meta outage, Oct 2021** | A backbone config change withdrew BGP routes for the authoritative DNS servers; the entire company vanished from the internet — **including the internal tools and badge readers needed to fix it** | **Circular dependencies in recovery** · DNS as a single point of failure · out-of-band access |
+| 6 | **Slack outage, Jan 2021** | Traffic ramp after the holidays → autoscaling was slow → cascading saturation with a retry-driven feedback loop | **Metastable failure** · retry storms · why autoscaling is not a reliability strategy |
+| 7 | **Roblox outage, Oct 2021 (73 hours)** | Consul's streaming feature under load → contention → the cluster couldn't recover; **plus the observability system depended on the failed cluster** | Metastable failure at scale · **observability must not depend on the system it observes** · why recovery took 3 days |
+| 8 | **Knight Capital, 2012 ($440M in 45 min)** | A deploy to 7 of 8 servers left one running old code, which reactivated a repurposed feature flag | **Partial deploys** · flag reuse · why the kill switch matters more than the feature |
+| 9 | **GitLab data loss, 2017** | An engineer ran `rm -rf` on the wrong host during an incident; **then discovered 5 of 5 backup methods had silently been failing** | **Untested backups are not backups** · human factors in incidents · the value of their radical transparency |
+| 10 | **Thundering herd / cache stampede** (many companies) | A cache tier restart or mass key expiry → origin sees 20-100x load → collapse | Cold caches · request coalescing · staged restarts · the outage you'll personally cause someday |
 
-## 🔴 What is NEVER cut
+**Bonus incidents worth reproducing:** the Postgres transaction-ID wraparound outage (Sentry's write-up), the `left-pad` incident (dependency fragility), the Datadog 2023 multi-region outage (a systemd update restarting the network stack), and the CrowdStrike 2024 global outage (untested content update, no staged rollout, and no safe rollback for a kernel-mode driver — the largest IT outage in history and a masterclass in deployment-safety failures).
 
-| Never cut | Because |
+**For each reproduction, deliverable:**
+- A `docker compose up` that stands up the minimal system
+- A trigger script that causes the failure
+- Instrumentation showing the failure as it happens (a Grafana dashboard)
+- The fix, applied, with the same trigger now failing to cause an outage
+- A written analysis: the trigger, the amplifier, the failure of containment, the recovery obstacle, and **the three controls that would have prevented or bounded it**
+
+📈 **Exit Criteria**
+- [ ] **6 of 10 reproduced** with a working before/after
+- [ ] A single README with a table of all 10, each linked to the official postmortem
+- [ ] A synthesis essay: **"the seven patterns behind every major outage"** — you will find them, and they are: config changes, circular dependencies, untested recovery paths, retry amplification, cold caches/thundering herds, silent backup failure, and unbounded resource growth
+- [ ] Published
+
+> **Why this is a 10/10:** it's memorable, it's unique, it's directly useful to other engineers, and — most importantly — it gives you a *specific, evidence-backed answer* to every "what could go wrong?" question in every system design interview for the rest of your career. When an interviewer asks "what happens if this config change is bad?", you don't speculate. You say "this is exactly how Cloudflare went down in 2019, and here's the control that prevents it."
+
+---
+
+### 6.4 — Papers That Built the Industry
+
+Read these properly — with the "three-pass" method (Keshav's "How to Read a Paper"): skim for structure, read for content, reconstruct the argument.
+
+| Paper | Year | Built | Why you read it |
+|---|---|---|---|
+| **The Google File System** | 2003 | HDFS, all distributed FS | Design for the failure model you actually have |
+| **MapReduce** | 2004 | Hadoop, Spark | The programming model that made big data tractable |
+| **Bigtable** | 2006 | HBase, Cassandra, Scylla | Wide-column data model + SSTables |
+| **Chubby** | 2006 | ZooKeeper, etcd | Consensus as a *service*; the lock-service pattern |
+| **Dynamo** | 2007 | DynamoDB, Cassandra, Riak | Leaderless replication, quorums, vector clocks, AP tradeoffs |
+| **Spanner** | 2012 | CockroachDB, Cloud Spanner | Global consistency via TrueTime; the commit-wait insight |
+| **Kafka** | 2011 | Kafka, Pulsar, Redpanda | The log as universal abstraction |
+| **Raft** | 2014 | etcd, Consul, CockroachDB, TiKV | Consensus you can actually implement |
+| **Dapper** | 2010 | Jaeger, Zipkin, OTel | Distributed tracing |
+| **Borg** | 2015 | Kubernetes | Cluster management at scale |
+| **TAO** | 2013 | FB social graph | Read-optimized graph serving on top of MySQL |
+| **Scaling Memcache at Facebook** | 2013 | — | **The most practically useful paper on this list** |
+| **The Tail at Scale** | 2013 | — | Tail latency; hedged requests |
+| **Chord / Consistent Hashing** | 1997/2001 | Every sharded system | The idea underneath partitioning |
+| **Zanzibar** | 2019 | Authz systems everywhere | Global authorization, done right |
+| **Amazon Aurora** | 2017 | Aurora, Neon | Redesigning the DB when you own the storage layer |
+| **FoundationDB** | 2021 | FDB, TigerBeetle's approach | **Deterministic simulation testing** |
+| **PagedAttention / vLLM** | 2023 | Modern LLM serving | Why inference infrastructure looks the way it does |
+| **Gorilla** | 2015 | Prometheus TSDB, all TSDBs | Time-series compression |
+| **Dremel** | 2010 | BigQuery, Parquet | Columnar storage + nested data |
+| **Calvin / Percolator** | 2012 | Distributed txn systems | Two very different answers to distributed transactions |
+| **Metastable Failures** | 2021 | — | The failure class nobody names |
+
+**How to make this stick:** for each paper, write a **one-page summary** answering: what problem, what was the key insight, what did they give up, what would you do differently in 2026, and what system today embodies it. Twenty-two one-pagers is a genuinely impressive public artifact.
+
+---
+
+### 6.5 — Engineering Blogs & People to Follow
+
+**Company blogs (primary sources):** Netflix · Uber · Discord · Cloudflare · Stripe · Meta · Airbnb · Dropbox · LinkedIn · GitHub · DoorDash · Shopify · Figma · Slack · Canva · Datadog · Segment · PlanetScale · Notion · Monzo · Zerodha · **AWS Builders' Library** (the best of all of them) · **the Anthropic and OpenAI engineering blogs** for inference infrastructure.
+
+**Individuals:** Martin Kleppmann · Martin Fowler · Brendan Gregg · Julia Evans · Dan Luu · **Marc Brooker** (`brooker.co.za` — AWS principal engineer; the best working systems writer today) · Kyle Kingsbury (aphyr) · Charity Majors · Werner Vogels · **Hillel Wayne** (formal methods, and the best writing on software-engineering epistemology) · **Alex Petrov** · **Murat Demirbas** (`muratbuffalo.blogspot.com` — paper reviews) · Simon Willison (for the AI-systems side) · Gergely Orosz (**The Pragmatic Engineer** — for the industry/career side).
+
+**Newsletters and aggregators worth the time:** The Morning Paper archive (defunct but the archive is gold) · ByteByteGo · Pointer · Hacker News (the comments on outage postmortems are often better than the postmortems).
+
+---
+## 🎯 LEVEL I — The Interview Machine 🆕
+
+> **This level did not exist in v2, and its absence would have been fatal.** You can complete every other level in this document — build a Raft implementation, a workflow engine, a simulation harness — and still be rejected in a 45-minute phone screen because you couldn't invert a binary tree under time pressure.
+>
+> **This runs DAILY from week 1. 45–60 minutes. It is never batched and never skipped.** Depth work can flex; this cannot, because it is the one thing that cannot be crammed.
+>
+> **⏱ Budget:** 250–400 hours, spread over the entire program.
+
+---
+
+### I.1 — Data Structures & Algorithms
+
+#### The honest reality of what's tested
+
+Roughly 50% of a FAANG loop is coding. It is not a test of computer science; it is a test of **pattern recognition under time pressure while narrating your thinking**. That is a trainable skill with a known curriculum.
+
+#### The curriculum: ~300 problems, by pattern, not by list
+
+Do **not** grind randomly. Work pattern by pattern. For each pattern: learn the template, do 8–15 problems, then move on and let spaced repetition bring them back.
+
+| # | Pattern | Problems | Must-know representatives |
+|---|---|---|---|
+| 1 | Arrays, two pointers, sliding window | 25 | Longest substring w/o repeats · container with most water · min window substring |
+| 2 | Hashing / prefix sums | 15 | Subarray sum = K · group anagrams |
+| 3 | Binary search (incl. on answer) | 20 | Search in rotated array · median of two sorted arrays · **koko eating bananas (binary search on the answer — the pattern people miss)** |
+| 4 | Linked lists | 12 | Reverse in k-groups · LRU cache (**build it, don't recall it**) · merge k sorted |
+| 5 | Stacks & monotonic stacks | 15 | Largest rectangle in histogram · daily temperatures · valid parentheses variants |
+| 6 | Trees & BSTs (DFS/BFS) | 30 | Serialize/deserialize · lowest common ancestor · validate BST · right side view |
+| 7 | Heaps / top-K | 15 | Merge k sorted · find median from data stream · task scheduler |
+| 8 | Graphs (BFS/DFS/topo/union-find) | 30 | Course schedule · number of islands · word ladder · **union-find — know it cold** · Dijkstra |
+| 9 | Backtracking | 15 | Subsets · permutations · N-queens · word search |
+| 10 | Dynamic programming | 40 | Climbing stairs → house robber → coin change → LIS → edit distance → knapsack → **LCS** → matrix DP → state-machine DP (stock problems) |
+| 11 | Greedy + intervals | 15 | Merge intervals · meeting rooms II · jump game · gas station |
+| 12 | Tries | 8 | Implement trie · word search II · autocomplete |
+| 13 | Bit manipulation | 8 | Single number · counting bits · subsets via bitmask |
+| 14 | Math & geometry | 10 | Pow(x,n) · rotate image · spiral matrix |
+| 15 | Design (OOD-in-code) | 15 | LRU/LFU cache · rate limiter · Twitter · hit counter · **these bridge to system design** |
+| 16 | Concurrency (increasingly common) | 8 | Bounded blocking queue · print in order · dining philosophers · **web crawler multi-threaded** |
+
+**Total: ~280 problems.** At 2/day that's 20 weeks. **Start on day one.**
+
+#### The method that actually works (and the one that doesn't)
+
+❌ **Doesn't work:** reading solutions, "doing" 500 problems, grinding a list top to bottom.
+
+✅ **Works:**
+1. **20-minute timer.** If stuck, spend 5 more on hints only. Then read the solution.
+2. **After reading the solution, close it and implement from scratch.** If you can't, you didn't learn it.
+3. **Write the pattern down in your own words** in a notes file: "when I see X, consider Y."
+4. **Re-do it 3 days later, 10 days later, 30 days later.** Spaced repetition on problems, not just facts. **This is the single biggest determinant of retention.**
+5. **Narrate out loud, always.** Silent solving trains the wrong skill. You are being graded on communication as much as correctness.
+6. **Write real code**: correct edge cases, no pseudo-code, and state your complexity before you write.
+7. **Track a spreadsheet**: problem, pattern, date, time taken, solved unaided (Y/N), next review date.
+
+#### Resources
+- **NeetCode 150 / NeetCode 250** (`neetcode.io`) — the best-organized free list, grouped by pattern. **Start here.**
+- **LeetCode company-tagged lists** (Premium is genuinely worth $35 for two months before an interview loop)
+- **"Elements of Programming Interviews"** — harder and better than *Cracking the Coding Interview*, which is now dated
+- **"Algorithm Design Manual"** — Skiena, for actually understanding rather than pattern-matching. The "war stories" are excellent.
+- **Codeforces Div 3/4** for speed if you plateau — competitive practice sharpens implementation velocity
+- **`interviewing.io`** recorded interviews — watch strong and weak candidates on the same problem. Enormously calibrating.
+
+📈 **Exit Criteria for I.1**
+- [ ] 280+ problems, tracked, ≥70% solved unaided on first attempt within 25 minutes
+- [ ] A random Medium from an unseen list, solved and narrated in ≤25 min, ≥80% of the time
+- [ ] You can state time and space complexity before writing code, every time
+- [ ] 15+ Hard problems solved
+- [ ] Your review queue is empty (spaced repetition current)
+
+---
+
+### I.2 — The Behavioral Interview
+
+> **At Amazon this is ~50% of the loop. At Google it's "Googleyness & Leadership." At Meta it's the "Jedi" round. Everywhere, it is a real, scored, failable round — and strong technical candidates fail it constantly** because they treat it as small talk.
+
+#### Build your Story Bank: 14 stories, written out
+
+Each story is written in **STAR-L** format — Situation, Task, Action (**60% of the words — and use "I", not "we"**), Result (**with a number**), Learning.
+
+The 14 slots each story must cover (one story can serve 2–3 slots):
+
+| # | The prompt behind it |
 |---|---|
-| ⚙️ **The C++ safety apparatus (L1, and every week after)** | **It is the argument for having chosen C++ at all.** A week with the sanitizer job disabled is a week the language choice became indefensible |
-| **`leakproof` and the compartment boundary (L3)** | **One leak across compartments defeats the entire product.** It is what makes Adyton a product rather than a VPN |
-| **CMU 15-213, complete with all nine labs** | It is the foundation every other course assumes. **Cutting it makes the other seven worse** |
-| **Stanford CS144's labs** | Without building a TCP you can quote QUIC's advantages but not derive them. And the handouts vanish yearly — you cannot come back for it |
-| **MIT 6.5840, complete with all five labs** | Distributed systems is 48.4%. The labs are the evidence |
-| **The epoch-agreement test (L6)** | Divergence is a fingerprint. Without it the privacy claim is false |
-| **The guard-placement sweep (L9)** | The only genuinely novel thing you produce. It is the write-up |
-| **The operational shell (L7)** | **The shell alone is 15.1% coverage; a clever core alone is 6.5%.** This is what the screen reads |
-| **Java (L6, L10)** | +14.1 points, and 46.8% of your residual gap |
-| **The Track I hours** | The only track that degrades irreversibly. A missed week is not recoverable by working harder later |
-| **Applications from W56** | The plan's entire purpose. Everything else is instrumental |
-| **The Logic Leap track (§XV.5)** | 36.6% + 34.4% + 31.2% + 17.2%, and nothing else in the plan touches them |
-| **The threat model and the honesty rules** | The moment you overclaim, every true thing you measured stops being believed |
+| 1 | A technically hard problem you solved |
+| 2 | A time you disagreed with your manager or a senior engineer |
+| 3 | A time you failed, and what changed afterward |
+| 4 | A conflict with a teammate |
+| 5 | A time you had to decide with incomplete information |
+| 6 | A time you influenced without authority |
+| 7 | A time you delivered under a hard deadline / made a scope tradeoff |
+| 8 | A time you improved something nobody asked you to improve |
+| 9 | A production incident you handled |
+| 10 | A time you mentored or unblocked someone |
+| 11 | A time you pushed back on a requirement |
+| 12 | A time you had to learn something entirely new, fast |
+| 13 | Your proudest technical achievement |
+| 14 | A time you made the wrong call and had to reverse it |
 
-🔴 **The rule when a course and an Adyton level collide: the course wins and the level slips.** Adyton is yours and will wait. A course's labs, once you are past them, you will not come back to — and CS144's handouts literally disappear. **This is the opposite of the instinct and it is the right call.**
+#### The rules that decide the score
+- **Numbers, always.** "Improved performance" is nothing. "Cut p99 from 340ms to 21ms, which let us drop from 12 instances to 4, saving ~$4k/month" is a story.
+- **"I," not "we."** The interviewer is scoring *you*. Say "the team decided X; I owned Y."
+- **The Learning is not optional.** A failure story without a specific behavior change is a failure story.
+- **90 seconds, then stop.** Long answers read as poor judgment. Let them ask follow-ups.
+- **Amazon specifically:** map each story to explicit Leadership Principles. Expect 2–3 LP questions per interviewer across a 5-person loop, with deep follow-ups ("what would you do differently?", "what data did you have?", "what did your teammate say?"). **Amazon's follow-up drilling is what catches fabricated stories** — so use real ones.
 
-**The decision is forced at six gates: W26, W43, W52 (year-one gate), W66, W84, W92.** At each, count how many weeks behind you are and cut that many items off the top. **Cutting at a gate is a decision. Discovering in W100 that you cannot finish is a failure.**
+#### Practice protocol
+Record yourself answering each of the 14 on video. Watch it back. It will be uncomfortable and it is the fastest improvement available. Then do 5 mock behavioral interviews with a human.
+
+📈 **Exit Criteria**
+- [ ] 14 stories written out, each ≤250 words, each with a quantified result
+- [ ] Each delivered in 90 seconds from memory, on video, without notes
+- [ ] A matrix mapping stories → Amazon's Leadership Principles and Google/Meta's competencies
+- [ ] 5 recorded mock behavioral rounds with feedback
 
 ---
+
+### I.3 — Mock Interviews & The Loop
+
+**The most under-used, highest-ROI activity in the entire job search.** Reading about interviews is worthless; doing them under observation is transformative.
+
+- **`interviewing.io`** — anonymous mocks with real FAANG engineers. Paid, and worth more than any course.
+- **Pramp / Exponent** — free peer mocks. Lower quality feedback but unlimited volume.
+- **A friend with a whiteboard** — better than nothing, and free.
+- **Yourself + a camera** — do this weekly regardless.
+
+**Volume target: 20+ mock interviews before your first real loop.** 12 coding, 6 system design, 5 behavioral.
+
+#### What the loops actually look like (2026, approximately — verify with your recruiter)
+
+| Company | Typical loop |
+|---|---|
+| **Google** | Phone screen (1 coding) → onsite: 2–3 coding, 1 system design (L5+), 1 "Googleyness & Leadership." Then **hiring committee** and **team matching** — a strong loop can still stall at team match, which is normal and not a rejection. |
+| **Meta** | Phone screen (2 problems in 45 min — **speed matters more here than anywhere**) → onsite: 2 coding ("Ninja"), 1 system design ("Pirate", E5+), 1 behavioral ("Jedi"). |
+| **Amazon** | OA (2 problems + work simulation) → onsite: 4–5 rounds, **every round includes Leadership Principle questions**, plus system design and often an OOD/LLD round. The "Bar Raiser" is an interviewer from outside the team with veto power. |
+| **Apple** | Team-specific and highly variable. More domain depth, less algorithmic puzzle. Expect to discuss your actual past work in detail. |
+| **Netflix** | Fewer, deeper rounds. Heavy culture emphasis. Senior-only hiring — expect to be treated as a peer and to defend real architectural opinions. |
+| **Microsoft** | Coding + design + "as appropriate" (AA) round with a senior leader. |
+| **Stripe / Databricks / Anthropic / OpenAI and similar** | Practical over puzzle: debugging an unfamiliar codebase, extending real code, an integration exercise, plus system design. **This roadmap prepares you unusually well for these** because it's all hands-on. |
+
+#### Leveling — know what you're aiming at
+Roughly: L3/E3 (new grad) → **L4/E4 (2–5 yrs — solid execution on well-defined tasks)** → **L5/E5 (5+ yrs — owns ambiguous projects end-to-end, the level system design really starts mattering)** → L6+ (multi-team scope). **Interview for the level your evidence supports.** Down-leveling is common; being under-leveled costs years of compensation, so it's worth pushing back with evidence if the loop went well.
+
 ---
 
-# 📊 ASSESSMENT: The Three Proofs
+### I.4 — Resume, Applications & Negotiation
 
-| Proof | What | Why |
+#### The resume (one page, ruthlessly)
+
+Every bullet uses the **X-Y-Z formula** (Google's own advice): *"Accomplished [X] as measured by [Y], by doing [Z]."*
+
+❌ "Worked on backend services using Python and Docker."
+✅ "Cut p99 checkout latency 94% (340ms → 21ms) by replacing N+1 ORM queries with a batched DataLoader and adding a two-tier cache, enabling a 3x traffic increase on the same fleet."
+
+**Structure:** Name/contact/GitHub/LinkedIn → a 2-line summary (only if you're changing tracks) → Experience (most space) → **Projects (this is where this roadmap pays)** → Skills → Education.
+
+**Your projects section, written from this roadmap, will look like:**
+> **Chronos — Durable Execution Engine** · Go, Postgres, Raft, Kubernetes · [github]
+> Workflow engine guaranteeing exactly-once execution across crashes. Implemented Raft consensus from scratch for the control plane; built a deterministic simulation harness running 10,000 seeded fault schedules nightly that surfaced 3 correctness bugs no conventional test caught. Sustains 12k workflow-steps/sec with p99 < 45ms; holds SLO under 10x overload via adaptive load shedding.
+
+That is not a portfolio-project bullet. That is a **staff-engineer-at-an-infrastructure-company** bullet, and it is achievable by following this document.
+
+#### Applications
+- **Referrals convert 5–10x better than cold applications.** Get them by being visible (Level J), not by cold-messaging strangers with "can you refer me."
+- Apply to **30–60 companies**, not 5. Include second-tier-brand companies with first-tier engineering (Stripe, Cloudflare, Datadog, Databricks, Ramp, Figma, Vercel, Neon, Temporal, ClickHouse, Anthropic, and the many infrastructure startups) — **the work is often better and the interviews reward exactly what this roadmap builds.**
+- **Sequence your loops**: interview at 3–4 companies you care less about *first*. Your 5th loop will be dramatically better than your 1st.
+- Time your loops to overlap so offers arrive within ~2 weeks of each other.
+
+#### Negotiation (the highest hourly-rate work you will ever do)
+- **Never give a number first.** "I'd like to focus on whether this is the right fit; I'm confident we can align on compensation."
+- **Competing offers are the only real leverage.** This is why you sequence loops to overlap.
+- Negotiate the **whole package**: base, equity (and the vesting schedule — 25/25/25/25 vs Amazon's back-loaded 5/15/40/40), sign-on (the most flexible component), level (**worth more than any of the above over 3 years**), start date, remote flexibility.
+- Use `levels.fyi` for market data at your target level, location, and company.
+- **Read:** "Ten Rules for Negotiating a Job Offer" — Haseeb Qureshi. The single best free resource on this, and it will plausibly earn you a five-figure sum for two hours of reading.
+- Be gracious throughout. You will work with these people.
+
+---
+
+## 🧭 LEVEL J — Senior Craft & Visibility 🆕
+
+> **What separates an L4 from an L5 is not knowing more systems facts. It's judgment, communication, and impact beyond your own keyboard.** This level is how you demonstrate that — and it's also how opportunities start coming to you instead of you chasing them.
+>
+> **Cadence:** one artifact every two weeks, forever.
+
+---
+
+### J.1 — Design Docs & RFCs (the actual currency of senior engineering)
+
+> At every large company, promotion is decided by **written artifacts**. The design doc is the unit of senior technical work.
+
+**The template — use it for every one of the 20 canonical designs and every Chronos milestone:**
+
+```markdown
+# [Title]
+**Author** · **Reviewers** · **Status:** Draft/Review/Approved · **Date**
+
+## 1. Summary            (3 sentences. What and why. A reader should be able to stop here.)
+## 2. Context & Problem  (What exists today. What's broken. With DATA — graphs, incident links, numbers.)
+## 3. Goals              (Bulleted, measurable.)
+## 4. Non-Goals          (Explicit. This is where scope creep dies. The most under-used section.)
+## 5. Proposal           (The design. Diagrams. Data model. API. Sequence for the critical paths.)
+## 6. Alternatives Considered   ← THE SECTION THAT DISTINGUISHES SENIOR WRITING
+      For each: what it is, why it's attractive, why we rejected it.
+      Minimum three. "Do nothing" is always one of them.
+## 7. Risks & Failure Modes     (What breaks. Blast radius. Detection. Mitigation.)
+## 8. Rollout Plan       (Phases. Feature flags. Migration. **Rollback at every step.**)
+## 9. Operational Impact (Monitoring, alerts, runbook, on-call burden, cost delta.)
+## 10. Open Questions
+```
+
+**The two sections that separate senior from mid:** *Alternatives Considered* and *Non-Goals*. A doc without a serious alternatives section reads as advocacy, not engineering.
+
+**Also learn:** the **ADR** (Architecture Decision Record) — a 1-page, immutable record of one decision, its context, and its consequences. Keep an `adr/` directory in every project in this roadmap. Cheap to write, extremely senior-looking.
+
+📈 **Exit:** 10+ design docs and 20+ ADRs across your projects, public.
+
+---
+
+### J.2 — Code Review & Working in Large Codebases
+
+**Reviewing well is a leadership act.** Google's Code Review Developer Guide (free, in the `eng-practices` repo) is the standard and should be read in full — it's short.
+
+Key principles worth internalizing:
+- **Approve when it improves the codebase, not when it's perfect.** Blocking on preference is how reviews become a bottleneck and how you become the person nobody wants to be reviewed by.
+- Distinguish **blocking** from **non-blocking** explicitly. Prefix optional comments with `nit:`.
+- Ask questions instead of issuing commands: *"what happens if this is called concurrently?"* teaches; *"add a mutex"* doesn't.
+- **Review the tests first.** They tell you what the author believed the code should do.
+- Praise good code in review. It's free and it changes team culture.
+- **Small PRs.** A 2,000-line PR gets a rubber stamp; a 200-line PR gets a real review. This is the single biggest lever on review quality.
+
+**Practice it for real:** review PRs in an OSS project you use. Even as a non-maintainer, thoughtful review comments are welcome and highly visible.
+
+---
+
+### J.3 — Open Source Contribution
+
+> **A merged PR into a project people have heard of is worth more on a resume than three personal projects**, because it's externally validated: someone with commit rights judged your code good enough to ship.
+
+**The ladder that actually works:**
+1. **Use** a project seriously (you already will — Postgres, Kafka, Prometheus, Kubernetes, vLLM, Temporal, ClickHouse, Redis…)
+2. **Fix the docs** where they confused you. Real contribution, tiny barrier, gets you through the CLA/CI process once.
+3. **Fix a `good first issue`.**
+4. **Fix a bug you personally hit.** The best kind — you have the reproduction and the motivation.
+5. **Report a bug found by fuzzing** (Level D.2) — high-value, and maintainers love a minimal reproducer.
+6. **Implement a requested feature** after discussing the design in an issue first.
+7. **Become a regular** in one project. This is where career-changing opportunities come from.
+
+**Target: 5+ merged PRs across 2+ projects.** One should be non-trivial.
+
+**Highest-leverage targets given this roadmap:** whichever database, queue, or orchestrator you spent the most time inside. You'll already know the code — that's the hard part, and you've done it.
+
+---
+
+### J.4 — On-Call, Incidents & Postmortems
+
+Even without a production system, you can build the muscles:
+
+- **Write runbooks** for every service you build: symptoms → diagnosis steps → fixes → escalation. **A service without a runbook is not finished.**
+- **Run game days**: schedule a fault injection into your own system, and respond to it as if it were real, with a timer.
+- **Write blameless postmortems** for your own `incident-lab` reproductions and for any real failure in your projects. Format: timeline (with timestamps) → impact (quantified) → root cause(s) → **what went well** → what went poorly → action items with owners.
+- **Learn the incident-command vocabulary**: incident commander, comms lead, ops lead, severity levels, "stop the bleeding before you find the root cause," and the discipline of **mitigating first, diagnosing second**.
+- **Read others' postmortems weekly.** The `danluu/post-mortems` repo is a curated collection.
+
+**"Blameless" means:** the question is never "who," it's "what about the system allowed a reasonable person to do this?" A postmortem that names a person has failed.
+
+---
+
+### J.5 — Writing, Speaking & Visibility
+
+**This is the multiplier.** Everything else in this roadmap makes you good. This makes people know it.
+
+- **Write up every flagship project.** Not a README — a post: the problem, the surprise, the measurements, the mistake you made. **The mistake is the part people remember and share.**
+- **Publish the benchmarks.** `c10k-arena`, `syscall-xray`, `overload`, `cache-lab` all produce charts that don't currently exist on the internet. That is the definition of a post worth writing.
+- Post where engineers are: your own blog (own the domain), plus cross-posting to Hacker News, Lobsters, and the relevant subreddit. **One post that reaches the front page of HN generates more inbound recruiting than 200 applications.**
+- **Give one talk.** A local meetup counts. Explaining Raft or DST out loud to strangers will expose every gap in your understanding, which is exactly why it's valuable.
+- **Answer questions in public** — Stack Overflow, project Discords, GitHub discussions. Public helpfulness compounds.
+
+📈 **Exit:** 8+ technical posts · 1 talk · a GitHub profile README that presents the flagship projects clearly with the charts inline.
+
+---
+## 📊 ASSESSMENT: The Exit Exams
+
+Each level has an exam above. Here is the meta-system.
+
+### The Three Proofs
+
+You do not "finish" a level. You **prove** it, three ways:
+
+| Proof | What it is | Why |
 |---|---|---|
-| **1. The Exam** | The written questions at each level's end, no notes, timed | Retrieval under pressure — the interview condition |
-| **2. The Artifact** | The project, exit criteria met, **numbers published**; and **the Atlas checkbox ticked** | That you can actually build it and actually finished the course |
-| **3. The Interrogation** | 🤖 **PROMPT 2 on the level's hardest topic**, then a **10-minute teach-back to a camera**, no notes, with a diagram | **The strictest test there is. You cannot fake teaching, and PROMPT 2 finds what the exam missed** |
+| **1. The Exam** | The written questions at the end of each level, answered without notes, timed | Tests retrieval under pressure — the interview condition |
+| **2. The Artifact** | The project, with its exit criteria met and its numbers published | Tests that you can actually build it |
+| **3. The Teach-Back** | Explain the level's hardest concept to a camera in 10 minutes, no notes, with a diagram | **The strictest test there is.** You cannot fake teaching. |
 
-**Fail any of the three and the level is not done.**
+**If you fail any of the three, the level is not done.** This is the discipline that makes the difference between someone who "went through" a roadmap and someone who is dangerous.
 
-## The Final Gauntlet — Week 55, the week before applications open
+### The Final Gauntlet — do this before your first real interview
+
+A one-week self-administered assessment:
+
 | Day | Challenge | Pass condition |
 |---|---|---|
-| 1 | 4 LeetCode Mediums + 1 Hard, timed, **narrated aloud, recorded** | 4/5 unaided within time |
-| 2 | 2 system designs, 45 min each, on video | Both hit the rubric |
-| 3 | **Debug a sabotaged Adyton** — have a peer break it without telling you what | Root cause in <45 min **with evidence** |
-| 4 | All 14 behavioural stories on video, cold | Each ≤90s, quantified, first person, **≥4 from Logic Leap** |
-| 5 | Write a full design doc for a **novel** problem in 3 hours | All 10 sections, **3+ real alternatives** |
-| 6 | **Teach-back: the Sphinx position-hiding property · fork consistency and why Raft is not enough · ⚙️ why C++ and what it costs.** 10 min each | No notes, correct, with diagrams |
-| 7 | Watch every video from days 1–6 and **grade yourself against the rubrics** | Honest scoring |
+| 1 | 4 LeetCode Mediums + 1 Hard, timed, narrated aloud, recorded | 4/5 solved unaided within time |
+| 2 | 2 system designs from Tier 2 or 3, 45 min each, on video | Both hit the rubric in §6.1 |
+| 3 | Debug a sabotaged service (have someone break one of your own projects) | Root cause in <45 min with evidence |
+| 4 | All 14 behavioral stories on video, cold | Each ≤90s, quantified, in first person |
+| 5 | Write a full design doc for a novel problem in 3 hours | All 10 sections, 3+ real alternatives |
+| 6 | Teach-back: Raft, MVCC, and deterministic simulation testing, 10 min each | No notes, correct, with diagrams |
+| 7 | Review: watch every video from days 1–6 and grade yourself against the rubrics | Honest scoring |
 
-**Pass = ready to apply. Fail any day → that is your next two weeks, and applications slip to W58.** *(A second Gauntlet runs at W95, before the strongest loops.)*
+**Pass = ready to interview.** Fail any day → that's your next two weeks of work.
 
-## The spaced-repetition deck
-**One card per non-obvious fact, written by you.** Downloaded decks do not work; cards you write do. **Target ~1,000 over two years.** Categories: latency numbers · Raft rules · the Sphinx field layout · NAT type behaviours · the consistency-model hierarchy · ⚙️ C++ lifetime and UB rules · JVM GC facts · algorithm complexities · Linux commands and what they *answer* · **the 166 lectures' key results** · **your own measured numbers.** **15 min/day, non-negotiable** — the difference between knowing something in month 3 and knowing it in month 24 when the interview happens.
+### The Spaced Repetition Deck
+
+Build it as you go — one card per non-obvious fact. Target ~800 cards by the end. Categories: latency numbers · protocol details · isolation-level anomalies · Raft rules · algorithm complexities · Linux commands and what they answer · failure modes · estimation constants.
+
+**Write your own cards. 15 min/day. Non-negotiable.** This is what makes the difference between knowing something in month 3 and knowing it in month 14 when the interview happens.
 
 ---
+
+## 📅 THE HONEST TIMELINE
+
+> **v2 claimed "26–32 weeks at 2 hours/day" — roughly 400 hours — for material that includes MIT 6.5840 (150–250h alone), a full DSA track (250–400h), and a dozen substantial systems projects. That estimate was off by about 4x, and following it would have set you up to feel like a failure while doing everything right.**
+>
+> Here are three honest paths. All three assume the Interview Track runs daily throughout.
+
+### The realistic total
+
+| Track | Hours |
+|---|---|
+| Depth (Levels 0–6, A–H) | 1,100 – 1,600 |
+| Interview (Level I) | 250 – 400 |
+| Craft & Visibility (Level J) | 100 – 150 |
+| **Total** | **1,450 – 2,150 hours** |
+
+### Path A — "Employed, serious" · 15 h/week · **~24 months**
+
+```
+Mon–Fri: 1h interview track (DSA/behavioral) + 1h depth, alternating focus
+Sat:     4h deep work (the project block — this is where real progress happens)
+Sun:     3h deep work + 1h review/writing
+```
+**Interview at month 14–16** even if not "done." You will not feel ready. Interview anyway — the first three loops are practice and they calibrate everything else.
+
+### Path B — "Aggressive, employed" · 25 h/week · **~15 months**
+2h weekdays + 7h weekends. Sustainable for about a year with genuine discipline. **Plan a deliberate rest week every 8 weeks** or you will burn out around month 5, which is the most common failure mode of programs like this.
+
+### Path C — "Full time" · 45 h/week · **~8–9 months**
+```
+Morning   (3h): Depth track — hardest material when you're freshest. Never negotiate this block.
+Midday    (1h): Interview track — DSA
+Afternoon (3h): Project work
+Evening   (1h): Reading, review deck, writing
+```
+Do **not** exceed 45 focused hours/week. Diminishing returns are steep and burnout is the single largest cause of failure on multi-month programs like this one.
+
+### The Phased Schedule (Path A/B; scale for C)
+
+| Phase | Months (A) | Levels | Chronos | Flagships shipped |
+|---|---|---|---|---|
+| **1 — Foundations** | 1–4 | 0, C, 1 | C0, C1 | `c10k-arena`, `latency-lab`, `syscall-xray` |
+| **2 — Structure & Storage** | 4–9 | A, 2, D.1–2 | C2, C3 | `h2spec-clean`, `pgshift`, `crashdb` |
+| **3 — Operations** | 8–12 | B, 4, E | C4, C7 | `overload`, `cache-lab`, `lb-lab` |
+| **4 — The Hard Part** | 11–17 | 3, D.3–5 | C5, C6 | `simd`, `elle-lite`, Raft |
+| **5 — Architecture & Platform** | 16–20 | 5, F, G, H | C8 | `llmgw`, `ledger` |
+| **6 — Synthesis** | 19–24 | 6, J | C9 | `incident-lab`, 20 design docs |
+| **Interview loops** | 14→ | ongoing | | |
+
+> **Note the overlaps.** They're intentional — this is the BFS principle from v2, which was right. While Raft compiles, you're doing design docs. While a load test runs, you're doing DSA.
+
+### The Weekly Template
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ EVERY DAY (45–75 min)                                               │
+│  · 15 min  spaced repetition deck                                   │
+│  · 30–60 min  DSA (2 problems) or behavioral prep                   │
+├─────────────────────────────────────────────────────────────────────┤
+│ WEEKDAY DEPTH (60–120 min)  — one Learning Loop step per session    │
+│  Mon: Break + Diagnose      Tue: Theory                             │
+│  Wed: Rebuild               Thu: Measure                            │
+│  Fri: Write it up                                                   │
+├─────────────────────────────────────────────────────────────────────┤
+│ WEEKEND (4–8 h)  — the project block. Long uninterrupted work.      │
+│  Nothing hard ever gets built in 45-minute slices.                  │
+├─────────────────────────────────────────────────────────────────────┤
+│ BIWEEKLY  · one published artifact (post, design doc, or OSS PR)    │
+│ MONTHLY   · one mock interview · review your tracking spreadsheet   │
+│ QUARTERLY · a level exit exam · update resume/GitHub with new work  │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### When you fall behind (you will)
+
+- **Never drop the daily interview track.** Drop depth instead. Depth can be made up; DSA fluency decays.
+- **Never drop the review deck.** 15 minutes.
+- **Ship something small rather than nothing.** A finished 60%-scope project beats an abandoned 100%-scope one, every time.
+- **Cut the "nice" levels first if you must:** F (Cloud/Data) and G (AI systems) are the most cuttable for a pure-distributed-systems role — though G is currently the highest-differentiation-per-hour section in the whole document.
+
 ---
 
-# 📈 TRACKING & RE-PLANNING
+## 💼 Turning This Into a Resume and a GitHub That Converts
 
-| File | Contains | Written |
+### Your GitHub profile, after this roadmap
+
+A pinned-repo strategy. Six pins, chosen for *legibility*, not for what took longest:
+
+```
+📌 chronos          Durable execution engine · Go · Raft · deterministic simulation
+                    ★ diagram + throughput chart + "3 bugs found by simulation" in README
+
+📌 incident-lab     Local reproductions of 6 famous production outages, with fixes
+                    ★ the table of outages is the hook; every engineer wants to read this
+
+📌 overload         Load shedding & adaptive concurrency lab · the goodput-collapse curves
+                    ★ one chart tells the entire story
+
+📌 c10k-arena       Six concurrency models benchmarked to 50k connections (incl. io_uring)
+                    ★ the six-line latency chart
+
+📌 h2spec-clean     HTTP/2 from scratch · 146/146 conformance tests passing
+                    ★ the passing conformance output, screenshotted
+
+📌 pgshift          Zero-downtime schema migration: 50M rows backfilled under live load
+                    ★ the two side-by-side latency graphs (naive vs correct)
+```
+
+**Every README must have, in the first screen:** one sentence saying what it is · an architecture diagram · the headline number or chart · `make demo`.
+
+**Your profile README:** three sentences about what you work on, then the six projects with their headline numbers. No badge walls. No "languages I know" charts.
+
+### The Resume Projects Section
+
+Three projects, three lines each, every line with a number:
+
+> **Chronos — Durable Execution Engine** · Go, PostgreSQL, Raft, Kubernetes · [repo]
+> · Built a workflow engine guaranteeing exactly-once execution across process and machine failures; implemented Raft from scratch for the control plane (passes MIT 6.5840 Labs 2–4).
+> · Built a deterministic simulation harness (10k seeded fault schedules nightly) that found 3 correctness bugs invisible to conventional tests; every failure reproducible from a seed integer.
+> · Sustains 12k workflow-steps/sec at p99 < 45ms; holds SLO under 10x overload via adaptive concurrency limiting and deadline-aware shedding.
+
+> **incident-lab — Production Outage Reproductions** · Docker, Grafana · [repo]
+> · Reproduced 6 major public outages (AWS S3 '17, GitHub '18, Cloudflare '19, Meta '21, Slack '21, Roblox '21) as minimal local systems, each with instrumentation showing the failure and a verified fix.
+> · Synthesized the seven recurring mechanisms behind large-scale outages; published, 40k+ reads.
+
+> **overload — Load Shedding & Adaptive Concurrency Lab** · Go, k6 · [repo]
+> · Measured goodput collapse under 5x overload across 6 admission-control strategies; naive service delivered 8% of capacity, adaptive limiter delivered 94%.
+> · Implemented Vegas-style adaptive concurrency limits that track a changing backend capacity without configuration.
+
+**Notice what these bullets do:** they name a hard thing, quantify it, and imply judgment. No frameworks listed for their own sake. No "responsible for."
+
+### The Interview Answer This Roadmap Buys You
+
+> *"Tell me about the most technically challenging thing you've built."*
+
+You now have a 40-minute answer with: an architecture diagram you can draw from memory · three specific bugs and how you found them · measured performance numbers and where the bottleneck is · a defensible reason for every technology choice · the alternatives you rejected · and what you'd do differently at 100x scale.
+
+**That answer, alone, is worth more than every certification and every course completion certificate in existence.**
+
+---
+
+## 📚 THE COMPLETE LIBRARY
+
+### The Spine (read these, in this order, alongside the levels)
+
+| # | Book | When | Why |
+|---|---|---|---|
+| 1 | **Designing Data-Intensive Applications** — Kleppmann | Ch. 1 at Level 0, then one chapter/2 weeks | Still the most important backend book. *(Check for the 2nd edition — a substantially updated version has been in early release.)* |
+| 2 | **Operating Systems: Three Easy Pieces** — Arpaci-Dusseau *(free)* | Level 0 | 🆕 The OS foundation v2 skipped |
+| 3 | **Computer Systems: A Programmer's Perspective** — Bryant & O'Hallaron | Level 0/C, reference | 🆕 Ch. 6 (memory) and 9 (VM) are essential |
+| 4 | **A Philosophy of Software Design** — Ousterhout | Level A | 🆕 Short, sharp, better than most of *Clean Code* |
+| 5 | **Clean Architecture** — Martin | Level A | Boundaries and dependency rules |
+| 6 | **Design Patterns (GoF)** + **Head First Design Patterns** | Level A, as reference | Read to recognize, not memorize |
+| 7 | **Learning Domain-Driven Design** — Khononov | Level A | 🆕 Better entry point than Evans |
+| 8 | **Database Internals** — Petrov | Level 2 | Deeper than DDIA on storage |
+| 9 | **PostgreSQL 14 Internals** — Rogov *(free)* | Level 2 | 🆕 Outstanding and largely unknown |
+| 10 | **Unit Testing: Principles, Practices & Patterns** — Khorikov | Level D | 🆕 The testing book |
+| 11 | **Release It! (2nd ed.)** — Nygard | Level 4 | 🆕 **The source of circuit breaker/bulkhead. v2's omission of this was a real gap.** |
+| 12 | **Systems Performance (2nd ed.)** — Gregg | Level E | 🆕 The performance reference |
+| 13 | **Site Reliability Engineering** + **The SRE Workbook** *(free)* | Level 4 | Ch. 3, 4, 6, 21, 22 + Workbook Ch. 5 |
+| 14 | **Observability Engineering** — Majors et al. | Level 4 | 🆕 The modern observability reference |
+| 15 | **Building Microservices (2nd ed.)** + **Monolith to Microservices** — Newman | Level 5 | Decomposition, honestly |
+| 16 | **Software Architecture: The Hard Parts** — Ford & Richards | Level 5 | Trade-off analysis at architecture scale |
+| 17 | **Streaming Systems** — Akidau et al. | Level 3/F | 🆕 Event time, watermarks, windowing |
+| 18 | **Fundamentals of Data Engineering** — Reis & Housley | Level F | 🆕 The data platform landscape |
+| 19 | **AI Engineering** — Chip Huyen | Level G | 🆕 The systems view of building with models |
+| 20 | **Kubernetes in Action (2nd ed.)** — Lukša | Level B | Still the best K8s book |
+| 21 | **Working Effectively with Legacy Code** — Feathers | Level A/D | 🆕 The skill you'll use on day one of a real job |
+| 22 | **Software Engineering at Google** *(free)* — Winters et al. | Level J | 🆕 How engineering works at scale |
+| 23 | **The Staff Engineer's Path** — Tanya Reilly | Level J | 🆕 What comes after senior |
+| 24 | **Elements of Programming Interviews** / **Algorithm Design Manual** — Skiena | Level I | Interview prep + real understanding |
+
+### Free Courses That Are Pure Learn-By-Doing 🆕
+
+**v2 listed none of these except 6.824. This is the biggest single upgrade in resources.**
+
+| Course | What you build | Hours |
 |---|---|---|
-| `LOG.md` | Hours by track, task outcomes, weekly review, level checkpoint | Daily + Sunday |
-| 🔴 `ATLAS.md` | **The 166 lecture and 41 lab checkboxes, ticked with dates** | As you complete each |
-| `dsa/FAILURES.md` | Every failed problem, in the Track I format | As it happens |
-| 🔴 `dsa/OA-LOG.md` | **Every OA drill: problems, clock budget per problem, tests-written-first y/n, result** | Weekly from W53 |
-| `dsa/mocks.md` | Every mock and full loop, **scoring correctness and communication separately** | As they happen |
-| `career/APPLICATIONS.md` | Every application, with response and stage | As it happens |
-| `career/LOGICLEAP.md` | The six deliberate situations from §XV.5, dated | As they happen |
-| `docs/prompts/` | The five archetypes as files, so you paste rather than retype | Week 1 |
+| **MIT 6.5840** Distributed Systems | MapReduce, **Raft**, fault-tolerant sharded KV | 150–250 |
+| **CMU 15-445** Database Systems (Pavlo) | Buffer pool, **B+Tree**, query execution, MVCC — inside BusTub | 80–120 |
+| **Stanford CS144** Computer Networking | **A working TCP/IP stack that talks to the real internet** | 60–100 |
+| **MIT 6.S081** Operating System Engineering | xv6 kernel: syscalls, page tables, COW fork, filesystem | 80–120 |
+| **Fly.io Gossip Glomers** | 6 distributed-systems challenges, verified by Maelstrom | 20–40 |
+| **Protohackers** | Network protocol challenges against a live grader | 15–30 |
+| **Codecrafters** *(paid)* | Build your own Redis / Git / SQLite / Kafka / DNS server / shell | varies |
+| **MIT Missing Semester** | Shell, git, debugging, tooling — the stuff nobody teaches | 10 |
+| **CMU 15-721** Advanced Database Systems | Modern OLAP internals, vectorization | 40+ |
 
-## Daily — 2 minutes
-```
-2027-04-18 · C:2.0 D:4.0 I:1.5 J:0 · CS144 check3 retransmission timer passing at last;
-             the bug was RTO doubling on every ack, not every timeout. ngtcp2 handshake
-             now byte-identical between two peers. (+2h over estimate on check3)
-```
-**Log the hours you actually worked, not the hours you sat at the desk.** The W103 retrospective is only useful if this is honest, and its value is telling you your real estimation ratio — which you cannot learn from inflated data.
-
-## Weekly review — Sunday, 30 minutes
-1. **Hours by track vs budget.** A deficit up to 3h is noise. **Three consecutive deficit weeks is a signal.**
-2. 🔴 **Atlas progress: lectures and labs ticked this week, and are you on the course's schedule?** A course silently slipping is the most dangerous failure in this plan, because it compounds into the next course.
-3. **Which tasks met their acceptance criterion?** Met / not met. **"Partially" is not a category — force it.**
-4. **Which targets did you set before measuring, and what did you get?** **Both numbers, always.**
-5. **What did not finish, and does it block next week?** Blocks → top of next week, something drops. Does not → the buffer list. **Never silently carry unfinished work forward.**
-6. **Interview track:** attempted / solved / failed / re-solved, **and design docs written.**
-7. **Logic Leap:** anything worth a §XV.5 entry? **If six weeks pass with nothing, go and create the situation.**
-8. **One sentence: the biggest risk to the next four weeks.** A specific thing, not a feeling.
-
-## Level checkpoint — at each boundary
-1. **Exit criteria, one at a time. Met, or waived in writing with a reason. No third option.**
-2. **Hours: actual vs budget, and cumulative.** The cumulative number is the one that matters.
-3. 🔴 **Is the repository interview-ready RIGHT NOW?** Three checks, *performed*: does `make demo` work on a clean clone — **actually run it** · does the README describe what exists rather than what is planned · **can you speak for 45 minutes about it today, without preparation?** If any is no, fixing it is next week's top priority. **The plan is built so you can stop at any week and still be a coherent candidate.**
-4. **The corpus gaps** — Java 52.7%, AWS 48.4%, distributed systems 48.4%, K8s 30.1%, C++ 19.4%, PostgreSQL 19.4%, Kafka 20.4%, observability 22.6%, on-call 17.2%. One line each: closed / in progress / not started, **and what the evidence is. Not what you read. What is running.**
-5. 🔴 **Failure-category count** from `dsa/FAILURES.md`.
-6. **From W20:** referral pipeline — conversations this month, people who now know what you are building.
-7. **From W56:** applications sent, responses, response rate, stage conversion, what is stalled.
-8. **One paragraph: is the plan still right?** Not "am I on schedule" — whether it still describes the correct work.
-
-## 🚨 Re-plan triggers
-
-| Trigger | Response |
-|---|---|
-| **Cumulative deficit > 60h** | **Cut scope in the §XVII order. Do not compress estimates** |
-| 🔴 **A course is 3+ weeks behind its Atlas schedule** | **The most important trigger in the two-year plan.** The course finishes and the Adyton level slips — not the reverse. Take it from the next buffer week |
-| **All four buffer weeks gone before W66** | Estimates are systematically wrong. **Recompute Levels 10–13 with your measured ratio from `LOG.md`** |
-| **Two consecutive checkpoints where the repo is not interview-ready** | **Stop feature work entirely for one week.** README, build, demo. Overrides everything |
-| **Three consecutive weeks of Interview track under 6h** | The project is eating the track you explicitly protected. **Invert the week: interview first, everything else with what is left, for two weeks** |
-| ⚙️ **The sanitizer or fuzz job has been disabled for more than one week** | 🔴 **Stop and re-enable it.** The C++ choice is only defensible while this holds |
-| **CS144's handouts are gone and you did not mirror them** | Find a community mirror immediately; if none, substitute the 6.1810 `net` lab plus RFC 9293 reading, **and record in `LIMITATIONS.md` that you did not build a TCP.** This is why W26 mirrors them |
-| **The W2 scale spike fails** | **Decide in W2.** Substitute: 10–15 real nodes with `meshsim` carrying scale from month one, stated in the README as the primary limitation |
-| **A level runs 2+ weeks over** | Do not compress the next. Take it from the buffer and cut the top item in §XVII |
-| **Response rate <10% at W70** | Diagnose per §XV.8 **before** sending more |
-| 🔴 **You have not opened the repo in 10 days** | **The most important trigger and the easiest to ignore.** Do not restart at 32 hours. One 2-hour session, then one 4-hour, then resume. **Restarting at full intensity after a break is how a one-week gap becomes a two-month one — and over 104 weeks this will happen at least twice** |
-
-## What does NOT trigger a re-plan
-**A bad week** — noise. **A missed target** — targets set before measurement are estimates; record both numbers and move on. **A negative result** — being comparable to Tor in Level 8, or a sim-fidelity divergence larger than you hoped, **are results**; they get written up and become interview material. **Feeling behind** — check `LOG.md`. 🔴 **A better project idea** — it will happen, probably around Level 4 and again around Level 9. **The answer is no.** Write it in `docs/IDEAS.md` and continue. **Over two years this temptation is the single largest threat to finishing, and you have already changed spine once, at week zero, when it was free.**
+### Free Reference Sites Worth Bookmarking
+`use-the-index-luke.com` · `hpbn.co` · `cosmicpython.com` · `refactoring.guru` · `microservices.io` · `aws.amazon.com/builders-library` · `jepsen.io/analyses` · `k8s.af` · `learntla.com` · `postgrespro.com/community/books/internals` · `sre.google/books` · `google.github.io/eng-practices` · `github.com/danluu/post-mortems` · `neetcode.io` · `levels.fyi`
 
 ---
+
+## ✅ THE COMPLETE PROJECT CATALOG
+
+**Legend:** ⭐⭐⭐ flagship (build these) · ⭐⭐ high-value · ⭐ core
+
+### Level 0 — Foundations
+- [ ] ⭐⭐ `latency-lab` — measure your machine's real latency ladder, emit a personalized card
+- [ ] ⭐⭐⭐ **`c10k-arena`** — 6 concurrency models to 50k connections, incl. io_uring *(FLAGSHIP 1)*
+- [ ] ⭐ `minidocker` — a container runtime in 400 lines
+- [ ] ⭐⭐ **CS144** — build TCP from scratch; it talks to real servers
+- [ ] ⭐ `wire` — REST vs gRPC vs GraphQL, measured on the wire
+- [ ] ⭐ `sickbay` — 8 injectable production pathologies + solutions
+
+### Level 1 — Protocols
+- [ ] ⭐⭐⭐ **`h2spec-clean`** — HTTP/2 from scratch, 146/146 conformance *(FLAGSHIP 2)*
+- [ ] ⭐ `ledger-api` — idempotency, keyset pagination, `If-Match` CAS, proven adversarially
+- [ ] ⭐⭐ `fanout-lab` — 4 real-time fan-out architectures, message loss measured
+- [ ] ⭐ `n+1-hunter` — GraphQL/REST/gRPC compared + a CI query budget
+
+### Level C — Runtime
+- [ ] ⭐ `gc-lab` — GC behavior under 4 allocation profiles
+- [ ] ⭐⭐ `syscall-xray` — the true cost of "hello world" in 8 frameworks
+- [ ] ⭐ Three source-code tours (Redis, Kubernetes, SQLite)
+
+### Level A — Architecture
+- [ ] ⭐⭐ `fitness-functions` — architecture rules enforced by CI, with a rejected PR
+- [ ] ⭐⭐ `pattern-archaeology` — 10 patterns found in real production code, cited
+- [ ] ⭐ `chaos-payments` — 8 patterns applied deliberately
+- [ ] ⭐ `context-map` — bounded contexts for a real domain, incl. where NOT to split
+- [ ] ⭐⭐ `race-museum` — 10 concurrency pathologies, deterministically reproduced
+
+### Level 2 — Data
+- [ ] ⭐⭐⭐ `crashdb` + **`crashdb-torture`** — a storage engine and the harness that destroys it
+- [ ] ⭐⭐⭐ **`pgshift`** — 50M-row migration under live load, zero downtime *(FLAGSHIP 3)*
+- [ ] ⭐ `access-pattern-lab` — the same feature on 3 stores, benchmarked
+- [ ] ⭐⭐ `isolation-museum` — 5 anomalies × 3 databases × 3 fixes, measured
+- [ ] ⭐ `tinysearch` — inverted index + BM25 over 1M documents
+- [ ] ⭐⭐ **CMU 15-445 BusTub** — buffer pool, B+Tree, MVCC
+
+### Level D — Correctness
+- [ ] ⭐⭐⭐ **`simd`** — deterministic simulation testing, 10k seeds, ≥3 real bugs found *(FLAGSHIP 5)*
+- [ ] ⭐⭐⭐ **`elle-lite`** — a consistency checker that finds a real anomaly *(FLAGSHIP 4)*
+- [ ] ⭐⭐ Fuzzing campaign — ≥3 bugs found, ideally one in someone else's project
+- [ ] ⭐⭐ TLA+ specs of two protocols, with a real design bug found by TLC
+
+### Level B — Operations
+- [ ] ⭐ `container-forensics` — OOM, CPU throttling, and zero-drop graceful shutdown
+- [ ] ⭐⭐ **A Kubernetes Operator** for Chronos (CRD + controller + webhook)
+- [ ] ⭐ `queue-shootout` — 4 brokers, a message-loss matrix
+- [ ] ⭐ `redis-patterns` — 7 features with atomicity and fencing proven
+- [ ] ⭐ Full CI/CD with metric-triggered automatic rollback + DORA dashboard
+
+### Level 3 — Distributed
+- [ ] ⭐⭐⭐ **MIT 6.5840 Labs 1–5** — including your own Raft *(the crown jewel)*
+- [ ] ⭐⭐ **Gossip Glomers** 1–5
+- [ ] ⭐ `clock-chaos` — clock faults vs leases, and fencing tokens proven
+- [ ] ⭐⭐ `outbox-cdc-lab` — dual-write vs outbox vs CDC, crash-tested
+
+### Level 4 + E — Reliability & Performance
+- [ ] ⭐⭐ `lb-lab` — 6 LB algorithms + the health-check cascade demo
+- [ ] ⭐⭐ `cache-lab` — W-TinyLFU vs LRU under Zipf; stampede and cold-start demos
+- [ ] ⭐ `ratelimit` — 5 algorithms + an attack suite + shuffle sharding
+- [ ] ⭐⭐ `resilience-kit` — retry amplification and metastable failure, measured and fixed
+- [ ] ⭐⭐⭐ **`overload`** — the goodput collapse curves *(FLAGSHIP 6)*
+- [ ] ⭐ `queue-theory-lab` — predict p99 at 85% utilization, then verify
+- [ ] ⭐ `observability-stack` — trace spanning a 30-day timer; <5 min time-to-root-cause
+
+### Level 5, F, G, H — Architecture, Platform, AI, Security
+- [ ] ⭐⭐ `decompose` — the bad split and the good split, both measured
+- [ ] ⭐⭐ `ledger` — event-sourced double-entry that sums to zero under chaos
+- [ ] ⭐⭐ Multi-tenant Chronos — noisy-neighbor isolation proven, cost per tenant
+- [ ] ⭐ `skew-lab` — data skew diagnosed and fixed; CSV vs Parquet measured
+- [ ] ⭐ `realtime-analytics` — sub-200ms p99 over 1B rows
+- [ ] ⭐⭐⭐ **`llmgw`** — LLM gateway: token limits, semantic cache, cost accounting *(FLAGSHIP 8)*
+- [ ] ⭐⭐ `hnsw-from-scratch` — with the recall-vs-latency curve
+- [ ] ⭐⭐ `authlab` — auth service + the attack suite that breaks the vulnerable branch
+- [ ] ⭐ `vulnlab` — 10 vulnerabilities, 10 exploits, 10 fixes, 10 detections
+- [ ] ⭐ `gdpr-ready` — crypto-shredding + verified deletion across 5 stores
+
+### Level 6 — Synthesis
+- [ ] ⭐⭐⭐ **`incident-lab`** — 6+ famous outages reproduced and fixed *(FLAGSHIP 7)*
+- [ ] ⭐⭐ 20 canonical system design documents
+- [ ] ⭐⭐ 22 paper one-pagers
+- [ ] ⭐⭐⭐ **Chronos C9** — the full design doc, the teardown post, the hosted demo
+
 ---
 
-# 💼 RÉSUMÉ & GITHUB TRANSLATION
+## 🎓 THE FINAL READINESS CHECKLIST
 
-```
-📌 adyton            Open privacy relay network with per-identity compartmentalisation
-                     C++20 · Java 21 · Go · Python
-                     ★ architecture diagram + the honesty and scale statements +
-                       the headline numbers, all in the first screen
+### Can you build it?
+- [ ] A storage engine that survives 1,000 random kills with zero data loss
+- [ ] Raft, from the paper, passing 100 consecutive test runs with `-race`
+- [ ] An HTTP/2 server that passes the full conformance suite
+- [ ] A simulation harness that finds bugs your test suite can't
+- [ ] A service that holds its SLO at 10x overload
+- [ ] A schema migration on 50M rows with zero downtime
 
-📌 tradeoff-curve    AS-aware path selection makes you predictable. Here is the curve.
-                     ★ THE plot. Nobody has published this.
+### Can you explain it?
+- [ ] Raft's Figure 8, at a whiteboard, in 5 minutes
+- [ ] Why `W + R > N` doesn't guarantee you read the latest write
+- [ ] The difference between exactly-once delivery and exactly-once processing
+- [ ] What happens between `kubectl apply` and a running pod — 15+ steps
+- [ ] Write skew, with an example that isn't the doctors
+- [ ] Why p99 latency goes vertical at 90% utilization
+- [ ] What a metastable failure is and how to get out of one
+- [ ] Deterministic simulation testing, to a skeptical manager, in 90 seconds
+- [ ] Why you'd choose a modular monolith — and then why you wouldn't
 
-📌 leakproof         The suite that tries to break my own compartments, in CI
-                     ★ WebRTC · IPv6 · DNS · kill switch · cross-compartment linkage
-
-📌 hardened      ⚙️  How I made C++ defensible for a hostile-input data plane
-                     ★ sanitizers, libFuzzer + corpus, the documented subset,
-                       and the three memory bugs my own fuzzer found
-
-📌 tor-bench         Adyton vs Tor: same client, same destinations, same conditions
-                     ★ hop counts in the header, my own 3-hop row, one script reproduces it
-
-📌 coursework        Eight courses, 166 lectures, 41 labs — completed, with the code
-                     ★ CS144's TCP · 6.5840's Raft and sharded KV · 6.1810's xv6 labs
-                       15-445's B+Tree and MVCC · 15-213's allocator and proxy
-```
-
-🔴 **That sixth repository is the one the two-year plan earns you, and it is unusual.** Most candidates say they "studied distributed systems." **You will have a repository containing a working TCP, a working Raft, a working sharded fault-tolerant key-value store, a working concurrent B+Tree, a working MVCC engine, a working memory allocator, a working concurrent web proxy and nine xv6 kernel modifications — with MIT's and CMU's own test suites passing.** Point at it in the first line of your CV's coursework section.
-
-**Every README, first screen:** one sentence saying what it is · an architecture diagram · **the headline number or chart** · `make demo`. **Profile README:** three sentences about what you work on, then the six with their numbers. **No badge walls. No language-percentage charts.**
-
-**The answer this buys you** to *"tell me about the most technically challenging thing you've built"*: a 45-minute answer with an architecture diagram you can draw from memory · **three specific bugs and how a simulator you wrote found them** · measured numbers and where the bottleneck is · ⚙️ **a language choice you can defend from both sides** · **the alternatives you rejected, written as ADRs** · **an honest comparison to Tor, which solved this two decades ago** · and **a retrospective with measured estimate-versus-actual across two years and 166 lectures.**
-
----
----
-
-# 📚 THE LIBRARY
-
-**Courses:** all eight are in §VII with every lecture and lab linked. **That is the primary curriculum and it is not repeated here.**
-
-## Books — with the chapters, never the whole thing
-**Kleppmann, *DDIA*** *(owned)* — **ch. 8** (partial failure, **the theoretical spine**), **ch. 9** (consensus), ch. 5, 6, 7, 11 · **Alex Xu, *System Design Interview* Vol. 1 & 2** *(owned)* — Vol 1 ch. 1, 4, 5, 6, 8, 11 · **Bryant & O'Hallaron, *CS:APP* 3rd ed.** — §6.2–6.4, ch. 5, and it is 15-213's textbook so you will read most of it · **Arpaci-Dusseau, *OSTEP*** *(free)* — the companion to 6.1810 · **Kerrisk, *TLPI*** — ch. 28 (namespaces), and the syscall reference for two years · ⚙️ **the C++ Core Guidelines** — the lifetime and bounds profiles, read properly in W9 · ⚙️ **Williams, *C++ Concurrency in Action* 2nd ed.** — ch. 3–5, 7 · **Goetz, *Java Concurrency in Practice*** — ch. 3, 5, 10, 11 · **Aumasson, *Serious Cryptography*** — ch. 8, 10, 11, 12 · **Boneh & Shoup** *(free, `toc.cryptobook.us`)* — §5.4, ch. 9 · **Kurose & Ross** — ch. 3, §5.4 · **Fall & Stevens Vol. 1** — ch. 13–15 · **Petrov, *Database Internals*** — Part I, alongside 15-445 · **Nygard, *Release It!*** — Level 11's most relevant book · **Google *SRE* + *Workbook*** *(free)* — SRE ch. 3, 4, 6, 21, 22; Workbook ch. 5 · **Majors et al., *Observability Engineering*** — ch. 1–6 · **Lukša, *Kubernetes in Action*** — ch. 1–7, 12, 17 · **Dwork & Roth** *(free)* — ch. 2, §3.1–3.3 · **Mitzenmacher & Upfal** — ch. 5, §14.1 · **Ousterhout, *A Philosophy of Software Design*** · **Skiena** — ch. 8, 9 · **Laaksonen** *(free)* — ch. 7, 9, 13–15, 26
-
-## Papers — beyond the ~60 assigned inside the eight courses
-| Paper | Week |
-|---|---|
-| 🔴 **Das et al., Anonymity Trilemma** (S&P 2018) | W7 |
-| Dingledine et al., **Tor design paper** | W7 |
-| 🔴 **Danezis & Goldberg, Sphinx** (S&P 2009) + **Lightning BOLT #4** | W14 |
-| RFC 9000 §2, 5, 12–13, 17 · RFC 9221 | W29 |
-| 🔴 **Das et al., SWIM** (DSN 2002) · **φ Accrual** (SRDS 2004) | W39 |
-| RFC 4787 §4 · RFC 8445 §2 | W37 |
-| 🔴 **Gjengset, "Students' Guide to Raft"** | W44 |
-| 🔴 **Mahajan et al., SUNDR** (OSDI 2004) · **Laurie, Certificate Transparency** | W49 |
-| 🔴 **Luckie et al., AS Relationships** (IMC 2013) | W59 |
-| **Sun et al., Counter-RAPTOR** (S&P 2017) · Astoria · DeNASA | W61 |
-| **Elahi et al., Changing of the Guards** · **Douceur, The Sybil Attack** | W63 |
-| 🔴 **Wan et al., Guard Placement Attacks** (PoPETs 2019) · **Rochet et al., CLAPS** | W67 |
-| 🔴 **Davidson et al., Privacy Pass** (PETS 2018) · RFC 9576/9577 | W77 |
-| 🔴 **Jansen & Johnson, PrivCount** (CCS 2016) · **Corrigan-Gibbs & Boneh, Prio** (NSDI 2017) | W85 |
-| **Dean & Barroso, The Tail at Scale** · **Gil Tene's talk** | W2, W93 |
-| **Sirinam et al., Deep Fingerprinting** (CCS 2018) · WTF-PAD · FRONT | W99 |
-
-**For each: what problem, what was the key insight, what did they give up, what would you do differently, what system today embodies it.** **Sixteen of your own plus ~60 from the courses is around seventy-five papers read properly in two years.**
-
-## Free reference
-`aws.amazon.com/builders-library` (all ~20 across L7 and L11) · `k8s.af` (read 10) · `jepsen.io/analyses` and `/consistency` · `sre.google/books` · `github.com/danluu/post-mortems` · `spec.torproject.org` and the **Arti** source · ⚙️ `en.cppreference.com` and the **C++ Core Guidelines** · `book.systemsapproach.org` · `toc.cryptobook.us` · `hpbn.co` · `neetcode.io` · `levels.fyi` · `brooker.co.za`
-
-## People
-Martin Kleppmann · **Marc Brooker** (`brooker.co.za`, the best working systems writer today) · **Robert Morris** and **Frans Kaashoek** (6.5840, 6.1810) · **Andy Pavlo** (15-445, 15-721) · **Randal Bryant** and **David O'Hallaron** (15-213) · **Dan Boneh** · **Nick McKeown** and **Philip Levis** (CS144) · **Nick Mathewson** and the Tor Project · ⚙️ **Herb Sutter** and **Chandler Carruth** (C++) · Brendan Gregg · Julia Evans · Dan Luu · Kyle Kingsbury · Hillel Wayne · Charity Majors · Gergely Orosz
-
----
----
-
-# ✅ PROJECT CATALOG & FINAL CHECKLIST
-
-## The catalog — 🚩 flagship · ⭐ core
-**L0** ⭐`latency-lab` · ⭐`lab/bench` open-loop harness · ⭐`sickbay` · ⭐**`SCALE-RISK.md` signed go/no-go** · ⭐🔴**`docs/legal.md`**
-**L1** 🚩**#1 `hardened`** — sanitizers, libFuzzer + corpus, `cpp-subset.md`, **and the bugs my own fuzzer found** · ⭐**D0** the un-crashable relay · ⭐the five attacks reproduced · ⭐**`threat-model.md` v1**
-**L2** 🚩**#2 `sphinx`** — RapidCheck size invariant, 1h clean fuzz · ⭐**D1** · ⭐single-pass vs telescoping measured · ⭐zeroizing key types
-**L3** 🚩**#3 `leakproof`** — five tests in CI · ⭐**D2 ★** unmodified Mullvad Browser in a netns over a circuit · ⭐the sealed `Identity` type · ⭐two-machine fingerprint uniformity · ⭐`browser-delta.md`
-**L4** ⭐**D3** per-hop QUIC carrying real HTTP · ⭐🔴**the head-of-line-blocking chart** · ⭐🔴**fingerprint capture-diff in CI**
-**L5** 🚩**#4 `meshsim`** — 1,000 seeds nightly, asymmetric partitions, lying peers · ⭐**D4** churn recovery p50<800ms/p99<3s · ⭐NAT >80% direct · ⭐phi-accrual chart · ⭐**the asymmetric-partition test**
-**L6** 🚩**#5 `raft-dir`** — Figure 8 as a test, drawable from memory · ⭐**D5 100% epoch-hash agreement under 20% churn** · ⭐🔴**hash chaining + client gossip; fork detection latency measured** · ⭐**the anonymity-set number, before and after**
-**L7** ⭐**D6** 30-node mesh on k8s, **rolling restart zero circuits dropped** · ⭐the 3am dashboard, RCA <5min on video · ⭐`gatekeep` · ⭐`costwatch` with a **tested** billing alarm · ⭐`slo.md` · ⭐**$0.00 screenshotted monthly**
-**L8** 🚩**#6 `ascorr`** — compromise probability for Adyton **and Tor**, four presets · ⭐🔴**inference validated against RouteViews** · ⭐guard-compromise curve · ⭐sybil cost in USD/month · ⭐`lab/reproduce.sh`
-**L9** 🚩**#7 `guardplace`** — 🔴**THE TRADE-OFF CURVE** · ⭐three selectors in Python first · ⭐C++ port with cross-language vectors · ⭐operating point chosen from the curve
-**L10** 🚩**#8 `privacypass`** — unlinkability proven by test · ⭐**D9** revocation with no deanonymisation and no retroactive linkage · ⭐**sybil cost ≥10× with admission** · ⭐`adyton-gateway` OpenAPI + quotas + RFC 9457 · ⭐**ADR-0007**
-**L11** ⭐🔴**the metrics attack against my own telemetry, then defeated** · ⭐**DP budget that fails closed** · ⭐**D10 20+ incidents + the clock-skew invariant** · ⭐4 famous outages · ⭐`sim-fidelity.md`
-**L12** 🚩**#9 `tor-bench`** — one-script reproducible, hop counts stated, wins attributed · 🔴🚩**#10 `1brc`** — 1B rows, the two-year delta, against a public leaderboard · ⭐**D11** >200k pps/core, **<1.5ms CPU/MB** · ⭐**the prediction committed before profiling** · ⭐aarch64 delta · ⭐`pgshift` · ⭐`docs/REPORT.md`
-**L13** ⭐`shape` (reduced) — WTF-PAD padding implemented, latency cost measured · ⭐**D12** reproducible builds verified twice · ⭐**threat model published + killed/weakened/not-solved table** · ⭐install guide, 2 of 3 strangers succeed · ⭐**10 ADRs · LIMITATIONS · COMPARISON · RETROSPECTIVE** · ⭐the write-up sent to cited researchers · ⭐**the 45-minute demo, recorded**
-**Cross-cutting** ⭐🔴**THE ATLAS: 166 lectures, 41 labs, eight courses — every box ticked** · ⭐**602 named problems** (+contests, CSES, AtCoder) with category counts in all eight rest weeks · ⭐🔴**AtCoder DP A–Z · CSES 200+ · CF EDU all six sections · CF rating 2000+** · ⭐🔴**40+ OA drills logged** · ⭐**24 written designs** + 24 verbal · ⭐**20+ full loops** · ⭐**14 stories on video, ≥4 from Logic Leap** · ⭐**~75 papers with one-pagers · 10 posts · 3+ merged OSS PRs, ≥1 in Arti · 1 talk** · ⭐**7 CV versions in git history** · ⭐**~250 applications logged** · ⭐**`career/LOGICLEAP.md`**
-
-## Can you build it?
-- [ ] ⚙️ A C++ network daemon whose parser cannot be crashed by hostile input, fuzzed, sanitizer-clean, with a documented subset
-- [ ] Constant-size onion packets that do not leak hop position, asserted by property test
-- [ ] **A working TCP** (CS144), **a working Raft** (6.5840, twice), **a working sharded fault-tolerant KV store**, **a concurrent B+Tree and an MVCC engine** (15-445), **an allocator and a concurrent proxy** (15-213), **nine xv6 kernel modifications** (6.1810)
-- [ ] Per-hop QUIC removing cross-circuit head-of-line blocking, with the chart
-- [ ] Compartments the kernel enforces and a five-test suite that cannot break them
-- [ ] A 30-node mesh across NAT with sub-second circuit recovery under churn
-- [ ] Raft-backed epoch consensus at 100% agreement, plus **detectable forks**
-- [ ] Circuit-compromise probability on real BGP topology, for your system and Tor
-- [ ] **A published trade-off curve for a defence you built and then attacked**
-- [ ] Anonymous credentials with revocation that deanonymises nobody
-- [ ] The whole thing on Kubernetes, observed without surveilling anyone, at $0/month
-
-## Can you explain it?
-- [ ] The trilemma, your corner, and exactly who you concede
-- [ ] ⚙️ **Why C++ here, what Rust would have given you for free, and the apparatus that closes the gap**
-- [ ] Mechanically why a Sphinx header hides its position
-- [ ] Why one lost TCP segment stalls a stranger's circuit, and what you did — **derived, because you built a TCP**
-- [ ] Why three of a proxy's four leaks are not the proxy's fault
-- [ ] **Why divergent peer lists are a privacy bug** — with your anonymity-set numbers
-- [ ] **Fork consistency, and why Raft alone does not give it to you**
-- [ ] Raft's Figure 8, at a whiteboard, in five minutes
-- [ ] **Why a better path-selection defence handed the attacker aim**
-- [ ] How you banned an abuser without knowing who they were
-- [ ] **How your own Prometheus metrics became a traffic-confirmation attack**
-- [ ] **Why anyone would use Tor instead of Adyton** — and you say so in your README
-
-## Can you diagnose it?
-- [ ] Root-cause a sabotaged mesh in under 45 minutes, with evidence
-- [ ] Read a flamegraph in 10 seconds and say what you would fix
+### Can you diagnose it?
+- [ ] Root-cause a sabotaged service in under 45 minutes, with evidence
+- [ ] Read a flame graph in 10 seconds and say what you'd fix
 - [ ] Given "p99 is 3s, CPU is 8%", name three causes and the command that distinguishes them
-- [ ] Given green dashboards and wrong answers, **find the clock**
-- [ ] ⚙️ Given an ASan report on a `string_view` outliving its buffer, explain the lifetime bug in one sentence
+- [ ] Given a bad query plan, say why the planner chose it
+- [ ] Given growing consumer lag, name six causes and the metric for each
 
-## Can you interview?
-- [ ] **602 named problems**, ≥70% unaided in 25 minutes · a random Medium **narrated** in 25, on video
-- [ ] 🔴 **Codeforces 2000+** · **AtCoder DP A–Z** · **CSES 200+** · **CF EDU's six assigned sections complete**
-- [ ] 🔴 **40+ OA drills: two unseen problems in 90 minutes, tests written before submitting, clock budgeted across problems**
-- [ ] 🔴 **Four interview rounds in one day without degrading in round three** — verified, three days running, in W96
-- [ ] **24 system designs** hitting the rubric, and the reflex to say *"I built this, here is my number"*
-- [ ] 14 behavioural stories ≤90s, quantified, first person, **≥4 from Logic Leap**
-- [ ] **20+ full timed loops · both Gauntlets passed** · **the failure-log queue empty**
+### Can you interview?
+- [ ] 280+ DSA problems, ≥70% solved unaided in 25 minutes
+- [ ] A random Medium, narrated, in 25 minutes, on video, repeatedly
+- [ ] 20 system designs, 45 minutes each, hitting the rubric
+- [ ] 14 behavioral stories, ≤90s each, quantified, in first person
+- [ ] 20+ mock interviews completed
+- [ ] The Final Gauntlet passed
 
-## Do they know you exist?
-- [ ] 6 pinned repos, each with a diagram and a headline number in the first screen
-- [ ] 10 posts published — **at least four about a result, not a tutorial**
-- [ ] **3+ merged OSS PRs, at least one in Arti** · one talk given
-- [ ] **40–50 people at target companies who know what you are building, from conversations that started in January 2027**
-- [ ] A CV where **every bullet has a number**, and **a coursework line naming eight completed courses**
-
----
-
-# 🎯 What success means on 2028-09-10
-
-**Not an offer.** Offer timing is not under your control, and treating it as the criterion makes you optimise for the wrong things in Levels 11–13. **You will have been applying since October 2027 — eleven months of live pipeline.** If nothing has landed by W104, the pipeline is the thing to examine, not the plan.
-
-> **The criterion: you are a candidate who cannot be screened out on credentials, and cannot be caught out in a system design round.**
-
-If that is true and you have no offer yet, **the plan worked and the timing has not resolved.** Execute `docs/NEXT.md`.
-If it is not true, **`docs/RETROSPECTIVE.md` tells you which level or which course to return to, with numbers rather than a feeling.**
+### Do they know you exist?
+- [ ] 6 pinned repos, each with a diagram and a headline number
+- [ ] 8+ technical posts published
+- [ ] 5+ merged OSS PRs
+- [ ] One talk given
+- [ ] A resume where every bullet has a number
 
 ---
 
-# Closing
+## 📌 What Changed From v2 — the honest changelog
 
-Five things decide whether this works.
+**What v2 got right and v3 keeps:** the BFS/parallel-levels structure · DDIA as the spine with a chapter map · the design-patterns and DevOps levels · the "why it matters" framing on every topic · most of the article curation (which was genuinely good) · the papers table · the blogs list.
 
-**1. You must actually reproduce the failures.** The Walls are not flavour text. Reading "a proxy leaks" produces a fact you will forget. Watching WebRTC hand your real IP to a page you loaded through your own relay produces an instinct you will have for twenty years. **The five you will remember longest:** the naive relay reading your own plaintext back to you in Week 7 · **the heap-buffer-overflow ASan report on a one-byte-overlong length field, which is the entire language argument in one stack trace** · the onion packet getting *smaller* at each hop in Week 15, announcing its position to anyone watching · Week 52, diffing two clients' peer lists and realising a circuit through peers only three clients knew about identifies one of them · and Week 85, correlating your own Prometheus counters and discovering you had built a traffic-confirmation attack against your own users.
+**What was wrong and is fixed:**
 
-**2. You must finish the courses.** 🔴 **This is the difference between this plan and every twelve-month version of it, and it is the reason it costs a second year.** A course you watched half of is a topic you can name and not use. **166 lecture checkboxes and 41 lab checkboxes** — and when a course and an Adyton level collide, **the course wins and the level slips**, because Adyton will wait and CS144's handouts will not.
+| Problem in v2 | Fix in v3 |
+|---|---|
+| **No algorithms track** — completing v2 would still fail a phone screen | Level I, run daily from week 1: 280 problems by pattern, spaced repetition, 20 mocks |
+| **No behavioral track** — ~50% of Amazon's loop | Level I.2: 14-story bank in STAR-L, videoed, mapped to LPs |
+| Generic projects (task manager, URL shortener, blog, whiteboard) | Every project replaced or sharpened; a uniqueness rubric; 8 flagships that score ≥8/10 |
+| Projects with no definition of done | **📈 Exit Criteria with numbers on every project** |
+| Article-first learning | **🔥 The Wall** — every topic opens with a failure you must reproduce first |
+| No problem→discovery chains | **⛓ Problem Chains** throughout, exactly as you asked |
+| 30 disconnected projects, no narrative | **Chronos** — one spine system, 10 milestones, one deep answer for interviews |
+| No testing/correctness content | **Level D** — property testing, fuzzing, **deterministic simulation testing**, Jepsen-style checking, TLA+ |
+| No performance methodology | **Level E** — profiling, queueing theory, coordinated omission, load shedding, goodput |
+| No language/runtime depth | **Level C** — GC, memory model, escape analysis, profilers, source-reading |
+| No cloud/data platform | **Level F** — AWS primitives, S3, Spark, Parquet, Iceberg, OLAP, cost engineering |
+| No AI/ML systems (in 2026) | **Level G** — inference serving, token economics, vector search, RAG/agent infra |
+| Thin security, no privacy/compliance | **Level H** expanded — attack-your-own-system, supply chain, GDPR, crypto-shredding |
+| No senior-craft content | **Level J** — design docs, ADRs, code review, OSS, on-call, postmortems, writing |
+| Missing the best free hands-on courses | CMU 15-445, CS144, 6.S081, Gossip Glomers, Protohackers, Codecrafters |
+| Missing foundational books | OSTEP, CS:APP, **Release It!**, A Philosophy of Software Design, Khorikov, Streaming Systems |
+| No assessment mechanism | Exit exams per level, the Three Proofs, the Final Gauntlet |
+| Timeline off by ~4x | Honest 1,450–2,150 hours across three named paths |
+| Citation errors | Fixed: "How Does a Relational Database Work?" is **Christophe Kalenzaga**; "Blocking I/O, Nonblocking I/O, And Epoll" is **Evan Klitzke**; *Kubernetes: Up and Running* is a **book** by Burns/Beda/Hightower; Discord's posts are "How Discord Stores **Billions**/**Trillions** of Messages"; MIT 6.824 is now **6.5840** |
+| Nothing genuinely one-of-a-kind | **Incident Archaeology** — rebuild 10 famous outages, find the seven recurring mechanisms |
 
-**3. You must use the three sources correctly.** A 25-lecture course to learn what a fencing token is wastes a week. Reaching for the AI in an area whose shape you have never seen gives you confident nonsense you cannot evaluate. **§V's table is the whole discipline: course to build the model, pages for precision, prompt for the block and the check.** And 🤖 **PROMPT 2 is the one you will skip and the one that would have found the gap.**
+---
 
-**4. ⚙️ You must hold the C++ line every single week.** Sanitizers, fuzzers, the documented subset. **They are not hygiene — they are the argument for having chosen C++ at all**, and a month with the sanitizer job quietly disabled turns your best interview answer into your worst.
+## 🏁 Closing
 
-**5. You must run all four tracks at once.** Courses without Adyton makes you a very well-educated person with nothing to show. Adyton without courses makes you someone who built one thing and cannot generalise. Either without Track I means nobody ever sees it — you fail the phone screen and never reach system design. **Running four tracks for 104 weeks is genuinely harder than running one, and it is the reason most people who "study systems for two years" never convert it into an offer.**
+Three things determine whether this works:
 
-The gap between *"I understand distributed systems"* and *"here is a privacy relay network where per-hop QUIC removes the head-of-line blocking that makes Tor slow — and I can derive why, because I built a TCP first; here is why my clients disagreeing about the peer list was a privacy bug and how SUNDR taught me consensus alone does not fix it; here is the curve showing my own path-selection defence made me easier to target; here is the traffic-confirmation attack I built against my own metrics; here is the benchmark against Tor with my own three-hop row in it for honesty; here are eight completed courses with all forty-one labs and the code; and here is the document listing everything this does not do"* — **that gap is the entire difference between a candidate and a hire.**
+**1. You must actually reproduce the failures.** The Walls are not flavor text. Reading "cache stampedes cause outages" produces a fact you'll forget. Watching your own database fall over because 10,000 clients hit an expired key at once produces an instinct you'll have for twenty years. Every single 🔥 in this document is there because that specific failure is worth having felt.
 
-This is roughly **3,044 scheduled hours across 104 weeks, of which 2,485 are committed and ~559 are the slack that lets a two-year plan survive contact with a life.** The output is not "a person who finished a roadmap." The output is an engineer who has written a TCP, a Raft, a B+Tree, an allocator and a kernel driver from specifications; built a network daemon that hostile input cannot crash and can defend the language they chose to build it in; made two browsers on one laptop unlinkable at the kernel level; computed the probability of their own system's compromise on real internet topology; attacked their own defence and published the trade; banned an abuser without learning who they were; found the surveillance system hiding inside their own dashboards — **and can explain any of it at a whiteboard from memory, including the parts that do not work.**
+**2. You must run all three tracks at once.** Depth without the interview track means you never get to show anyone the depth. The interview track without depth gets you hired at a level you'll be stuck at. Craft without either is empty. It is genuinely harder to run three tracks than one, and it is the reason most people who "study systems for a year" don't convert it into an offer.
 
-There are not many of those. **And exactly one posting in 569 cares what your degree says.**
+**3. You must ship publicly.** The gap between "I understand distributed systems" and "here is my Raft implementation, my simulation harness that found three bugs in it, and my write-up of what surprised me" is the entire difference between a candidate and a hire.
 
-**Now go download `bomb.tar`, open it in `gdb`, and start.**
+This document is roughly 1,500–2,100 hours of work. That is not a small thing, and it is worth being clear-eyed about it: it is one to two years of consistent effort. But the output is not "a person who has finished a roadmap." The output is an engineer who has built a consensus algorithm, written a storage engine that survives being killed a thousand times, found real bugs with a simulation harness, reproduced the outages that took down S3 and GitHub, and can explain any of it at a whiteboard from memory.
+
+There are not many of those. That's the point.
+
+---
+
+*This roadmap is comprehensive but not exhaustive. Distributed systems and software architecture are lifetimes of study. The goal is not to know everything — it's to have built the reflex of **reproduce, instrument, hypothesize, measure, write** so thoroughly that you can learn any new system faster than the people who built it can explain it to you.*
+
+**Now go break something on purpose.**
