@@ -19,7 +19,7 @@ Every row of every week says which one it is. That word is the first column.
 
 | Word | What you actually do | The rule |
 |:--|:--|:--|
-| **WATCH** | A named course, a numbered lecture | 1.25–1.5×, slides open, **paused** to write things down |
+| **WATCH** | A named course, a numbered lecture | 1.25–1.5×, slides open, **paused** to write things down. **Every course in this term has free public video — official where it exists, a student mirror where the university let it rot. [§A.7](#a7--where-the-video-actually-is) is the full list** |
 | **READ** | A paper, spec, article or book chapter | **Every paper gets a one-page note**: what problem · what insight · what did they give up · what would you do differently in 2027 |
 | **BOOK** | Named chapters and page numbers from `DSA_Mastery.pdf` | 1 h. **Type the code from memory, not from the page** |
 | **SOLVE** | The week's DSA problems | Daily, time-boxed. Every failure goes in the log |
@@ -60,7 +60,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 | [Part 3 — The Interview Track](#part-3--the-interview-track) | 540 problems, 20 designs, `DSA_Mastery.pdf` mapped to all 52 weeks, the failure log | Daily |
 | [Part 4 — Career & Visibility](#part-4--career--visibility) | Writing, open source, referrals from Week 13, four CV versions, 84 applications | Weekly |
 | [Part 5 — Assessment & Tracking](#part-5--assessment--tracking) | The three proofs, the Final Gauntlet, the cut order, the rituals | At every gate |
-| [Appendix A — The Faculty](#appendix-a--the-faculty) | The six courses you complete, the ones you consult, and a full directory of free university courses | Before each level starts |
+| [Appendix A — The Faculty](#appendix-a--the-faculty) | The six courses you complete, the ones you consult, a full directory of free university courses, and **§A.7 — where the lecture video for every one of them actually is** | Before each level starts |
 | [Appendix B — The Library](#appendix-b--the-library) | Every book, paper, spec and tool, filed by subject | **Reference only.** The week cards already carry what you need. You come here to go deeper, never to plan a day |
 | [Appendix C — The Evidence](#appendix-c--the-evidence) | Your 569 job postings, recomputed, and the five corrections that changed this plan | When you doubt a priority |
 
@@ -117,7 +117,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 3 | CMU 15-213 · CS:APP | *The Memory Hierarchy* and *Cache Memories*. **Slide decks only** — there is no lecture video for these | [15-213 lecture slides](https://www.cs.cmu.edu/afs/cs/academic/class/15213-f25/www/lectures/) |
+| **WATCH** | 3 | CMU 15-213 · CS:APP | *The Memory Hierarchy* and *Cache Memories*. **The full course is on YouTube** — CMU's own recordings, reuploaded. Watch with the current slide deck open beside them | [15-213 full lecture video (Spring 2015, 27 lectures)](https://www.youtube.com/playlist?list=PLuIW76m2J9C3JqJH8Hm1VYrBMSTGs5BA4) · [second mirror](https://www.youtube.com/playlist?list=PL22J-I2Pi-Gf0s1CGDVtt4vuvlyjLxfem) · [slide decks](https://www.cs.cmu.edu/afs/cs/academic/class/15213-f25/www/lectures/) |
 | **READ** | 3 | CS:APP §6.2–6.4 · Drepper §3 | ~40 pages of CS:APP, skipping §6.1. Drepper's §3 in full — it is the chapter everything else this year assumes | [Drepper on LWN](https://lwn.net/Articles/250967/) · [full PDF](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf) |
 | **READ** | 1 | Ostrovsky, *Gallery of Processor Cache Effects* · Colin Scott, latency numbers | **Run all ten experiments. Reading them is not the assignment.** Then scrub Scott's latency chart 1990 → 2020 and watch which numbers refuse to improve | [interactive latency numbers](https://colin-scott.github.io/personal_website/research/interactive_latency.html) |
 | **BUILD** | 14 | Adyton — the repository | Repo, CI, toolchains (C++20/CMake/vcpkg, Java 21, Go, Python). Then **`docs/scope.md`** — one page, written from [§2.4](#24-the-scope-decision--read-this-in-week-1-and-never-revisit-it), **never revisited**. Then `lab/latency-lab` | — |
@@ -146,7 +146,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 **ASSIGNMENT** `docs/SCALE-RISK.md`, and **a signed, dated go/no-go** on the local-mesh-plus-simulator strategy with the binding resource named.
 
-**GATE** Two runs give byte-identical results · the harness is **open-loop by default and you can say why in a paragraph** · a deliberate 5% regression is caught by `benchstat` in CI · **`sickbay`: median diagnosis under 10 minutes across all 8, shuffled** · Oracle always-free ARM box is live, reachable from Cairo, **$0.00 confirmed** · **check whether [cs144.github.io](https://cs144.github.io/) is back — and repeat this check every single week until it is.**
+**GATE** Two runs give byte-identical results · the harness is **open-loop by default and you can say why in a paragraph** · a deliberate 5% regression is caught by `benchstat` in CI · **`sickbay`: median diagnosis under 10 minutes across all 8, shuffled** · Oracle always-free ARM box is live, reachable from Cairo, **$0.00 confirmed** · **check whether [cs144.github.io](https://cs144.github.io/) is back** — a nice-to-have now, not a risk: the [video](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z), the [checkpoint handouts](https://qiuyumu.github.io/cs144-2021-fall-website/) and the [code](https://github.com/PKUFlyingPig/CS144-Computer-Network) are already mirrored and Level 5 can run entirely off them.
 
 **GO FIND OUT** Coordinated omission, in one sentence you would say to a manager — then **sketch a harness in which a 200 ms stall is completely invisible** · Why can't you average percentiles? · What does `tc netem`'s `distribution normal` actually do, and why does it matter for a relay?
 
@@ -157,7 +157,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 3 | UC Berkeley CS161 | *Security Principles* · *x86 Assembly and the Call Stack* | [CS161 lectures](https://www.youtube.com/@berkeley-cs161) · [free textbook](https://textbook.cs161.org) |
+| **WATCH** | 3 | UC Berkeley CS161 | *Security Principles* · *x86 Assembly and the Call Stack* | [Security Principles playlist](https://www.youtube.com/playlist?list=PLfBkt1-_BHX9eGdDJv1UIYuMs0oYJ5DCa) · [all CS161 playlists](https://www.youtube.com/@berkeley-cs161/playlists) · [free textbook](https://textbook.cs161.org) · [course site](https://fa25.cs161.org/) |
 | **READ** | 3 | Tor Research Safety Board · Brooker, *Telling Stories About Little's Law* | **The Safety Board principles, read before Level 2 collects a single byte** — you are about to crawl the real web · then Little's Law, which you will use every time you size a queue | [Safety Board](https://research.torproject.org/safetyboard/) · [Little's Law](https://brooker.co.za/blog/2018/06/20/littles-law.html) |
 | **BUILD** | 13 | `1brc` v1 · the README skeleton | The naive One Billion Row Challenge attempt. **Time it, commit it, do not optimise it.** You come back in W51 and the delta is the point. Then the README skeleton with the honesty and scale statements already in place | [1BRC](https://github.com/gunnarmorling/1brc) |
 | **SOLVE** | 4.5 | Finish the L0 set | **~28 problems cumulative** | [neetcode.io/practice](https://neetcode.io/practice) |
@@ -192,7 +192,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 3 | UC Berkeley CS161 | *Memory Safety Vulnerabilities* · *Mitigating Memory-Safety Vulnerabilities* | [CS161 lectures](https://www.youtube.com/@berkeley-cs161) |
+| **WATCH** | 3 | UC Berkeley CS161 | *Memory Safety Vulnerabilities* · *Mitigating Memory-Safety Vulnerabilities* | [CS161 lecture playlists](https://www.youtube.com/@berkeley-cs161/playlists) · [FA25 lecture set](https://www.youtube.com/playlist?list=PLfBkt1-_BHX8kQZhisgrCLAnuAd3-Ek5U) |
 | **READ** | 3 | Chromium security · The Tor Project · Google fuzzing docs | **Read the first two on the same day.** Chromium: *~70% of serious security bugs are memory-safety bugs.* Tor: *~half of all tracked bugs since 2016 were memory-safety issues that are impossible in safe Rust.* **Let it make you uncomfortable — the rest of this level is your answer.** Then *Building a good fuzz target* | [Chromium memory safety](https://www.chromium.org/Home/chromium-security/memory-safety/) · [Announcing Arti](https://blog.torproject.org/announcing-arti/) · [good fuzz target](https://github.com/google/fuzzing/blob/master/docs/good-fuzz-target.md) |
 | **BUILD** | 16 | Adyton — `adyton-node` · `adyton-wire/codec` | The skeleton, and the codec: length-prefixed frames with a **hard maximum validated before allocation**, CRC, varints, `std::span` views, arena allocation. **CI this week, not later: ASan + UBSan + TSan, `-Werror`, clang-tidy `cppcoreguidelines-*` and `bugprone-*`, libFuzzer on the parser** | [ASan](https://clang.llvm.org/docs/AddressSanitizer.html) · [libFuzzer](https://llvm.org/docs/LibFuzzer.html) · [std::span](https://en.cppreference.com/w/cpp/container/span) |
 | **SOLVE** | 4.5 | LeetCode — binary search, **including on the answer** | LC 704 · 74 · 153 · 33 · **875 Koko** · **1011 Ship Packages** · 410. *875 and 1011 are literally how you will pick a frame-size parameter* | [binary search set](https://leetcode.com/tag/binary-search/) |
@@ -212,7 +212,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **READ** | 3 | OSTEP ch. 4–7 | Processes, the process API, direct execution, scheduling | [OSTEP, free](https://pages.cs.wisc.edu/~remzi/OSTEP/) |
+| **READ + WATCH** | 3 | OSTEP ch. 4–7 | Processes, the process API, direct execution, scheduling. **There is a full video course that follows the book chapter by chapter** — read the chapter, then watch its lecture | [OSTEP book, free](https://pages.cs.wisc.edu/~remzi/OSTEP/) · [OSTEP video course](https://www.youtube.com/playlist?list=PLqVOzV3wNCqRZxsTM-nGFcbSYQVwb4qLl) · [Remzi's own discussion videos](https://pages.cs.wisc.edu/~remzi/Classes/537/Spring2018/Discussion/videos.html) |
 | **READ** | 2 | C++ Core Guidelines | The Resource Management, Bounds and Lifetime profiles — **these three, not the whole document** | [Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) |
 | **BUILD** | 17 | Adyton — the handshake · `docs/cpp-subset.md` | Varints · a capability-negotiating handshake · an explicit version field · **authenticated framing**: a frame failing its MAC is dropped *before* any further parsing, and the failure is **counted and rate-limited, not logged per occurrence** — or a peer fills your disk with your own log lines. Then write **`docs/cpp-subset.md`**: the subset of C++ you allow yourself, and honestly | [Protobuf encoding](https://protobuf.dev/programming-guides/encoding/) |
 | **SOLVE** | 4.5 | LeetCode — bit manipulation | LC 136 · 191 · 338 · 190 · 371 · 268 · 78. *Your varint encoder is bit manipulation* | [bit manipulation set](https://leetcode.com/tag/bit-manipulation/) |
@@ -252,7 +252,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
 | **LAB** | 13 | CMU CS:APP — **Proxy Lab**, all three parts | Part III's writeup forbids one big lock: *"protecting accesses to the cache with one large exclusive lock is not an acceptable solution."* **Partition it, use readers–writers locks, or build it from semaphores.** The constraint is the lesson | [writeup PDF](http://csapp.cs.cmu.edu/3e/proxylab.pdf) · [handout .tar](http://csapp.cs.cmu.edu/3e/proxylab-handout.tar) |
-| **LAB** | 6 | RPISEC — **Modern Binary Exploitation** begins | Set up the VM, work the first challenge tier. **You have spent three weeks defending a parser; now spend two weeks attacking one.** The Bomb Lab is the warm-up if you want one | [RPISEC/MBE](https://github.com/RPISEC/MBE) · [CS:APP Bomb Lab](http://csapp.cs.cmu.edu/3e/bomb.tar) |
+| **LAB** | 6 | RPISEC — **Modern Binary Exploitation** begins | Set up the VM, work the first challenge tier. **You have spent three weeks defending a parser; now spend two weeks attacking one.** The Bomb Lab is the warm-up if you want one | [RPISEC/MBE repo](https://github.com/RPISEC/MBE) · [full archive: VM image + all lecture slides, 1.1 GB](https://archive.org/details/ModernBinaryExploitation) · [a worked walkthrough, if you stall](https://www.youtube.com/watch?v=eEJ9L8Ec9SA) · [CS:APP Bomb Lab](http://csapp.cs.cmu.edu/3e/bomb.tar) |
 | **SOLVE** | 4.5 | NeetCode — Linked List | LC 206 · 21 · 143 · 19 · 138 · 2 · 141 · 287 · **146 LRU Cache**. *You built a cache with an eviction policy this week* | [NeetCode Linked List](https://neetcode.io/practice) |
 | **BOOK** | 1 | `DSA_Mastery.pdf` | *Linked Lists* **p50** · **LRU/LFU Cache Design p285** — *read it the same day you write the proxy's eviction policy* | in the project root |
 | **DESIGN** | 2.5 | Distributed cache | — | — |
@@ -270,7 +270,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **READ** | 3 | OSTEP ch. 13–16, 18–19 · Linux cgroups v2 docs | Virtual memory and the TLB — **ch. 19 is the one that matters.** Then the `memory` and `cpu` controllers, which are how your relay will actually be constrained in production | [OSTEP](https://pages.cs.wisc.edu/~remzi/OSTEP/) · [cgroups v2](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html) |
+| **READ + WATCH** | 3 | OSTEP ch. 13–16, 18–19 · Linux cgroups v2 docs | Virtual memory and the TLB — **ch. 19 is the one that matters.** Then the `memory` and `cpu` controllers, which are how your relay will actually be constrained in production | [OSTEP](https://pages.cs.wisc.edu/~remzi/OSTEP/) · [OSTEP video course](https://www.youtube.com/playlist?list=PLqVOzV3wNCqRZxsTM-nGFcbSYQVwb4qLl) · [cgroups v2](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html) |
 | **LAB** | 11 | RPISEC MBE — ROP and format strings | Finish the ladder as far as you get. Alongside it: the relay forwards, two processes, framed authenticated messages | [RPISEC/MBE](https://github.com/RPISEC/MBE) |
 | **WRITE** | 6 | Adyton — `docs/design/threat-model.md` v1 | The layers, what each one assumes has *already* failed, and **an explicit section on what you do not defend against.** *You revise this in W25 and again in W50, and the revisions are the interesting part* | — |
 | **SOLVE** | 4.5 | Consolidation | No new topics. **The first failure-category count, if you have 30 log entries.** ~72 problems cumulative | — |
@@ -385,7 +385,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 4 | Dan Boneh — *Cryptography I*, week 1 | Stream ciphers, PRGs, semantic security, the one-time pad. **Use the Stanford page — free, no account, no enrolment** | [Stanford OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) · [CS255](https://crypto.stanford.edu/cs255/) |
+| **WATCH** | 4 | Dan Boneh — *Cryptography I*, week 1 | Stream ciphers, PRGs, semantic security, the one-time pad. **Use the Stanford page — free, no account, no enrolment** | [Stanford course page](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) · [Coursera, free audit](https://www.coursera.org/learn/crypto) · [full YouTube mirror](https://www.youtube.com/playlist?list=PLGmVJusJqjIk5SLpo7RY8FuaHpA694hQG) · [Internet Archive copy](https://archive.org/details/fdgerxdfgwerthtrd) · [CS255](https://crypto.stanford.edu/cs255/) |
 | **READ** | 3 | Chaum (1981) · Das et al., *Anonymity Trilemma* · Dingledine et al., *Tor design* | **Chaum is seven pages and it is the origin of the entire field.** Then the trilemma — **every subsequent design decision you make descends from this paper.** Then Tor's design paper for what a deployed answer looks like | [Chaum 1981](https://chaum.com/wp-content/uploads/2022/09/UNTRACEABLE-ELECTRONIC-MAIL-RETURN-ADDRESSES-AND-DIGITAL-PSEUDONYMS-tech-report.pdf) · [Trilemma](https://eprint.iacr.org/2017/954) · [Tor design](https://svn-archive.torproject.org/svn/projects/design-paper/tor-design.pdf) |
 | **BUILD** | 16 | Adyton — `adyton-core/crypto` | X25519, ChaCha20-Poly1305, HKDF, all via **libsodium — you implement no primitive yourself.** Zeroizing secret types | [libsodium docs](https://doc.libsodium.org/) · [secure memory](https://doc.libsodium.org/memory_management) |
 | **SOLVE** | 4.5 | NeetCode — Trees | LC 226 · 104 · 543 · 110 · 100 · 572 · 235 · 102 · 199 · 98 · 230 | [NeetCode Trees](https://neetcode.io/practice) |
@@ -405,7 +405,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 4 | Boneh — week 2 | Block ciphers, AES, PRPs and PRFs, modes of operation, **CTR**. *Your onion layers are CTR-shaped* | [OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) |
+| **WATCH** | 4 | Boneh — week 2 | Block ciphers, AES, PRPs and PRFs, modes of operation, **CTR**. *Your onion layers are CTR-shaped* | [Stanford course page](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) · [Coursera, free audit](https://www.coursera.org/learn/crypto) · [full YouTube mirror](https://www.youtube.com/playlist?list=PLGmVJusJqjIk5SLpo7RY8FuaHpA694hQG) · [Internet Archive copy](https://archive.org/details/fdgerxdfgwerthtrd) |
 | **READ** | 3 | Danezis & Goldberg, *Sphinx* (Oakland '09) | §3 and §4, carefully. **Before you write any code, answer in one written paragraph: why is the header size independent of the number of hops remaining?** If you cannot, you are not ready to implement it | [Sphinx PDF](https://cypherpunks.ca/~iang/pubs/Sphinx_Oakland09.pdf) |
 | **BUILD** | 16 | Adyton — the Sphinx header | The group element, the routing information, the per-hop MAC. **Structure first, crypto second** | [nymtech/sphinx](https://github.com/nymtech/sphinx) |
 | **SOLVE** | 4.5 | NeetCode — Heap | LC 703 · 1046 · 973 · 215 · 621 · **295 Median from Data Stream** | [NeetCode Heap](https://neetcode.io/practice) |
@@ -423,7 +423,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 4 | Boneh — week 3 | MACs, CBC-MAC, HMAC, collision resistance, and **timing attacks on MAC verification** *(not optional for you — you are writing a MAC chain this week)* | [OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) |
+| **WATCH** | 4 | Boneh — week 3 | MACs, CBC-MAC, HMAC, collision resistance, and **timing attacks on MAC verification** *(not optional for you — you are writing a MAC chain this week)* | [Stanford course page](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) · [Coursera, free audit](https://www.coursera.org/learn/crypto) · [full YouTube mirror](https://www.youtube.com/playlist?list=PLGmVJusJqjIk5SLpo7RY8FuaHpA694hQG) · [Internet Archive copy](https://archive.org/details/fdgerxdfgwerthtrd) |
 | **READ** | 3 | Scherer, Weis & Strufe, *Provable Security for the Onion Routing and Mix Network Packet Format Sphinx* (PoPETs 2024) | **It repairs Sphinx's broken proof, shows that DDH is insufficient — you need Gap-DH — and documents a payload malleability issue.** *No other roadmap mentions this paper. Implementing Sphinx in 2027 without it is implementing a 2009 understanding of it* | [arXiv 2312.08028](https://arxiv.org/abs/2312.08028) |
 | **BUILD** | 16 | Adyton — `adyton-core/sphinx` | Single-pass construction, per-hop key derivation, the MAC chain | — |
 | **SOLVE** | 4.5 | NeetCode — Tries | LC 208 · 211 · 212 | [NeetCode Tries](https://neetcode.io/practice) |
@@ -441,7 +441,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 4 | Boneh — **week 4** | Authenticated encryption, chosen-ciphertext attacks, **CBC padding attacks**, key derivation, TLS 1.2 as a case study | [OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) |
+| **WATCH** | 4 | Boneh — **week 4** | Authenticated encryption, chosen-ciphertext attacks, **CBC padding attacks**, key derivation, TLS 1.2 as a case study | [Stanford course page](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) · [Coursera, free audit](https://www.coursera.org/learn/crypto) · [full YouTube mirror](https://www.youtube.com/playlist?list=PLGmVJusJqjIk5SLpo7RY8FuaHpA694hQG) · [Internet Archive copy](https://archive.org/details/fdgerxdfgwerthtrd) |
 | **BUILD** | 16 | Adyton — property tests and fuzzing | **A RapidCheck property test: the serialised packet size is byte-identical for 1, 2, 3 and 4 hops remaining, across 10,000 generated packets.** Then libFuzzer on the Sphinx parser with its own corpus | [RapidCheck](https://github.com/emil-e/rapidcheck) |
 | **LAB** | 4.5 | **Cryptopals sets 1–2** | **These count as this week's DSA practice.** You break padding oracles and nonce reuse **by hand**, which is a different kind of understanding from reading about them | [cryptopals.com](https://cryptopals.com/) |
 | **BOOK** | 1 | `DSA_Mastery.pdf` | *Modular Arithmetic* **p20** · *Fast Exponentiation* **p25** — *the same week you are deriving keys* | in the project root |
@@ -458,7 +458,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 4 | Boneh — week 5 | Key exchange, Merkle puzzles, **Diffie–Hellman**, the number theory underneath | [OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) |
+| **WATCH** | 4 | Boneh — week 5 | Key exchange, Merkle puzzles, **Diffie–Hellman**, the number theory underneath | [Stanford course page](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) · [Coursera, free audit](https://www.coursera.org/learn/crypto) · [full YouTube mirror](https://www.youtube.com/playlist?list=PLGmVJusJqjIk5SLpo7RY8FuaHpA694hQG) · [Internet Archive copy](https://archive.org/details/fdgerxdfgwerthtrd) |
 | **READ** | 2 | Lightning **BOLT #4** | **The most widely deployed Sphinx derivative on Earth, with its deltas from the paper written down in the spec.** Read it as a worked example of shipping this | [BOLT #4](https://github.com/lightning/bolts/blob/master/04-onion-routing.md) |
 | **BUILD** | 16 | Adyton — `adyton-node` forwarding · `docs/design/packet-format.md` | The node forwards a Sphinx packet across two hops, over the Level-1 wire you built in October | — |
 | **LAB** | 4.5 | **Stanford CS255 programming project** | **Counts as this week's DSA practice** | [CS255](https://crypto.stanford.edu/cs255/) |
@@ -482,7 +482,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 **GATE — D2** **Sphinx constant-size onion packets: a 2-hop packet processed, serialised size byte-identical regardless of hops remaining, RapidCheck-asserted** · Boneh weeks 1–5 complete · Cryptopals sets 1–2 done.
 
-**ALSO THIS WEEK** **Check [cs144.github.io](https://cs144.github.io/) again — you need it in nine weeks.** If it is still down, **plan the Wayback plus mirror route now, not in W27.**
+**ALSO THIS WEEK** **Pull the CS144 mirrors down locally now — do not wait for W27.** [Checkpoint handouts](https://qiuyumu.github.io/cs144-2021-fall-website/) · [code](https://github.com/PKUFlyingPig/CS144-Computer-Network) · [video](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z). Clone them to your own private fork today; then it does not matter whether [the official site](https://cs144.github.io/) ever returns.
 
 **THE BUFFER-WEEK QUESTION** Read Tor's `tor-spec` on relay cells. **Write one page comparing Tor's cell format to your Sphinx packet: what does each optimise for, and what did Tor give up by not using Sphinx?** *(Tor predates Sphinx. That is part of the answer, and noticing it is the point.)* — [tor-spec](https://spec.torproject.org/tor-spec/index.html)
 
@@ -511,7 +511,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 3 | UC Berkeley CS161 | *Introduction to the Web* · **Same-Origin Policy** · **Cookies and Session Management** | [CS161 lectures](https://www.youtube.com/@berkeley-cs161) · [textbook](https://textbook.cs161.org) |
+| **WATCH** | 3 | UC Berkeley CS161 | *Introduction to the Web* · **Same-Origin Policy** · **Cookies and Session Management** | [CS161 playlists](https://www.youtube.com/@berkeley-cs161/playlists) · [Networking intro playlist](https://www.youtube.com/playlist?list=PLfBkt1-_BHX9wQT2qUAYif5i_PSJ1wXqw) · [textbook](https://textbook.cs161.org) |
 | **READ** | 3 | Mozilla, *Firefox 85 cracks down on supercookies* · Mullvad Browser docs | Network-state partitioning: HTTP cache, **connection pools**, DNS cache, HSTS. *Connection pools and TLS tickets are the two your suite must test and the two everyone forgets.* Then Mullvad Browser's own documentation, including **its statement that it does not hide your IP** — which is precisely the half you are building | [supercookies](https://blog.mozilla.org/security/2021/01/26/supercookie-protections/) · [Mullvad Browser](https://mullvad.net/en/browser) |
 | **BUILD** | 19 | Adyton — reproduce all five | **This week is diagnosis. Build nothing.** Five failures, five screenshots, five written explanations of whose fault each one is | — |
 | **SOLVE** | 4.5 | NeetCode — 1-D DP | LC 70 · 198 · 213 · 91 · 139 · 322 · 518 · 300. **The method, every single time: subproblem in words → recurrence in a comment → base cases → *then* memo or table → space optimisation last. Do not write code before the recurrence exists in a comment** | [NeetCode 1-D DP](https://neetcode.io/practice) |
@@ -527,7 +527,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 2 | MIT 6.1810 — lecture notes | Page tables, traps, namespaces. **Notes only, no labs** — you are here for the model, not the xv6 work | [6.1810 Fall 2025](https://pdos.csail.mit.edu/6.1810/2025/) |
+| **WATCH** | 2 | MIT 6.1810 / 6.S081 | Page tables, traps, namespaces. **Lectures and notes, no labs** — you are here for the model, not the xv6 work. MIT does not post the video itself; the full set is mirrored on YouTube | [6.S081 full lecture video](https://www.youtube.com/playlist?list=PLTsf9UeqkReZHXWY9yJvTwLJWYYPcKEqK) · [6.1810 Fall 2025 notes](https://pdos.csail.mit.edu/6.1810/2025/) |
 | **READ** | 2 | Kerrisk, TLPI ch. 28 *(or `namespaces(7)`)* · the nftables wiki | Namespaces properly, then the firewall you are about to make load-bearing | [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Main_Page) |
 | **BUILD** | 19 | Adyton — `adytond` · `adyton-edge/launch` | **Network namespaces as the boundary** — own interfaces, own routing table, own resolver. **veth** to the tunnel. Then **nftables default-drop, so the kill switch is structural: if the tunnel dies, there is no rule permitting anything to leave** | — |
 | **SOLVE** | 4.5 | NeetCode — 2-D DP | LC 1143 · **72 Edit Distance** · 62 · 64 · 221 · 5 · 647 | [NeetCode 2-D DP](https://neetcode.io/practice) |
@@ -562,7 +562,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 2 | MIT 6.858 — lectures 4 and 12 | Buffer-overflow defences, and the web security model. **Cheap to pull forward into a full week** | [6.858 (2020)](https://css.csail.mit.edu/6.858/2020/) |
+| **WATCH** | 2 | MIT 6.858 — lectures 4 and 12 | Buffer-overflow defences, and the web security model. **Cheap to pull forward into a full week.** Direct video, no login | [L4 Buffer overflow defenses](https://www.youtube.com/watch?v=rCsYWLRIq64) · [L12 Web security model](https://www.youtube.com/watch?v=L7x2Fi9O56M) · [all 22 lectures](https://css.csail.mit.edu/6.858/2020/) |
 | **BUILD** | 19 | Adyton — the leak-suite harness | **Scaffolding only, at full load.** Runner, fixtures, CI wiring, reporting. *The individual tests are W23–26 work and they are small — which is the point* | — |
 | **SOLVE** | 4.5 | NeetCode — greedy and intervals | LC 53 · 55 · 45 · 134 · 846 · 56 · 57 · 435 · 253 | [NeetCode](https://neetcode.io/practice) |
 | **BOOK** | 1 | `DSA_Mastery.pdf` | *Greedy Algorithms* **p116** · *Intervals* **p102** | in the project root |
@@ -644,7 +644,9 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 ## LEVEL 5 — TRANSPORT: QUIC & FINGERPRINTS
 **W27–32 · 15 Mar – 25 Apr 2027 · closes with D4 · tag `minnow` · Stanford CS144 checkpoints 0–6 · W32 buffer**
 
-> **Before W27: confirm the CS144 repo is back.** If it is not, use the [Wayback handouts](https://web.archive.org/web/20260506063931/https://cs144.github.io/) and a [live mirror](https://github.com/ht4w5/minnow-winter-2025), and **say so in your README.** *"Built against the Fall 2025 handouts"* is a perfectly fine sentence.
+> **The CS144 problem is solved — you do not need Stanford's site.** The full lecture video is on YouTube, the **checkpoint PDF handouts** are mirrored on a public course-site copy, and the starter code has live mirrors. If the official site is still 404 in March, build against the mirror and **say so in your README**: *"built against the Fall 2021 handouts"* is a perfectly fine sentence.
+>
+> **The complete set:** [lecture video, all units](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z) · [a second video mirror](https://www.youtube.com/playlist?list=PLEAYkSg4uSQ2dr0XO_Nwa5OcdEcaaELSG) · [course site with every checkpoint handout](https://qiuyumu.github.io/cs144-2021-fall-website/) · [code mirror](https://github.com/PKUFlyingPig/CS144-Computer-Network) · [minnow mirror](https://github.com/ht4w5/minnow-winter-2025) · [Wayback of the official site](https://web.archive.org/web/20260506063931/https://cs144.github.io/) · [official, when it returns](https://cs144.github.io/)
 
 ---
 
@@ -653,7 +655,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **LAB** | 10 | Stanford CS144 — **checkpoint 0** | Telnet and SMTP typed by hand, `webget`, then `ByteStream`. **The hand-typed part is not a warm-up, it is the lesson** | [CS144](https://cs144.github.io/) · [mirror](https://github.com/ht4w5/minnow-winter-2025) |
+| **LAB** | 10 | Stanford CS144 — **checkpoint 0** | Telnet and SMTP typed by hand, `webget`, then `ByteStream`. **The hand-typed part is not a warm-up, it is the lesson** | [CS144 full lecture video](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z) · [handouts + checkpoint PDFs mirror](https://qiuyumu.github.io/cs144-2021-fall-website/) · [code mirror](https://github.com/PKUFlyingPig/CS144-Computer-Network) |
 | **READ** | 3 | Robin Marx, *Head-of-Line Blocking in QUIC and HTTP/3: The Details* | **The definitive explainer — and it argues the fix is oversold.** Read it now, at the start of the level, so that the chart you build in W32 is answering a question you actually have | [perfplanet](https://calendar.perfplanet.com/2020/head-of-line-blocking-in-quic-and-http-3-the-details/) |
 | **BUILD** | 9 | Adyton — the comparison harness | The toolchain, and **the harness that runs your TCP and the kernel's side by side.** Build it now; you need it in W31 | — |
 | **SOLVE** | 4.5 | LeetCode — intervals | LC 56 · 57 · 435 · 253 · 763. **Do these the week *before* the reassembler, on purpose** | [NeetCode](https://neetcode.io/practice) |
@@ -671,7 +673,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **LAB** | 13 | CS144 — **checkpoint 1, the `Reassembler`** | Reassemble a byte stream from out-of-order, overlapping, duplicated segments under a capacity bound | [CS144](https://cs144.github.io/) |
+| **LAB** | 13 | CS144 — **checkpoint 1, the `Reassembler`** | Reassemble a byte stream from out-of-order, overlapping, duplicated segments under a capacity bound | [CS144 full lecture video](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z) · [handouts + checkpoint PDFs mirror](https://qiuyumu.github.io/cs144-2021-fall-website/) · [code mirror](https://github.com/PKUFlyingPig/CS144-Computer-Network) |
 | **READ** | 3 | Cloudflare, *Unlocking QUIC's proxying potential with MASQUE* | **CONNECT-UDP is the standardised way to do exactly what you are doing.** It is what Cloudflare replaced WireGuard with in WARP, and HTTP/3-shaped traffic survives middleboxes that eat custom UDP. **Adopt it or justify why not, in writing, this week** | [MASQUE](https://blog.cloudflare.com/unlocking-quic-proxying-potential/) |
 | **WRITE** | 3 | Adyton — **ADR-0002** | The transport decision, argued against the MASQUE alternative rather than around it | — |
 | **BUILD** | 6 | Adyton | Integrate the reassembler behind the comparison harness | — |
@@ -692,7 +694,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **LAB** | 13 | CS144 — **checkpoint 2** | `Wrap32` and the `TCPReceiver`. Seqno wraparound, the window | [CS144](https://cs144.github.io/) |
+| **LAB** | 13 | CS144 — **checkpoint 2** | `Wrap32` and the `TCPReceiver`. Seqno wraparound, the window | [CS144 full lecture video](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z) · [handouts + checkpoint PDFs mirror](https://qiuyumu.github.io/cs144-2021-fall-website/) · [code mirror](https://github.com/PKUFlyingPig/CS144-Computer-Network) |
 | **READ** | 3 | RFC 9000 §2 and §5 | Streams, and connections. **Read the spec itself, not a summary of it** — this is the year you learn to read RFCs directly | [RFC 9000](https://www.rfc-editor.org/rfc/rfc9000.html) |
 | **BUILD** | 6 | Adyton | Wire the receiver into the harness; start collecting comparison data | — |
 | **SOLVE** | 4.5 | LeetCode — DP 2 | LC 309 · 494 · 97 · 329 | [NeetCode](https://neetcode.io/practice) |
@@ -710,7 +712,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **LAB** | 13 | CS144 — **checkpoint 3** | `TCPSender` plus the retransmission timer, and then **talk to real Linux TCP.** The "one megabyte challenge" | [CS144](https://cs144.github.io/) |
+| **LAB** | 13 | CS144 — **checkpoint 3** | `TCPSender` plus the retransmission timer, and then **talk to real Linux TCP.** The "one megabyte challenge" | [CS144 full lecture video](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z) · [handouts + checkpoint PDFs mirror](https://qiuyumu.github.io/cs144-2021-fall-website/) · [code mirror](https://github.com/PKUFlyingPig/CS144-Computer-Network) |
 | **READ** | 3 | RFC 6298 · RFC 9002 | The RTT estimator and retransmission timeout you are implementing this week, then **QUIC's loss detection and congestion control — the same problem, solved twenty years later, and the deltas are the education** | [RFC 9002](https://www.rfc-editor.org/rfc/rfc9002.html) |
 | **BUILD** | 6 | Adyton | Sender integrated; first real throughput numbers into `bench/RESULTS.md` | — |
 | **SOLVE** | 4.5 | LeetCode — shortest paths | LC 743 · 787 · 1631 · 778 | [NeetCode](https://neetcode.io/practice) |
@@ -730,7 +732,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **LAB** | 13 | CS144 — **checkpoint 4** (the report) **and checkpoints 5–6** (ARP, the router) | The full stack, then the network layer beneath it | [CS144](https://cs144.github.io/) |
+| **LAB** | 13 | CS144 — **checkpoint 4** (the report) **and checkpoints 5–6** (ARP, the router) | The full stack, then the network layer beneath it | [CS144 full lecture video](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z) · [handouts + checkpoint PDFs mirror](https://qiuyumu.github.io/cs144-2021-fall-website/) · [code mirror](https://github.com/PKUFlyingPig/CS144-Computer-Network) |
 | **READ** | 3 | Langley et al., *QUIC at Google scale* · *QUIC is not Quick Enough over Fast Internet* | **Read these two on the same day and hold both.** Google: 15–18% YouTube rebuffer reduction. The other: **up to 45.2% LOWER throughput than TCP+TLS+H2 on fast links.** *Both are true. Working out why is the actual skill* | [Langley et al.](https://research.google/pubs/the-quic-transport-protocol-design-and-internet-scale-deployment/) · [not Quick Enough](https://arxiv.org/abs/2310.09423) |
 | **BUILD** | 6 | Adyton — `lab/bench` netem profiles | **Feed checkpoint 4's real measurements straight into your netem profiles.** Your network conditions stop being someone's default numbers and become *yours* | — |
 | **SOLVE** | 4.5 | LeetCode — MST and bridges | LC 1584 · **1489 Critical Connections** | [NeetCode](https://neetcode.io/practice) |
@@ -748,7 +750,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **READ** | 4 | RFC 9000 §12–13, §17 · RFC 9001 · Cloudflare and Tailscale on UDP batching | Frames, packetisation and formats. Then **RFC 9001 — header protection is the reason your handshakes can be byte-identical except the random bits.** Then **GSO and `sendmmsg`: the difference between a toy QUIC relay and one that saturates a NIC** | [RFC 9000](https://www.rfc-editor.org/rfc/rfc9000.html) · [RFC 9001](https://www.rfc-editor.org/rfc/rfc9001.html) · [Cloudflare UDP](https://blog.cloudflare.com/accelerating-udp-packet-transmission-for-quic/) · [Tailscale QUIC UDP](https://tailscale.com/blog/quic-udp-throughput) |
+| **READ** | 4 | RFC 9000 §12–13, §17 · RFC 9001 · Cloudflare and Tailscale on UDP batching | Frames, packetisation and formats. Then **RFC 9001 — header protection is the reason your handshakes can be byte-identical except the random bits.** Then **GSO and `sendmmsg`: the difference between a toy QUIC relay and one that saturates a NIC** | [RFC 9000](https://www.rfc-editor.org/rfc/rfc9000.html) · [RFC 9001](https://www.rfc-editor.org/rfc/rfc9001.html) · [SIGCOMM 2020 QUIC tutorial, video](https://www.youtube.com/watch?v=31J8PoLW9iM) · [*QUIC: Replacing TCP for the Web*, talk](https://www.youtube.com/watch?v=BazWPeUGS8M) · [Cloudflare UDP](https://blog.cloudflare.com/accelerating-udp-packet-transmission-for-quic/) · [Tailscale QUIC UDP](https://tailscale.com/blog/quic-udp-throughput) |
 | **BUILD** | 18 | Adyton — `adyton-core/transport` | QUIC via **ngtcp2**, per-hop. Then **point [qvis](https://qvis.quictools.info/) at your own qlog traces and *see* the congestion window and the multiplexing** — you have been reasoning about these abstractly for six weeks | [qvis](https://qvis.quictools.info/) |
 | **SOLVE** | 4.5 | Consolidation | Failure-category count. No new topics | — |
 | **BOOK** | 1 | `DSA_Mastery.pdf` | *Floyd-Warshall* **p171** · *Coordinate Compression* **p135** | in the project root |
@@ -807,7 +809,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **READ** | 4 | SWIM (DSN 2002) · φ Accrual (SRDS 2004) · HashiCorp Lifeguard | The two papers, then **Lifeguard — a production system's honest account of where the papers needed fixing.** *Read all three; the third is why you will not be surprised in W47* | [SWIM](https://www.cs.cornell.edu/projects/Quicksilver/public_pdfs/SWIM.pdf) |
+| **READ + WATCH** | 4 | SWIM (DSN 2002) · φ Accrual (SRDS 2004) · HashiCorp Lifeguard · Kleppmann's lecture series | The two papers, then **Lifeguard — a production system's honest account of where the papers needed fixing.** *Read all three; the third is why you will not be surprised in W47* | [SWIM](https://www.cs.cornell.edu/projects/Quicksilver/public_pdfs/SWIM.pdf) · [Kleppmann, *Distributed Systems* (Cambridge), full series](https://www.youtube.com/playlist?list=PLeKd45zvjcDFUEv_ohr_HdUFe97RItdiB) · [its lecture notes, 100pp](https://www.cl.cam.ac.uk/teaching/2122/ConcDisSys/dist-sys-notes.pdf) |
 | **BUILD** | 19 | Adyton — `adyton-edge/gossip` | SWIM membership, phi-accrual failure detection | — |
 | **SOLVE** | 4.5 | LeetCode — probability and expectation | LC 837 · 808 · 688 | [NeetCode](https://neetcode.io/practice) |
 | **BOOK** | 1 | `DSA_Mastery.pdf` | *Expected Value & Probability DP* **p233** | in the project root |
@@ -859,11 +861,11 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
-| **WATCH** | 4 | MIT 6.5840 — lectures 1–3 | MapReduce, RPC, threads | [6.5840](https://pdos.csail.mit.edu/6.824/) |
+| **WATCH** | 4 | MIT 6.5840 / 6.824 — lectures 1–3 | MapReduce, RPC, threads. **Morris's own recordings, on MIT's channel** | [6.824 official channel](https://www.youtube.com/@6.824) · [Spring 2020 full playlist](https://www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB) · [course site + labs](https://pdos.csail.mit.edu/6.824/) |
 | **LAB** | 9 | 6.5840 — **Lab 1, MapReduce** | Passes MIT's own test suite | [6.5840 labs](https://pdos.csail.mit.edu/6.824/) |
-| **READ** | 4 | Raft, the **extended** paper · Gjengset, *Students' Guide to Raft* | **Read both BEFORE you start Lab 3, not when you are stuck.** §5 in full, §6 carefully | [raft.pdf](https://raft.github.io/raft.pdf) · [Students' Guide](https://thesquareplanet.com/blog/students-guide-to-raft/) |
+| **READ + WATCH** | 4 | Raft, the **extended** paper · Gjengset, *Students' Guide to Raft* · Ousterhout's own lecture | **Read both BEFORE you start Lab 3, not when you are stuck.** §5 in full, §6 carefully. **Then watch Ousterhout teach it** — it is the lecture the paper was user-tested against, which is the whole point of Raft | [raft.pdf](https://raft.github.io/raft.pdf) · [Students' Guide](https://thesquareplanet.com/blog/students-guide-to-raft/) · [Ousterhout, *Designing for Understandability*](https://www.youtube.com/watch?v=vYp4LYbnnW8) · [the Raft user-study lecture](https://www.youtube.com/watch?v=YbZ3zDzDnrw) · [USENIX ATC '14 talk](https://www.youtube.com/watch?v=no5Im1daS-o) |
 | **BUILD** | 6 | Adyton — Java 21 ramp | Records, sealed interfaces, **virtual threads**, `async-profiler`. *The control plane is Java because the job market is Java, and saying that out loud is fine* | — |
-| **SOLVE** | 4.5 | Skiena ch. 9 — **three written reductions** | **A *proving* week. Not code — prose proofs.** NP-hardness reductions, written out | — |
+| **SOLVE** | 4.5 | Skiena ch. 9 — **three written reductions** | **A *proving* week. Not code — prose proofs.** NP-hardness reductions, written out. **Skiena lectures the reductions chapter himself, on his own channel** | [CSE373 Fall 2021, full course](https://www.youtube.com/playlist?list=PLOtl7M3yp-DXbHTFe_w9zFPXeau28CDao) · [Stony Brook video index](https://www3.cs.stonybrook.edu/~skiena/373/videos/) |
 | **BOOK** | 1 | `DSA_Mastery.pdf` | **Network Flow: Max Flow & Min Cut p196** — *the same week you write three reductions* | in the project root |
 | **DESIGN** | 2.5 | Distributed job queue, revisited | — | — |
 
@@ -877,7 +879,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
 | **LAB** | 13 | 6.5840 — **Lab 2** | KV server, **the lock**, dropped messages. *Versioned put, at-most-once, linearizable — read that list again, it is your directory* | [6.5840 labs](https://pdos.csail.mit.edu/6.824/) |
-| **READ** | 3 | AWS, *Leader election in distributed systems* · SUNDR | Leases, **fencing tokens**, real failure modes — **read before you implement, not after.** Then SUNDR: **fork consistency. A directory that shows two clients different histories is exactly a fork attack** | [AWS leader election](https://builder.aws.com/content/3Ev0vH0hfkcUizISUWYTvHibtcp/leader-election-in-distributed-systems) |
+| **READ** | 3 | AWS, *Leader election in distributed systems* · SUNDR | Leases, **fencing tokens**, real failure modes — **read before you implement, not after.** Then SUNDR: **fork consistency. A directory that shows two clients different histories is exactly a fork attack** | [AWS leader election](https://builder.aws.com/content/3Ev0vH0hfkcUizISUWYTvHibtcp/leader-election-in-distributed-systems) · [SUNDR paper](https://pdos.csail.mit.edu/papers/sundr:osdi04/sundr.pdf) · [6.858 lectures it: *Untrusted storage servers*](https://www.youtube.com/watch?v=06Oa53bCpFI) |
 | **BUILD** | 6 | Adyton — `adyton-directory` skeleton | Java 21, the service shape, the epoch model | — |
 | **SOLVE** | 4.5 | LeetCode — topological sort | LC 207 · 210 · 269 · 310. *Your epoch hash chain is a DAG* | [NeetCode](https://neetcode.io/practice) |
 | **BOOK** | 1 | `DSA_Mastery.pdf` | **Topological Sort p152** — *your epoch hash chain is a DAG* | in the project root |
@@ -1068,7 +1070,7 @@ Sat–Sun    6 h    Adyton gets built. Long blocks, no context switching.
 | Do | h | Course / source | What exactly | Open |
 |:--|--:|:--|:--|:--|
 | **READ** | 6 | **In this exact order:** *Users Get Routed* → *Astoria* → *Counter-RAPTOR* + *DeNASA* → **Juen et al.** | The four build the argument. **Then Juen: 17.2M traceroutes showing that BGP-simulated paths disagree badly with measured ones.** *Every design in this level rests on inference that is substantially wrong, and saying so out loud is what makes this research rather than a demo* | [Users Get Routed](https://dl.acm.org/doi/10.1145/2508859.2516651) · [Astoria](https://arxiv.org/abs/1505.05173) · [Counter-RAPTOR](https://arxiv.org/abs/1704.00843) · [DeNASA](https://petsymposium.org/popets/2016/popets-2016-0044.php) · [Juen et al.](https://petsymposium.org/popets/2015/popets-2015-0021.php) |
-| **WATCH** | 2 | CS161 — *Anonymity / Tor* · MIT 6.858 L20 | The teaching version of what you have been building for a year. **Watch it now and notice how much of it you could now give as a lecture yourself** | [CS161](https://www.youtube.com/@berkeley-cs161) · [6.858](https://css.csail.mit.edu/6.858/2020/) |
+| **WATCH** | 2 | CS161 — *Anonymity / Tor* · MIT 6.858 — *Anonymous communication* | The teaching version of what you have been building for a year. **Watch it now and notice how much of it you could now give as a lecture yourself** | [6.858 Anonymous communication](https://www.youtube.com/watch?v=IEJzqTqmEKY) · [CS161 playlists](https://www.youtube.com/@berkeley-cs161/playlists) |
 | **BUILD** | 10 | Adyton — tag `ascorr` | Circuit-compromise probability against a defined AS adversary, **for Adyton *and* for Tor**, on real CAIDA data. Use **TorPS** for security-over-time | [TorPS](https://github.com/torps/torps) |
 | **SOLVE** | 8 | Interview track | — | [NeetCode](https://neetcode.io/practice) |
 | **BOOK** | 1 | `DSA_Mastery.pdf` | *Counting DP* **p236** · Part 3 *Math & Number Theory* **p303** | in the project root |
@@ -2019,7 +2021,7 @@ You do not "finish" a level. You **prove** it, three ways.
 
 | # | The correction | What to do about it |
 |---|---|---|
-| **1** | **Stanford CS144's site and starter repo are OFFLINE right now.** [cs144.github.io](https://cs144.github.io/) → 404, [github.com/CS144/minnow](https://github.com/CS144/minnow) → 404, the GitHub org has zero public repos. Snapshots were healthy through **6 May 2026**, failing by **25 Aug 2026** | The repo "clears annually" and **Fall 2026 starts in late September** — expect it back within weeks. **Week 1 task: check weekly, and mirror it to a private fork the day it returns.** Level 5 is Week 27; you have time, but do not discover this in Week 26. Fallbacks in §A.2 |
+| **1** | **Stanford CS144's site and starter repo are OFFLINE right now.** [cs144.github.io](https://cs144.github.io/) → 404, [github.com/CS144/minnow](https://github.com/CS144/minnow) → 404, the GitHub org has zero public repos. Snapshots were healthy through **6 May 2026**, failing by **25 Aug 2026** | **This is already solved and it is not a risk to your plan.** The [full lecture video](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z), a [course-site mirror carrying every checkpoint handout](https://qiuyumu.github.io/cs144-2021-fall-website/) and [the code](https://github.com/PKUFlyingPig/CS144-Computer-Network) are all public and live. **Week 1 task: clone all three to your own private fork today.** Then it does not matter whether Stanford's site ever returns. Full list in §A.7 |
 | **2** | **MIT 6.5840's labs were renumbered.** What older guides call "Lab 2 Raft / Lab 3 KV / Lab 4 Sharded" is now **Lab 3 / 4 / 5**, with a new **Lab 2** (single-machine KV + lock) inserted | **"Labs 1–3" in this document means MapReduce → KV server → Raft**, the correct current numbering |
 | **3** | **MIT 6.1810's `thread` and `lazy` labs no longer exist, and `util` changed entirely.** Current `util`: **sleep (via a `pause` syscall), sixfive, memdump, find, exec** | Old solution repos will not match the grader. Not on your critical path, but do not budget for a deleted lab |
 | **4** | **CMU 15-445: use Fall 2025, not Fall 2026.** The F26 FAQ says verbatim that recordings are CMU-only and *"Non-CMU students should watch the Fall 2025 lectures on YouTube"* | Use the F25 site and playlist. Also: **Project 1 is now Adaptive Replacement Cache, not LRU-K**, and **Project 0 is a Count-Min Sketch** |
@@ -2103,7 +2105,7 @@ make RUN="-run 3A" raft1     # then 3B 3C 3D
 
 | | |
 |---|---|
-| **The free lectures** | [crypto.stanford.edu — OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) — **all videos and slides, free, no account.** Use this, not Coursera |
+| **The free lectures** | [crypto.stanford.edu — OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) — slides free, no account; **its video links point into Coursera**, which is [free to audit](https://www.coursera.org/learn/crypto). If you would rather not sign in at all: [full YouTube mirror](https://www.youtube.com/playlist?list=PLGmVJusJqjIk5SLpo7RY8FuaHpA694hQG) · [Internet Archive copy](https://archive.org/details/fdgerxdfgwerthtrd) |
 | **The real Stanford course** | [crypto.stanford.edu/cs255](https://crypto.stanford.edu/cs255/) — **CS255 has the programming projects the online version gates.** Problem sets and project specs public |
 | **Coursera** *(optional)* | [coursera.org/learn/crypto](https://www.coursera.org/learn/crypto) — homeworks and the final exam live here |
 | **Free textbook** | [Boneh & Shoup, *A Graduate Course in Applied Cryptography*](https://crypto.stanford.edu/~dabo/cryptobook/) · [PDF v0.5](https://crypto.stanford.edu/~dabo/cryptobook/BonehShoup_0_5.pdf) |
@@ -2143,7 +2145,7 @@ make RUN="-run 3A" raft1     # then 3B 3C 3D
 ### 6 · CS:APP / CMU 15-213 — *Introduction to Computer Systems* · **Proxy Lab**
 **Levels 0, 1, 8 · ~25h**
 
-> ⚠ **No public lecture video for any recent offering** — the Fall 2025 site says videos were delayed by *"legal issues."* Treat it as **slides + textbook + labs.**
+> ⚠ **No public video for any *recent* offering** — the Fall 2025 site says videos were delayed by *"legal issues."* **But the 2015 recordings are on YouTube in full and the material has barely moved:** [27 lectures](https://www.youtube.com/playlist?list=PLuIW76m2J9C3JqJH8Hm1VYrBMSTGs5BA4) · [second mirror](https://www.youtube.com/playlist?list=PL22J-I2Pi-Gf0s1CGDVtt4vuvlyjLxfem). **Watch those with the current slide deck open beside them.** See §A.7.
 > **Slides:** [15-213 Fall 2025 lecture PDFs](https://www.cs.cmu.edu/afs/cs/academic/class/15213-f25/www/lectures/) — you want *The Memory Hierarchy*, *Cache Memories*, *Code Optimization*, *Concurrent Programming*, *Synchronization*.
 > **Book:** CS:APP 3e — **§6.2–6.4** (Week 1) and **ch. 5** (Level 8).
 
@@ -2267,7 +2269,7 @@ make RUN="-run 3A" raft1     # then 3B 3C 3D
 
 | Course | Level | Weeks | Hours | You complete | Video |
 |---|---|---|---|---|---|
-| **CS:APP / 15-213** | L0, L1, L8 | W1–2, W7, W40 | 25 | §6.2–6.4, ch. 5, **Proxy Lab**, Bomb Lab | ❌ slides only |
+| **CS:APP / 15-213** | L0, L1, L8 | W1–2, W7, W40 | 25 | §6.2–6.4, ch. 5, **Proxy Lab**, Bomb Lab | 🟢 [full video](https://www.youtube.com/playlist?list=PLuIW76m2J9C3JqJH8Hm1VYrBMSTGs5BA4) |
 | **RPISEC MBE** | **L1** | **W7–8** | **25** | **The exploitation ladder** | ❌ slides + VM |
 | **Berkeley CS161** | L1, L3, L4, L9 | threaded | 40 | Memory-safety, web, **anonymity** chapters + Project 1 | **full public** |
 | **Boneh + CS255** | L3 | W13–18 | 40 | **Weeks 1–5** + Cryptopals 1–2 + CS255 projects | free |
@@ -2277,6 +2279,36 @@ make RUN="-run 3A" raft1     # then 3B 3C 3D
 | MIT 6.1810 | L4 | W20 | 10 | Notes only | 2020 only |
 | MIT 6.172 | L8 | W40 | 10 | Selected lectures | OCW |
 | | | | **~345** | | |
+
+
+## A.7 — WHERE THE VIDEO ACTUALLY IS
+
+> **Verified by fetching each one, September 2026.** Every link below resolved to a real, public, free video set on the day this was written.
+>
+> **The policy, stated plainly.** Universities record these lectures and then lose them: a site goes 404, a Panopto folder goes private, a course "clears annually," a playlist moves behind a campus login. **Meanwhile the same lectures sit on YouTube and the Internet Archive, uploaded by students, and have been watched by hundreds of thousands of people.** Where an official source exists and works, it is listed first. **Where it does not, the mirror is listed instead, and that is not a compromise — it is the only reason this curriculum is runnable from Cairo.** Prefer official when both work; never let a dead official link cost you a week.
+>
+> **Mirrors rot too.** If one in this table is gone when you reach it, search the course code plus "lecture" on YouTube and on `archive.org` before you conclude the material is unavailable. It almost never is.
+
+| Course | Where it is in this term | Video |
+|:--|:--|:--|
+| **CMU 15-213 · CS:APP** | W1, W8, and the whole of L1 | [Spring 2015, full course, 27 lectures](https://www.youtube.com/playlist?list=PLuIW76m2J9C3JqJH8Hm1VYrBMSTGs5BA4) · [second mirror](https://www.youtube.com/playlist?list=PL22J-I2Pi-Gf0s1CGDVtt4vuvlyjLxfem) · [Bilibili copy](https://www.bilibili.com/video/BV1iW411d7hd/) · [current slide decks](https://www.cs.cmu.edu/afs/cs/academic/class/15213-f25/www/lectures/) |
+| **Stanford CS144** | **All of L5, W27–32** | [full lecture video](https://www.youtube.com/playlist?list=PLvFG2xYBrYAQCyz4Wx3NPoYJOFjvU7g2Z) · [second mirror](https://www.youtube.com/playlist?list=PLEAYkSg4uSQ2dr0XO_Nwa5OcdEcaaELSG) · [Fall 2016 set](https://www.youtube.com/playlist?list=PLK5LBGAqhW7_FNgTSY4UIB58ZEVao13IY) · **[course site mirror with every checkpoint handout](https://qiuyumu.github.io/cs144-2021-fall-website/)** · [code mirror](https://github.com/PKUFlyingPig/CS144-Computer-Network) · [minnow mirror](https://github.com/ht4w5/minnow-winter-2025) |
+| **MIT 6.5840 / 6.824** | All of L7, W38–44 | [official MIT channel](https://www.youtube.com/@6.824) · [Spring 2020, full playlist](https://www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB) · [labs and papers](https://pdos.csail.mit.edu/6.824/) |
+| **Dan Boneh — Cryptography I** | W13–17 | [Stanford page](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) · [Coursera, free audit](https://www.coursera.org/learn/crypto) · [full YouTube mirror](https://www.youtube.com/playlist?list=PLGmVJusJqjIk5SLpo7RY8FuaHpA694hQG) · [Internet Archive copy](https://archive.org/details/fdgerxdfgwerthtrd) |
+| **UC Berkeley CS161** | W3, W4, W19, W50 | [all playlists](https://www.youtube.com/@berkeley-cs161/playlists) · [FA25 lectures](https://www.youtube.com/playlist?list=PLfBkt1-_BHX8kQZhisgrCLAnuAd3-Ek5U) · [Security Principles](https://www.youtube.com/playlist?list=PLfBkt1-_BHX9eGdDJv1UIYuMs0oYJ5DCa) · [Networking](https://www.youtube.com/playlist?list=PLfBkt1-_BHX9wQT2qUAYif5i_PSJ1wXqw) · [free textbook](https://textbook.cs161.org) · [course site](https://fa25.cs161.org/) |
+| **MIT 6.858 — Systems Security** | W22, W50 | **Direct, no login:** [L4 Buffer overflow defenses](https://www.youtube.com/watch?v=rCsYWLRIq64) · [L12 Web security model](https://www.youtube.com/watch?v=L7x2Fi9O56M) · [Anonymous communication](https://www.youtube.com/watch?v=IEJzqTqmEKY) · [Untrusted storage servers — SUNDR](https://www.youtube.com/watch?v=06Oa53bCpFI) · [Network security](https://www.youtube.com/watch?v=2SEF3LgFZ-4) · [Secure channels](https://www.youtube.com/watch?v=QgaSDpj0b1o) · [all 22, with the papers](https://css.csail.mit.edu/6.858/2020/) |
+| **MIT 6.1810 / 6.S081 — OS** | W20 | [full lecture video](https://www.youtube.com/playlist?list=PLTsf9UeqkReZHXWY9yJvTwLJWYYPcKEqK) · [notes and labs](https://pdos.csail.mit.edu/6.1810/2025/) |
+| **OSTEP — Operating Systems** | W5, W8, and whenever an OS gap opens | [video course following the book](https://www.youtube.com/playlist?list=PLqVOzV3wNCqRZxsTM-nGFcbSYQVwb4qLl) · [Remzi's own discussion videos](https://pages.cs.wisc.edu/~remzi/Classes/537/Spring2018/Discussion/videos.html) · [the free book](https://pages.cs.wisc.edu/~remzi/OSTEP/) |
+| **RPISEC — Modern Binary Exploitation** | W7–8 | [repo](https://github.com/RPISEC/MBE) · **[full archive: VM image, all lectures, all challenges, 1.1 GB](https://archive.org/details/ModernBinaryExploitation)** · [a worked walkthrough, if you stall](https://www.youtube.com/watch?v=eEJ9L8Ec9SA) |
+| **Kleppmann — Distributed Systems (Cambridge)** | W35, and all of L7 as the readable companion to 6.5840 | [full series](https://www.youtube.com/playlist?list=PLeKd45zvjcDFUEv_ohr_HdUFe97RItdiB) · [the Raft lecture alone](https://www.youtube.com/watch?v=uXEYuDwm7e4) · [100-page lecture notes](https://www.cl.cam.ac.uk/teaching/2122/ConcDisSys/dist-sys-notes.pdf) |
+| **Ousterhout & Ongaro — Raft** | W38, W40, W41 | [*Designing for Understandability*](https://www.youtube.com/watch?v=vYp4LYbnnW8) · [the user-study lecture](https://www.youtube.com/watch?v=YbZ3zDzDnrw) · [USENIX ATC '14](https://www.youtube.com/watch?v=no5Im1daS-o) |
+| **Skiena — Analysis of Algorithms** | W38's proving week, and any DSA theory gap | [CSE373 Fall 2021, his own channel](https://www.youtube.com/playlist?list=PLOtl7M3yp-DXbHTFe_w9zFPXeau28CDao) · [Stony Brook video index](https://www3.cs.stonybrook.edu/~skiena/373/videos/) · [Algorithm Design Manual series](https://www.youtube.com/playlist?list=PL7RgnForuRmV-84SD4I_xT5kRyOeexHhW) |
+| **Lamport — TLA+** | L7's formal-methods block | [the video course](https://www.youtube.com/playlist?list=PLWAv2Etpa7AOAwkreYImYt0gIpOdWQevD) · [Lamport's own site](https://lamport.azurewebsites.net/video/videos.html) · [source and exercises](https://github.com/tlaplus/lecture) |
+| **CMU 15-445 — Databases** | Elective, if storage grabs you | [Fall 2023, official, 4K](https://www.youtube.com/playlist?list=PLSE8ODhjZXjbj8BMuIrRcacnQh20hmY9g) |
+| **QUIC — the talks** | W27, W32 | [SIGCOMM 2020 tutorial](https://www.youtube.com/watch?v=31J8PoLW9iM) · [*QUIC: Replacing TCP for the Web*](https://www.youtube.com/watch?v=BazWPeUGS8M) |
+
+**The one to save locally, today:** the CS144 mirrors. Level 5 is twelve weeks of work that depends on a site which has been 404 since August, and the fix costs you ten minutes in Week 1.
+
 
 # APPENDIX B — THE LIBRARY
 
@@ -2783,7 +2815,7 @@ make RUN="-run 3A" raft1     # then 3B 3C 3D
 | **Learn TLA+** (Hillel Wayne) — PlusCal-first, practical, no mathematical prerequisites. **The core curriculum** | [learntla.com/core](https://learntla.com/core/index.html) |
 | Advanced topics — refinement, liveness, model-size control | [learntla.com/topics](https://learntla.com/topics/) |
 | **How AWS Uses Formal Methods** (Newcombe et al., CACM 2015) — **read first**, to understand why the hours are worth it. Real bugs in DynamoDB and S3 that testing could never have caught | [lamport.azurewebsites.net/tla](https://lamport.azurewebsites.net/tla/formal-methods-amazon.pdf) |
-| **Lamport's TLA+ video course** — the "why it is built this way" track | [lamport.azurewebsites.net/video](https://lamport.azurewebsites.net/video/videos.html) |
+| **Lamport's TLA+ video course** — the "why it is built this way" track | [Lamport's own site](https://lamport.azurewebsites.net/video/videos.html) · [the same course on YouTube](https://www.youtube.com/playlist?list=PLWAv2Etpa7AOAwkreYImYt0gIpOdWQevD) · [source + exercises](https://github.com/tlaplus/lecture) |
 | **Specifying Systems** (Lamport, free) — the reference for when the tools surprise you | [lamport.azurewebsites.net/tla](https://lamport.azurewebsites.net/tla/book.html) |
 | **TLC and the Toolbox** · **the Examples corpus** — the fastest way to learn idiomatic TLA+ | [github.com/tlaplus](https://github.com/tlaplus/tlaplus) · [github.com/tlaplus](https://github.com/tlaplus/Examples) |
 | **The Business Case for Formal Methods** — the argument to make to a sceptical team | [hillelwayne.com/post](https://www.hillelwayne.com/post/business-case-formal-methods/) |
