@@ -26,7 +26,7 @@ Open it in the morning. Go to this week. You will find: **the lectures you owe**
 | **IV** | **The Faculty** — the six you complete, the ones you consult, and **a full elective directory of every free systems course worth knowing** | Before each level starts |
 | **V** | **The Departments** — books, papers, specs, articles and tools, by subject, all linked | The library. Part VI tells you which week |
 | **VI** | 🔴 **The Term** — **52 week cards. Every one has lectures, reading, the build, exit criteria, DSA, design and questions — and every link is clickable** | **This is the part you open every morning** |
-| **VII** | **Track I** — 540 problems and 20 designs, mapped week-by-week to the build | Daily |
+| **VII** | **Track I** — 540 problems, 20 designs, and **`DSA_Mastery.pdf` mapped chapter-by-chapter across all 52 weeks** | Daily |
 | **VIII** | **Track J** — writing, OSS, referrals from Week 13, four CV versions, applications | Weekly |
 | **IX** | **Assessment, the Cut Order, Tracking** — the three proofs, the Gauntlet, what gets cut first | At every gate |
 
@@ -1278,7 +1278,8 @@ make RUN="-run 3A" raft1     # then 3B 3C 3D
 | 📄 | **Read** — a paper, spec, article or chapter | 🔴 **Every paper gets a one-page note:** what problem · what insight · what did they give up · what would you do differently in 2027 |
 | 🛠 | **Build** — this week's Adyton work | **Weekend blocks.** Nothing hard is built in 45-minute slices |
 | 🧩 | **DSA** — the pattern, and the exact problems | Daily. Time-boxed. Log every failure |
-| 🏛 | **Design** — one system-design problem, written up | 45 minutes, to the rubric in §VII.8 |
+| 📖 | **The book** — named chapters and page numbers from `DSA_Mastery.pdf` | 1h, **inside** the DSA budget. 🔴 *Type the code from memory, not from the page* |
+| 🏛 | **Design** — one system-design problem, written up | 45 minutes, to the rubric in §VII.9 |
 | ✅ | **Done when** — the acceptance criteria | Met or not met. **"Partially" is not a category** |
 | ❓ | **Find out** — questions I refuse to answer | The looking-up *is* the lesson |
 
@@ -1321,8 +1322,9 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📕 | 3 | **CS:APP §6.2–6.4** (~40pp, skip §6.1) · **Drepper §3 in full** | [↗ Drepper, LWN](https://lwn.net/Articles/250967/) · [↗ full PDF](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf) |
 | 📄 | 1 | Ostrovsky, *Gallery of Processor Cache Effects* — **run all ten, don't just read** · Colin Scott's latency numbers, scrubbed 1990→2020 | [↗ latency numbers](https://colin-scott.github.io/personal_website/research/interactive_latency.html) |
 | 🛠 | 14 | Repo · CI · toolchains (C++20/CMake/vcpkg, Java 21, Go, Python) · 🔴 **`docs/scope.md`** (§I.4, one page, never revisited) · **`lab/latency-lab`** | — |
-| 🧩 | 5.5 | Arrays, hashing, prefix sums, two pointers — **NeetCode Arrays & Hashing, all 9** | [↗ neetcode.io/practice](https://neetcode.io/practice) |
-| 🏛 | 2.5 | The estimation module. Memorise §VII.8's numbers. *How much storage does a relay network for 10k users need per month of consensus documents?* | — |
+| 🧩 | 4.5 | Arrays, hashing, prefix sums, two pointers — **NeetCode Arrays & Hashing, all 9** | [↗ neetcode.io/practice](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Big-O: Time & Space* **p9** · *Arrays* **p41** · *Hash Maps & Sets* **p47** | `DSA_Mastery.pdf` |
+| 🏛 | 2.5 | The estimation module. Memorise §VII.9's numbers. *How much storage does a relay network for 10k users need per month of consensus documents?* | — |
 
 **✅ DONE WHEN** cache sizes derived from your own working-set sweep match `lscpu` within one power of two · row-major vs column-major gap **explained by measured LLC-misses, not asserted** · false-sharing fix ≥3× with `perf c2c` committed · 🔴 **the network row measured, not looked up — a ~90 ms cross-continent RTT is the floor under every circuit you will ever build**
 
@@ -1335,7 +1337,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 |---|---|---|---|
 | 📄 | 3 | 🔴 **Gil Tene, *How NOT to Measure Latency*** — before you publish a single benchmark this year · Dean & Barroso, *The Tail at Scale* (8pp) · Gregg, *The USE Method* | [↗ Tene talk](https://www.infoq.com/presentations/latency-response-time/) · [↗ Tail at Scale](https://research.google/pubs/the-tail-at-scale/) · [↗ USE method](https://www.brendangregg.com/usemethod.html) |
 | 🛠 | 16 | **`lab/bench`** — open-loop by default, `perf stat`, **HdrHistogram**, CI regression gate, and **four `tc netem` profiles** (clean / 1% loss / 5%+jitter / mobile) so every network number states its conditions · **`sickbay`** (8 injectable pathologies) · 🔴 **`docs/SCALE-RISK.md`** | [↗ HdrHistogram](http://hdrhistogram.org/) · [↗ wrk2](https://github.com/giltene/wrk2) |
-| 🧩 | 5.5 | Two pointers, sliding window — NeetCode both sets | [↗ neetcode.io](https://neetcode.io/practice) |
+| 🧩 | 4.5 | Two pointers, sliding window — NeetCode both sets | [↗ neetcode.io](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Two Pointers* **p78** · *Sliding Window* **p82** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | URL shortener. Practise the sentence: *"I'm optimising for X, which costs me Y."* | — |
 
 **✅ DONE WHEN** two runs give byte-identical results · harness is **open-loop by default** and you can say why in a paragraph · a deliberate 5% regression is caught by `benchstat` in CI · **`sickbay` median diagnosis under 10 min across all 8, shuffled** · 🔴 **a signed, dated go/no-go on the local-mesh-plus-simulator strategy, with the binding resource named** · **Oracle always-free ARM box live, reachable from Cairo, $0.00 confirmed** · 🚨 **check whether [↗ cs144.github.io](https://cs144.github.io/) is back — and repeat every week until it is**
@@ -1350,7 +1353,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📺 | 3 | **CS161** — *Security Principles* · *x86 Assembly and the Call Stack* | [↗ CS161 video](https://www.youtube.com/@berkeley-cs161) · [↗ free textbook](https://textbook.cs161.org) |
 | 📄 | 3 | 🔴 **The Tor Research Safety Board's principles — read before Level 2 collects a single byte** · Brooker, *Telling Stories About Little's Law* | [↗ Safety Board](https://research.torproject.org/safetyboard/) · [↗ Little's Law](https://brooker.co.za/blog/2018/06/20/littles-law.html) |
 | 🛠 | 13 | **`1brc` v1** — the naive attempt. Time it, commit it, **do not optimise it.** You return in W51 · README skeleton with the honesty and scale statements already in place | [↗ 1BRC](https://github.com/gunnarmorling/1brc) |
-| 🧩 | 5.5 | Finish the L0 set — **~28 problems cumulative** | — |
+| 🧩 | 4.5 | Finish the L0 set — **~28 problems cumulative** | — |
+| 📖 | 1 | **DSA Mastery** — *Prefix Sums & Difference Arrays* **p98** · *Amortized Analysis* **p37** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Rate limiter *(you build one for real in L8)* | — |
 
 **✅ DONE WHEN** `1brc` v1 time is in `bench/RESULTS.md` with the machine spec · 🔴 **`make bootstrap` works on a clean clone** — you re-verify this at every level boundary · 📝 **Track J: review someone's PR at Logic Leap. Start the habit this week**
@@ -1373,7 +1377,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📺 | 3 | **CS161** — *Memory Safety Vulnerabilities* · *Mitigating Memory-Safety Vulnerabilities* | [↗ CS161](https://www.youtube.com/@berkeley-cs161) |
 | 📄 | 3 | 🔴 **Read these two on the same day:** Chromium — *~70% of serious security bugs are memory-safety bugs* · Tor — *~half of Tor's tracked bugs since 2016 were memory-safety issues impossible in safe Rust*. **Let it make you uncomfortable; the rest of this level is the answer** · Google, *Building a good fuzz target* | [↗ Chromium memory safety](https://www.chromium.org/Home/chromium-security/memory-safety/) · [↗ Announcing Arti](https://blog.torproject.org/announcing-arti/) · [↗ good fuzz target](https://github.com/google/fuzzing/blob/master/docs/good-fuzz-target.md) |
 | 🛠 | 16 | `adyton-node` skeleton + `adyton-wire/codec`: length-prefixed frames with a **hard max validated before allocation**, CRC, varints, `std::span` views, arena allocation · 🔴 **CI this week: ASan + UBSan + TSan, `-Werror`, clang-tidy `cppcoreguidelines-*`+`bugprone-*`, libFuzzer on the parser** | [↗ ASan](https://clang.llvm.org/docs/AddressSanitizer.html) · [↗ libFuzzer](https://llvm.org/docs/LibFuzzer.html) · [↗ std::span](https://en.cppreference.com/w/cpp/container/span) |
-| 🧩 | 5.5 | 🔴 **Binary search, including on the answer** — LC 704 · 74 · 153 · 33 · **875 Koko** · **1011 Ship Packages** · 410. *875 and 1011 are literally how you pick a frame-size parameter* | [↗ LeetCode binary search](https://leetcode.com/tag/binary-search/) |
+| 🧩 | 4.5 | 🔴 **Binary search, including on the answer** — LC 704 · 74 · 153 · 33 · **875 Koko** · **1011 Ship Packages** · 410. *875 and 1011 are literally how you pick a frame-size parameter* | [↗ LeetCode binary search](https://leetcode.com/tag/binary-search/) |
+| 📖 | 1 | **DSA Mastery** — *Binary Search on Arrays* **p86** · 🔴 *Binary Search on the Answer* **p90** — *the exact tool you use to pick a frame-size parameter* | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Distributed job queue | — |
 
 **✅ DONE WHEN** all four wall failures reproduced and **screenshotted** · ASan/UBSan/TSan green in CI **with a screenshot of a deliberately-introduced violation being caught** · the fuzzer runs *(it need not be clean yet)*
@@ -1386,7 +1391,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📕 | 3 | **OSTEP ch. 4–7** — processes, the API, direct execution, scheduling | [↗ OSTEP, free](https://pages.cs.wisc.edu/~remzi/OSTEP/) |
 | 📄 | 2 | **C++ Core Guidelines** — the Resource Management, Bounds and Lifetime profiles | [↗ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) |
 | 🛠 | 17 | Varints · capability-negotiating handshake · explicit version field · **authenticated framing** (a frame failing its MAC is dropped *before* further parsing, and the failure is **counted and rate-limited**, not logged per occurrence — or a peer fills your disk) · 🔴 **`docs/cpp-subset.md`** | [↗ Protobuf encoding](https://protobuf.dev/programming-guides/encoding/) |
-| 🧩 | 5.5 | 🔴 **Bit manipulation** — LC 136 · 191 · 338 · 190 · 371 · 268 · 78. *Your varint encoder is bit manipulation* | [↗ LeetCode bit manipulation](https://leetcode.com/tag/bit-manipulation/) |
+| 🧩 | 4.5 | 🔴 **Bit manipulation** — LC 136 · 191 · 338 · 190 · 371 · 268 · 78. *Your varint encoder is bit manipulation* | [↗ LeetCode bit manipulation](https://leetcode.com/tag/bit-manipulation/) |
+| 📖 | 1 | **DSA Mastery** — 🔴 *Bit Manipulation* **p17** — *and your varint encoder is this chapter* | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Key-value store | — |
 
 **✅ DONE WHEN** a **pinned old client binary interoperates with the new server, asserted by a test** · `docs/cpp-subset.md` exists and is honest
@@ -1398,7 +1404,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 |---|---|---|---|
 | 📄 | 3 | 🔴 **Cloudflare, *A Primer on Proxies*** — forward/reverse/transparent and the trust model of each. **Required vocabulary before you write a design doc** · Google, *Structure-aware fuzzing* | [↗ Primer on Proxies](https://blog.cloudflare.com/a-primer-on-proxies/) · [↗ structure-aware fuzzing](https://github.com/google/fuzzing/blob/master/docs/structure-aware-fuzzing.md) |
 | 🛠 | 17 | 🚩 **`hardened`** — the apparatus as a deliverable: committed corpus, full sanitizer matrix, documented subset · 🔴 **write up the memory bugs the fuzzer found in your own parser — that is the deliverable, not the clean run** · `docs/design/wire-protocol.md` | — |
-| 🧩 | 5.5 | Stacks & monotonic stacks — LC 20 · 155 · 150 · 22 · 739 · 853 · 84 | [↗ NeetCode Stack](https://neetcode.io/practice) |
+| 🧩 | 4.5 | Stacks & monotonic stacks — LC 20 · 155 · 150 · 22 · 739 · 853 · 84 | [↗ NeetCode Stack](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Stacks* **p53** · *Monotonic Stack & Queue* **p105** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Notification system | — |
 
 **✅ DONE WHEN — D0** 🔴 **libFuzzer runs 1 hour clean on the frame parser, corpus committed** · **four attacks fail**, each with a test asserting the failure mode **and the counter it increments** · **`kill -9` at random points × 500: no message lost, duplicated or torn** · the bug write-up is in the repo
@@ -1412,7 +1419,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 |---|---|---|---|
 | 🛠 | 13 | **CS:APP Proxy Lab**, all three parts. 🔴 *Part III's writeup forbids one big lock: "protecting accesses to the cache with one large exclusive lock is not an acceptable solution." Partition it, use readers–writers locks, or build it from semaphores* | [↗ writeup PDF](http://csapp.cs.cmu.edu/3e/proxylab.pdf) · [↗ handout .tar](http://csapp.cs.cmu.edu/3e/proxylab-handout.tar) |
 | 🛠 | 6 | 🔴 **RPISEC MBE begins** — set up the VM, work the first challenge tier. **You have spent three weeks defending a parser; now spend two attacking one** | [↗ RPISEC/MBE](https://github.com/RPISEC/MBE) · [↗ CS:APP Bomb Lab](http://csapp.cs.cmu.edu/3e/bomb.tar) |
-| 🧩 | 5.5 | Linked lists — LC 206 · 21 · 143 · 19 · 138 · 2 · 141 · 287 · **146 LRU Cache**. *You built a cache with an eviction policy this week* | [↗ NeetCode Linked List](https://neetcode.io/practice) |
+| 🧩 | 4.5 | Linked lists — LC 206 · 21 · 143 · 19 · 138 · 2 · 141 · 287 · **146 LRU Cache**. *You built a cache with an eviction policy this week* | [↗ NeetCode Linked List](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Linked Lists* **p50** · 🔴 *LRU/LFU Cache Design* **p285** — *you are building a proxy cache with an eviction policy this week. Read the chapter the same day* | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Distributed cache | — |
 
 **✅ DONE WHEN** **70/70 from the bundled `./driver.sh`** · no segfaults, no memory or fd leaks · **a written paragraph on which synchronisation strategy you chose for the cache and why**
@@ -1425,7 +1433,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📕 | 3 | **OSTEP ch. 13–16, 18–19** (VM, TLB — ch. 19 is the one) · **cgroups v2 kernel docs**, `memory` and `cpu` controllers | [↗ OSTEP](https://pages.cs.wisc.edu/~remzi/OSTEP/) · [↗ cgroups v2](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html) |
 | 🛠 | 11 | 🔴 **RPISEC MBE — ROP and format strings.** Finish the ladder as far as you get · the relay forwards, two processes, framed authenticated messages | [↗ RPISEC/MBE](https://github.com/RPISEC/MBE) |
 | 🛠 | 6 | 🔴 **`docs/design/threat-model.md` v1** — the layers, what each assumes has already failed, and **an explicit section on what you do NOT defend against.** *You revise it in W25 and W50, and the revisions are the interesting part* | — |
-| 🧩 | 5.5 | Consolidation + **the first failure-category count** if you have 30 entries. **~72 cumulative** | — |
+| 🧩 | 4.5 | Consolidation + **the first failure-category count** if you have 30 entries. **~72 cumulative** | — |
+| 📖 | 1 | **DSA Mastery** — *Recursion Mechanics* **p13** · *Strings* **p44** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | **Web crawler** *(you build one next week)* | — |
 
 **✅ DONE WHEN** D0 signed off · CV v0 skeleton exists · 📝 **level checkpoint: `make bootstrap` on a clean clone — actually run it**
@@ -1449,7 +1458,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📄 | 4 | 🔴 **Englehardt & Narayanan, *Online Tracking: A 1-Million-Site Measurement*** — the methodology you're replicating · 🔴 **Gundelach et al., *Detecting Bot Detection*** — **Cloudflare blocks 37% and Akamai 26% of headless crawls; header signals alone cause 75% of it; and 83% of published papers never mention blocking.** Read before you write a line · Tranco's motivation section · DuckDuckGo, *Tracker Radar* | [↗ CCS'16 slides](https://senglehardt.com/presentations/2016_10_ccs_online_tracking.pdf) · [↗ Detecting Bot Detection](https://arxiv.org/abs/2606.14525) · [↗ tranco-list.eu](https://tranco-list.eu/) · [↗ Tracker Radar](https://spreadprivacy.com/duckduckgo-tracker-radar/) |
 | 🛠 | 4 | **Quick win on day one:** run **Blacklight Query** over a few hundred URLs. Zero code, nine tests, **a credible first result inside an afternoon** | [↗ blacklight-query](https://github.com/the-markup/blacklight-query) |
 | 🛠 | 14 | **`lab/linkage`** — choose **OpenWPM** (citable provenance) or **Playwright** and **write down why**. Record every third-party request, cookie, storage write and script. **Store in PostgreSQL**, schema in git · 🔴 **pin the Tranco list ID and publish it** · 🔴 **spoof your headers, then measure and publish your own block rate by provider** | [↗ OpenWPM](https://github.com/openwpm/OpenWPM) · [↗ tracker-radar-collector](https://github.com/duckduckgo/tracker-radar-collector) · [↗ Playwright](https://playwright.dev/) |
-| 🧩 | 5.5 | 🔴 **Graphs: BFS, DFS, connected components** — LC 200 · 133 · 695 · 417 · 130 · 994 · 286. *You're about to build a real graph* | [↗ NeetCode Graphs](https://neetcode.io/practice) |
+| 🧩 | 4.5 | 🔴 **Graphs: BFS, DFS, connected components** — LC 200 · 133 · 695 · 417 · 130 · 994 · 286. *You're about to build a real graph* | [↗ NeetCode Graphs](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Graph Fundamentals* **p139** · *Breadth-First Search* **p143** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Web crawler — **then compare your design to what you actually built** | — |
 
 **✅ DONE WHEN** the crawler completes **500 sites unattended and is resumable after a kill** · rate-limited, real UA **with a contact address**, `robots.txt` respected — **you are a guest**
@@ -1461,7 +1471,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 |---|---|---|---|
 | 📄 | 3 | 🔴 **Mishra et al., *Don't Count Me Out: On the Relevance of IP Addresses***. **THE core paper for your premise** — devices reuse IPs far longer than the folk model claims · 🔴 **Mozilla, *Introducing State Partitioning*** — **the list of every kind of state two compartments must not share** · Brave, *Pool-party attacks* · Papadopoulos et al., *Cookie Synchronization* | [↗ Don't Count Me Out](https://hal.inria.fr/hal-02435622/document) · [↗ State Partitioning](https://hacks.mozilla.org/2021/02/introducing-state-partitioning/) · [↗ pool-party](https://brave.com/privacy-updates/13-pool-party-side-channels/) · [↗ Cookie Sync](https://arxiv.org/abs/1805.10505) |
 | 🛠 | 18 | Classify domains against **EasyPrivacy** + **Disconnect**, and 🔴 **map domains to *organisations*** — that mapping is what makes the numbers honest · 🔴 **resolve CNAMEs and analyse first-party cookies too** — Böttger et al. (2026): **>54% of sites now track first-party or server-side and filter lists are "largely inadequate"** · 🔴 **hunt for cookie syncing — one instance in your own data is the best screenshot in the study** · measure your fingerprint entropy in bits | [↗ EasyPrivacy](https://easylist.to/easylist/easyprivacy.txt) · [↗ Disconnect list](https://github.com/disconnectme/disconnect-tracking-protection) · [↗ CookieGraph](https://arxiv.org/abs/2208.12370) |
-| 🧩 | 5.5 | 🔴 **Union-find** — LC 684 · 547 · **721 Accounts Merge** · 990. **🔴 LC 721 *is* the linkage problem: merging accounts sharing an email is structurally identical to merging sessions sharing a tracker ID. Do it this week; use it for real next week** | [↗ LC 721](https://leetcode.com/problems/accounts-merge/) |
+| 🧩 | 4.5 | 🔴 **Union-find** — LC 684 · 547 · **721 Accounts Merge** · 990. **🔴 LC 721 *is* the linkage problem: merging accounts sharing an email is structurally identical to merging sessions sharing a tracker ID. Do it this week; use it for real next week** | [↗ LC 721](https://leetcode.com/problems/accounts-merge/) |
+| 📖 | 1 | **DSA Mastery** — *Depth-First Search* **p147** · 🔴 *Union-Find (DSU)* **p156** — *then run it over your own crawl data* | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Distributed job queue | — |
 
 **✅ DONE WHEN** the crawl reaches **5,000 sites** · **at least one confirmed cookie-sync instance, documented with the actual request that carried the identifier**
@@ -1473,7 +1484,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 |---|---|---|---|
 | 📄 | 2 | 🔴 **Gómez-Boix et al., *Hiding in the Crowd*** — on 2M real fingerprints **uniqueness is far lower than Panopticlick suggested.** *It argues partly against your own framing, and including it is what makes the rest credible* · Su et al., *De-anonymizing Web Browsing Data with Social Networks* | [↗ Hiding in the Crowd](https://hal.inria.fr/hal-01718234/document) · [↗ De-anonymizing](https://doi.org/10.1145/3038912.3052714) |
 | 🛠 | 19 | **The bipartite graph** — sites ↔ tracker organisations — then the tracker-to-tracker projection. Answer with numbers: **degree distribution** · 🔴 **THE HEADLINE: given an N-site session, what fraction can a *single* tracker observe? Plot N = 5, 10, 25, 50 with a confidence interval** · **largest connected component under identifier linkage** *(union-find, exactly as in LC 721)* · **how many orgs must collude for 90% of a session?** · 🔴 **re-run the whole crawl with uBlock Origin on and report the delta — nobody publishes this properly** | — |
-| 🧩 | 5.5 | Graphs 2 — LC 207 · 210 · 261 · 323 · 127 · **785 Is Graph Bipartite** · 886 | [↗ NeetCode](https://neetcode.io/practice) |
+| 🧩 | 4.5 | Graphs 2 — LC 207 · 210 · 261 · 323 · 127 · **785 Is Graph Bipartite** · 886 | [↗ NeetCode](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Cycle Detection* **p176** · *Bipartite Check* **p180** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Metrics pipeline | — |
 
 **✅ DONE WHEN** the graph is built and rendered, and **one figure carries the whole argument**
@@ -1486,6 +1498,7 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 🛠 | 6 | 🔴 **`docs/analysis/linkability-2026.md`** — methodology in enough detail to rerun (list version, date, browser version, blocklist versions, machine) · the graph · the headline with its interval · 🔴 **the limitations section, and it is not optional: 5,000 sites is not the web · your number is a LOWER BOUND — [↗ Annamalai et al. (WWW 2025)](https://arxiv.org/abs/2502.01608) measured that crawls miss ~45% of the fingerprinting sites real users hit · your block rate by provider, stated · one vantage point sees one ad market · your identifier heuristics have a false-positive rate you estimated rather than ignored · and you measured *capability*, not actual data sharing.** *It justifies "many parties can observe overlapping slices and some exchange identifiers." It does not prove any named company assembled any named profile. Say so in the first paragraph* · **export the graph for the W26 demo** |
 | 🚀 | | **BLOG POST 1 — *"I crawled 5,000 sites to find out how linkable the web actually is. Here's the graph."*** Cross-post to HN, Lobsters, r/privacy |
 | 📝 | 4 | 🔴 **First failure-category count** — the one that will actually redirect you · level checkpoint · **⚑ CV v1** · 🤝 **referrals open next week: draft your three opening messages now, with the study as the hook** |
+| 📖 | — | **DSA Mastery** — 🔴 *Interview & Study Strategy* **p7**. **Re-read it now that you have thirty failure-log entries. It reads completely differently with data behind it** | `DSA_Mastery.pdf` |
 
 **❓ THE REST-WEEK QUESTION** · Find what Apple, Google, Mozilla and Brave each *claim* their defences achieve — **and check whether any of them publishes a comparable measurement.** Write one paragraph. *That paragraph is the opening of your README.*
 
@@ -1503,7 +1516,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📺 | 4 | **Boneh week 1** — stream ciphers, PRGs, semantic security, the one-time pad. 🔴 *Use the Stanford page, free, no account* | [↗ OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) · [↗ CS255](https://crypto.stanford.edu/cs255/) |
 | 📄 | 3 | 🔴 **Chaum 1981 — seven pages, the origin of the field** · 🔴 **Das et al., *Anonymity Trilemma*** — **every subsequent decision descends from this** · Dingledine et al., *Tor design paper* | [↗ Chaum 1981](https://chaum.com/wp-content/uploads/2022/09/UNTRACEABLE-ELECTRONIC-MAIL-RETURN-ADDRESSES-AND-DIGITAL-PSEUDONYMS-tech-report.pdf) · [↗ Trilemma](https://eprint.iacr.org/2017/954) · [↗ Tor design](https://svn-archive.torproject.org/svn/projects/design-paper/tor-design.pdf) |
 | 🛠 | 16 | `adyton-core/crypto` — X25519, ChaCha20-Poly1305, HKDF via **libsodium**; **zeroizing secret types** | [↗ libsodium docs](https://doc.libsodium.org/) · [↗ secure memory](https://doc.libsodium.org/memory_management) |
-| 🧩 | 5.5 | Trees & BSTs — LC 226 · 104 · 543 · 110 · 100 · 572 · 235 · 102 · 199 · 98 · 230 | [↗ NeetCode Trees](https://neetcode.io/practice) |
+| 🧩 | 4.5 | Trees & BSTs — LC 226 · 104 · 543 · 110 · 100 · 572 · 235 · 102 · 199 · 98 · 230 | [↗ NeetCode Trees](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Binary Trees & Traversals* **p61** · *Binary Search Trees* **p65** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Distributed lock service | — |
 
 **✅ DONE WHEN** the shrinking-packet wall is reproduced and measured · **no secret material reaches a log, enforced by a CI grep**
@@ -1517,7 +1531,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📺 | 4 | **Boneh week 2** — block ciphers, AES, PRPs/PRFs, modes, **CTR**. 🔴 *Your onion layers are CTR-shaped* | [↗ OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) |
 | 📄 | 3 | 🔴 **Danezis & Goldberg, *Sphinx*** — §3 and §4 carefully. **Before you write code, answer in one paragraph: why is the header size independent of hops remaining?** | [↗ Sphinx PDF](https://cypherpunks.ca/~iang/pubs/Sphinx_Oakland09.pdf) |
 | 🛠 | 16 | The Sphinx header — the group element, routing information, per-hop MAC. **Structure first, crypto second** | [↗ nymtech/sphinx](https://github.com/nymtech/sphinx) |
-| 🧩 | 5.5 | Heaps & top-K — LC 703 · 1046 · 973 · 215 · 621 · **295 Median from Data Stream** | [↗ NeetCode Heap](https://neetcode.io/practice) |
+| 🧩 | 4.5 | Heaps & top-K — LC 703 · 1046 · 973 · 215 · 621 · **295 Median from Data Stream** | [↗ NeetCode Heap](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Heaps & Priority Queues* **p69** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Sharded database | — |
 
 **✅ DONE WHEN** you can **draw the packet layout from memory**
@@ -1529,7 +1544,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📺 | 4 | **Boneh week 3** — MACs, CBC-MAC, HMAC, collision resistance, 🔴 **timing attacks on MAC verification** *(not optional for you)* | [↗ OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) |
 | 📄 | 3 | 🔴🔴 **Scherer, Weis, Strufe, *Provable Security for … Sphinx*** (PoPETs 2024). **It repairs Sphinx's broken proof, shows DDH is insufficient — you need Gap-DH — and documents a payload malleability issue.** *No other roadmap mentions this. Implementing Sphinx in 2027 without it is implementing a 2009 understanding of it* | [↗ arXiv 2312.08028](https://arxiv.org/abs/2312.08028) |
 | 🛠 | 16 | `adyton-core/sphinx` — single-pass construction, per-hop key derivation, the MAC chain | — |
-| 🧩 | 5.5 | Tries — LC 208 · 211 · 212 | [↗ NeetCode Tries](https://neetcode.io/practice) |
+| 🧩 | 4.5 | Tries — LC 208 · 211 · 212 | [↗ NeetCode Tries](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Tries* **p73** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | A system with end-to-end encryption | — |
 
 **✅ DONE WHEN** a 2-hop packet is constructed and processed end to end
@@ -1540,7 +1556,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 |---|---|---|---|
 | 📺 | 4 | 🔴 **Boneh week 4 — the most important week.** Authenticated encryption, chosen-ciphertext attacks, **CBC padding attacks**, key derivation, TLS 1.2 as a case study | [↗ OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) |
 | 🛠 | 16 | 🔴 **RapidCheck property test: serialised packet size byte-identical for 1, 2, 3, 4 hops remaining, across 10,000 generated packets** · libFuzzer on the Sphinx parser with its own corpus | [↗ RapidCheck](https://github.com/emil-e/rapidcheck) |
-| 🧩 | 5.5 | 🔴 **Cryptopals sets 1–2 count as this week's practice** — you break padding oracles and nonce reuse **by hand** | [↗ cryptopals.com](https://cryptopals.com/) |
+| 🧩 | 4.5 | 🔴 **Cryptopals sets 1–2 count as this week's practice** — you break padding oracles and nonce reuse **by hand** | [↗ cryptopals.com](https://cryptopals.com/) |
+| 📖 | 1 | **DSA Mastery** — *Modular Arithmetic* **p20** · *Fast Exponentiation* **p25** — *the same week you are deriving keys* | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Identity & auth | — |
 
 **✅ DONE WHEN** **the size invariant is asserted, not assumed** · the Sphinx parser fuzzes clean for an hour
@@ -1552,7 +1569,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📺 | 4 | **Boneh week 5** — key exchange, Merkle puzzles, **Diffie–Hellman**, number theory | [↗ OnlineCrypto](https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/) |
 | 📄 | 2 | **Lightning BOLT #4** — 🔴 *the most widely deployed Sphinx derivative on Earth, with its deltas written down* | [↗ BOLT #4](https://github.com/lightning/bolts/blob/master/04-onion-routing.md) |
 | 🛠 | 16 | `adyton-node` forwards a Sphinx packet across two hops, over the Level-1 wire · **`docs/design/packet-format.md`** | — |
-| 🧩 | 5.5 | **CS255 programming project** counts as this week's practice | [↗ CS255](https://crypto.stanford.edu/cs255/) |
+| 🧩 | 4.5 | **CS255 programming project** counts as this week's practice | [↗ CS255](https://crypto.stanford.edu/cs255/) |
+| 📖 | 1 | **DSA Mastery** — *GCD, LCM & the Euclidean Algorithm* **p23** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Certificate / PKI system | — |
 
 **❓ FIND OUT** · **What does your relay learn about a packet it forwards? Enumerate it exhaustively — that list is a section of your threat model** · Why two hops and not three? What does the third buy, and cost? · What is your circuit's *forward secrecy* property, and what breaks it?
@@ -1560,6 +1578,7 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 ## ▸ W18 · 11–17 Jan · 🔧 **BUFFER** · **🎯 MILESTONE D2**
 **✅ DONE WHEN — D2** 🔴 **Sphinx constant-size onion packets: a 2-hop packet processed, serialised size byte-identical regardless of hops remaining, RapidCheck-asserted** · Boneh weeks 1–5 complete · Cryptopals 1–2 done
 **Also:** 🚨 **check CS144 again — you need it in nine weeks.** If still down, **plan the Wayback + mirror route now** · **failure-category count** · **~175 problems cumulative**
+**📖 THE BOOK** — *Sorting* **p94** · *Divide and Conquer* **p129**
 
 **❓ THE BUFFER-WEEK QUESTION** · Read Tor's `tor-spec` on relay cells. **Write one page comparing Tor's cell format to your Sphinx packet: what does each optimise for, and what did Tor give up by not using Sphinx?** *(Tor predates Sphinx. That is part of the answer.)* — [↗ tor-spec](https://spec.torproject.org/tor-spec/index.html)
 ---
@@ -1580,7 +1599,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📺 | 3 | **CS161** — *Introduction to the Web* · **Same-Origin Policy** · **Cookies and Session Management** | [↗ CS161](https://www.youtube.com/@berkeley-cs161) · [↗ textbook](https://textbook.cs161.org) |
 | 📄 | 3 | 🔴 **Mozilla, *Firefox 85 cracks down on supercookies*** — network-state partitioning: HTTP cache, **connection pools**, DNS cache, HSTS. *Connection pools and TLS tickets are the two your suite must test* · **Mullvad Browser docs** — its own statement that **it does not hide your IP** | [↗ supercookies](https://blog.mozilla.org/security/2021/01/26/supercookie-protections/) · [↗ Mullvad Browser](https://mullvad.net/en/browser) |
 | 🛠 | 19 | **Reproduce all five failures. This week is diagnosis, not construction** | — |
-| 🧩 | 5.5 | 🔴 **DP part 1, 1-D** — LC 70 · 198 · 213 · 91 · 139 · 322 · 518 · 300. 🔴 **The method, every time: subproblem in words → recurrence in a comment → base cases → *then* memo or table → space last. Do not write code before the recurrence exists in a comment** | [↗ NeetCode 1-D DP](https://neetcode.io/practice) |
+| 🧩 | 4.5 | 🔴 **DP part 1, 1-D** — LC 70 · 198 · 213 · 91 · 139 · 322 · 518 · 300. 🔴 **The method, every time: subproblem in words → recurrence in a comment → base cases → *then* memo or table → space last. Do not write code before the recurrence exists in a comment** | [↗ NeetCode 1-D DP](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — 🔴 *Dynamic Programming — 1D Fundamentals* **p200** — *read it before you write a single recurrence* | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Multi-tenant API with quotas | — |
 
 **❓ FIND OUT** · **Which of the five would a commercial VPN client also have? Go and test one** · What is HTTP/2 connection coalescing, and why does it link two profiles sharing an exit? · What is a TLS session ticket and how long does it live?
@@ -1591,7 +1611,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | 📺 | 2 | **6.1810 notes** — page tables, traps, namespaces *(notes only, no labs)* | [↗ 6.1810 Fall 2025](https://pdos.csail.mit.edu/6.1810/2025/) |
 | 📕 | 2 | **Kerrisk TLPI ch. 28** or `namespaces(7)` · the **nftables** wiki | [↗ nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Main_Page) |
 | 🛠 | 19 | `adytond` + `adyton-edge/launch`: **network namespaces** as the boundary — own interfaces, routing table, resolver. **veth** to the tunnel. 🔴 **nftables default-drop, so the kill switch is structural: if the tunnel dies there is no rule permitting anything** | — |
-| 🧩 | 5.5 | DP 2-D — LC 1143 · **72 Edit Distance** · 62 · 64 · 221 · 5 · 647 | [↗ NeetCode 2-D DP](https://neetcode.io/practice) |
+| 🧩 | 4.5 | DP 2-D — LC 1143 · **72 Edit Distance** · 62 · 64 · 221 · 5 · 647 | [↗ NeetCode 2-D DP](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *2D DP — Grid Paths & String Matching* **p203** · *LCS & Edit Distance* **p214** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | VPN / tunnelling service | — |
 
 **✅ DONE WHEN** a process inside the namespace **cannot route around it, because there is no other route**
@@ -1602,7 +1623,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 |---|---|---|---|
 | 📄 | 2 | 🔴 **Tor Browser design doc** — *Cross-Origin Identifier Unlinkability* and *Fingerprinting*. **The most thorough public treatment of browser linkability there is** | [↗ Tor Browser design](https://2019.www.torproject.org/projects/torbrowser/design/) |
 | 🛠 | 19 | One **unmodified Mullvad Browser** profile per identity, each in its own netns on its own 2-hop circuit with its own pinned exit · `adyton identity launch shopping` as **one command** · ⚙️ 🔴 **make `Identity` a type whose constructor takes circuit + exit + profile-dir + namespace and has no setters — so a mismatched identity is not a bug you can write** | — |
-| 🧩 | 5.5 | DP knapsack — LC 416 · 494 · 474 · 1049 + **AtCoder Educational DP, A–F** | [↗ AtCoder DP contest](https://atcoder.jp/contests/dp) |
+| 🧩 | 4.5 | DP knapsack — LC 416 · 494 · 474 · 1049 + **AtCoder Educational DP, A–F** | [↗ AtCoder DP contest](https://atcoder.jp/contests/dp) |
+| 📖 | 1 | **DSA Mastery** — *Knapsack — 0/1 and Unbounded* **p207** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Browser-isolation product | — |
 
 **✅ DONE WHEN** ★ **an unmodified Mullvad Browser runs in a netns over a 2-hop circuit and you browse the real web through it**
@@ -1613,7 +1635,8 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 |---|---|---|---|
 | 📄 | 2 | **6.858 lecture 4** (buffer-overflow defences) and **lecture 12** (web security model) — cheap to pull forward | [↗ 6.858 2020](https://css.csail.mit.edu/6.858/2020/) |
 | 🛠 | 19 | **The leak-suite harness, at full load.** *Get the scaffolding working now, because the tests themselves are the reduced-hours work* | — |
-| 🧩 | 5.5 | Greedy + intervals — LC 53 · 55 · 45 · 134 · 846 · 56 · 57 · 435 · 253 | [↗ NeetCode](https://neetcode.io/practice) |
+| 🧩 | 4.5 | Greedy + intervals — LC 53 · 55 · 45 · 134 · 846 · 56 · 57 · 435 · 253 | [↗ NeetCode](https://neetcode.io/practice) |
+| 📖 | 1 | **DSA Mastery** — *Greedy Algorithms* **p116** · *Intervals* **p102** | `DSA_Mastery.pdf` |
 | 🏛 | 2.5 | Quota & fair-share system | — |
 
 **❓ FIND OUT** · **What is the *smallest* observable difference between two of your compartments that would let a tracker link them? Rank your five leak vectors by how hard each is to exploit**
@@ -1622,12 +1645,12 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 **Split: 11 Depth / 5 Interview / 2 Fundamentals / 2 Craft. The interview track drops to 5h. It does not stop.**
 🔴 **No new DSA topics for four weeks. Re-solve every DP failure from the log, and work [↗ AtCoder DP A–L](https://atcoder.jp/contests/dp) slowly.** *DP is the one topic that rewards slow careful weeks.*
 
-| Week | 🛠 The leak suite — one family per week | 📄 Read |
+| Week | 🛠 The leak suite — one family per week | 📖 **DSA Mastery** |
 |---|---|---|
-| **W23** · 15–21 Feb | **WebRTC and IPv6.** Zero ICE candidates with a non-namespace address. No IPv6 packet attributable to the identity leaves the host | [↗ Brave: farbling](https://brave.com/privacy-updates/3-fingerprint-randomization/) |
-| **W24** · 22–28 Feb | **DNS and the kill switch.** Zero DNS queries on the host uplink during a browse session. 🔴 **Daemon killed mid-transfer: zero subsequent packets, 20 runs, 20 passes** | [↗ Brave: fingerprinting defenses 2.0](https://brave.com/privacy-updates/4-fingerprinting-defenses-2.0/) |
-| **W25** · 1–7 Mar | 🔴 **Cross-compartment.** Two identities share **no exit IP, no cookie, no DNS query, no TLS session ticket**, and produce **identical CreepJS output**. **Add the pool-party side channel to the suite** · `threat-model.md` v2 | 🔴 [↗ Brave: why strict mode made users MORE identifiable](https://brave.com/privacy-updates/28-sunsetting-strict-fingerprinting-mode/) — *a published negative result, and the model for your own write-ups* |
-| **W26** · 8–14 Mar | 🛌 **REST + EID** — ★ **the demo**, the write-up, CV v2 | — |
+| **W23** · 15–21 Feb | **WebRTC and IPv6.** Zero ICE candidates with a non-namespace address. No IPv6 packet attributable to the identity leaves the host | *LIS & Patience Sorting* **p210** · read [↗ Brave: farbling](https://brave.com/privacy-updates/3-fingerprint-randomization/) |
+| **W24** · 22–28 Feb | **DNS and the kill switch.** Zero DNS queries on the host uplink during a browse session. 🔴 **Daemon killed mid-transfer: zero subsequent packets, 20 runs, 20 passes** | *Kadane's Algorithm* **p120** · read [↗ Brave: defenses 2.0](https://brave.com/privacy-updates/4-fingerprinting-defenses-2.0/) |
+| **W25** · 1–7 Mar | 🔴 **Cross-compartment.** Two identities share **no exit IP, no cookie, no DNS query, no TLS session ticket**, and produce **identical CreepJS output**. **Add the pool-party side channel to the suite** · `threat-model.md` v2 | *DP Optimizations* **p239** · read 🔴 [↗ Brave: why strict mode made users MORE identifiable](https://brave.com/privacy-updates/28-sunsetting-strict-fingerprinting-mode/) — *a published negative result, and the model for your own write-ups* |
+| **W26** · 8–14 Mar | 🛌 **REST + EID** — ★ **the demo**, the write-up, CV v2 | 🔴 **Re-read, do not read new:** *DP 1D* **p200** · *2D DP* **p203** · *Knapsack* **p207** — *with a month of failures behind you* |
 
 ## ▸ W26 · 8–14 Mar · 🛌 REST · **🎯 D3 ★ · ★ THE DEMO · ⚑ CV v2**
 
@@ -1660,6 +1683,18 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | **W31** 12–18 Apr | **ckpt 4** (the report) **+ ckpts 5–6** (ARP, the router) | 🔴 **Feed ckpt 4's real measurements straight into `lab/bench`'s netem profiles.** Your network conditions are now *yours* | MST & bridges — LC 1584 · **1489 Critical Connections** | **LC 1489 is Tarjan's bridge-finding — which relay's removal partitions your mesh?** *(You answer it for real in L6)* |
 | **W32** 19–25 Apr | 🔧 **BUFFER** | QUIC via **ngtcp2**; `adyton-core/transport`; **ADR-0002** | Consolidation; failure-category count | — |
 
+
+**📖 THE BOOK — 1h/week, inside the DSA budget**
+
+| Week | **DSA Mastery** `DSA_Mastery.pdf` |
+|---|---|
+| **W27** | *Sweep Line* **p123** + re-read *Intervals* **p102** 🔴 *the reassembler is this chapter* |
+| **W28** | *Queues* **p57** |
+| **W29** | *Interval DP* **p218** |
+| **W30** | *Dijkstra's Algorithm* **p160** · *Bellman-Ford* **p168** |
+| **W31** | *Minimum Spanning Tree* **p164** · 🔴 *Articulation Points & Bridges* **p190** |
+| **W32** | *Floyd-Warshall* **p171** · *Coordinate Compression* **p135** |
+
 **📄 THE READING, across the level**
 🔴 **Robin Marx, *Head-of-Line Blocking in QUIC and HTTP/3: The Details*** — the definitive explainer, **and it argues the fix is oversold**, which is the scepticism you want before building the chart yourself · [↗ perfplanet](https://calendar.perfplanet.com/2020/head-of-line-blocking-in-quic-and-http-3-the-details/)
 **RFC 9000** §2, 5, 12–13, 17 · **RFC 9001** *(🔴 header protection is why your handshakes can be byte-identical except the random bits)* · **RFC 9002** · [↗ RFC 9000](https://www.rfc-editor.org/rfc/rfc9000.html) · [↗ RFC 9001](https://www.rfc-editor.org/rfc/rfc9001.html)
@@ -1690,6 +1725,17 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | **W36** 17–23 May 🌙 | *Eid al-Adha, 26h.* **Brooker, *Simple Simulations for System Builders*** [↗ Brooker](https://brooker.co.za/blog/2022/04/11/simulation.html) | 🚩 **`meshsim`** — seeded clock **that can run backwards**, **asymmetric partitions**, disk faults, 🔴 **and a relay that *lies*** | Reservoir sampling, Bloom filters, HyperLogLog |
 | **W37** 24–30 May | 🛌 **REST · 🎯 D5** | Write-up, blog post, failure-category count | — |
 
+
+**📖 THE BOOK — 1h/week, inside the DSA budget**
+
+| Week | **DSA Mastery** `DSA_Mastery.pdf` |
+|---|---|
+| **W33** | *Backtracking* **p112** |
+| **W34** | *Strongly Connected Components* **p187** · *Euler Tour & Eulerian Paths* **p193** |
+| **W35** | *Expected Value & Probability DP* **p233** |
+| **W36** | *Randomized Algorithms — Quickselect & Reservoir Sampling* **p293** |
+| **W37** | *Matrix / Grid Traversal* **p108** · *Largest Rectangle in Histogram* **p126** |
+
 **✅ DONE WHEN — D5** **20–40 relays discover each other; convergence measured and plotted against mesh size, next to the naive O(N²) curve** · 🔴 **p50 circuit recovery <800 ms, p99 <3 s, under 20% churn** · 🔴 **THE REACHABILITY TABLE published** — success by NAT-type pair, **with N stated honestly because it is small**, plus the relay-fallback fraction and what it costs · **phi-accrual vs fixed timeout: false-positive rate and detection latency, both, charted** under injected jitter · 🔴 **the asymmetric-partition test: A reaches B, B doesn't reach A — the mesh converges, or you document exactly why it cannot** · **`meshsim` runs 10,000 seeds nightly; ≥3 real bugs found, each reproducible from a seed integer.** *A harness that finds nothing means your faults are too gentle — go and make them worse* · 🚀 **BLOG POST 4 — *"What fraction of real NAT pairs can actually hole-punch?"***
 
 **❓ FIND OUT** · **Which NAT type defeats hole punching, and what does the fallback cost** — in latency, bandwidth, and **what the relay operator can see?** · Why is SWIM O(N) per node when naive membership is O(N²)? **What does indirect probing buy specifically?** · 🔴 **A relay that lies is a different fault class from one that crashes. Name three things a lying relay can do that your simulator should model — and one thing it can do that you cannot detect at all**
@@ -1712,6 +1758,19 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | **W42** 28 Jun–4 Jul | **Lab 3D** — snapshots, `TestFigure8Unreliable` | 🔴 **`adyton-aggregate`: relays → Kafka → aggregator → Postgres, with DP noise applied before publication** | **Strings** — [↗ CF EDU string algorithms](https://codeforces.com/edu/course/2/lesson/3). *The one area Adyton gives you nothing for* |
 | **W43** 5–11 Jul | — | Peer admission · **the DP budget that fails closed** · `docs/design/consensus.md` | Company-tagged sets, timed at 25 min |
 | **W44** 12–18 Jul | 🔧 **BUFFER** | D6 sign-off | 🔴 **THE FINAL GAUNTLET (§IX.2) + full timed loop #1** |
+
+
+**📖 THE BOOK — 1h/week, inside the DSA budget**
+
+| Week | **DSA Mastery** `DSA_Mastery.pdf` |
+|---|---|
+| **W38** | 🔴 *Network Flow: Max Flow & Min Cut* **p196** — *the same week you write three NP-hardness reductions* |
+| **W39** | 🔴 *Topological Sort* **p152** — *your epoch hash chain is a DAG* |
+| **W40** | *Segment Trees: Range Query & Update* **p248** |
+| **W41** | *Fenwick Tree* **p253** · *Sparse Tables* **p257** · *LCA via Binary Lifting* **p183** |
+| **W42** | *String Matching: KMP & Rabin-Karp* **p273** |
+| **W43** | *Z-Function & Palindromic Substrings* **p277** · *Advanced Trie Problems* **p269** |
+| **W44** | 🔴 **Part VII revision sheets before the Gauntlet:** *Graph Algorithms* **p318** · *Advanced Data Structures* **p308** |
 
 **📄 THE READING**
 🔴 [↗ Raft, the EXTENDED paper](https://raft.github.io/raft.pdf) — §5 in full, §6 carefully · 🔴 [↗ Students' Guide to Raft](https://thesquareplanet.com/blog/students-guide-to-raft/) — **read it *while* implementing**
@@ -1739,6 +1798,16 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | **W47** 2–8 Aug | 🚩 **`incident-lab`** — 20+ self-inflicted incidents + 6 famous outages reproduced · 🔴 **the harness audit: if `lab/bench` had coordinated omission, re-run every benchmark and put the before/after in `bench/RESULTS.md`** | 16 applications · **Loop #3** |
 | **W48** 9–15 Aug | 🛌 **REST.** `gatekeep` (mTLS, **a cert-expiry alert tested by fast-forwarding a clock**), `costwatch` (**a billing alarm tested by triggering it**) | Pipeline review · failure-category count |
 
+
+**📖 THE BOOK — 1h/week, inside the DSA budget**
+
+| Week | **DSA Mastery** `DSA_Mastery.pdf` |
+|---|---|
+| **W45** | 🔴 *Concurrency Primitives in Coding Rounds* **p289** — *the same level you carry a pager* |
+| **W46** | *Meet in the Middle* **p132** · *Balanced BSTs: AVL & Red-Black* **p260** |
+| **W47** | *Bitmask DP* **p222** · *DP on Trees* **p226** |
+| **W48** | *Suffix Arrays & Suffix Automaton* **p281** · Part VII *String Algorithms* **p315** |
+
 **📄 THE READING** — **AWS Builders' Library**, all of: [↗ load shedding](https://builder.aws.com/content/3Eun1EEyX6p2e3VYNyRLSJzLuMV/using-load-shedding-to-avoid-overload) · [↗ timeouts, retries, jitter](https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter) · [↗ queue backlogs](https://builder.aws.com/content/3EuRcgkTP1MI0c7zM8W6HL3WIqA/avoiding-insurmountable-queue-backlogs) · 🔴 [↗ static stability](https://aws.amazon.com/builders-library/static-stability-using-availability-zones/) *(keep working on stale state when the control plane is unreachable — **arguably the most important article for a relay network**)* · 🔴 [↗ implementing health checks](https://builder.aws.com/content/3Ev53O39izHCtWLzp4XU6t8PC1O/implementing-health-checks) *(and how a deep check takes down a whole fleet at once)* · 🔴 [↗ constant work](https://builder.aws.com/content/3F05oqNtNUWxHJ5r6L6I2HrH4rI/reliability-constant-work-and-a-good-cup-of-coffee) *(push full directory snapshots, not deltas — no failure-mode cliff)*
 **Google SRE** [↗ ch. 21 Handling Overload](https://sre.google/sre-book/handling-overload/) · [↗ ch. 22 Cascading Failures](https://sre.google/sre-book/addressing-cascading-failures/) · **[↗ k8s.af — read ten](https://k8s.af/)**, including 🔴 [↗ conntrack exhaustion](https://deploy.live/blog/kubernetes-networking-problems-due-to-the-conntrack/) *(exactly what a relay fleet on k8s will hit)* · [↗ Netflix adaptive concurrency limits](https://medium.com/@NetflixTechBlog/performance-under-load-3e6fa9a60581)
 
@@ -1763,6 +1832,16 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | **W50** 23–29 Aug | ⛓ **THE SPINE, in order:** [↗ Users Get Routed](https://dl.acm.org/doi/10.1145/2508859.2516651) → [↗ Astoria](https://arxiv.org/abs/1505.05173) → [↗ Counter-RAPTOR](https://arxiv.org/abs/1704.00843) + [↗ DeNASA](https://petsymposium.org/popets/2016/popets-2016-0044.php) · 🔴 **and the reality check: [↗ Juen et al.](https://petsymposium.org/popets/2015/popets-2015-0021.php) — 17.2M traceroutes showing BGP-simulated paths disagree badly with measured ones.** *Every design here rests on inference that is substantially wrong, and saying so is what makes it research rather than a demo* · **CS161 — the *Anonymity/Tor* chapters** · **6.858 L20** | 🚩 **`ascorr`** — circuit-compromise probability against a defined AS adversary, **for Adyton *and* for Tor**, on real CAIDA data. **[↗ TorPS](https://github.com/torps/torps)** for security-over-time |
 | **W51** 30 Aug–5 Sep | 🔴🔴 **[↗ Wan et al., *Guard Placement Attacks*](https://www.princeton.edu/~pmittal/publications/guard-placement-pets19.pdf)** — **0.216% of bandwidth bought 18% of guard-selection probability.** *The paper this level exists to answer* → then **[↗ CLAPS](https://www.freehaven.net/anonbib/cache/claps-ccs2020.pdf)** · 🔴 **[↗ RPKI-Based Location-Unaware Guard Selection](https://arxiv.org/abs/2501.06010)** (PoPETs 2025) — *a genuinely different answer, and a candidate for your own selector* | 🚩 **`guardplace`** — **build the attack against your own selector.** Place relays optimised against your own public scoring function and measure their selection rate. Then **controlled randomness on a single tunable**, swept · **`1brc` v2 — the real assault, one year on. Report the delta** |
 | **W52** 6–12 Sep | — | 🔴 **THE CURVE.** Synthesis, the ten ADRs, `LIMITATIONS.md`, `COMPARISON.md`, `RETROSPECTIVE.md`, `NEXT.md`, **the demo finalised** |
+
+
+**📖 THE BOOK — 1h/week, inside the DSA budget**
+
+| Week | **DSA Mastery** `DSA_Mastery.pdf` |
+|---|---|
+| **W49** | *Combinatorics Basics* **p28** · *Catalan Numbers* **p34** |
+| **W50** | *Counting DP* **p236** · Part VII *Math & Number Theory* **p303** |
+| **W51** | *Sieve of Eratosthenes* **p31** · *Matrix Exponentiation* **p243** · *Digit DP* **p230** |
+| **W52** | 🔴 **All five Part VII Quick Reference sheets, end to end (p303–325)** — your final revision pass · and *Skip Lists* **p263** · *Branch and Bound* **p296** · *Gaussian Elimination* **p299** as **recognise, don't implement** |
 
 **✅ DONE WHEN — D8** compromise probability against a defined AS adversary, **for Adyton and for Tor**, on real topology data, **with the inference-accuracy caveat stated in the first paragraph**
 
@@ -1806,11 +1885,66 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 
 > **Do not chase the count.** A problem you solved by opening the editorial after eight minutes **did not happen.** A problem you failed and rebuilt from scratch two days later **counts double.**
 
-## VII.3 Sources
+## VII.3 📖 THE TEXTBOOK — `DSA_Mastery.pdf`
+
+> **325 pages · 7 parts · ~150 topics · in the project root.** This is the spine of the DSA track, and **every one of the 52 weeks in Part VI now names the exact chapters and page numbers you owe.**
+
+### Why it works as a curriculum rather than a reference
+
+The book tiers all 150 topics **by how often they actually appear in a loop** — Tier 1 *foundational, in almost every loop* through Tier 5 *recognise-only*. **Parts I–VI teach Tier 1–3 deeply, one topic per chapter. Part VII is a quick-reference for Tier 4–5.** That tiering is what lets 52 weeks cover the whole thing without padding: **you go deep where the frequency justifies it and shallow where it does not.**
+
+Every deep chapter gives you nine things, and the order matters: **the idea** (explained two or three different ways — *read until one framing clicks*) → **a hand-traced worked example** → **clean Python you can reproduce from memory** → **complexity, including the naive baseline for contrast** → **tradeoffs** → 🔴 **"when to reach for it" — the exact problem-statement signals** → **common mistakes and edge cases, the failure modes interviewers hunt for** → 🔴 **interview mindset: what to name, what to ask, what to say first** → **5–8 practice problems, easy to hard.**
+
+### 🔴 The loop the book tells you to run — and you should actually run it
+
+| | Step | Time |
+|---|---|---|
+| **1** | Learn the mental model from the chapter | 10 min |
+| **2** | **Trace the worked example with your hand covering the answer** | 5 min |
+| **3** | 🔴 **Type the code from memory, not from the page** | 10 min |
+| **4** | Drill the practice problems — 20–40 min each, hard ones up to 90 before peeking | *your Track I hours* |
+| **5** | 🔴 **Revisit the chapter after you have struggled** — the triggers and tradeoffs mean ten times more once you have hit the failure mode yourself | 5 min |
+
+> **Steps 1–3 are the 1 hour the weekly cards budget. Step 4 IS your 4.5h of problems — it is not extra.** The book's own line, and it is correct: *"Interview skill is a function of number of problems solved from memory with the timer running, not hours of reading. The book's job is to make every one of those problems a learning event instead of a guessing session."*
+
+### 🔴 The three rules that decide whether this works
+
+1. **Type the code from memory.** Reading code produces recognition; typing it from memory produces recall, **and recall is what a whiteboard tests.** If you cannot reproduce the chapter's implementation without looking, you have not done the chapter.
+2. **Read the "when to reach for it" section twice.** Your failure log will tell you that most of your misses are **recognition** failures, not implementation ones — and that section is the direct cure for exactly that category.
+3. **Come back after you fail.** Step 5 is the one everyone skips and the one that compounds. **Re-read the chapter the same week a problem from it beat you.**
+
+### How the map was built
+
+Every chapter is placed in the week where it is **most immediately useful** — sometimes because it matches that week's problem set, and **eleven times because it matches what you are building that week:**
+
+| Week | The chapter | Why that week |
+|---|---|---|
+| **W4** | *Binary Search on the Answer* **p90** | You are tuning a frame-size parameter. **The chapter is the technique** |
+| **W5** | *Bit Manipulation* **p17** | Your varint encoder *is* this chapter |
+| **W7** | *LRU/LFU Cache Design* **p285** | 🔴 **You are building a caching proxy with an eviction policy the same week** |
+| **W10** | *Union-Find* **p156** | Then you run it over your own crawl data to find the largest linked component |
+| **W16** | *Modular Arithmetic* · *Fast Exponentiation* | The same week you derive keys |
+| **W27** | *Sweep Line* + *Intervals* | 🔴 **CS144's reassembler is an interval-merge problem** |
+| **W31** | *Articulation Points & Bridges* **p190** | Then you run Tarjan on your own mesh: **whose removal partitions it?** |
+| **W38** | *Network Flow* **p196** | The same week you write three NP-hardness reductions |
+| **W39** | *Topological Sort* **p152** | Your epoch hash chain is a DAG |
+| **W45** | *Concurrency Primitives in Coding Rounds* **p289** | The same level you carry a pager |
+| **W12** | *Interview & Study Strategy* **p7** | 🔴 **Re-read, not first-read.** Thirty failure-log entries later it is a different document |
+
+**Coverage:** all 12 Part I chapters · all 10 Part II · all 17 Part III · all 16 Part IV · all 13 Part V · all 14 Part VI · and **all five Part VII quick-reference sheets, read end to end in Week 52 as the final revision pass.** Nothing is left out; the Tier 4–5 material lands late and is explicitly marked **recognise, don't implement.**
+
+### Where it collides with the other sources — and who wins
+
+**The book is the spine; NeetCode is the drill; Codeforces is the pressure.** When they overlap, the order is:
+**1. Read the chapter** (the mental model and the trigger signals) → **2. do the chapter's own 5–8 practice problems** → **3. then the NeetCode/LeetCode set named in the week card.** If time runs out, **cut the LeetCode set, never the chapter** — the set without the model is pattern-matching, and pattern-matching is what fails you on an unseen problem.
+🌙 **During Ramadan (W23–26) the book is the *only* new input** — one chapter a week, plus re-solving from the failure log. Everything else pauses.
+
+## VII.4 Sources
 
 | Source | Link | For |
 |---|---|---|
-| **NeetCode 150 → 250** | `neetcode.io/practice` | The pattern spine, W1–26. In order, grouped by pattern. **Do not skip the easy ones** |
+| 🔴 **DSA Mastery** | `DSA_Mastery.pdf` — in the project root | **The spine.** 150 topics tiered by interview frequency; every week in Part VI names your exact chapters and pages. See **§VII.3** |
+| **NeetCode 150 → 250** | [↗ neetcode.io/practice](https://neetcode.io/practice) | The pattern spine, W1–26. In order, grouped by pattern. **Do not skip the easy ones** |
 | **LeetCode, company-tagged** | `leetcode.com` | W27–52. Filter by your seven targets, last 6 months. Premium is genuinely worth $35 for the two months before a loop |
 | **AtCoder Educational DP Contest** | `atcoder.jp/contests/dp` | 🔴 **The best structured DP resource that exists, and it is free.** Problems A–L, Level 3 |
 | **CSES Problem Set** | `cses.fi/problemset/` | Sorting & Searching, Dynamic Programming, Graph Algorithms, Mathematics — the curated sets |
@@ -1821,7 +1955,7 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 | **Alex Xu, *System Design Interview* Vol. 1 & 2** | *(owned)* | The weekly design curriculum is built on these |
 | **interviewing.io / Pramp** | `interviewing.io` · `pramp.com` | Free peer mocks. **One paid mock with a real FAANG engineer around W30 if affordable** |
 
-## VII.4 🔗 The map — where Adyton and Track I compound
+## VII.5 🔗 The map — where Adyton and Track I compound
 
 **This is the point of running them together.** Each level's build makes specific patterns *concrete*. Do those patterns that week, while the intuition is live.
 
@@ -1840,7 +1974,7 @@ L9 ▸▸▸▸       W49-52  ⭐ the attack lab & the curve                  �
 
 ⚠️ **Where the tracks do NOT meet:** string algorithms (KMP, Z-function, suffix automata), combinatorics, geometry, and advanced number theory get **zero** reinforcement from Adyton. **These are where you will be weakest.** Weeks 39–41 and the W48 weak-area blitz exist for them, and the disconnection is a reason to do them *more* carefully, not less.
 
-## VII.5 The problem sets, level by level
+## VII.6 The problem sets, level by level
 
 ### L0 · W1–3 · ~28 problems
 **NeetCode 150:** Arrays & Hashing (all 9) · Two Pointers (all 5) · Sliding Window (all 6)
@@ -1933,7 +2067,7 @@ Company-tagged sets, timed at 25 minutes, **spoken aloud, recorded.** Heaps & pr
 **Reading:** **Mitzenmacher & Upfal ch. 5** (balls into bins) — 🔴 **this is literally your relay-load-distribution problem**
 🏁 **Capstone:** 🔴 **LC 528, then implement the same weighted-sampling structure inside `adyton-core/select` and verify the distribution over 10⁶ draws against the intended weights.** Same algorithm, interview and product, same week.
 
-## VII.6 🔴 The failure log — the part that actually produces improvement
+## VII.7 🔴 The failure log — the part that actually produces improvement
 
 **Solving problems does not make you better. Reviewing failures does.** `dsa/FAILURES.md`, an entry every time you miss the time box or solve with the wrong approach.
 
@@ -1962,7 +2096,7 @@ Company-tagged sets, timed at 25 minutes, **spoken aloud, recorded.** Heaps & pr
 
 **Re-solve discipline:** every failed problem re-solved from scratch three days later, **without looking at your previous solution.** The highest-return habit in the track and the easiest to skip.
 
-## VII.7 Time boxes
+## VII.8 Time boxes
 
 | Difficulty | Box | On expiry |
 |---|---|---|
@@ -1972,7 +2106,7 @@ Company-tagged sets, timed at 25 minutes, **spoken aloud, recorded.** Heaps & pr
 
 **Never exceed the box.** An hour spent stuck teaches less than reading the solution and re-solving it twice.
 
-## VII.8 System design — 2.5h/week from Week 1, 20 written designs
+## VII.9 System design — 2.5h/week from Week 1, 20 written designs
 
 **Each produces a full design doc:** Summary · Context · Goals · **Non-Goals** · Proposal · **Alternatives Considered (minimum three)** · Risks · Rollout · Operational Impact.
 
@@ -1997,7 +2131,7 @@ Time:       1 day ≈ 10^5 s · 1M req/day ≈ 12 QPS · 1B req/day ≈ 12k QPS
 
 > 🔴 **Your unusual advantage.** Most candidates answer system design from books. **You can answer from a system you built, operated, and broke twenty times on purpose.** Asked to design a proxy tier, a metrics pipeline, a service-discovery system or anything with identity in it — **do not recite.** Say *"I did this; here is what I chose, here is the number I measured, and here is what it cost me."* **Practise that move deliberately in the W46 mock**, because it does not happen naturally under pressure.
 
-## VII.9 Mocks and loops
+## VII.10 Mocks and loops
 
 | When | What |
 |---|---|
@@ -2011,7 +2145,7 @@ Time:       1 day ≈ 10^5 s · 1M req/day ≈ 12 QPS · 1B req/day ≈ 12k QPS
 
 **Speak while you solve, always, including alone.** The most common cause of a failed coding round in a candidate who *can* solve the problem is silence.
 
-## VII.10 📈 Track I exit criteria
+## VII.11 📈 Track I exit criteria
 - [ ] **540+ problems, ≥70% solved unaided within 25 minutes**
 - [ ] A random unseen Medium, **narrated**, in ≤25 min, ≥80% of the time, on video
 - [ ] Complexity stated before code, every time
@@ -2483,4 +2617,3 @@ This is roughly **1,520 hours across twelve months.** The output is not a person
 There are not many of those. **And exactly one posting in 569 cares what your degree says.**
 
 **Now go to Week 1.**
-
